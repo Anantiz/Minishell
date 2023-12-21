@@ -13,7 +13,6 @@ int	main()
 	token_2.token_type = FILE;
 	token.text_data.file_path = "File path";
 
-
 	if (token.token_type == FILE)
 	{
 		print(token.text_data.file_path);
