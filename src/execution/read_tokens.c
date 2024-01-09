@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:22:44 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/09 10:48:45 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/09 11:20:56 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ void	our_command_cd(t_e_our_commands cmd_name, t_s_token *token)
 	(void)token;
 }
 
+/*antione*/
 static void	read_token(t_s_token *token)
 {
 	if (token->token_type == CMD)
@@ -38,11 +39,23 @@ static void	read_token(t_s_token *token)
 	}
 }
 
-void	read_list(t_s_token *list)
+/*loris*/
+void	read_list(t_s_token *node)
 {
-	while (list)
+	while (node)
 	{
-		read_token(list);
-		list = list->next;
+		if (has_siblings(node))
+		{
+			// Do siblings
+		}
+		else if (has_children(node))
+		{
+			// Do child
+		}
+		else
+		{
+			// End of Command line
+		}
+
 	}
 }

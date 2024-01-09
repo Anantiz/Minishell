@@ -6,33 +6,49 @@
 #    By: aurban <aurban@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/09 10:14:27 by aurban            #+#    #+#              #
-#    Updated: 2024/01/09 10:23:21 by aurban           ###   ########.fr        #
+#    Updated: 2024/01/09 11:26:09 by aurban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC:=gcc
 INCLUDE_PATH=./includes
-CFLAGS:=-Wall -Werror -Wextra -I$(INCLUDE_PATH)
+CFLAGS:=-Wall -Werror -Wextra -I$(INCLUDE_PATH) -g3 -fsanitize=address
 RM:=rm -rf
 
 NAME:=minishell
 LIBFT=libft.a
 
-SRC_PATH:=./src
 LIBFT_PATH:=./libft
 
-SRC_FILES:\
-	main.c	read_tokens.c
+###########################################################
+###########################################################
+###########################################################
 
+SRC=\
+	main.c
 
-SRC_FILES:= $(addprefix $(SRC_PATH)/,$(SRC_FILES))
-SRC_OBJECTS:= $(patsubst %.c,%.o,$(SRC_FILES))
+SRC_UTILS:=\
+	utils.c
 
-# SRC_FILES_BONUS:=
+SRC_EXEC:=\
+	read_token.c
 
-# SRC_PATH_BONUS:=$(SRC_PATH)/bonus
-# SRC_FILES_BONUS:= $(addprefix $(SRC_PATH_BONUS)/,$(SRC_FILES_BONUS))
-# BONUS_OBJ:= $(patsubst %.c,%.o,$(SRC_FILES_BONUS))
+UTILS_PATH:=utils
+SRC_UTILS:= $(addprefix $(UTILS_PATH)/,$(SRC_UTILS))
+SRC+= $(SRC_UTILS)
+
+EXEC_PATH:=exec
+SRC_EXEC:= $(addprefix $(EXEC_PATH)/,$(SRC_EXEC))
+SRC+= $(SRC_UTILS)
+
+# .c -> .o
+SRC_PATH:=./src
+SRC_FILES:= $(addprefix $(SRC_PATH)/,$(SRC))
+SRC_OBJECTS:= $(patsubst %.c,%.o,$(SRC))
+
+###########################################################
+###########################################################
+###########################################################
 
 all: $(NAME)
 

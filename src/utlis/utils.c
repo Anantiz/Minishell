@@ -1,23 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/09 11:25:07 by aurban           ###   ########.fr       */
+/*   Created: 2024/01/09 11:16:34 by aurban            #+#    #+#             */
+/*   Updated: 2024/01/09 11:16:43 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "minishell.h"
 
-# include <stdio.h>
-# include <stdbool.h>
+bool	has_siblings(t_s_token *node)
+{
+	t_s_token	*sibling;
 
-# include "libft.h"
-# include "data_structures.h"
-
-
-#endif
+	if (node->parent == NULL)
+		return (false);
+	if (node == node->parent->left)
+		sibling = node->parent->right;
+	else
+		sibling = node->parent->left;
+	return (sibling != NULL);
+}
