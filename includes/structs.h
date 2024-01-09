@@ -4,6 +4,15 @@
 /* 				ENUM 				*/
 /* ################################ */
 
+typedef enum e_our_commands
+{
+	CD,
+	PWD,
+	ECHO,
+	UNSET,
+	EXPORT,
+}t_e_our_commands;
+
 typedef enum e_token_type
 {
 	FILE,
