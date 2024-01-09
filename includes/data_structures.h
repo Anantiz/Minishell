@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:24:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/09 11:25:25 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/09 11:41:37 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 # define DATA_STRUCTURES_H
 
 # include <stddef.h>
-
 
 /* ################################ */
 /* 				ENUM 				*/
@@ -47,7 +46,6 @@ typedef enum t_e_op_type
 	REDIR_HEREDOC,
 }t_e_op_type;
 
-
 /* ################################ */
 /* 				TOKENS 				*/
 /* ################################ */
@@ -67,9 +65,9 @@ typedef struct s_op
 	t_e_op_type	op_type;
 }t_s_op;
 
+// To search in ENVP
 typedef struct s_var
 {
-	// A chercher dans ENVP
 	char	*var_name;
 }t_s_var;
 
@@ -83,17 +81,17 @@ union u_token
 	t_s_var		var;
 };
 
-/* Liste Chainée */
+/* SHITTY */
+/* Binary tree */
 typedef struct s_token
 {
-	t_e_token_type	token_type;
-	union u_token	data;
+	/* SHITTY */ t_e_token_type	token_type;
+	/* SHITTY */ union u_token	data;
 
 	struct s_token	*parent;
 	struct s_token	*right;
 	struct s_token	*left;
 }t_s_token;
-
 
 /* ################################ */
 /* 			Main struct 			*/
@@ -101,7 +99,6 @@ typedef struct s_token
 
 typedef struct s_shell_data
 {
-	// Shall be initialized at boot then edited when required
 	char		**envp;
 }t_shell_data;
 
