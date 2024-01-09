@@ -75,11 +75,5 @@ typedef struct s_token
 typedef struct s_shell_data
 {
 	// Shall be initialized at boot then edited when required
-	int 		argc;
-	char		**env;
-	char		**argv;
-
-	// get_line_history	*history;
-
-	t_s_token	*token_list;
+	char		**envp;
 }t_shell_data;
