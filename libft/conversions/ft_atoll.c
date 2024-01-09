@@ -1,19 +1,37 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_atoll.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/09 09:51:47 by aurban           ###   ########.fr       */
+/*   Created: 2023/11/18 15:03:52 by aurban            #+#    #+#             */
+/*   Updated: 2023/11/18 15:04:01 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-# include <stdio.h>
-# include "structs.h"
+long long	ft_atoll(char *nptr)
+{
+	long long	result;
+	int			sign;
 
-#endif
+	result = 0;
+	sign = 1;
+	while (*nptr == 32 || (*nptr >= 9 && *nptr <= 13))
+		nptr++;
+	if (*nptr == '-')
+	{
+		sign = -1;
+		nptr++;
+	}
+	else if (*nptr == '+')
+		nptr++;
+	while (*nptr && *nptr >= 48 && *nptr <= 57)
+	{
+		result *= 10;
+		result += sign * (*nptr++ - 48);
+	}
+	return (result);
+}

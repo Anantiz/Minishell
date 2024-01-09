@@ -1,19 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_linked_list_init.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/09 09:51:47 by aurban           ###   ########.fr       */
+/*   Created: 2023/11/23 15:22:10 by aurban            #+#    #+#             */
+/*   Updated: 2023/11/23 17:44:30 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-# include <stdio.h>
-# include "structs.h"
+t_llint	*ft_llint_new(void)
+{
+	t_llint	*list;
 
-#endif
+	list = malloc(sizeof(t_llint));
+	if (!list)
+		return (NULL);
+	list->head = NULL;
+	list->last = NULL;
+	list->size = 0;
+	return (list);
+}

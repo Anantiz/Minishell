@@ -1,19 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_isalnum.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/09 09:51:47 by aurban           ###   ########.fr       */
+/*   Created: 2023/10/17 09:54:41 by aurban            #+#    #+#             */
+/*   Updated: 2023/10/17 14:56:04 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-# include <stdio.h>
-# include "structs.h"
-
-#endif
+int	ft_isalnum(int c)
+{
+	return (ft_isdigit(c) || ft_isalpha(c));
+}

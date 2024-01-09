@@ -1,19 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   ft_bzero.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/09 09:51:47 by aurban           ###   ########.fr       */
+/*   Created: 2023/10/17 09:55:46 by aurban            #+#    #+#             */
+/*   Updated: 2023/10/27 12:43:15 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
+#include "libft.h"
 
-# include <stdio.h>
-# include "structs.h"
+void	ft_bzero(void *s, size_t n)
+{
+	size_t	i;
+	char	*target;
 
-#endif
+	target = s;
+	i = 0;
+	while (i < n)
+	{
+		target[i] = 0;
+		i++;
+	}
+}

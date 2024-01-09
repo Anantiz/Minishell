@@ -1,4 +1,4 @@
-#include "includes/minishell.h"
+#include "includes/structs.h"
 
 int	main()
 {
@@ -17,5 +17,9 @@ int	main()
 	{
 		print(token.text_data.file_path);
 	}
-	else if (token.token_type)
+	else if (token.token_type == CMD)
+	{
+		print(token.text_data.cmd_args[0]);
+		execve(token.text_data.cmd_args[0], token.text_data.cmd_args, NULL);
+	}
 }
