@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:24:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/09 11:41:37 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/10 14:49:10 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,9 @@ typedef enum e_our_commands
 {
 	CD,
 	PWD,
+	ENV,
 	ECHO,
+	EXIT,
 	UNSET,
 	EXPORT,
 }t_e_our_commands;
