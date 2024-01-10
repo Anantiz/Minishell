@@ -6,11 +6,11 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:16:34 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/10 10:45:11 by loris            ###   ########.fr       */
+/*   Updated: 2024/01/10 15:21:33 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 bool	has_siblings(t_s_token *node)
 {
