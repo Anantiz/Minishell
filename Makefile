@@ -6,13 +6,13 @@
 #    By: aurban <aurban@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/09 10:14:27 by aurban            #+#    #+#              #
-#    Updated: 2024/01/09 11:26:09 by aurban           ###   ########.fr        #
+#    Updated: 2024/01/12 11:39:20 by aurban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC:=gcc
 INCLUDE_PATH=./includes
-CFLAGS:=-Wall -Werror -Wextra -I$(INCLUDE_PATH) -g3 -fsanitize=address
+CFLAGS:=-Wall -Wextra -I$(INCLUDE_PATH) -g3 -fsanitize=address
 RM:=rm -rf
 
 NAME:=minishell
@@ -25,7 +25,7 @@ LIBFT_PATH:=./libft
 ###########################################################
 
 SRC=\
-	main.c
+	main.c	kgb.c
 
 SRC_UTILS:=\
 	utils.c
@@ -43,7 +43,7 @@ SRC+= $(SRC_UTILS)
 
 # .c -> .o
 SRC_PATH:=./src
-SRC_FILES:= $(addprefix $(SRC_PATH)/,$(SRC))
+SRC:= $(addprefix $(SRC_PATH)/,$(SRC))
 SRC_OBJECTS:= $(patsubst %.c,%.o,$(SRC))
 
 ###########################################################
@@ -55,10 +55,6 @@ all: $(NAME)
 $(NAME): $(SRC_OBJECTS)
 	@make -C $(LIBFT_PATH)
 	@$(CC) $^ -L$(LIBFT_PATH) -lft $(CFLAGS) -o $@
-
-# bonus: $(BONUS_OBJ)
-# 	@make -C $(LIBFT_PATH)
-# 	@$(CC) $^ -L$(LIBFT_PATH) -lft $(CFLAGS)
 
 both: $(NAME) bonus
 
@@ -72,4 +68,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re libft.a bonus minishell
+.PHONY: all clean fclean re libft.a
