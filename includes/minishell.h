@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/09 11:25:07 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/12 10:54:53 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,11 @@
 
 # include <stdio.h>
 # include <stdbool.h>
+#include <fcntl.h>
 
 # include "libft.h"
 # include "data_structures.h"
 
+void	print_shell_intro(void);
 
 #endif

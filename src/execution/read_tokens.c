@@ -6,13 +6,13 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:22:44 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/10 14:51:21 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/10 14:53:13 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-void	our_command_cd(t_e_our_commands cmd_name, t_s_token *token)
+void	our_commands(t_e_our_commands cmd_name, t_s_token *token)
 {
 	(void)token;
 }

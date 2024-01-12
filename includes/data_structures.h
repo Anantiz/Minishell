@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:24:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/10 14:49:10 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/12 10:34:20 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,13 @@
 /* ################################ */
 /* 				ENUM 				*/
 /* ################################ */
+
+typedef struct s_env
+{
+	char			*key;
+	char			*value;
+	struct s_env	*next;
+}t_env;
 
 typedef enum e_our_commands
 {
@@ -32,10 +39,10 @@ typedef enum e_our_commands
 
 typedef enum e_token_type
 {
-	FILE,
-	CMD,
-	OP,
-	VAR,
+	TK_FILE,
+	TK_CMD,
+	TK_OP,
+	TK_VAR,
 }t_e_token_type;
 
 typedef enum t_e_op_type
@@ -87,8 +94,8 @@ union u_token
 /* Binary tree */
 typedef struct s_token
 {
-	/* SHITTY */ t_e_token_type	token_type;
-	/* SHITTY */ union u_token	data;
+	t_e_token_type	token_type;
+	union u_token	data;
 
 	struct s_token	*parent;
 	struct s_token	*right;
