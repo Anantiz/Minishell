@@ -6,7 +6,7 @@
 /*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/12 14:42:49 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/01/12 14:45:34 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,12 @@ void		init_shell_data(t_shell_data *shell_data, char **envp);
 void		add_history(t_shell_data *shell_data, char *line);
 
 /* UTILS */
-void    *safe_malloc(size_t bytes);
-void	error_exit(const char *error);
+void        *safe_malloc(size_t bytes);
+void	    error_exit(const char *error);
+
+/* PARSING */
+int     	ft_countword(char *line);
+char        **ft_strtok(char *line);
 
 
 #endif
