@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/01/12 14:38:19 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/12 14:40:50 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,5 @@
 
 void    browse_line(char *line)
 {
-	(void)line;
-}
 
-int	parse_line(t_shell_data *shell_data, char *line)
-{
-	(void)shell_data;
-	(void)line;
-	return (0);
 }
