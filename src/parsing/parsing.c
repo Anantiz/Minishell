@@ -6,15 +6,29 @@
 /*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/01/12 14:51:25 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/01/12 15:16:31 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+bool	ft_is_sep(char c)
+{
+	char	symbols[] = "|<>()'\";&$";
+	char	whitespace[] = " \t\r\n\v";
+
+
+}
+
 int	ft_countword(char *line)
 {
 
+	int		count;
+
+	while ()
+	{
+		
+	}
 }
 
 char    **ft_strtok(char *line)
