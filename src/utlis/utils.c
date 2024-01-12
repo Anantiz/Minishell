@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:16:34 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/10 15:21:33 by loris            ###   ########.fr       */
+/*   Updated: 2024/01/12 12:06:18 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,4 +23,21 @@ bool	has_siblings(t_s_token *node)
 	else
 		sibling = node->parent->left;
 	return (sibling != NULL);
+}
+
+void	*safe_malloc(size_t bytes)
+{
+	void	*ret;
+
+	ret = malloc(bytes);
+	if (ret == NULL)
+		error_exit("Malloc Error");
+	return (ret);
+
+}
+
+void	error_exit(const char *error)
+{
+	printf("\033[31m🚨%s🚨\033[31m\n", error);
+	exit(EXIT_FAILURE);
 }
