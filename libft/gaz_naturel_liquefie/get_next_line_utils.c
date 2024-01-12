@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 13:13:20 by aurban            #+#    #+#             */
-/*   Updated: 2023/12/01 20:50:02 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/12 15:07:46 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*resize_line(char *s1, size_t added_size)
 		while (s1[joined_size])
 			joined_size++;
 	joined_size += added_size;
-	joined = malloc((joined_size + 1) * sizeof(char));
+	joined = our_malloc((joined_size + 1) * sizeof(char));
 	if (!joined)
 		return (NULL);
 	i = 0;
@@ -61,7 +61,7 @@ char	*gnl_get_buff(int fd, char **buffers_list)
 		return (NULL);
 	if (buffers_list[fd])
 		return (buffers_list[fd]);
-	buffers_list[fd] = malloc(BUFFER_SIZE + 1);
+	buffers_list[fd] = our_malloc(BUFFER_SIZE + 1);
 	if (!buffers_list[fd])
 		return (NULL);
 	i = 0;
@@ -80,7 +80,7 @@ char	*str_nulltrim(char *str)
 	i = 0;
 	while (str[i])
 		i++;
-	new_str = malloc(sizeof(char) * (i + 1));
+	new_str = our_malloc(sizeof(char) * (i + 1));
 	if (!new_str)
 		return (str);
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 02:10:09 by aurban            #+#    #+#             */
-/*   Updated: 2023/11/12 16:12:32 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/12 15:07:46 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,7 @@ char	*ft_ltohex(long n)
 	}
 	if (n < 0)
 		digits++;
-	buffer = malloc(sizeof(char) * (digits + 1));
+	buffer = our_malloc(sizeof(char) * (digits + 1));
 	if (!buffer)
 		return (NULL);
 	if (n >= 0)

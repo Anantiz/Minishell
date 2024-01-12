@@ -6,7 +6,7 @@
 #    By: aurban <aurban@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/20 06:06:39 by aurban            #+#    #+#              #
-#    Updated: 2024/01/12 12:36:16 by aurban           ###   ########.fr        #
+#    Updated: 2024/01/12 15:08:46 by aurban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ CFLAGS:=-Wall -Werror -Wextra -I$(INCLUDE_PATH) #-g3 -fsanitize=address
 
 FT_FILES:=		\
 	ft_bzero.c	\
-	ft_calloc.c
+	ft_calloc.c	\
+	safe_malloc.c
 
 # --- LINKED LIST ---
 

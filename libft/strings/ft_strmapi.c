@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 15:21:12 by aurban            #+#    #+#             */
-/*   Updated: 2023/10/25 10:08:09 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/12 15:07:46 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char))
 
 	if (!s || !f)
 		return (NULL);
-	result = malloc((ft_strlen(s) + 1) * sizeof(char));
+	result = our_malloc((ft_strlen(s) + 1) * sizeof(char));
 	if (!result)
 		return (NULL);
 	i = 0;

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/28 16:20:17 by aurban            #+#    #+#             */
-/*   Updated: 2023/11/12 16:12:32 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/12 15:07:46 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*ft_uitohex(unsigned int n)
 		digits++;
 		ncpy /= 16;
 	}
-	buffer = malloc(sizeof(char) * (digits + 1));
+	buffer = our_malloc(sizeof(char) * (digits + 1));
 	if (!buffer)
 		return (NULL);
 	fill_buffer(n, buffer + digits - 1);

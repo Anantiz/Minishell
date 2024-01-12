@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 14:19:18 by aurban            #+#    #+#             */
-/*   Updated: 2023/10/28 14:25:29 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/12 15:07:46 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ char	*ft_itoa(int n)
 		buffer_len++;
 		n = n / 10;
 	}
-	buffer = malloc((buffer_len + 1) * sizeof(char));
+	buffer = our_malloc((buffer_len + 1) * sizeof(char));
 	if (!buffer)
 		return (NULL);
 	if (ncpy >= 0)

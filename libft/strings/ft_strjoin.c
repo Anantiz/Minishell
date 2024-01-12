@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:25:34 by aurban            #+#    #+#             */
-/*   Updated: 2023/10/25 10:01:12 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/12 15:07:46 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*ft_strjoin(const char *s1, char const *s2)
 	while (s2[joined_len])
 		joined_len++;
 	joined_len += s1_len;
-	joined = malloc((joined_len + 1) * sizeof(char));
+	joined = our_malloc((joined_len + 1) * sizeof(char));
 	if (!joined)
 		return (NULL);
 	joined[joined_len] = '\0';
