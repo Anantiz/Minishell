@@ -6,20 +6,18 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/01/12 14:44:32 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/12 14:46:19 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void    browse_line(char *line)
+int	ft_countword(char *line)
 {
-	(void)line;
+
 }
 
-int	parse_line(t_shell_data *shell_data, char *line)
+char    **ft_strtok(char *line)
 {
-	(void)shell_data;
-	(void)line;
-	return (0);
+	list_token = safe_malloc()
 }
