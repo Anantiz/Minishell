@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:09:25 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/12 11:40:13 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/12 11:43:30 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	main(int argc, char **argv, char **envp)
 	{
 		printf("Stalin_Shell $> ");
 		fflush(stdout);
-		// getline(&line, &nread, stdout);
+		
 		line = get_next_line(0, 0);
 		free(line);
 	}

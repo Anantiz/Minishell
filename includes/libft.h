@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 15:44:18 by aurban            #+#    #+#             */
-/*   Updated: 2023/12/01 22:20:37 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/12 11:53:18 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,28 @@ void		ft_llint_print(t_llint *list);
 void		ft_llint_printm(t_llint *list);
 void		*ft_llint_search_list(t_llint *list, long n);
 
-/* 
+typedef struct s_nodestr
+{
+	char				*data;
+	size_t				index;
+	struct s_nodeint	*next;
+	struct s_nodeint	*previous;
+}t_nodestr;
+
+typedef struct s_llstr
+{
+	t_nodeint	*head;
+	t_nodeint	*last;
+	size_t		size;
+}t_llstr;
+
+t_nodestr	*ft_t_llstr_data_add_back(t_llstr *list, long data, size_t index);
+t_nodestr	*ft_t_llstr_data_add_front(t_llstr *list, long data, size_t index);
+void		*ft_t_llstr_del_node(t_llstr *list, t_nodestr *node);
+void		*ft_t_llstr_del_list(t_llstr *list);
+t_nodestr	*ft_t_llstr_new(void);
+
+/*
 PRINTF
 */
 
