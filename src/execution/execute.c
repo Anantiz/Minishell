@@ -1,39 +1,19 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_linked_list_init.c                              :+:      :+:    :+:   */
+/*   execute.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/23 15:22:10 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/12 12:03:44 by aurban           ###   ########.fr       */
+/*   Created: 2024/01/12 12:39:33 by aurban            #+#    #+#             */
+/*   Updated: 2024/01/12 12:43:37 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-t_llint	*ft_llint_new(void)
+int	execute_commands(t_shell_data *shell_data)
 {
-	t_llint	*list;
-
-	list = malloc(sizeof(t_llint));
-	if (!list)
-		return (NULL);
-	list->head = NULL;
-	list->last = NULL;
-	list->size = 0;
-	return (list);
-}
-
-t_llstr	*ft_llstr_new(void)
-{
-	t_llstr	*list;
-
-	list = malloc(sizeof(t_llstr));
-	if (!list)
-		return (NULL);
-	list->head = NULL;
-	list->last = NULL;
-	list->size = 0;
-	return (list);
+	(void)shell_data;
+	return (0);
 }

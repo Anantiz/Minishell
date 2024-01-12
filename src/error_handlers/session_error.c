@@ -1,27 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   our_env_utils.c                                    :+:      :+:    :+:   */
+/*   session_error.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/12 10:13:08 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/12 10:15:56 by aurban           ###   ########.fr       */
+/*   Created: 2024/01/12 12:25:35 by aurban            #+#    #+#             */
+/*   Updated: 2024/01/12 12:26:08 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*our_get_env(t_shell_data *shell_data, char *key)
+void	display_error(int error)
 {
-	t_env	*env;
-
-	env = shell_data->envp;
-	while (env)
-	{
-		if (!ft_strcmp(env->key, key))
-			return (env->value);
-		env = env->next;
-	}
-	return (NULL);
+	if (error == PARSING_ERROR)
+		ft_putstr_fd("Parsing error\n", 2);
+	else if (error == EXECTION_ERROR)
+		ft_putstr_fd("Execution error\n", 2);
+	else if (error == 0)
+		ft_putstr_fd("Session ended\n", 2);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/01/10 15:21:11 by loris            ###   ########.fr       */
+/*   Updated: 2024/01/12 12:42:24 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,12 @@
 
 void    browse_line(char *line)
 {
-	
+	(void)line;
+}
+
+int	parse_line(t_shell_data *shell_data, char *line)
+{
+	(void)shell_data;
+	(void)line;
+	return (0);
 }

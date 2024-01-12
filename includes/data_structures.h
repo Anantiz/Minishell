@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:24:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/12 11:44:07 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/12 11:58:47 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ typedef struct s_token
 typedef struct s_shell_data
 {
 	char		**envp;
-	char		*get_line_history;
+	t_llstr		*get_line_history;
 }t_shell_data;
 
 #endif

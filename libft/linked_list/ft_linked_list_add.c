@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 15:35:02 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/12 11:52:27 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/12 12:35:21 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,13 +64,13 @@ t_nodeint	*ft_llint_data_add_front(t_llint *list, long data, size_t index)
 
 /* STRINGS */
 
-t_nodestr	*ft_llstr_data_add_back(t_llstr *list, char *data)
+t_nodestr	*ft_llstr_add_back(t_llstr *list, char *data)
 {
-	t_nodeint	*node;
+	t_nodestr	*node;
 
 	if (!list)
 		return (NULL);
-	node = malloc(sizeof(t_nodeint));
+	node = malloc(sizeof(t_nodestr));
 	if (!node)
 		return (NULL);
 	node->data = data;
@@ -90,9 +90,9 @@ t_nodestr	*ft_llstr_data_add_back(t_llstr *list, char *data)
 	return (node);
 }
 
-t_nodestr	*ft_llstr_data_add_front(t_llstr *list, char *data)
+t_nodestr	*ft_llstr_add_front(t_llstr *list, char *data)
 {
-	t_nodeint	*node;
+	t_nodestr	*node;
 
 	if (!list)
 		return (NULL);

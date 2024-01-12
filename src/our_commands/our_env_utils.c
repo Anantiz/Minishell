@@ -1,39 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_linked_list_init.c                              :+:      :+:    :+:   */
+/*   our_env_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/23 15:22:10 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/12 12:03:44 by aurban           ###   ########.fr       */
+/*   Created: 2024/01/12 10:13:08 by aurban            #+#    #+#             */
+/*   Updated: 2024/01/12 12:38:32 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+// #include "minishell.h"
 
-t_llint	*ft_llint_new(void)
-{
-	t_llint	*list;
+// char	*our_get_env(t_shell_data *shell_data, char *key)
+// {
+// 	t_env	*env;
 
-	list = malloc(sizeof(t_llint));
-	if (!list)
-		return (NULL);
-	list->head = NULL;
-	list->last = NULL;
-	list->size = 0;
-	return (list);
-}
-
-t_llstr	*ft_llstr_new(void)
-{
-	t_llstr	*list;
-
-	list = malloc(sizeof(t_llstr));
-	if (!list)
-		return (NULL);
-	list->head = NULL;
-	list->last = NULL;
-	list->size = 0;
-	return (list);
-}
+// 	env = shell_data->envp;
+// 	while (env)
+// 	{
+// 		if (!ft_strcmp(env->key, key))
+// 			return (env->value);
+// 		env = env->next;
+// 	}
+// 	return (NULL);
+// }
