@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 15:44:18 by aurban            #+#    #+#             */
-/*   Updated: 2023/12/01 22:20:37 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/12 12:36:45 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,9 @@ long long	ft_max_ll(long long a, long long b);
 
 /* MEMORY */
 char		*ft_strdup(const char *s);
+char		**ft_strdup_double_char(char **cc);
+char		**free_double_char(char **cc);
+char		***free_triple_char(char ***ccc);
 void		*ft_memcpy(void *dest, const void *src, size_t n);
 void		*ft_memmove(void *dest, const void *src, size_t n);
 void		*ft_memset(void *s, int c, size_t n);
@@ -111,7 +114,28 @@ void		ft_llint_print(t_llint *list);
 void		ft_llint_printm(t_llint *list);
 void		*ft_llint_search_list(t_llint *list, long n);
 
-/* 
+typedef struct s_nodestr
+{
+	char				*data;
+	size_t				index;
+	struct s_nodestr	*next;
+	struct s_nodestr	*previous;
+}t_nodestr;
+
+typedef struct s_llstr
+{
+	t_nodestr	*head;
+	t_nodestr	*last;
+	size_t		size;
+}t_llstr;
+
+t_nodestr	*ft_llstr_add_back(t_llstr *list, char *data);
+t_nodestr	*ft_llstr_add_front(t_llstr *list, char *data);
+void		*ft_llstr_del_node(t_llstr *list, t_nodestr *node);
+void		*ft_llstr_del_list(t_llstr *list);
+t_llstr		*ft_llstr_new(void);
+
+/*
 PRINTF
 */
 

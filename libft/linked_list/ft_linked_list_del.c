@@ -6,11 +6,13 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 15:42:16 by aurban            #+#    #+#             */
-/*   Updated: 2023/12/01 17:02:51 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/12 11:49:56 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
+
+/* INTS*/
 
 void	*ft_llint_del_node(t_llint *list, t_nodeint *node)
 {
@@ -40,6 +42,45 @@ void	*ft_llint_del_list(t_llint *list)
 	while (node)
 	{
 		next = node->next;
+		free(node);
+		node = next;
+	}
+	free(list);
+	return (NULL);
+}
+
+/* Strings */
+
+void	*ft_llstr_del_node(t_llstr *list, t_nodestr *node)
+{
+	if (!node || !list)
+		return (NULL);
+	if (node == list->head)
+		list->head = node->next;
+	if (node == list->last)
+		list->last = node->previous;
+	if (node->next)
+		node->next->previous = node->previous;
+	if (node->previous != NULL)
+		node->previous->next = node->next;
+	free(node->data);
+	free(node);
+	list->size--;
+	return (NULL);
+}
+
+void	*ft_llstr_del_list(t_llstr *list)
+{
+	t_nodestr	*node;
+	t_nodestr	*next;
+
+	if (!list)
+		return (NULL);
+	node = list->head;
+	while (node)
+	{
+		next = node->next;
+		free(node->data);
 		free(node);
 		node = next;
 	}

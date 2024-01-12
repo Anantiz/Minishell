@@ -1,39 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_linked_list_init.c                              :+:      :+:    :+:   */
+/*   ft_str_lists.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/23 15:22:10 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/12 12:03:44 by aurban           ###   ########.fr       */
+/*   Created: 2024/01/12 12:07:19 by aurban            #+#    #+#             */
+/*   Updated: 2024/01/12 12:07:31 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_llint	*ft_llint_new(void)
+char	***free_triple_char(char ***ccc)
 {
-	t_llint	*list;
+	size_t	i;
+	size_t	j;
 
-	list = malloc(sizeof(t_llint));
-	if (!list)
+	if (!ccc)
 		return (NULL);
-	list->head = NULL;
-	list->last = NULL;
-	list->size = 0;
-	return (list);
+	i = 0;
+	while (ccc[i])
+	{
+		j = 0;
+		while (ccc[i][j])
+			free(ccc[i][j++]);
+		free(ccc[i++]);
+	}
+	free(ccc);
+	return (NULL);
 }
 
-t_llstr	*ft_llstr_new(void)
+char	**free_double_char(char **cc)
 {
-	t_llstr	*list;
+	size_t	i;
 
-	list = malloc(sizeof(t_llstr));
-	if (!list)
+	if (!cc)
 		return (NULL);
-	list->head = NULL;
-	list->last = NULL;
-	list->size = 0;
-	return (list);
+	i = 0;
+	while (cc[i])
+		free(cc[i++]);
+	free(cc);
+	return (NULL);
 }

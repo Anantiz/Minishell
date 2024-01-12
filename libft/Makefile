@@ -6,7 +6,7 @@
 #    By: aurban <aurban@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/20 06:06:39 by aurban            #+#    #+#              #
-#    Updated: 2024/01/09 11:26:20 by aurban           ###   ########.fr        #
+#    Updated: 2024/01/12 12:36:16 by aurban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ LIBFT_NAME:=libft.a
 
 CC:=gcc
 INCLUDE_PATH= ../includes
-CFLAGS:=-Wall -Werror -Wextra -I$(INCLUDE_PATH) -g3 -fsanitize=address
+CFLAGS:=-Wall -Werror -Wextra -I$(INCLUDE_PATH) #-g3 -fsanitize=address
 
 FT_FILES:=		\
 	ft_bzero.c	\
@@ -58,7 +58,8 @@ FT_STRINGS_FILES=\
 	ft_putchar_fd.c	ft_putendl_fd.c	ft_putnbr_fd.c	ft_putstr_fd.c	ft_split.c		\
 	ft_strchr.c		ft_strdup.c		ft_striteri.c	ft_strjoin.c	ft_strlcat.c	\
 	ft_strlcpy.c	ft_strlen.c		ft_strmapi.c	ft_strncmp.c	ft_strnstr.c	\
-	ft_strrchr.c	ft_strtrim.c	ft_substr.c
+	ft_strrchr.c	ft_strtrim.c	ft_substr.c		ft_str_lists.c					\
+	ft_strdup_double_char.c
 FT_STRINGS_FILES:=$(addprefix $(FT_STRINGS_PATH)/,$(FT_STRINGS_FILES))
 
 # --- LIB FT ---

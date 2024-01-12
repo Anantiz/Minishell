@@ -1,39 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_linked_list_init.c                              :+:      :+:    :+:   */
+/*   session_error.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/23 15:22:10 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/12 12:03:44 by aurban           ###   ########.fr       */
+/*   Created: 2024/01/12 12:25:35 by aurban            #+#    #+#             */
+/*   Updated: 2024/01/12 12:26:08 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-t_llint	*ft_llint_new(void)
+void	display_error(int error)
 {
-	t_llint	*list;
-
-	list = malloc(sizeof(t_llint));
-	if (!list)
-		return (NULL);
-	list->head = NULL;
-	list->last = NULL;
-	list->size = 0;
-	return (list);
-}
-
-t_llstr	*ft_llstr_new(void)
-{
-	t_llstr	*list;
-
-	list = malloc(sizeof(t_llstr));
-	if (!list)
-		return (NULL);
-	list->head = NULL;
-	list->last = NULL;
-	list->size = 0;
-	return (list);
+	if (error == PARSING_ERROR)
+		ft_putstr_fd("Parsing error\n", 2);
+	else if (error == EXECTION_ERROR)
+		ft_putstr_fd("Execution error\n", 2);
+	else if (error == 0)
+		ft_putstr_fd("Session ended\n", 2);
 }

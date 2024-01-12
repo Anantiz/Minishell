@@ -1,39 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_linked_list_init.c                              :+:      :+:    :+:   */
+/*   ft_strdup_double_char.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/23 15:22:10 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/12 12:03:44 by aurban           ###   ########.fr       */
+/*   Created: 2024/01/12 12:09:44 by aurban            #+#    #+#             */
+/*   Updated: 2024/01/12 12:10:08 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_llint	*ft_llint_new(void)
+char	**ft_strdup_double_char(char **cc)
 {
-	t_llint	*list;
+	char	**ret;
+	size_t	i;
 
-	list = malloc(sizeof(t_llint));
-	if (!list)
+	if (!cc)
 		return (NULL);
-	list->head = NULL;
-	list->last = NULL;
-	list->size = 0;
-	return (list);
-}
-
-t_llstr	*ft_llstr_new(void)
-{
-	t_llstr	*list;
-
-	list = malloc(sizeof(t_llstr));
-	if (!list)
+	i = 0;
+	while (cc[i])
+		i++;
+	ret = malloc(sizeof(char *) * (i + 1));
+	if (!ret)
 		return (NULL);
-	list->head = NULL;
-	list->last = NULL;
-	list->size = 0;
-	return (list);
+	i = 0;
+	while (cc[i])
+	{
+		ret[i] = ft_strdup(cc[i]);
+		if (!ret[i])
+			return (free_double_char(ret));
+		i++;
+	}
+	ret[i] = NULL;
+	return (ret);
 }
