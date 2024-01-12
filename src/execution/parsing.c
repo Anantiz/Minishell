@@ -6,11 +6,11 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/01/10 11:19:49 by loris            ###   ########.fr       */
+/*   Updated: 2024/01/10 15:21:11 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
 void    browse_line(char *line)
 {

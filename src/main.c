@@ -6,11 +6,11 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:09:25 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/12 11:20:00 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/12 11:27:14 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../includes/minishell.h"
+#include "minishell.h"
 
 // int	foo()
 // {
