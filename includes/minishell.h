@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/12 14:45:34 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/01/12 15:09:03 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 
 # define PARSING_ERROR -69
 # define EXECTION_ERROR -420
+# define MALLOC_ERROR -666
+# define TWINS_ERROR -911
 
 /* MISC */
 
@@ -42,10 +44,6 @@ int			execute_commands(t_shell_data *shell_data);
 void		clean_shell_data(t_shell_data *shell_data);
 void		init_shell_data(t_shell_data *shell_data, char **envp);
 void		add_history(t_shell_data *shell_data, char *line);
-
-/* UTILS */
-void        *safe_malloc(size_t bytes);
-void	    error_exit(const char *error);
 
 /* PARSING */
 int     	ft_countword(char *line);

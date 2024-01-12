@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/29 02:34:11 by aurban            #+#    #+#             */
-/*   Updated: 2023/10/29 02:57:12 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/12 15:07:46 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	*ft_uitoa(unsigned int n)
 		buff_size++;
 		ncpy /= 10;
 	}
-	buffer = malloc(buff_size + 1);
+	buffer = our_malloc(buff_size + 1);
 	if (!buffer)
 		return (NULL);
 	fill_buffer(buffer + buff_size - 1, n);

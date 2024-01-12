@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:09:44 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/12 12:10:08 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/12 15:07:46 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ char	**ft_strdup_double_char(char **cc)
 	i = 0;
 	while (cc[i])
 		i++;
-	ret = malloc(sizeof(char *) * (i + 1));
+	ret = our_malloc(sizeof(char *) * (i + 1));
 	if (!ret)
 		return (NULL);
 	i = 0;
