@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/12 15:09:03 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/14 15:44:44 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,9 @@
 # define PARSING_ERROR -69
 # define EXECTION_ERROR -420
 # define MALLOC_ERROR -666
-# define TWINS_ERROR -911
+# define PIPE_ERROR -911
+
+#define PIPE_ERROR_MSG "Pipe error"
 
 /* MISC */
 
