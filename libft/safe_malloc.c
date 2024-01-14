@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 15:04:58 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/12 15:07:53 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/14 17:11:57 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@ void	*our_malloc(size_t bytes)
 	if (ret == NULL)
 		error_exit("Malloc Error");
 	return (ret);
-
 }
 
 void	error_exit(const char *error)

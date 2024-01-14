@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/14 15:44:44 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/14 17:19:02 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # define MALLOC_ERROR -666
 # define PIPE_ERROR -911
 
-#define PIPE_ERROR_MSG "Pipe error"
+#define PIPE_ERROR_MSG_INIT "Pipe init error"
 
 /* MISC */
 
@@ -48,8 +48,18 @@ void		init_shell_data(t_shell_data *shell_data, char **envp);
 void		add_history(t_shell_data *shell_data, char *line);
 
 /* PARSING */
+
 int     	ft_countword(char *line);
 char        **ft_strtok(char *line);
+
+/* EXECUTION */
+
+int			setup_pipes(t_shell_data *shell_data);
+
+
+/* UTILS */
+
+t_s_token	*get_next_node(t_s_token *node);
 
 
 #endif

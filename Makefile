@@ -6,7 +6,7 @@
 #    By: aurban <aurban@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/09 10:14:27 by aurban            #+#    #+#              #
-#    Updated: 2024/01/12 12:45:56 by aurban           ###   ########.fr        #
+#    Updated: 2024/01/14 17:24:02 by aurban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,21 +20,21 @@ LIBFT=libft.a
 
 LIBFT_PATH:=./libft
 
-###########################################################
-###########################################################
-###########################################################
+###############################################################################
+###############################################################################
+###############################################################################
 
 SRC=\
 	main.c	session_loop.c
 
 SRC_UTILS=\
-	utils.c	kgb.c	init_shell_data.c
+	utils.c	kgb.c	init_shell_data.c	tree_traversal.c	\
 
 SRC_PARSE=\
 	parsing.c
 
 SRC_EXEC=\
-	execute.c	read_tokens.c
+	execute.c	read_tokens.c	mario_world.c
 
 SRC_ERR=\
 	session_error.c
@@ -62,12 +62,11 @@ OURS_PATH=our_commands
 SRC_OURS:= $(addprefix $(OURS_PATH)/,$(SRC_OURS))
 SRC+= $(SRC_OURS)
 
-###########################################################
+###############################################################################
 SRC_PATH=./src
 SRC:= $(addprefix $(SRC_PATH)/,$(SRC))
 SRC_OBJECTS= $(patsubst %.c,%.o,$(SRC))
-###########################################################
-
+###############################################################################
 
 all: $(NAME)
 
@@ -87,4 +86,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re libft.a
+.PHONY: all clean fclean re

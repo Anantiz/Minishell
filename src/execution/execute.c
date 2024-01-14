@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:39:33 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/14 15:44:00 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/14 17:21:24 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	execute_commands(t_shell_data *shell_data)
 {
-	if (esetup_pipes(shell_data))
+	if (setup_pipes(shell_data))
 		return (PIPE_ERROR);
 	return (0);
 }

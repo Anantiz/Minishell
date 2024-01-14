@@ -1,38 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strdup_double_char.c                            :+:      :+:    :+:   */
+/*   tree_traversal.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/12 12:09:44 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/14 17:12:12 by aurban           ###   ########.fr       */
+/*   Created: 2024/01/14 17:11:05 by aurban            #+#    #+#             */
+/*   Updated: 2024/01/14 17:11:17 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-char	**ft_strdup_double_char(char **cc)
+/*
+	Depth first search to find the next node to visit
+*/
+t_s_token	*get_next_node(t_s_token *node)
 {
-	char	**ret;
-	size_t	i;
-
-	if (!cc)
-		return (NULL);
-	i = 0;
-	while (cc[i])
-		i++;
-	ret = our_malloc(sizeof(char *) * (i + 1));
-	if (!ret)
-		return (NULL);
-	i = 0;
-	while (cc[i])
+	if (node->left)
+		return (node->left);
+	if (node->right)
+		return (node->right);
+	if (node->parent)
 	{
-		ret[i] = ft_strdup(cc[i]);
-		if (!ret[i])
-			return (free_double_char(ret));
-		i++;
+		while (node->parent)
+		{
+			node = node->parent;
+			if (node->right)
+				return (node->right);
+		}
 	}
-	ret[i] = NULL;
-	return (ret);
+	return (NULL);
 }
