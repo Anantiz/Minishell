@@ -6,7 +6,7 @@
 #    By: aurban <aurban@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/09 10:14:27 by aurban            #+#    #+#              #
-#    Updated: 2024/01/14 17:24:02 by aurban           ###   ########.fr        #
+#    Updated: 2024/01/14 18:10:47 by aurban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ SRC_PARSE=\
 	parsing.c
 
 SRC_EXEC=\
-	execute.c	read_tokens.c	mario_world.c
+	execute.c	read_tokens.c	mario_world.c	execute_command.c	\
 
 SRC_ERR=\
 	session_error.c

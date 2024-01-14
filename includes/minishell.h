@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/14 17:19:02 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/14 18:10:34 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,8 @@
 
 # define PARSING_ERROR -69
 # define EXECTION_ERROR -420
-# define MALLOC_ERROR -666
-# define PIPE_ERROR -911
+# define PIPE_ERROR -1
+# define CMD_ERROR - 2
 
 #define PIPE_ERROR_MSG_INIT "Pipe init error"
 
@@ -55,6 +55,7 @@ char        **ft_strtok(char *line);
 /* EXECUTION */
 
 int			setup_pipes(t_shell_data *shell_data);
+int			execute_command(t_shell_data *shell_data, t_s_token *node);
 
 
 /* UTILS */
