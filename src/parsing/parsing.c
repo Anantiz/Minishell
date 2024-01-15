@@ -6,7 +6,7 @@
 /*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/01/15 12:28:03 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/01/15 12:54:14 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 #include "stdbool.h"
 #include <stdio.h>
-
+#include <stdlib.h>
 
 bool	ft_is_sep(char c)
 {
@@ -81,7 +81,6 @@ char    **ft_strtok(char *line)
 
 int	main()
 {
-
 	int	i = 0;
 	char *line;
 	char **token;
