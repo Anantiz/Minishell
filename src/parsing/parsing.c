@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/01/12 16:12:28 by loris            ###   ########.fr       */
+/*   Updated: 2024/01/15 12:28:03 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 #include "stdbool.h"
 #include <stdio.h>
+
 
 bool	ft_is_sep(char c)
 {
@@ -48,18 +49,53 @@ int	ft_countword(char *line)
 	return(count);
 }
 
+int	ft_cmdlen(char	*cmd)
+{
+	int		i;
+
+	i = 0;
+	while (ft_is_sep(cmd[i]) == false)
+		i++;
+	return (i);
+}
+
 char    **ft_strtok(char *line)
 {
 	char	**list_token;
+	int		i;
+	int		len_cmd;
 
-	list_token =  our_malloc(sizeof(char *) * (ft_countword(line) + 1));
+	i = 0;
+	list_token = our_malloc(sizeof(char *) * (ft_countword(line) + 1));
 	list_token[ft_countword(line)] = NULL;
-	
+	while (*line)
+	{
+		len_cmd = ft_cmdlen(line);
+		while (ft_is_sep(*line))
+			line++;
+		list_token[i++] = ft_substr(line, 0, len_cmd);
+		line + len_cmd;
+	}
+	return (list_token);
 }
 
-int	parse_line(t_shell_data *shell_data, char *line)
+int	main()
 {
-	(void)shell_data;
-	(void)line;
-	return (0);
+
+	int	i = 0;
+	char *line;
+	char **token;
+	line = "cmd | cmd1 d   ";
+	token = ft_strtok(line);
+	while (token[i])
+	{
+		printf("%s\n", token[i++]);
+	}
 }
+
+// int	parse_line(t_shell_data *shell_data, char *line)
+// {
+// 	(void)shell_data;
+// 	(void)line;
+// 	return (0);
+// }
