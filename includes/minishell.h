@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/16 17:54:32 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/16 18:15:24 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ typedef int (*t_our_cmd_ptr)(t_shell_data *, t_s_token *);
 
 t_s_token	*get_next_node(t_s_token *node);
 int			process_cmd_paths(t_shell_data *shell_data, t_s_token *node);
+char		**t_env_to_double_char(t_shell_data *shell_data);
 
 void		t_env_del_node(t_env *node);
 void		t_env_del_list(t_env *list);
