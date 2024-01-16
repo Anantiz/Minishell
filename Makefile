@@ -6,7 +6,7 @@
 #    By: aurban <aurban@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/09 10:14:27 by aurban            #+#    #+#              #
-#    Updated: 2024/01/16 14:29:56 by aurban           ###   ########.fr        #
+#    Updated: 2024/01/16 17:41:17 by aurban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,21 +28,21 @@ SRC=\
 	main.c	session_loop.c
 
 SRC_UTILS=\
-	utils.c	kgb.c	init_shell_data.c	tree_traversal.c	process_cmd_paths.c\
-
+	utils.c	init_shell_data.c	tree_traversal.c	process_cmd_paths.c		\
+	kgb.c	envp_linked_list.c	
 
 SRC_PARSE=\
 	parsing.c
 
 SRC_EXEC=\
-	execute.c	read_tokens.c	mario_world.c	execute_command.c	\
+	execute.c	read_tokens.c	mario_world.c	execute_command.c			\
 
 SRC_ERR=\
 	session_error.c
 
 SRC_OURS=\
-	our_cd.c	our_env.c	our_exit.c	our_export.c	our_unset.c	\
-	our_echo.c	our_env_utils.c	our_pwd.c	our_commands.c	\
+	our_cd.c		our_pwd.c		our_env.c	our_echo.c	our_exit.c	\
+	our_unset.c		our_export.c	our_builtins.c	\
 
 UTILS_PATH=utils
 SRC_UTILS:= $(addprefix $(UTILS_PATH)/,$(SRC_UTILS))
@@ -75,8 +75,6 @@ all: $(NAME)
 $(NAME): $(SRC_OBJECTS)
 	@make -C $(LIBFT_PATH)
 	@$(CC) $^ -L$(LIBFT_PATH) -lft $(CFLAGS) -o $@
-
-both: $(NAME) bonus
 
 clean:
 	@make -C $(LIBFT_PATH)/ clean

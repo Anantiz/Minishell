@@ -6,16 +6,24 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:20:58 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/16 14:24:04 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/16 16:20:09 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	our_commands(t_shell_data *shell_data, t_s_token *node, \
-	t_e_our_commands cmd)
+int	check_builtins(t_shell_data *shell_data, t_s_token *node)
 {
-	(void)shell_data;
-	(void)node;
-	return (SUCCESS);
+	int							i;
+	static const char			*name_map[] = OUR_COMMANDS_NAMES;
+	static const t_our_cmd_ptr	foo_map[] = OUR_COMMANDS_FNC_PTR;
+
+	i = 0;
+	while ((t_e_our_commands)i != END_OF_ENUM)
+	{
+		if (ft_strcmp(node->data.cmd.args[0], name_map[i]))
+			return ((foo_map[i])(shell_data, node));
+		i++;
+	}
+	return (NOT_IN_BUILTINS);
 }

@@ -6,13 +6,11 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:05:20 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/16 14:29:38 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/16 14:45:53 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-#define NOT_IN_BUILTINS 66
 
 /*
 	Look in all paths for the command
@@ -65,36 +63,6 @@ static int	execute_from_path(t_shell_data *shell_data, t_s_token *node)
 		child_process(shell_data, node);
 	else
 		return (parent_process(shell_data, node));
-	return (SUCCESS);
-}
-
-/* ######################################################################### */
-/* ######################################################################### */
-/* ######################################################################### */
-/*
-	Return:
-		0: success
-		1: not found
-		neg: error
-*/
-static int	check_builtins(t_shell_data *shell_data, t_s_token *node)
-{
-	if (ft_strcmp(node->data.cmd.args[0] , "cd"))
-		return (our_commands(shell_data, node, CD));
-	else if (ft_strcmp(node->data.cmd.args[0] , "pwd"))
-		return (our_commands(shell_data, node, ECHO));
-	else if (ft_strcmp(node->data.cmd.args[0] , "env"))
-		return (our_commands(shell_data, node, ENV));
-	else if (ft_strcmp(node->data.cmd.args[0] , "echo"))
-		return (our_commands(shell_data, node, EXPORT));
-	else if (ft_strcmp(node->data.cmd.args[0] , "unset"))
-		return (our_commands(shell_data, node, PWD));
-	else if (ft_strcmp(node->data.cmd.args[0] , "export"))
-		return (our_commands(shell_data, node, UNSET));
-	else if (ft_strcmp(node->data.cmd.args[0] , "exit"))
-		return (our_commands(shell_data, node, EXIT));
-	else
-		return (NOT_IN_BUILTINS);
 	return (SUCCESS);
 }
 
