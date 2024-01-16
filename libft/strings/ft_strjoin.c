@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:25:34 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/16 11:26:46 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/16 14:12:51 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,4 @@ char	*ft_strjoin(const char *s1, char const *s2)
 	while (s2[i++])
 		joined[s1_len + i - 1] = s2[i - 1];
 	return (joined);
-}z
+}

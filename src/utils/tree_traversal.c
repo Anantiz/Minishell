@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:11:05 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/16 10:14:45 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/16 14:24:41 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ t_s_token	*get_next_node(t_s_token *node)
 
 	if (!node)
 		return (NULL);
-	get_next_line_norm(node, &left_sibling);
+	get_next_node_norm(node, &left_sibling);
 	og_node = node;
 	if (node->left)
 		return (node->left);

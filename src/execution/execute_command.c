@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:05:20 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/16 11:23:29 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/16 14:29:38 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static void	child_process(t_shell_data *shell_data, t_s_token *node)
 {
 	int	i;
 
-	process_cmd_paths(shell_data->envp, node);
+	process_cmd_paths(shell_data, node);
 	i = 0;
 	while (node->data.cmd.paths[i])
 	{
@@ -80,19 +80,19 @@ static int	execute_from_path(t_shell_data *shell_data, t_s_token *node)
 static int	check_builtins(t_shell_data *shell_data, t_s_token *node)
 {
 	if (ft_strcmp(node->data.cmd.args[0] , "cd"))
-		retrn (our_commands(CD, node));
+		return (our_commands(shell_data, node, CD));
 	else if (ft_strcmp(node->data.cmd.args[0] , "pwd"))
-		return (our_commands(ECHO, node));
+		return (our_commands(shell_data, node, ECHO));
 	else if (ft_strcmp(node->data.cmd.args[0] , "env"))
-		return (our_commands(ENV, node));
+		return (our_commands(shell_data, node, ENV));
 	else if (ft_strcmp(node->data.cmd.args[0] , "echo"))
-		return (our_commands(EXPORT, node));
+		return (our_commands(shell_data, node, EXPORT));
 	else if (ft_strcmp(node->data.cmd.args[0] , "unset"))
-		return (our_commands(PWD, node));
+		return (our_commands(shell_data, node, PWD));
 	else if (ft_strcmp(node->data.cmd.args[0] , "export"))
-		return (our_commands(UNSET, node));
+		return (our_commands(shell_data, node, UNSET));
 	else if (ft_strcmp(node->data.cmd.args[0] , "exit"))
-		return (our_commands(EXIT, node));
+		return (our_commands(shell_data, node, EXIT));
 	else
 		return (NOT_IN_BUILTINS);
 	return (SUCCESS);

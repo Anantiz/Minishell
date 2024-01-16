@@ -6,20 +6,20 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 14:51:50 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/14 18:21:52 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/16 14:20:09 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	our_cd(t_shell_data *shell_data, t_s_token *token)
-{
-	char	*pwd;
+// int	our_cd(t_shell_data *shell_data, t_s_token *token)
+// {
+// 	char	*pwd;
 
-	pwd = our_get_env("PWD");
-	printf("pwd: %s\n", pwd);
-	return (0);
-}
+// 	pwd = our_get_env("PWD");
+// 	printf("pwd: %s\n", pwd);
+// 	return (0);
+// }
 
 
 // #include <stdlib.h>

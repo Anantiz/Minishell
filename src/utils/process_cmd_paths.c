@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 11:24:00 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/16 11:40:35 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/16 14:31:01 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static char	**custom_ft_split(const char *str, char sep)
 	int		i;
 
 	temp = ft_split(str, sep);
-	ret = our_malloc(sizeof(char *) * (ft_strslen(temp) + 2));
+	ret = our_malloc(sizeof(char *) * (ft_strslen((const char **)temp) + 2));
 	ret[0] = ft_strdup(".");
 	if (temp)
 	{
@@ -42,14 +42,14 @@ static char	**custom_ft_split(const char *str, char sep)
 /*
 	Put any possible path into the node->data.cmd.paths
 */
-int	process_cmd_paths(char **envp, t_s_token *node)
+int	process_cmd_paths(t_shell_data *shell_data, t_s_token *node)
 {
 	char	*old;
 	char	*path;
 	char	**paths;
 	int		i;
 
-	path = our_get_env("PATH");
+	path = our_get_env(shell_data , "PATH");
 	paths = custom_ft_split(path, ':');
 	i = 0;
 	while (paths[i])

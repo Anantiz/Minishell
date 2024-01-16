@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/16 10:50:35 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/16 14:33:34 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include "libft.h"
 # include "data_structures.h"
 
-# define SHELL_NAME "Joseph S"
+# define SHELL_NAME "Joseph_Shell"
 # define  SHELL_NAME_LEN 8
 
 # define FAILURE 1
@@ -64,10 +64,17 @@ char        **ft_strtok(char *line);
 int			setup_pipes(t_shell_data *shell_data);
 int			execute_command(t_shell_data *shell_data, t_s_token *node);
 
+/* RED FUNCTIONS */
+
+int			our_commands(t_shell_data *shell_data, t_s_token *node, \
+			t_e_our_commands cmd);
+char		*our_get_env(t_shell_data *shell_data, char *key);
+
 
 /* UTILS */
 
 t_s_token	*get_next_node(t_s_token *node);
+int			process_cmd_paths(t_shell_data *shell_data, t_s_token *node);
 
 
 #endif

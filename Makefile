@@ -6,7 +6,7 @@
 #    By: aurban <aurban@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/09 10:14:27 by aurban            #+#    #+#              #
-#    Updated: 2024/01/14 18:10:47 by aurban           ###   ########.fr        #
+#    Updated: 2024/01/16 14:29:56 by aurban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,7 +28,8 @@ SRC=\
 	main.c	session_loop.c
 
 SRC_UTILS=\
-	utils.c	kgb.c	init_shell_data.c	tree_traversal.c	\
+	utils.c	kgb.c	init_shell_data.c	tree_traversal.c	process_cmd_paths.c\
+
 
 SRC_PARSE=\
 	parsing.c
@@ -40,7 +41,8 @@ SRC_ERR=\
 	session_error.c
 
 SRC_OURS=\
-	our_cd.c
+	our_cd.c	our_env.c	our_exit.c	our_export.c	our_unset.c	\
+	our_echo.c	our_env_utils.c	our_pwd.c	our_commands.c	\
 
 UTILS_PATH=utils
 SRC_UTILS:= $(addprefix $(UTILS_PATH)/,$(SRC_UTILS))
