@@ -6,14 +6,15 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 15:45:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/14 17:19:29 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/16 10:55:35 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-	Any operation token will create a pipe between it's left and right children
+	Any pipe operation token will create a pipe between it's left and right
+	children.
 		The stdout of the left child will be the write end of the pipe.
 		The stdin of the right child will be the read end of the pipe.
 
@@ -34,7 +35,7 @@ static int	init_pipes(t_s_token *node)
 		return (perror(PIPE_ERROR_MSG_INIT), PIPE_ERROR);
 	node->data.op.pipefd[0] = pipefd[0];
 	node->data.op.pipefd[1] = pipefd[1];
-	return (0);
+	return (SUCCESS);
 }
 
 int	setup_pipes(t_shell_data *shell_data)
@@ -44,12 +45,12 @@ int	setup_pipes(t_shell_data *shell_data)
 	node = shell_data->root;
 	while (node)
 	{
-		if (node->token_type == TK_OP)
+		if (node->token_type == TK_OP && node->data.op.op_type == PIPE)
 		{
 			if (init_pipes(node))
 				return (PIPE_ERROR);
 		}
 		node = get_next_node(node);
 	}
-	return (0);
+	return (SUCCESS);
 }

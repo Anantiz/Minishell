@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 09:55:23 by aurban            #+#    #+#             */
-/*   Updated: 2023/11/22 13:47:55 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/16 11:33:20 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,18 @@ size_t	ft_strlen(const char *s)
 		return (0);
 	i = 0;
 	while (s[i])
+		i++;
+	return (i);
+}
+
+size_t	ft_strslen(const char **strs)
+{
+	size_t	i;
+
+	if (!strs)
+		return (0);
+	i = 0;
+	while (strs[i])
 		i++;
 	return (i);
 }

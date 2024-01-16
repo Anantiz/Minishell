@@ -6,17 +6,17 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:39:33 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/14 17:45:46 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/16 10:55:30 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-	Tree traversal to execute commands:
-		-1: Init pipes
+	Protocol:
+		-1: Init all pipes
 		Loop:
-			-2: Execute commands	(Listen to signal and send to children)
+			-2: Execute commands  (Monitor global signal and send to children)
 				-2.1: Handle redirections
 				-2.2: try:
 					-Execute from builtins
@@ -33,16 +33,17 @@
 static int execute_loop(t_shell_data *shell_data)
 {
 	t_s_token	*node;
-	int			ret;
 
-	ret = 0;
 	node = shell_data->root;
-	while (!ret && node)
+	while (node)
 	{
-		if (node->token_type == TK_OP)
+		if (node->token_type == TK_CMD)
 		{
 			if (execute_command(shell_data, node))
-				return (1);
+			{
+				printf(CMD_ERROR_EXEC_MSG);
+				return (CMD_ERROR_EXEC);
+			}
 		}
 		node = get_next_node(node);
 	}
@@ -53,6 +54,6 @@ int	execute_commands(t_shell_data *shell_data)
 	if (setup_pipes(shell_data))
 		return (PIPE_ERROR);
 	if (execute_loop(shell_data))
-		return (CMD_ERROR);
-	return (0);
+		return (EXECTION_ERROR);
+	return (SUCCESS);
 }

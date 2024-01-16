@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 15:44:18 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/14 18:15:40 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/16 11:33:52 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,7 @@ int			ft_tolower(int c);
 int			ft_toupper(int c);
 char		*ft_strtrim(char const *s1, char const *set);
 size_t		ft_strlen(const char *s);
+size_t		ft_strslen(const char **strs);
 
 /* CHECK */
 int			ft_isalnum(int c);
@@ -149,10 +150,13 @@ typedef struct s_buffer_data
 {
 	int	offset;
 	int	written;
+	int	fd;
+	int	error;
 }t_bd;
 
 int			ft_printf(const char *s, ...);
-void		ft_flush(int fd, char *buffer, t_bd *bd);
+int			ft_fprintf(int fd, const char *format, ...);
+void		ft_flush(char *buffer, t_bd *bd);
 
 int			ft_arg_to_buffer(char *buffer, t_bd *bd, va_list *args, char c);
 void		ft_send_char(char *buffer, t_bd *bd, char c);

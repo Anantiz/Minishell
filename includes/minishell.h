@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/14 18:10:34 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/16 10:50:35 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include <stdio.h>
 # include <stdbool.h>
-#include <fcntl.h>
+# include <fcntl.h>
 
 # include "libft.h"
 # include "data_structures.h"
@@ -23,12 +23,19 @@
 # define SHELL_NAME "Joseph S"
 # define  SHELL_NAME_LEN 8
 
-# define PARSING_ERROR -69
-# define EXECTION_ERROR -420
-# define PIPE_ERROR -1
-# define CMD_ERROR - 2
+# define FAILURE 1
+# define SUCCESS 0
+# define PARSING_ERROR 69
+# define EXECTION_ERROR 420
 
-#define PIPE_ERROR_MSG_INIT "Pipe init error"
+# define PIPE_ERROR 1
+# define CMD_ERROR_EXEC 2
+# define CMD_ERROR_FORK 3
+# define CMD_ERROR_NOT_FOUND 4
+
+# define PIPE_ERROR_MSG_INIT "Pipe init error\n"
+# define CMD_ERROR_EXEC_MSG "Command execution error\n"
+# define CMD_ERROR_NOT_FOUND_MSG "Command not found"
 
 /* MISC */
 

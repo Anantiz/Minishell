@@ -6,60 +6,120 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:05:20 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/14 18:13:22 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/16 11:23:29 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+#define NOT_IN_BUILTINS 66
+
+/*
+	Look in all paths for the command
+		Execute it
+		Exit
+	else
+		ERROR: Not found
+
+*/
+static void	child_process(t_shell_data *shell_data, t_s_token *node)
+{
+	int	i;
+
+	process_cmd_paths(shell_data->envp, node);
+	i = 0;
+	while (node->data.cmd.paths[i])
+	{
+		execve(node->data.cmd.paths[i], node->data.cmd.args, shell_data->envp);
+		i++;
+	}
+	ft_fprintf(2, SHELL_NAME": %s: command not found\n", *node->data.cmd.args);
+	free_double_char(node->data.cmd.paths);
+	exit(CMD_ERROR_NOT_FOUND);
+}
+
+/*	Shall:
+		-wait for child
+		-listen to child pid return value
+		-relay signals to child
+	exit
+ */
+static int	parent_process(t_shell_data *shell_data, t_s_token *node)
+{
+	(void)shell_data;
+	(void)node;
+	return (SUCCESS);
+}
+
+static int	execute_from_path(t_shell_data *shell_data, t_s_token *node)
+{
+	int	pid;
+
+	pid = fork();
+	if (pid == -1)
+	{
+		perror("fork() error");
+		return (CMD_ERROR_FORK);
+	}
+	if (pid == 0)
+		child_process(shell_data, node);
+	else
+		return (parent_process(shell_data, node));
+	return (SUCCESS);
+}
+
+/* ######################################################################### */
+/* ######################################################################### */
+/* ######################################################################### */
 /*
 	Return:
 		0: success
-		pos: not found
+		1: not found
 		neg: error
 */
 static int	check_builtins(t_shell_data *shell_data, t_s_token *node)
 {
 	if (ft_strcmp(node->data.cmd.args[0] , "cd"))
-		our_commands(CD, node);
+		retrn (our_commands(CD, node));
 	else if (ft_strcmp(node->data.cmd.args[0] , "pwd"))
-		our_commands(ECHO, node);
+		return (our_commands(ECHO, node));
 	else if (ft_strcmp(node->data.cmd.args[0] , "env"))
-		our_commands(ENV, node);
+		return (our_commands(ENV, node));
 	else if (ft_strcmp(node->data.cmd.args[0] , "echo"))
-		our_commands(EXPORT, node);
+		return (our_commands(EXPORT, node));
 	else if (ft_strcmp(node->data.cmd.args[0] , "unset"))
-		our_commands(PWD, node);
+		return (our_commands(PWD, node));
 	else if (ft_strcmp(node->data.cmd.args[0] , "export"))
-		our_commands(UNSET, node);
+		return (our_commands(UNSET, node));
 	else if (ft_strcmp(node->data.cmd.args[0] , "exit"))
-		our_commands(EXIT, node);
+		return (our_commands(EXIT, node));
 	else
-		return (1);
-	return (0);
+		return (NOT_IN_BUILTINS);
+	return (SUCCESS);
 }
 
 /*
-	Has to look for each parameter of the commands,
-	compare strings with existing variables, replace if found
+Fork:
+	Child:
+		Redirected streams
+		Check builtins, if not
+		for PATH in all possible_paths:
+			execve(PATH, name, args)
+		if not found:
+			return ERROR
+	Parent:
+		Wait for child //non-blocking because it has to relay signals
+		Relay signals to child
 */
 int	execute_command(t_shell_data *shell_data, t_s_token *node)
 {
-	(void)shell_data;
-	(void)node;
-	/*
-	Fork:
-		Child:
-			Redirected streams
+	int		ret;
 
-			Check builtins, if not
-			for PATH in all possible_paths:
-				execve(PATH, name, args)
-			if not found:
-				return ERROR
-		Parent:
-			Wait for child //non-blocking because it has to relay signals
-			Relay signals to child
-	*/
-	return (0);
+	ret = check_builtins(shell_data, node);
+	if (ret == 0)
+		return (SUCCESS);
+	else if (ret == NOT_IN_BUILTINS)
+		return (execute_from_path(shell_data, node));
+	else
+		return (CMD_ERROR_EXEC);
 }

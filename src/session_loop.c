@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:12:50 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/14 18:06:59 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/16 10:55:41 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,5 +33,5 @@ int	session_start(t_shell_data *shell_data)
 			return (EXECTION_ERROR);
 		/* Del tree */
 	}
-	return (0);
+	return (SUCCESS);
 }
