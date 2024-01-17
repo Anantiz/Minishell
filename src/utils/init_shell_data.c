@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:04:16 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/17 12:15:57 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/17 14:22:24 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,16 @@
 static t_env	*create_envp_list(char **envp)
 {
 	t_env	*head;
+	char	**split;
 	int		i;
-	char	*key;
-	char	*value;
 
 	i = 0;
 	head = NULL;
 	while (envp[i])
 	{
-		key = ft_strdup(envp[i]);
-		value = ft_strdup(envp[i]);
-		t_env_add_back(&head, t_env_new_node(key, value));
+		split = ft_split(envp[i], '=');
+		t_env_add_back(&head, t_env_new_node(split[0], split[1]));
+		free(split);
 		i++;
 	}
 	return (head);

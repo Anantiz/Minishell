@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:05:20 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/17 12:27:09 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/17 16:51:36 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,10 @@ static void	child_process(t_shell_data *shell_data, t_s_token *node, int pid)
  */
 static int	parent_process(t_shell_data *shell_data, t_s_token *node, int pid)
 {
-	wait
+	int	wstatus;
+	int	ret;
+
+	ret = waitpid(pid, &wstatus, 0);
 	return (SUCCESS);
 }
 

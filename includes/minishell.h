@@ -6,12 +6,17 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/17 12:21:09 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/17 16:09:21 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
+
+// REQUIRED for signal.h
+# define _POSIX_C_SOURCE 199309L
+# include <signal.h>
+int		g_sig;
 
 # include <stdio.h>
 # include <stdbool.h>
