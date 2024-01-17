@@ -6,7 +6,7 @@
 #    By: aurban <aurban@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/20 06:06:39 by aurban            #+#    #+#              #
-#    Updated: 2024/01/12 15:08:46 by aurban           ###   ########.fr        #
+#    Updated: 2024/01/16 14:34:37 by aurban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,10 +75,12 @@ FT_PATH:=./
 FT_FILES:= $(addprefix $(FT_PATH)/,$(FT_FILES))
 FT_OBJECTS:= $(patsubst %.c,%.o,$(FT_FILES))
 
+%.o: %.c
+	@$(CC) $(CFLAGS) -c $< -o $@
+
 all:$(LIBFT_NAME)
 
 $(LIBFT_NAME): $(FT_OBJECTS)
-	@echo compiling libft
 	@$(AR) rcs $@ $^
 
 clean:

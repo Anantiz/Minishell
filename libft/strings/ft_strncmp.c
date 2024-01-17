@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 15:54:26 by aurban            #+#    #+#             */
-/*   Updated: 2023/12/01 21:43:21 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/14 18:16:08 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,5 +23,22 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	i = 0;
 	while (i < n - 1 && s1[i] == s2[i])
 		i++;
+	return ((int)((unsigned char)s1[i] - (unsigned char)s2[i]));
+}
+
+/* input must be null terminated */
+int	ft_strcmp(const char *s1, const char *s2)
+{
+	size_t	i;
+
+	if (!s1 || !s2)
+		return (-1000);
+	i = 0;
+	while (s1[i] == s2[i])
+	{
+		i++;
+		if (!s1[i] || !s2[i])
+			break ;
+	}
 	return ((int)((unsigned char)s1[i] - (unsigned char)s2[i]));
 }

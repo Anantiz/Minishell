@@ -44,12 +44,12 @@ static int	ft_arg_to_buff2(char *buff, t_bd *bd, va_list *args, char c)
 	char			*str;
 
 	if (c == 'i' || c == 'd')
-	{	
+	{
 		n = va_arg(*args, int);
 		ft_send_decimal(buff, bd, n);
 	}
 	else if (c == 'u')
-	{	
+	{
 		un = va_arg(*args, int);
 		ft_send_uint(buff, bd, un);
 	}
@@ -66,7 +66,7 @@ static int	ft_arg_to_buff2(char *buff, t_bd *bd, va_list *args, char c)
 }
 
 /*
-This atrocity uses if statments because switch are apparently 
+This atrocity uses if statments because switch are apparently
 to cool to be used		:(			*sobbing noises*
 */
 int	ft_arg_to_buffer(char *buff, t_bd *bd, va_list *args, char c)

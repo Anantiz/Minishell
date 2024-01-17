@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   our_env.c                                          :+:      :+:    :+:   */
+/*   our_commands.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/16 14:13:22 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/16 17:10:05 by aurban           ###   ########.fr       */
+/*   Created: 2024/01/16 14:20:58 by aurban            #+#    #+#             */
+/*   Updated: 2024/01/16 16:20:09 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*our_get_env(t_shell_data *shell_data, char *key)
+int	check_builtins(t_shell_data *shell_data, t_s_token *node)
 {
-	t_env	*env;
+	int							i;
+	static const char			*name_map[] = OUR_COMMANDS_NAMES;
+	static const t_our_cmd_ptr	foo_map[] = OUR_COMMANDS_FNC_PTR;
 
-	env = shell_data->envp;
-	while (env)
+	i = 0;
+	while ((t_e_our_commands)i != END_OF_ENUM)
 	{
-		if (!ft_strcmp(env->key, key))
-			return (env->value);
-		env = env->next;
+		if (ft_strcmp(node->data.cmd.args[0], name_map[i]))
+			return ((foo_map[i])(shell_data, node));
+		i++;
 	}
-	return (NULL);
-}
-
-int	our_env(t_shell_data *shell_data, t_s_token *token)
-{
-	(void)token;
-	(void)shell_data;
-	return (SUCCESS);
+	return (NOT_IN_BUILTINS);
 }

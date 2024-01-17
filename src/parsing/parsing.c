@@ -6,15 +6,11 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/01/17 09:35:16 by loris            ###   ########.fr       */
+/*   Updated: 2024/01/17 09:39:35 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-#include "stdbool.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 int	parse_line(t_shell_data *shell_data, char *line)
 {
