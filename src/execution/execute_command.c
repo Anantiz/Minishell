@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:05:20 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/16 18:14:02 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/17 12:15:46 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 		Exit
 	else
 		ERROR: Not found
-
 */
 static void	child_process(t_shell_data *shell_data, t_s_token *node)
 {
@@ -26,7 +25,6 @@ static void	child_process(t_shell_data *shell_data, t_s_token *node)
 	char	**envp;
 
 	process_cmd_paths(shell_data, node);
-	envp = t_env_to_double_char(shell_data->envp);
 	i = 0;
 	while (node->data.cmd.paths[i])
 	{
