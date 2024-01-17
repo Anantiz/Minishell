@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_structures.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
+/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:24:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/16 17:48:08 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/17 10:51:54 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,12 +109,12 @@ typedef struct s_token
 
 /* ############################## */
 // ENVP Linked_list
-typedef struct s_env
-{
-	char			*key;
-	char			*value;
-	struct s_env	*next;
-}t_env;
+// typedef struct s_env
+// {
+// 	char			*key;
+// 	char			*value;
+// 	struct s_env	*next;
+// }t_env;
 
 /* ################################ */
 /* 			Main struct 			*/

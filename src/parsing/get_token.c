@@ -6,11 +6,11 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 08:26:52 by loris             #+#    #+#             */
-/*   Updated: 2024/01/17 09:35:00 by loris            ###   ########.fr       */
+/*   Updated: 2024/01/17 10:52:36 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "../../includes/minishell.h"
 
 #include "stdbool.h"
 #include <stdio.h>
@@ -130,18 +130,3 @@ char    **ft_strtok(char *line)
 	return (list_token);
 }
 
-// int main()
-// {
-//     char *line = "ls -l || wc -l";
-//     int i;
-//     char **tok;
-
-//     tok = ft_strtok(line);
-
-//     i = 0;
-//     while (tok[i])
-//     {
-//         printf("(%s)", tok[i++]);
-
-//     }
-// }
