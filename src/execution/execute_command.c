@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:05:20 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/16 14:45:53 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/17 12:09:34 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,13 @@
 		Exit
 	else
 		ERROR: Not found
-
 */
 static void	child_process(t_shell_data *shell_data, t_s_token *node)
 {
 	int	i;
 
 	process_cmd_paths(shell_data, node);
+	
 	i = 0;
 	while (node->data.cmd.paths[i])
 	{

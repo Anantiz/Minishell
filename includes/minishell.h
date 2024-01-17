@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/16 17:54:32 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/17 12:06:04 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 # include "libft.h"
 # include "data_structures.h"
 
-# define SHELL_NAME "Joseph_Shell"
+# define SHELL_NAME "Joseph_shell"
 
 # define FAILURE 1
 # define SUCCESS 0
@@ -41,7 +41,7 @@
 /* MISC */
 
 void		display_error(int error);
-void		print_shell_intro(void);
+void		print_shell_intro(t_shell_data *shell_data, t_s_token *node);
 
 /* SESSION */
 
@@ -79,10 +79,10 @@ int			our_unset(t_shell_data *shell_data, t_s_token *node);
 int			our_export(t_shell_data *shell_data, t_s_token *node);
 
 # define OUR_COMMANDS_NAMES {"cd", "pwd", "env", "echo", "exit", "unset", \
-		"export"};
+		"export", "red_square", NULL};
 
 # define OUR_COMMANDS_FNC_PTR {our_cd, our_pwd, our_env, our_echo, \
-		our_exit, our_unset, our_export};
+		our_exit, our_unset, our_export, print_shell_intro, NULL};
 
 typedef int (*t_our_cmd_ptr)(t_shell_data *, t_s_token *);
 

@@ -3,16 +3,12 @@
 /*                                                        :::      ::::::::   */
 /*   tokentotree.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 08:27:27 by loris             #+#    #+#             */
-/*   Updated: 2024/01/17 09:35:05 by loris            ###   ########.fr       */
+/*   Updated: 2024/01/17 11:57:52 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-#include "stdbool.h"
-#include <stdio.h>
-#include <stdlib.h>
 

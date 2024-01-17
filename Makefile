@@ -6,7 +6,7 @@
 #    By: aurban <aurban@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/09 10:14:27 by aurban            #+#    #+#              #
-#    Updated: 2024/01/16 17:41:17 by aurban           ###   ########.fr        #
+#    Updated: 2024/01/17 12:06:46 by aurban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,7 +29,7 @@ SRC=\
 
 SRC_UTILS=\
 	utils.c	init_shell_data.c	tree_traversal.c	process_cmd_paths.c		\
-	kgb.c	envp_linked_list.c	
+	kgb.c	envp_linked_list.c
 
 SRC_PARSE=\
 	parsing.c
@@ -69,6 +69,9 @@ SRC_PATH=./src
 SRC:= $(addprefix $(SRC_PATH)/,$(SRC))
 SRC_OBJECTS= $(patsubst %.c,%.o,$(SRC))
 ###############################################################################
+
+%.o: %.c
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)
 
