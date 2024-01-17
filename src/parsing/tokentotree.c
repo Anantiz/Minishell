@@ -1,20 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parsing.c                                          :+:      :+:    :+:   */
+/*   tokentotree.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
+/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/01/17 11:20:24 by aurban           ###   ########.fr       */
+/*   Created: 2024/01/16 08:27:27 by loris             #+#    #+#             */
+/*   Updated: 2024/01/17 09:35:05 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "minishell.h"
 
-int	parse_line(t_shell_data *shell_data, char *line)
-{
-	(void)shell_data;
-	(void)line;
-	return (0);
-}
+#include "stdbool.h"
+#include <stdio.h>
+#include <stdlib.h>
+
