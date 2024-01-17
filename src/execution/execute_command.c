@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:05:20 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/17 12:15:46 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/17 12:27:09 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,12 +19,13 @@
 	else
 		ERROR: Not found
 */
-static void	child_process(t_shell_data *shell_data, t_s_token *node)
+static void	child_process(t_shell_data *shell_data, t_s_token *node, int pid)
 {
 	int		i;
 	char	**envp;
 
 	process_cmd_paths(shell_data, node);
+	envp = t_env_to_double_char(shell_data->envp);
 	i = 0;
 	while (node->data.cmd.paths[i])
 	{
@@ -33,6 +34,7 @@ static void	child_process(t_shell_data *shell_data, t_s_token *node)
 	}
 	ft_fprintf(2, SHELL_NAME": %s: command not found\n", *node->data.cmd.args);
 	free_double_char(node->data.cmd.paths);
+	free_double_char(envp);
 	exit(CMD_ERROR_NOT_FOUND);
 }
 
@@ -42,10 +44,9 @@ static void	child_process(t_shell_data *shell_data, t_s_token *node)
 		-relay signals to child
 	exit
  */
-static int	parent_process(t_shell_data *shell_data, t_s_token *node)
+static int	parent_process(t_shell_data *shell_data, t_s_token *node, int pid)
 {
-	(void)shell_data;
-	(void)node;
+	wait
 	return (SUCCESS);
 }
 
@@ -60,10 +61,9 @@ static int	execute_from_path(t_shell_data *shell_data, t_s_token *node)
 		return (CMD_ERROR_FORK);
 	}
 	if (pid == 0)
-		child_process(shell_data, node);
+		child_process(shell_data, node, pid);
 	else
-		return (parent_process(shell_data, node));
-	return (SUCCESS);
+		return (parent_process(shell_data, node, pid));
 }
 
 /*
