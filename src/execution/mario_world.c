@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 15:45:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/16 10:55:35 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/18 10:29:22 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	setup_pipes(t_shell_data *shell_data)
 	node = shell_data->root;
 	while (node)
 	{
-		if (node->token_type == TK_OP && node->data.op.op_type == PIPE)
+		if (node->token_type == TK_OP && node->data.op.type == PIPE)
 		{
 			if (init_pipes(node))
 				return (PIPE_ERROR);

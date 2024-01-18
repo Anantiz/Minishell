@@ -1,4 +1,4 @@
-/* TEST */
+// /* TEST */
 # define _POSIX_C_SOURCE 199309L
 # include <signal.h>
 # include <stdio.h>
@@ -12,10 +12,10 @@
 # include <signal.h>
 # include <sys/wait.h>
 # include <sys/types.h>
-#include <pthread.h>
+# include <pthread.h>
+# include <errno.h>
 
 int g_sig = 0;
-
 
 /* Relay signal value into our sig */
 void	our_sig_handl(int sig)
@@ -27,13 +27,14 @@ void	our_sig_handl(int sig)
 
 void	register_signals(void)
 {
-	struct sigaction	sa;
+	// struct sigaction	sa;
 
-	sa.sa_handler = our_sig_handl;
-	sa.sa_sigaction = NULL;
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = SIGINT;
-	sigaction(SIGINT, &sa, NULL);
+	// sa.sa_handler = our_sig_handl;
+	// sa.sa_sigaction = NULL;
+	// sigemptyset(&sa.sa_mask);
+	// sa.sa_flags = SIGINT;
+	// sigaction(SIGINT, &sa, NULL);
+	signal(SIGINT, our_sig_handl);
 }
 
 void	*kill_child(void *pid_)
@@ -47,23 +48,32 @@ void	*kill_child(void *pid_)
 
 int	main()
 {
-
-	int pid = fork();
 	register_signals();
+	int pid = fork();
+
+	if (pid == -1)
+	{
+		perror("fork() error");
+		return (1);
+	}
+
 	if (pid == 0)
 	{
 		printf("Child Born\n");
-		sleep(5);
-		printf("Child:\n\tg_sig: %d\n", g_sig);
+		sleep(15);
+		printf("Child received signal :\n\tg_sig: %d\n", g_sig);
 		fflush(stdout);
 	}
 	else
 	{
 		printf("Parent Born\n");
-		int wstatus = 0;
+
 		pthread_t pthread;
 		pthread_create(&pthread, NULL, kill_child, (void *)&pid);
-		int ret = waitpid(pid, &wstatus, 0);
+
+		int wstatus = 0;
+		int ret = waitpid(pid, &wstatus, 0);\
+
 		printf("Parent\n\tRet: %d\tpid: %d\n\tWstatus: %d\n\tg_sig: %d\n", ret, pid,wstatus, g_sig);
 		fflush(stdout);
 	}

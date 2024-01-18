@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/17 16:09:21 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/18 10:41:36 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,8 @@ void		add_history(t_shell_data *shell_data, char *line);
 
 /* PARSING */
 
-int     	ft_countword(char *line);
-char        **ft_strtok(char *line);
+int			ft_countword(char *line);
+char		**ft_strtok(char *line);
 
 /* EXECUTION */
 

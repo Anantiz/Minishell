@@ -2,6 +2,10 @@
 	"files.associations": {
 		"minishell.h": "c",
 		"libft.h": "c",
-		"signal.h": "c"
+		"signal.h": "c",
+		"pthread.h": "c",
+		"errno.h": "c",
+		"features.h": "c",
+		"errno-base.h": "c"
 	}
 }
