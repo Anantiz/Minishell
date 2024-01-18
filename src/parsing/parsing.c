@@ -6,15 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/01/17 11:57:44 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/18 15:28:55 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-
-int	parse_line(t_shell_data *shell_data, char *line)
-{
-	(void)shell_data;
-	(void)line;
-	return (0);
-}
