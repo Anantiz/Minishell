@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 08:26:52 by loris             #+#    #+#             */
-/*   Updated: 2024/01/18 15:27:10 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/18 16:10:30 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@
 
 int	ft_countword(char *line)
 {
-
 	int		count;
 	int		i;
 	bool	already_cmd;
@@ -94,25 +93,25 @@ char    **ft_strtok(char *line)
 	return (list_token);
 }
 
-int main()
-{
-    char *line = "(ls -l) || u | wc -l";
-    int i;
-    char **tok;
+// int main()
+// {
+//     char *line = "(ls -l) || u | wc -l";
+//     int i;
+//     char **tok;
 
-    tok = ft_strtok(line);
+//     tok = ft_strtok(line);
 
-    i = 0;
-    while (tok[i] != NULL)
-    {
-        printf("(%s)", tok[i]);
-        i++;
-    }
-	i = 0;
-	while (tok[i])
-    {
-        free(tok[i]);
-        i++;
-    }
-	free(tok);
-}
+//     i = 0;
+//     while (tok[i] != NULL)
+//     {
+//         printf("(%s)", tok[i]);
+//         i++;
+//     }
+// 	i = 0;
+// 	while (tok[i])
+//     {
+//         free(tok[i]);
+//         i++;
+//     }
+// 	free(tok);
+// }
