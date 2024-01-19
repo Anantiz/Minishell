@@ -6,37 +6,11 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:05:20 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/17 16:51:36 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/19 11:31:15 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/*
-	Look in all paths for the command
-		Execute it
-		Exit
-	else
-		ERROR: Not found
-*/
-static void	child_process(t_shell_data *shell_data, t_s_token *node, int pid)
-{
-	int		i;
-	char	**envp;
-
-	process_cmd_paths(shell_data, node);
-	envp = t_env_to_double_char(shell_data->envp);
-	i = 0;
-	while (node->data.cmd.paths[i])
-	{
-		execve(node->data.cmd.paths[i], node->data.cmd.args, envp);
-		i++;
-	}
-	ft_fprintf(2, SHELL_NAME": %s: command not found\n", *node->data.cmd.args);
-	free_double_char(node->data.cmd.paths);
-	free_double_char(envp);
-	exit(CMD_ERROR_NOT_FOUND);
-}
 
 /*	Shall:
 		-wait for child
@@ -50,6 +24,21 @@ static int	parent_process(t_shell_data *shell_data, t_s_token *node, int pid)
 	int	ret;
 
 	ret = waitpid(pid, &wstatus, 0);
+	if (g_sig == SIGINT)
+	{
+		kill(pid, SIGINT);
+		return (SUCCESS);
+	}
+	if (ret == SIGSEGV)
+	{
+		perror("Child SIGSEV");
+		return (FAILURE);
+	}
+	if (ret == -1)
+	{
+		perror("Error in child process");
+		return (FAILURE);
+	}
 	return (SUCCESS);
 }
 
@@ -64,7 +53,11 @@ static int	execute_from_path(t_shell_data *shell_data, t_s_token *node)
 		return (CMD_ERROR_FORK);
 	}
 	if (pid == 0)
+	{
+		signal(EOF, SIG_DFL);
+		signal(SIGINT, SIG_DFL);
 		child_process(shell_data, node, pid);
+	}
 	else
 		return (parent_process(shell_data, node, pid));
 }
@@ -87,7 +80,7 @@ int	execute_command(t_shell_data *shell_data, t_s_token *node)
 	int		ret;
 
 	ret = check_builtins(shell_data, node);
-	if (ret == 0)
+	if (ret == SUCCESS)
 		return (SUCCESS);
 	else if (ret == NOT_IN_BUILTINS)
 		return (execute_from_path(shell_data, node));

@@ -6,12 +6,16 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:41:43 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/18 15:24:26 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/19 11:36:10 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+	TO DO:
+		Expand variables
+*/
 int	our_echo(t_shell_data *shell_data, t_s_token *node)
 {
 	int 	i;

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:37:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/17 16:08:21 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/19 11:28:49 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,6 @@ static void	our_sig_handl(int sig)
 */
 void	register_signals(void)
 {
-	struct sigaction	sa;
-
-	sa.sa_handler = our_sig_handl;
-	sa.sa_sigaction = NULL;
-	sigemptyset(&sa.sa_mask);
-	sa.sa_flags = 0;
-	sigaction(SIGINT, &sa, NULL);
-	sigaction(EOF, &sa, NULL);
+	signal(EOF, our_sig_handl);
+	signal(SIGINT, our_sig_handl);
 }

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:39:33 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/17 12:08:07 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/19 11:34:20 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,23 @@
 		-3: Cleanup and wait for next command-line
 */
 
-static int execute_loop(t_shell_data *shell_data)
+static void	release_resources(t_s_token *node)
+{
+	t_s_token	*tmp;
+
+	while (node)
+	{
+		tmp = node;
+		if (node->token_type == TK_OP && node->data.op.type == PIPE)
+		{
+			close(node->data.op.pipefd[0]);
+			close(node->data.op.pipefd[1]);
+		}
+		node = get_next_node(node);
+	}
+}
+
+static int execution_loop(t_shell_data *shell_data)
 {
 	t_s_token	*node;
 
@@ -42,6 +58,7 @@ static int execute_loop(t_shell_data *shell_data)
 			if (execute_command(shell_data, node))
 			{
 				printf(CMD_ERROR_EXEC_MSG);
+				release_resources(node);
 				return (CMD_ERROR_EXEC);
 			}
 		}
@@ -53,7 +70,7 @@ int	execute_commands(t_shell_data *shell_data)
 {
 	if (setup_pipes(shell_data))
 		return (PIPE_ERROR);
-	if (execute_loop(shell_data))
+	if (execution_loop(shell_data))
 		return (EXECTION_ERROR);
 	return (SUCCESS);
 }

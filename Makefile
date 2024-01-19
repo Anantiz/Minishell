@@ -6,7 +6,7 @@
 #    By: aurban <aurban@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/09 10:14:27 by aurban            #+#    #+#              #
-#    Updated: 2024/01/17 12:15:40 by aurban           ###   ########.fr        #
+#    Updated: 2024/01/19 10:02:10 by aurban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,7 @@ LIBFT_PATH:=./libft
 ###############################################################################
 
 SRC=\
-	main.c	session_loop.c
+	main.c	session_loop.c signals/sig_handlers.c
 
 SRC_UTILS=\
 	utils.c	init_shell_data.c	tree_traversal.c	process_cmd_paths.c		\
@@ -36,6 +36,7 @@ SRC_PARSE=\
 
 SRC_EXEC=\
 	execute.c	read_tokens.c	mario_world.c	execute_command.c			\
+	execute_child_process.c
 
 SRC_ERR=\
 	session_error.c
