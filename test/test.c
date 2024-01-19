@@ -15,12 +15,12 @@
 # include <pthread.h>
 # include <errno.h>
 
-int g_sig = 0;
+int our_g_sig = 0;
 
 /* Relay signal value into our sig */
 void	our_sig_handl(int sig)
 {
-	g_sig = sig;
+	our_g_sig = sig;
 	write(1, "SIGINT\n", 7);
 	fflush(stdout);
 }
@@ -61,7 +61,7 @@ int	main()
 	{
 		printf("Child Born\n");
 		sleep(15);
-		printf("Child received signal :\n\tg_sig: %d\n", g_sig);
+		printf("Child received signal :\n\tg_sig: %d\n", our_g_sig);
 		fflush(stdout);
 	}
 	else
@@ -74,7 +74,7 @@ int	main()
 		int wstatus = 0;
 		int ret = waitpid(pid, &wstatus, 0);\
 
-		printf("Parent\n\tRet: %d\tpid: %d\n\tWstatus: %d\n\tg_sig: %d\n", ret, pid,wstatus, g_sig);
+		printf("Parent\n\tRet: %d\tpid: %d\n\tWstatus: %d\n\tg_sig: %d\n", ret, pid,wstatus, our_g_sig);
 		fflush(stdout);
 	}
 	return (0);

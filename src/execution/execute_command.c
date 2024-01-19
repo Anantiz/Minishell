@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:05:20 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/19 13:18:54 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/19 18:40:16 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,17 +18,17 @@
 		-relay signals to child
 	exit
  */
-static int	parent_process(t_shell_data *shell_data, t_s_token *node, int pid)
+static int	parent_process(int pid)
 {
 	int	wstatus;
 	int	ret;
 
 	ret = waitpid(pid, &wstatus, 0);
-	if (g_sig == SIGINT)
+	if (our_g_sig == SIGINT)
 	{
 		kill(pid, SIGINT);
 		return (SUCCESS);
-	} 
+	}
 	if (ret == SIGSEGV)
 		return (perror("Child SIGSEV"), FAILURE);
 	if (ret == -1)
@@ -50,10 +50,11 @@ static int	execute_from_path(t_shell_data *shell_data, t_s_token *node)
 	{
 		signal(EOF, SIG_DFL);
 		signal(SIGINT, SIG_DFL);
-		child_process(shell_data, node, pid);
+		child_process(shell_data, node);
 	}
 	else
-		return (parent_process(shell_data, node, pid));
+		return (parent_process(pid));
+	return (SUCCESS);
 }
 
 /*

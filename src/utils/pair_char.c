@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:00:38 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/19 16:01:20 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/19 18:54:02 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,8 @@ t_pair_char	*pair_char_strtok(char *str, char sep)
 		return (ret);
 	}
 	len = ft_strlen(str);
-	ret->key = ft_substr(str, 0, cut - len);
-	ret->val = ft_substr(str, cut, len);
+	ret->key = ft_substr(str, 0, len - (cut - str) - 1);
+	ret->val = ft_substr(str, len - (cut - str), len);
 	return (ret);
 }
 
@@ -47,4 +47,3 @@ void		pair_char_free(t_pair_char *pair)
 		free(pair->val);
 	free(pair);
 }
-

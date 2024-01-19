@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:24:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/19 16:43:09 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/19 17:59:17 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,7 +88,6 @@ union u_token
 	t_s_var		var;
 };
 
-/* SHITTY */
 /* Binary tree */
 typedef struct s_token
 {
@@ -100,8 +99,12 @@ typedef struct s_token
 	struct s_token	*left;
 }t_s_token;
 
-/* ############################## */
-// ENVP Linked_list
+
+/*
+ENVP Linked_list
+	Because refactoring would be tedious (like more than 5 min, crazy right ?)
+	The struct will stay as is, and I won't use a t_pair_char
+*/
 typedef struct s_env
 {
 	char			*key;

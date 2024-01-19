@@ -6,11 +6,11 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 08:26:52 by loris             #+#    #+#             */
-/*   Updated: 2024/01/18 16:10:30 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/19 18:44:46 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "includes/minishell.h"
+#include "../../includes/minishell.h"
 
 /*
 *	Create a list of token base on the input line

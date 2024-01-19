@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 08:27:27 by loris             #+#    #+#             */
-/*   Updated: 2024/01/18 15:28:28 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/19 18:45:50 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,16 +60,22 @@ char *next_token(char **token_list)
 t_s_token   scan_token(char **token)
 {
     if (ft_is_op(*token[0]) == true)
+    {
         if (*token[0] == '(')
             // do subtree
             ;
         if (*(token) == "|" && *(token + 1) == "|")
+            ;
             // or condition
         if (*(token) == "&" && *(token + 1) == "&")
+            ;
             // and condition
+    }
     if (!ft_is_op(*token[0]) && !ft_is_sep(*token[0]))
-        //  cmd condition
+    {
         ;
+        //  cmd condition
+    }
 }
 
 

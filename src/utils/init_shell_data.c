@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:04:16 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/19 15:57:16 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/19 20:10:40 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ static t_env	*create_envp_list(char **envp)
 	{
 		split = ft_split(envp[i], '=');
 		t_env_add_back(&head, t_env_new_node(split[0], split[1]));
+		free(split[0]);
+		free(split[1]);
 		free(split);
 		i++;
 	}
@@ -41,9 +43,10 @@ void	init_shell_data(t_shell_data *shell_data, char **envp)
 	shell_data->envp = create_envp_list(envp);
 }
 
-void	free_shell_data(t_shell_data *shell_data)
+void	cleanup_shell_data(t_shell_data *shell_data)
 {
 	del_tree(shell_data);
 	ft_llstr_del_list(shell_data->get_line_history);
+	our_env(shell_data, NULL);
 	t_env_del_list(&shell_data->envp);
 }

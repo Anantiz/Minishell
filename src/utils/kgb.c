@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 12:01:56 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/17 12:03:34 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/19 18:39:16 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static void	print_shell_intro2(void)
 ______________________________________\n\n\n");
 }
 
-void	print_shell_intro(t_shell_data *shell_data, t_s_token *node)
+int	print_shell_intro(t_shell_data *shell_data, t_s_token *node)
 {
 	(void)shell_data;
 	(void)node;
@@ -67,5 +67,5 @@ ______________________________________\n\n");
 	printf("🔴🔴🔴💛💛💛💛🔴🔴🔴🔴💛💛💛🔴🔴\n");
 	printf("🔴🔴💛💛💛💛💛💛🔴🔴🔴🔴💛💛🔴🔴");
 	printf("    ⡏⢠⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⠻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢿⡇⣿⣿    ");
-	print_shell_intro2();
+	return (print_shell_intro2(), SUCCESS);
 }

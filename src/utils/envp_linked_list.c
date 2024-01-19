@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 17:14:54 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/19 15:56:33 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/19 19:37:38 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,17 @@
 /* t_env add_back*/
 t_env	*t_env_add_back(t_env **head_, t_env *node)
 {
-	t_env	*head;
+	t_env	*last;
 
-	head = *head_;
-	if (!head)
+	last = *head_;
+	if (!last)
 	{
-		head_ = node;
+		*head_ = node;
 		return (node);
 	}
-	while (head->next != NULL)
-		head_ = head->next;
-	head->next = node;
+	while (last->next != NULL)
+		last = last->next;
+	last->next = node;
 	return (node);
 }
 
@@ -46,8 +46,8 @@ t_env	*t_env_new_node(char *key, char *value)
 	t_env	*node;
 
 	node = our_malloc(sizeof(t_env));
-	node->key = key;
-	node->value = value;
+	node->key = ft_strdup(key);
+	node->value = ft_strdup(value);
 	node->next = NULL;
 	return (node);
 }
@@ -59,7 +59,7 @@ void	t_env_del_node(t_env **root, t_env *node_)
 
 	if (!node_)
 		return ;
-	node = root;
+	node = *root;
 	prev = NULL;
 	while (node != node_ && node)
 	{
@@ -68,8 +68,8 @@ void	t_env_del_node(t_env **root, t_env *node_)
 	}
 	if (prev)
 		prev->next = node->next;
-	if (node == root)
-		root = (*root)->next;
+	if (node == *root)
+		*root = (*root)->next;
 	free(node->key);
 	free(node->value);
 	free(node);

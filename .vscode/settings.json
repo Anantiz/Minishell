@@ -6,6 +6,7 @@
 		"pthread.h": "c",
 		"errno.h": "c",
 		"features.h": "c",
-		"errno-base.h": "c"
+		"errno-base.h": "c",
+		"stdio.h": "c"
 	}
 }

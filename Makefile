@@ -6,13 +6,13 @@
 #    By: aurban <aurban@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/09 10:14:27 by aurban            #+#    #+#              #
-#    Updated: 2024/01/19 10:02:10 by aurban           ###   ########.fr        #
+#    Updated: 2024/01/19 18:52:45 by aurban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC:=gcc
 INCLUDE_PATH=./includes
-CFLAGS:=-Wall -Wextra -I$(INCLUDE_PATH) -g3 -fsanitize=address
+CFLAGS:=-Wall -Wextra -I$(INCLUDE_PATH) -g3
 RM:=rm -rf
 
 NAME=minishell
@@ -29,10 +29,10 @@ SRC=\
 
 SRC_UTILS=\
 	utils.c	init_shell_data.c	tree_traversal.c	process_cmd_paths.c		\
-	kgb.c	envp_linked_list.c
+	kgb.c	envp_linked_list.c	pair_char.c			other_envp_things.c
 
 SRC_PARSE=\
-	parsing.c
+	parsing.c	get_token.c		parsing.c	tokentotree.c	parsing_utils.c	\
 
 SRC_EXEC=\
 	execute.c	read_tokens.c	mario_world.c	execute_command.c			\
@@ -43,7 +43,7 @@ SRC_ERR=\
 
 SRC_OURS=\
 	our_cd.c		our_pwd.c		our_env.c	our_echo.c	our_exit.c	\
-	our_unset.c		our_export.c	our_builtins.c	\
+	our_unset.c		our_export.c	our_builtins.c
 
 UTILS_PATH=utils
 SRC_UTILS:= $(addprefix $(UTILS_PATH)/,$(SRC_UTILS))

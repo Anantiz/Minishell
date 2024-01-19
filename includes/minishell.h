@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/19 16:15:27 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/19 19:32:44 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,15 @@
 // REQUIRED for signal.h
 # define _POSIX_C_SOURCE 199309L
 # include <signal.h>
-int		g_sig;
+extern int		our_g_sig;
 
 # include <stdio.h>
 # include <stdbool.h>
 # include <fcntl.h>
 # include <errno.h>
+# include <string.h>
+# include <sys/wait.h>
+
 
 # include "libft.h"
 # include "pair.h"
@@ -48,7 +51,7 @@ int		g_sig;
 /* MISC */
 
 void		display_error(int error);
-void		print_shell_intro(t_shell_data *shell_data, t_s_token *node);
+int			print_shell_intro(t_shell_data *shell_data, t_s_token *node);
 
 /* SESSION */
 
@@ -59,7 +62,7 @@ int			execute_commands(t_shell_data *shell_data);
 
 /* SHELL_DATA */
 
-void		free_shell_data(t_shell_data *shell_data);
+void		cleanup_shell_data(t_shell_data *shell_data);
 void		init_shell_data(t_shell_data *shell_data, char **envp);
 void		add_history(t_shell_data *shell_data, char *line);
 void		del_tree(t_shell_data *shell_data);
@@ -82,9 +85,12 @@ char		*get_op(char *line, int *i);
 
 int			setup_pipes(t_shell_data *shell_data);
 int			redir_pipe(t_s_token *node);
-int			execute_command(t_shell_data *shell_data, t_s_token *node);
 
-void		child_process(t_shell_data *shell_data, t_s_token *node, int pid);
+# define REDIR_FLAGS {O_RDONLY, O_WRONLY | O_CREAT | O_TRUNC, \
+	O_WRONLY | O_CREAT | O_APPEND};
+
+int			execute_command(t_shell_data *shell_data, t_s_token *node);
+void		child_process(t_shell_data *shell_data, t_s_token *node);
 
 /* RED FUNCTIONS */
 
@@ -109,7 +115,7 @@ typedef int (*t_our_cmd_ptr)(t_shell_data *, t_s_token *);
 /* UTILS */
 
 t_s_token	*get_next_node(t_s_token *node);
-int			process_cmd_paths(t_shell_data *shell_data, t_s_token *node);
+int			get_cmd_paths(t_shell_data *shell_data, t_s_token *node);
 
 /* T_ENV */
 char		**t_env_to_double_char(t_env *envp);

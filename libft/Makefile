@@ -6,7 +6,7 @@
 #    By: aurban <aurban@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/20 06:06:39 by aurban            #+#    #+#              #
-#    Updated: 2024/01/19 14:51:20 by aurban           ###   ########.fr        #
+#    Updated: 2024/01/19 18:52:53 by aurban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ LIBFT_NAME:=libft.a
 
 CC:=gcc
 INCLUDE_PATH= ../includes
-CFLAGS:=-Wall -Werror -Wextra -I$(INCLUDE_PATH) #-g3 -fsanitize=address
+CFLAGS:=-Wall -Werror -Wextra -I$(INCLUDE_PATH) -g3
 
 FT_FILES:=		\
 	ft_bzero.c	\
