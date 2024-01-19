@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 15:44:18 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/19 10:04:42 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/19 14:49:26 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,10 @@ void		*ft_calloc(size_t nmemb, size_t size);
 /* UTILS */
 int			ft_tolower(int c);
 int			ft_toupper(int c);
-char		*ft_strtrim(char const *s1, char const *set);
+size_t		ft_tablen(char **args);
 size_t		ft_strlen(const char *s);
 size_t		ft_strslen(const char **strs);
+char		*ft_strtrim(char const *s1, char const *set);
 
 /* CHECK */
 int			ft_isalnum(int c);

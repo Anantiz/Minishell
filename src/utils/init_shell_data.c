@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:04:16 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/17 14:22:24 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/19 15:57:16 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,9 @@ void	init_shell_data(t_shell_data *shell_data, char **envp)
 	shell_data->envp = create_envp_list(envp);
 }
 
-void	clean_shell_data(t_shell_data *shell_data)
+void	free_shell_data(t_shell_data *shell_data)
 {
+	del_tree(shell_data);
 	ft_llstr_del_list(shell_data->get_line_history);
-	t_env_del_list(shell_data->envp);
+	t_env_del_list(&shell_data->envp);
 }

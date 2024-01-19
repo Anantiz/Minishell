@@ -6,11 +6,15 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:25:35 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/12 12:26:08 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/19 13:12:36 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+	File is kinda useless lmao
+*/
 
 void	display_error(int error)
 {

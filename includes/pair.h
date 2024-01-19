@@ -1,35 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   pair.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/17 15:29:11 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/19 14:04:41 by aurban           ###   ########.fr       */
+/*   Created: 2024/01/19 15:03:56 by aurban            #+#    #+#             */
+/*   Updated: 2024/01/19 15:04:53 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#ifndef PAIR_H
+# define PAIR_H
 
-/*
-	Returns a pointer to the first occurence of c in s
-	Returns NULL if not found
-*/
-char	*ft_strchr(const char *s, int c)
+# include "libft.h"
+
+typedef struct	s_pair_char
 {
-	size_t	i;
-	size_t	len;
+	char	*key;
+	char	*val;
+}t_pair_char;
 
-	if (!s)
-		return (NULL);
-	len = ft_strlen(s);
-	i = 0;
-	while (i <= len)
-	{
-		if (s[i] == (char)c)
-			return ((char *)(s + i));
-		i++;
-	}
-	return (NULL);
-}
+void			pair_char_free(t_pair_char *pair);
+t_pair_char		*pair_char_strtok(char *str, char sep);
+
+#endif

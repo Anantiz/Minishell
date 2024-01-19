@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:19:49 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/12 15:07:46 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/19 14:07:39 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,10 @@ static char	*ft_strndup(const char *s, size_t len)
 	return (duplicate_str);
 }
 
+/*
+	Creates a substring from s, starting at start, and len characters long
+	Returns an empty string for Error
+*/
 char	*ft_substr(char const *s, unsigned int start, size_t len)
 {
 	char	*end_ptr;

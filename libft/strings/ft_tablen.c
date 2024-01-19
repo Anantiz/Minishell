@@ -1,35 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strchr.c                                        :+:      :+:    :+:   */
+/*   ft_tablen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/17 15:29:11 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/19 14:04:41 by aurban           ###   ########.fr       */
+/*   Created: 2024/01/19 14:48:14 by aurban            #+#    #+#             */
+/*   Updated: 2024/01/19 14:49:01 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-/*
-	Returns a pointer to the first occurence of c in s
-	Returns NULL if not found
-*/
-char	*ft_strchr(const char *s, int c)
+size_t	ft_tablen(char **args)
 {
-	size_t	i;
-	size_t	len;
+	size_t i;
 
-	if (!s)
-		return (NULL);
-	len = ft_strlen(s);
+	if (!args)
+		return (0);
 	i = 0;
-	while (i <= len)
-	{
-		if (s[i] == (char)c)
-			return ((char *)(s + i));
+	while (args[i])
 		i++;
-	}
-	return (NULL);
+	return (i);
 }
