@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 10:02:12 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/19 11:28:10 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/19 16:15:34 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,6 @@ static void child_cleanup_crew(char **envp, char **paths)
 {
 	free_double_char(paths);
 	free_double_char(envp);
-}
-
-static int	redir_pipe(t_s_token *node)
-{
-	if (node->parent->token_type == TK_OP && node->parent->data.op.type == PIPE)
-	{
-		//REDIR output
-		if (node->parent->left == node)
-		{
-			if (dup2(node->parent->data.op.pipefd[1], STDOUT_FILENO) == -1)
-			{
-				perror("Redir in child_process");
-				return (FAILURE);
-			}
-		}
-		//REDIR input
-		else if (node->parent->right == node)
-		{
-			if (dup2(node->parent->data.op.pipefd[0], STDIN_FILENO) == -1)
-			{
-				perror("Redir in child_process");
-				return (FAILURE);
-			}
-		}
-		close(node->parent->data.op.pipefd[0]);
-		close(node->parent->data.op.pipefd[1]);
-	}
-	return (SUCCESS);
 }
 
 /*

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/19 15:55:59 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/19 16:15:27 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,7 @@ char		*get_op(char *line, int *i);
 /* EXECUTION */
 
 int			setup_pipes(t_shell_data *shell_data);
+int			redir_pipe(t_s_token *node);
 int			execute_command(t_shell_data *shell_data, t_s_token *node);
 
 void		child_process(t_shell_data *shell_data, t_s_token *node, int pid);

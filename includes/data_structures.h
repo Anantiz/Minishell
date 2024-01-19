@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:24:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/19 15:03:46 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/19 16:43:09 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ typedef enum t_e_op_type
 {
 	T_AND,
 	T_OR,
-	PIPE,
 	SEMICOLON,
+	PIPE,
 	REDIR_IN,
 	REDIR_OUT,
 	REDIR_APPEND,
