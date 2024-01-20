@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:24:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/20 14:50:32 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/20 17:02:13 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef enum e_our_commands
 	EXIT,
 	UNSET,
 	EXPORT,
-	END_OF_ENUM,
+	E_END_CMD,
 }t_e_our_commands;
 
 typedef enum e_token_type
@@ -41,14 +41,15 @@ typedef enum e_token_type
 
 typedef enum t_e_op_type
 {
-	T_AND,
-	T_OR,
 	SEMICOLON,
+	T_OR,
+	T_AND,
 	PIPE,
 	REDIR_IN,
 	REDIR_OUT,
 	REDIR_APPEND,
 	REDIR_HEREDOC,
+	E_END_OP,
 }t_e_op_type;
 
 /* ################################ */

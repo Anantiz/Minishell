@@ -6,18 +6,11 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 08:27:27 by loris             #+#    #+#             */
-/*   Updated: 2024/01/19 18:45:50 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/20 15:09:58 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int	parse_line(t_shell_data *shell_data, char *line)
-{
-	(void)shell_data;
-	(void)line;
-	return (0);
-}
 
 /*
 *   Every time next_token is call, return the next token

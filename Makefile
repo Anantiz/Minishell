@@ -6,13 +6,13 @@
 #    By: aurban <aurban@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/09 10:14:27 by aurban            #+#    #+#              #
-#    Updated: 2024/01/20 15:04:49 by aurban           ###   ########.fr        #
+#    Updated: 2024/01/20 15:36:23 by aurban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC:=gcc
 INCLUDE_PATH=./includes
-CFLAGS:=-Wall -Wextra -I$(INCLUDE_PATH) -g3 -lreadline
+CFLAGS:=-Wall -Wextra -I$(INCLUDE_PATH) -g3 -lreadline -D DEBUG
 RM:=rm -rf
 
 NAME=minishell

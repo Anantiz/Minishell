@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/20 14:54:59 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/20 15:49:19 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ extern int		our_g_sig;
 
 # define NOT_IN_BUILTINS 66
 
-# define PIPE_ERROR_MSG_INIT "Pipe init error\n"
-# define CMD_ERROR_EXEC_MSG "Command execution error\n"
+# define PIPE_ERROR_MSG_INIT "Pipe init error"
+# define CMD_ERROR_EXEC_MSG "Command execution error"
 # define CMD_ERROR_NOT_FOUND_MSG "Command not found"
 
 /* MISC */
@@ -86,6 +86,7 @@ char		*get_op(char *line, int *i);
 
 int			setup_pipes(t_shell_data *shell_data);
 int			redir_pipe(t_s_token *node);
+int			redir_file(t_s_token *node);
 
 # define REDIR_FLAGS {O_RDONLY, O_WRONLY | O_CREAT | O_TRUNC, \
 	O_WRONLY | O_CREAT | O_APPEND};
