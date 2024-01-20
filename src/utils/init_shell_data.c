@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:04:16 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/20 14:35:07 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/20 15:00:22 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,20 +33,14 @@ static t_env	*create_envp_list(char **envp)
 	return (head);
 }
 
-void	add_history(t_shell_data *shell_data, char *line)
-{
-	ft_llstr_add_back(shell_data->get_line_history, line);
-}
-
 void	init_shell_data(t_shell_data *shell_data, char **envp)
 {
-	shell_data->get_line_history = ft_llstr_new();
 	shell_data->envp = create_envp_list(envp);
 }
 
 void	cleanup_shell_data(t_shell_data *shell_data)
 {
+	rl_clear_history();
 	del_tree(shell_data);
-	ft_llstr_del_list(shell_data->get_line_history);
 	t_env_del_list(&shell_data->envp);
 }

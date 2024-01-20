@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:12:50 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/19 19:32:01 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/20 14:50:21 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,12 @@ static int	sesion_routine(t_shell_data *shell_data)
 	char	*line;
 	int		error;
 
-	ft_putstr_fd(SHELL_NAME"$ ", 1);
-	line = get_next_line(0 , 0);
+	line = readline(SHELL_NAME"$ ");
 	if (!line)
 		return (MAGIC_VALUE_SUCCESS);
-	add_history(shell_data, line);
+	add_history(line);
 	error = parse_line(shell_data, line);
+	free(line);
 	if (error)
 		return (PARSING_ERROR);
 	if (our_g_sig == SIGINT) // Display new prompt

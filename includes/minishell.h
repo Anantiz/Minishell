@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/19 19:32:44 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/20 14:54:59 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ extern int		our_g_sig;
 # include <errno.h>
 # include <string.h>
 # include <sys/wait.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 
 
 # include "libft.h"
@@ -64,7 +66,6 @@ int			execute_commands(t_shell_data *shell_data);
 
 void		cleanup_shell_data(t_shell_data *shell_data);
 void		init_shell_data(t_shell_data *shell_data, char **envp);
-void		add_history(t_shell_data *shell_data, char *line);
 void		del_tree(t_shell_data *shell_data);
 
 /* PARSING */
