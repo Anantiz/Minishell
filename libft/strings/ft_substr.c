@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 13:19:49 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/19 14:07:39 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/20 14:21:40 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,13 @@
 
 static char	*ft_strndup(const char *s, size_t len)
 {
-	char	*duplicate_str;
+	char	*new_str;
 
-	duplicate_str = our_malloc((len + 1) * sizeof(char));
-	if (duplicate_str == NULL)
+	new_str = our_malloc((len + 1) * sizeof(char));
+	if (new_str == NULL)
 		return (NULL);
-	ft_strlcpy(duplicate_str, s, len + 1);
-	return (duplicate_str);
+	ft_strlcpy(new_str, s, len + 1);
+	return (new_str);
 }
 
 /*

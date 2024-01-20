@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 17:14:54 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/19 19:37:38 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/20 14:36:00 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,8 +46,8 @@ t_env	*t_env_new_node(char *key, char *value)
 	t_env	*node;
 
 	node = our_malloc(sizeof(t_env));
-	node->key = ft_strdup(key);
-	node->value = ft_strdup(value);
+	node->key = key;
+	node->value = value;
 	node->next = NULL;
 	return (node);
 }
@@ -80,6 +80,8 @@ void	t_env_del_list(t_env **root)
 	t_env	*node;
 	t_env	*temp;
 
+	if (!root)
+		return ;
 	node = *root;
 	while (node)
 	{

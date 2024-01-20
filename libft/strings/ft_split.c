@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 14:47:13 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/19 20:12:49 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/20 14:24:02 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ static int	check_error(char **strs, size_t j)
 	}
 	return (0);
 }
+
 char	**ft_split(const char *s, char c)
 {
 	char		**strs;
