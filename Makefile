@@ -6,7 +6,7 @@
 #    By: aurban <aurban@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/09 10:14:27 by aurban            #+#    #+#              #
-#    Updated: 2024/01/20 15:36:23 by aurban           ###   ########.fr        #
+#    Updated: 2024/01/21 13:42:18 by aurban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,8 +35,8 @@ SRC_PARSE=\
 	parsing.c	get_token.c		parsing.c	tokentotree.c	parsing_utils.c	\
 
 SRC_EXEC=\
-	execute.c	read_tokens.c	mario_world.c	execute_command.c			\
-	execute_child_process.c
+	execute.c	read_tokens.c	data_flow/mario_world.c	execute_command.c		\
+	execute_child_process.c		data_flow/mario_pipes.c	data_flow/mario_file_bs.c	\
 
 SRC_ERR=\
 	session_error.c

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:39:33 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/20 15:41:44 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/21 12:43:48 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static int execution_loop(t_shell_data *shell_data)
 
 int	execute_commands(t_shell_data *shell_data)
 {
-	if (setup_pipes(shell_data))
+	if (init_pipes(shell_data))
 		return (PIPE_ERROR);
 	if (execution_loop(shell_data))
 		return (EXECTION_ERROR);

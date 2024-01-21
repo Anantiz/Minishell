@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:24:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/20 17:02:13 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/21 15:02:15 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ typedef enum t_e_op_type
 typedef struct s_file
 {
 	char	*file_path;
+	int		fd;
 }t_s_file;
 
 typedef struct s_cmd
@@ -121,6 +122,7 @@ typedef struct s_shell_data
 {
 	t_env		*envp;
 	t_s_token	*root;
+	int			last_wstatus;
 }t_shell_data;
 
 #endif

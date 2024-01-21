@@ -1,33 +1,3 @@
-/* ************************************************************************** */
-/*                                                                            */
-/*                                                        :::      ::::::::   */
-/*   mario_world.c                                      :+:      :+:    :+:   */
-/*                                                    +:+ +:+         +:+     */
-/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
-/*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/14 15:45:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/20 17:26:52 by aurban           ###   ########.fr       */
-/*                                                                            */
-/* ************************************************************************** */
-
-#include "minishell.h"
-#define REDRERRMSG "Redir error, Aborting"
-
-/*
-About redir_ops
-DEV NOTE:
-	What it should do:
-		-It has to check if the command about to be executed has a redir at
-		some point, if it doesn't then it just runs normally.
-		-If it does, it has to open the file and redirect the fd accordingly
-		HOWEVER, there is a non null chance that you have to traverse the whole
-		tree to find the redir_op, making the whole thing a bit more complicated
-	What it actually does:
-		-Bro I don't even know what it does anymore
-		That's a problem for future me
-		Until tomorow
-*/
-
 static int	rf_heredoc(t_s_token *node, t_s_token *redir_node)
 {
 	if(dup2(redir_node->data.op.pipefd[0], STDIN_FILENO))
@@ -229,40 +199,5 @@ static int	init_pipes(t_s_token *node)
 			return (perror("Redir error, Aborting"), FAILURE);
 		close(node->parent->data.op.pipefd[0]);
 	}
-	return (SUCCESS);
-}
-
-/*
-	Any pipe operation token will create a pipe between it's left and right
-	children.
-		The stdout of the left child will be the write end of the pipe.
-		The stdin of the right child will be the read end of the pipe.
-
-	The pipes shall be opened before the execution of the commands.
-	The commands shall redirect their stdin and stdout to the pipe ends.
-	Any reamining fd shall be closed after the execution of the commands.
-*/
-int	setup_pipes(t_shell_data *shell_data)
-{
-	t_s_token	*node;
-
-	node = shell_data->root;
-	while (node)
-	{
-		if (node->token_type == TK_OP && \
-			(node->data.op.type >= PIPE && \
-			node->data.op.type <= REDIR_HEREDOC))
-		{
-			if (init_pipes(node))
-				return (PIPE_ERROR);
-			#ifdef DEBUG
-				printf("Pipe created\n");
-			#endif
-		}
-		node = get_next_node(node);
-	}
-	#ifdef DEBUG
-		printf("Pipe setup done\n");
-	#endif
 	return (SUCCESS);
 }

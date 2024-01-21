@@ -21,19 +21,12 @@ int our_g_sig = 0;
 void	our_sig_handl(int sig)
 {
 	our_g_sig = sig;
-	write(1, "SIGINT\n", 7);
+	write(1, "\nINTERECEPT SIGINT\n", 20);
 	fflush(stdout);
 }
 
 void	register_signals(void)
 {
-	// struct sigaction	sa;
-
-	// sa.sa_handler = our_sig_handl;
-	// sa.sa_sigaction = NULL;
-	// sigemptyset(&sa.sa_mask);
-	// sa.sa_flags = SIGINT;
-	// sigaction(SIGINT, &sa, NULL);
 	signal(SIGINT, our_sig_handl);
 }
 
@@ -42,7 +35,7 @@ void	*kill_child(void *pid_)
 	int pid = *(int*)pid_;
 	sleep(1);
 	printf("Killing child\n");
-	kill(pid, SIGINT);
+	kill(pid, SIGSEGV);
 	return (NULL);
 }
 
@@ -59,23 +52,32 @@ int	main()
 
 	if (pid == 0)
 	{
-		printf("Child Born\n");
-		sleep(15);
-		printf("Child received signal :\n\tg_sig: %d\n", our_g_sig);
-		fflush(stdout);
+		// sleep(4);
+		// printf("Child Wake-up:\tg_sig: %d\n", our_g_sig);fflush(stdout);
+		// exit(our_g_sig);
+		/* yes*/
+		execve("/bin/yes", (char *[]){"yes", NULL}, NULL);
 	}
 	else
 	{
-		printf("Parent Born\n");
-
 		pthread_t pthread;
 		pthread_create(&pthread, NULL, kill_child, (void *)&pid);
-
+		int ret = 0;
 		int wstatus = 0;
-		int ret = waitpid(pid, &wstatus, 0);\
+		ret = waitpid(pid, &wstatus, 0);
+		if (our_g_sig == SIGINT)
+		{
+			printf("Relaying SIGINT to child\n");fflush(stdout);
+			kill(pid, SIGINT);
+			ret = waitpid(pid, &wstatus, 0);
+		}
+		printf("Parent:\tRet: %d\tpid: %d\tWstatus: %d\tparent_g_sig: %d\n\n", ret, pid,wstatus, our_g_sig);fflush(stdout);
 
-		printf("Parent\n\tRet: %d\tpid: %d\n\tWstatus: %d\n\tg_sig: %d\n", ret, pid,wstatus, our_g_sig);
-		fflush(stdout);
+		if (WIFEXITED(wstatus))
+            printf("Child exited normally with status: %d\n", WEXITSTATUS(wstatus));
+        else if (WIFSIGNALED(wstatus))
+            printf("Child exited due to signal: %d\n", WTERMSIG(wstatus));
 	}
+    printf("Parent exited normally\n");
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:20:58 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/20 16:19:07 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/21 13:37:06 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,17 @@ o888bood8P'   `Y8bod8P' o888o o888o `Y8bod8P'
 int	check_builtins(t_shell_data *shell_data, t_s_token *node)
 {
 	int							i;
-	static const char			*name_map[] = OUR_COMMANDS_NAMES;
-	static const t_our_cmd_ptr	foo_map[] = OUR_COMMANDS_FNC_PTR;
+	static const char			*name_map[] = {"cd", "pwd", "env", "echo", \
+		"exit", "unset", "export", "red_square", NULL};
+	static const t_our_cmd_ptr	foo_map[] = {our_cd, our_pwd, our_env, \
+	our_echo, our_exit, our_unset, our_export, print_shell_intro, NULL};
 
 	i = 0;
 	while ((t_e_our_commands)i != E_END_CMD)
 	{
 		if (!ft_strcmp(node->data.cmd.args[0], name_map[i]))
 		{
-				printf("FOUND %s  ", name_map[i]); fflush(stdout);
+			printf("FOUND %s  ", name_map[i]); fflush(stdout);
 			if (redir_pipe(node))
 				return (FAILURE);
 			if (redir_file(node))

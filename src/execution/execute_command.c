@@ -6,40 +6,37 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:05:20 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/19 18:40:16 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/21 15:02:26 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-/*	Shall:
-		-wait for child
-		-listen to child pid return value
-		-relay signals to child
-	exit
- */
-static int	parent_process(int pid)
+/*
+	Yes this function is almost a duplicate BUT
+	there is a small twist so don't judge me
+*/
+static t_s_token	*get_redir_node(t_s_token *cmd_node)
 {
-	int	wstatus;
-	int	ret;
+	t_s_token	*redir_node;
 
-	ret = waitpid(pid, &wstatus, 0);
-	if (our_g_sig == SIGINT)
+	redir_node = cmd_node->parent;
+	while (redir_node)
 	{
-		kill(pid, SIGINT);
-		return (SUCCESS);
+		if (redir_node->token_type == TK_OP && \
+			redir_node->data.op.type >= PIPE)
+			return (redir_node);
+		redir_node = redir_node->parent;
 	}
-	if (ret == SIGSEGV)
-		return (perror("Child SIGSEV"), FAILURE);
-	if (ret == -1)
-		return (perror("Error in child process"), FAILURE);
-	return (SUCCESS);
+	return (NULL);
 }
 
 static int	execute_from_path(t_shell_data *shell_data, t_s_token *node)
 {
-	int	pid;
+	int			pid;
+	t_s_token	*redir_node;
 
+	redir_node = get_redir_node(node);
 	pid = fork();
 	if (pid == -1)
 	{
@@ -50,10 +47,10 @@ static int	execute_from_path(t_shell_data *shell_data, t_s_token *node)
 	{
 		signal(EOF, SIG_DFL);
 		signal(SIGINT, SIG_DFL);
-		child_process(shell_data, node);
+		child_process(shell_data, node, redir_node);
 	}
 	else
-		return (parent_process(pid));
+		return (parent_process(shell_data, redir_node, pid));
 	return (SUCCESS);
 }
 
