@@ -6,7 +6,7 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/01/21 16:38:45 by loris            ###   ########.fr       */
+/*   Updated: 2024/01/21 18:50:04 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,12 +150,55 @@ t_s_token   *scan_token(char **token)
     }
     return (TK);
 }
-
-t_s_token    *parse_tree(char **token_list)
+int find_operator(char **token_list, int num_token)
 {
     int i;
+
+    i = -1;
+    while(i < num_token)
+        if (!ft_strncmp(token_list[i], "||", 2) || !ft_strncmp(token_list[i], "&&", 2))
+            return (i);
+    return (-1);
+}
+
+/*
+*   recursive parsing descent
+*   function (expression / redir_out / ..., for the priorities)
+*/
+t_s_token   *parse_expression(char **token_list, int num_token)
+{
+    int         op_place;
+    t_s_token   *node;
+
+    op_place = find_operator(token_list, num_token);
+    if (op_place == -1)
+    {
+        node = parse_pipeline(token_list, num_token);
+        return (node);
+    }
+    node = scan_token((token + op_place));
+    node->left = parse_expression(token_list, op_place);
+    node->right = parse_expression(token_list + op_place + 1, num_token - op_place - 1); // second params should be just op_place ? focus on this tomorrow
+    return (node);
+}
+
+
+
+t_s_token   *parse_redir_out(char **token_list, int num_token)
+{
+
+}
+
+t_s_token   *parse_redir_in(char **token_list, int num_token)
+{
+
+}
+t_s_token   *parse_pipeline(char **token_list, int num_token)
+{
     
 }
+
+t_s_token   
 
 int main()
 {
