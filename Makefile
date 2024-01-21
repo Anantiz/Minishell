@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: aurban <aurban@student.42.fr>              +#+  +:+       +#+         #
+#    By: loris <loris@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/09 10:14:27 by aurban            #+#    #+#              #
-#    Updated: 2024/01/16 17:41:17 by aurban           ###   ########.fr        #
+#    Updated: 2024/01/21 16:33:43 by loris            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,7 +32,7 @@ SRC_UTILS=\
 	kgb.c	envp_linked_list.c	
 
 SRC_PARSE=\
-	parsing.c
+	parsing.c tokentotree.c
 
 SRC_EXEC=\
 	execute.c	read_tokens.c	mario_world.c	execute_command.c			\
