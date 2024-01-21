@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/27 15:15:02 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/19 13:39:03 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/21 19:10:44 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static const char	*rf2(t_bd *bd, const char *s, char *buffer, va_list *args)
 		buffer[bd->offset++] = *(s++);
 		ft_flush(buffer, bd);
 	}
+	if (bd->error < 0)
+		return (s);
 	else if (*s == '%')
 	{
 		temp_read = 1;
@@ -64,7 +66,7 @@ int	ft_printf(const char *format, ...)
 	bd.offset = 0;
 	bd.written = 0;
 	bd.error = 0;
-	bd.fd = 1;
+	bd.fd = STDOUT_FILENO;
 	while (*format)
 		format = rf2(&bd, format, buffer, &args);
 	ft_flush(buffer, &bd);
@@ -86,7 +88,11 @@ int	ft_fprintf(int fd, const char *format, ...)
 	bd.error = 0;
 	bd.fd = fd;
 	while (*format)
+	{
 		format = rf2(&bd, format, buffer, &args);
+		if (bd.error < 0)
+			return (-1);
+	}
 	ft_flush(buffer, &bd);
 	va_end(args);
 	return (bd.written);

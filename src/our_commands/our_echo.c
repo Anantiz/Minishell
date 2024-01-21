@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:41:43 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/21 18:41:07 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/21 20:21:27 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,15 +23,25 @@ o888bood8P'   `Y8bod8P' o888o o888o `Y8bod8P'
 
 int	our_echo(t_shell_data *shell_data, t_s_token *node)
 {
-	int		i;
-	int		fd;
-	int		n_flag;
-	char	**args;
+	int			i;
+	int			fd;
+	int			n_flag;
+	char		**args;
+	t_s_token	*redir_node;
 
 	(void)shell_data;
-	fd = get_redir_node(node)->data.op.pipefd[1];
-	if (fd == -1)
+	fprintf(stderr, "\t");
+	redir_node = get_redir_node(node);
+	print_node(redir_node);
+	if (redir_node)
+	{
+		fd = redir_node->data.op.pipefd[1];
+		if (fd == -2) // Here_doc, but like , why would you do that?
+			fd = STDIN_FILENO;
+	}
+	else
 		fd = STDOUT_FILENO;
+	fprintf(stderr, "\tECHO: fd = %d\n", fd);
 	args = node->data.cmd.args;
 	n_flag = 0;
 	i = 1;
@@ -43,12 +53,20 @@ int	our_echo(t_shell_data *shell_data, t_s_token *node)
 			i++;
 			continue ;
 		}
-		ft_putstr_fd(args[i], fd);
+		if (ft_fprintf(fd, args[i]))
+			return (FAILURE);
 		if (args[i + 1])
-			ft_putstr_fd(" ", fd);
+		{
+			if (ft_fprintf(fd, " "))
+				return (FAILURE);
+		}
 		i++;
 	}
 	if (!n_flag)
-		ft_putstr_fd("\n", fd);
+	{
+		if (ft_fprintf(fd, "\n"))
+			return (FAILURE);
+	}
+	close(fd);
 	return (SUCCESS);
 }

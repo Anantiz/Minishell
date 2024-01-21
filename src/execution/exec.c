@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:39:33 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/21 15:42:01 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/21 20:24:08 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,9 @@ static int exec_commands(t_shell_data *shell_data)
 	int i = 0;
 	while (node)
 	{
-		i++;
-		printf("Executing node %d: %p\n", i, node);
 		if (node->token_type == TK_CMD)
 		{
-			fprintf(stderr, "\tExecuting  ");fflush(stderr);
+			printf("Executing node %d: %p\n", i, node);
 			ret = exec_one_command(shell_data, node);
 			if (ret)
 			{
@@ -62,10 +60,12 @@ static int exec_commands(t_shell_data *shell_data)
 				}
 			}
 			fprintf(stderr, "Done\n");fflush(stderr);
+			restore_std_streams();
 		}
 		node = get_next_node(node);
+		i++;
 	}
-	fprintf(stderr, "Execution loop done\n");fflush(stderr);
+	fprintf(stderr, "Execution loop done\n\n");fflush(stderr);
 	return (SUCCESS);
 }
 

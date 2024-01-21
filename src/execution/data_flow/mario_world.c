@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 15:45:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/21 15:42:49 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/21 19:43:32 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,18 @@ void	close_all_pipes(t_s_token *node)
 // Init a pipe for any Token that needs it
 int open_pipes(t_s_token *node)
 {
-	if (pipe(node->data.op.pipefd))
+	if (node->data.op.type == PIPE)
 	{
-		perror("Pipe error");
-		return (FAILURE);
+		if (pipe(node->data.op.pipefd))
+		{
+			perror("Pipe error");
+			return (FAILURE);
+		}
+	}
+	else
+	{
+		node->data.op.pipefd[0] = -1;
+		node->data.op.pipefd[1] = -1;
 	}
 	return (SUCCESS);
 }

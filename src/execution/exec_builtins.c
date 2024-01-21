@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:20:58 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/21 15:30:41 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/21 19:27:06 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,10 @@ int	check_builtins(t_shell_data *shell_data, t_s_token *node, \
 	{
 		if (!ft_strcmp(node->data.cmd.args[0], name_map[i]))
 		{
-			fprintf(stderr, "FOUND %s  ", name_map[i]); fflush(stderr);
 			if (cmd_redir_streams(node, redir_node))
 				return (FAILURE);
 			return ((foo_map[i])(shell_data, node));
 		}
-			fprintf(stderr, "Not %s  ", name_map[i]); fflush(stderr);
 		i++;
 	}
 	fprintf(stderr, "Not a builtin  "); fflush(stderr);

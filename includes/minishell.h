@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/21 18:43:37 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/21 20:22:24 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ extern int		g_our_sig;
 
 /* MISC */
 
+void		print_node(t_s_token *node);
 void		display_error(int error);
 void		replace_signals(void);
 void		our_sig_handl(int sig);
@@ -60,6 +61,7 @@ int			print_shell_intro(t_shell_data *shell_data, t_s_token *node);
 /* SESSION */
 
 void		register_signals(void);
+int			restore_std_streams(void);
 int			session_start(t_shell_data *shell_data);
 int			parse_line(t_shell_data *shell_data, char *line);
 int			exec_tree(t_shell_data *shell_data);
