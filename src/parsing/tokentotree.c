@@ -6,7 +6,7 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/01/17 14:15:09 by loris            ###   ########.fr       */
+/*   Updated: 2024/01/21 13:31:13 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,17 +24,21 @@ int	parse_line(t_shell_data *shell_data, char *line)
 *   until we reach the end of the list of token then return NULL
 *   Usefull to take a decision that depend on the next token
 */
-char *next_token(char **token_list)
+char **next_token(char **token_list)
 {
-    char *n_tok;
+    char **n_tok;
 
     if (token_list + 1)
-        n_tok = *(token_list + 1);
+    {
+        n_tok = (token_list + 1);
+    }
     else
         return (NULL);
     return (n_tok); 
 }
-
+/*
+*   main test for the next_token function
+*/
 // int main()
 // {
 //     char *line = "ls -l || wc -l";
@@ -42,14 +46,15 @@ char *next_token(char **token_list)
 //     char **tok;
 
 //     tok = ft_strtok(line);
-
 //     i = 0;
 //     while (*tok)
 //     {
-//         printf("(%s)", next_token(tok));
-//         tok++;
+//         tok = next_token(tok);
+
+//         printf("(%s)", *tok);
 //         i++;
 //     }
+//     free(tok - i);
 // }
 
 /*
@@ -57,33 +62,110 @@ char *next_token(char **token_list)
 *   and create the appropriate node of the tree. This node will next be
 *   used to creat the tree
 */
-t_s_token   scan_token(char **token)
+t_s_token   *scan_token(char **token)
 {
+    t_s_token   *TK;
+
+    TK = our_malloc(sizeof(t_s_token));
+    
     if (ft_is_op(*token[0]) == true)
-        if (*token[0] == '(')
-            // do subtree
-            ;
-        if (*(token) == "|" && *(token + 1) == "|")
-            // or condition
-        if (*(token) == "&" && *(token + 1) == "&")
-            // and condition
+    {
+        if (ft_strlen(*token) == 2)
+        {
+            if (*token[0] == '|' && *token[0 + 1] == '|')
+            {
+                TK->token_type = TK_OP;
+                TK->data.op.op_type = T_OR;
+            }
+            else if (**(token) == '&' && **(token + 1) == '&')
+            {
+                TK->token_type = TK_OP;
+                TK->data.op.op_type = T_AND;
+            }
+        }
+        else if (**(token) == '|')
+        {
+            TK->token_type = TK_OP;
+            TK->data.op.op_type = PIPE;
+        }
+        else if (**(token) == '<')
+        {
+            TK->token_type = TK_OP;
+            TK->data.op.op_type = REDIR_IN;
+        }
+        else if (**(token) == '>')
+        {
+            TK->token_type = TK_OP;
+            TK->data.op.op_type = REDIR_OUT;
+        }
+        else if (**(token) == '>' && **(token + 1) == '>')
+        {
+            TK->token_type = TK_OP;
+            TK->data.op.op_type = REDIR_APPEND;
+        }
+        else if (**(token) == '<' && **(token + 1) == '<')
+        {
+            TK->token_type = TK_OP;
+            TK->data.op.op_type = REDIR_HEREDOC;
+        }
+        else if (**(token) == ';')
+        {
+            TK->token_type = TK_OP;
+            TK->data.op.op_type = SEMICOLON;
+        }
+    }
     if (!ft_is_op(*token[0]) && !ft_is_sep(*token[0]))
-        //  cmd condition
-        ;
+    {
+        if (ft_strncmp("echo", *token, 4) == 0)
+        {
+
+            TK->token_type = TK_CMD;
+            TK->data.cmd.args = ft_split(*token, ' ');
+        }
+        if (ft_strncmp("pwd", *token, 3) == 0)
+        {
+            TK->token_type = TK_CMD;
+            TK->data.cmd.args = ft_split(*token, ' ');
+        }
+        if (ft_strncmp("export", *token, 6) == 0)
+        {
+            TK->token_type = TK_CMD;
+            TK->data.cmd.args = ft_split(*token, ' ');
+        }
+        if (ft_strncmp("unset", *token, 5) == 0)
+        {
+            TK->token_type = TK_CMD;
+            TK->data.cmd.args = ft_split(*token, ' ');
+        }
+        if (ft_strncmp("env", *token, 3) == 0)
+        {
+            TK->token_type = TK_CMD;
+            TK->data.cmd.args = ft_split(*token, ' ');
+        }
+        if (ft_strncmp("exit", *token, 4) == 0)
+        {
+            TK->token_type = TK_CMD;
+            TK->data.cmd.args = ft_split(*token, ' ');
+        }
+    }
+    return (TK);
 }
 
-
-
-void    parse_E()
+t_s_token    *parse_tree(char **token_list)
 {
+    int i;
     
 }
-// void    parse_cmd()
-// {
 
-// }
+int main()
+{
+    char *array[] = {"cat", "|", "echo"};
 
-// void    parser(char  **token_list)
-// {
+    char    **token_list;
+    t_s_token   *token;
 
-// }
+    token_list = array;
+
+    token = parse_E(token_list);
+    printf("%d\n", token->token_type);
+}

@@ -6,7 +6,7 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 08:26:52 by loris             #+#    #+#             */
-/*   Updated: 2024/01/17 13:45:11 by loris            ###   ########.fr       */
+/*   Updated: 2024/01/21 10:24:27 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,25 +98,25 @@ char    **ft_strtok(char *line)
 	return (list_token);
 }
 
-int main()
-{
-    char *line = "(ls -l) || u | wc -l";
-    int i;
-    char **tok;
+// int main()
+// {
+//     char *line = "(ls -l) || $ARG | wc -l";
+//     int i;
+//     char **tok;
 
-    tok = ft_strtok(line);
+//     tok = ft_strtok(line);
 
-    i = 0;
-    while (tok[i] != NULL)
-    {
-        printf("(%s)", tok[i]);
-        i++;
-    }
-	i = 0;
-	while (tok[i])
-    {
-        free(tok[i]);
-        i++;
-    }
-	free(tok);
-}
+//     i = 0;
+//     while (tok[i] != NULL)
+//     {
+//         printf("(%s)", tok[i]);
+//         i++;
+//     }
+// 	i = 0;
+// 	while (tok[i])
+//     {
+//         free(tok[i]);
+//         i++;
+//     }
+// 	free(tok);
+// }

@@ -6,7 +6,7 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:41:29 by loris             #+#    #+#             */
-/*   Updated: 2024/01/17 13:42:40 by loris            ###   ########.fr       */
+/*   Updated: 2024/01/18 12:51:33 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ char	*get_op(char *line, int *i)
 
 bool	ft_is_sep(char c)
 {
-	char	whitespace[] = " \t\r\n\v";
+	static const char	whitespace[] = " \t\r\n\v";
 	int		i;
 
 	i = -1;
@@ -72,7 +72,7 @@ bool	ft_is_sep(char c)
 
 bool	ft_is_op(char c)
 {
-	char	symbols[] = "|<>()'\";&$";
+	static const char	symbols[] = "|<>()'\";&";
 	int		i;
 
 	i = -1;
