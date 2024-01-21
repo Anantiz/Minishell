@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:37:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/19 18:56:45 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/21 15:22:42 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,7 @@
 static void	our_sig_handl(int sig)
 {
 	our_g_sig = sig;
-	ft_putstr_fd("our_g_sig = ", 2);
-	ft_putnbr_fd(our_g_sig, 2);
-	ft_putstr_fd("\n", 2);
+	ft_putchar_fd('\n', STDOUT_FILENO);
 }
 
 /*

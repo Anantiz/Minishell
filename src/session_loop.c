@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:12:50 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/20 14:50:21 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/21 15:17:28 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ static int	sesion_routine(t_shell_data *shell_data)
 		return (PARSING_ERROR);
 	if (our_g_sig == SIGINT) // Display new prompt
 		return (SUCCESS);
-	error = execute_commands(shell_data);
+	error = exec_tree(shell_data);
 	if (error)
 		return (EXECTION_ERROR);
 	return (SUCCESS);

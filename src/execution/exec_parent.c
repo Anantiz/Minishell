@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 13:44:49 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/21 15:06:02 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/21 15:16:36 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	parent_process(t_shell_data *shell_data, t_s_token *redir_node, int pid)
 		shell_data->last_wstatus = WEXITSTATUS(wstatus);
 	else if (WIFSIGNALED(wstatus))
 		shell_data->last_wstatus = WTERMSIG(wstatus) + 128;
+
 	if (ret == -1)
 		return (perror("Error in child process"), FAILURE);
 	if (wstatus)

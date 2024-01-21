@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   execute_command.c                                  :+:      :+:    :+:   */
+/*   exec_one_command.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -49,9 +49,7 @@ static int	execute_from_path(t_shell_data *shell_data, t_s_token *node)
 		signal(SIGINT, SIG_DFL);
 		child_process(shell_data, node, redir_node);
 	}
-	else
-		return (parent_process(shell_data, redir_node, pid));
-	return (SUCCESS);
+	return (parent_process(shell_data, redir_node, pid));
 }
 
 /*
@@ -67,15 +65,12 @@ Fork:
 		Wait for child //non-blocking because it has to relay signals
 		Relay signals to child
 */
-int	execute_command(t_shell_data *shell_data, t_s_token *node)
+int	exec_one_command(t_shell_data *shell_data, t_s_token *node)
 {
 	int		ret;
 
 	ret = check_builtins(shell_data, node);
-	if (ret == SUCCESS)
-		return (SUCCESS);
-	else if (ret == NOT_IN_BUILTINS)
+	if (ret == NOT_IN_BUILTINS)
 		return (execute_from_path(shell_data, node));
-	else
-		return (CMD_ERROR_EXEC);
+	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:39:33 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/21 12:43:48 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/21 15:19:10 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,58 +30,50 @@
 		-3: Cleanup and wait for next command-line
 */
 
-static void	close_all_pipes(t_s_token *node)
-{
-	while (node)
-	{
-		if (node->token_type == TK_OP && (node->data.op.type >= \
-			PIPE && node->data.op.type < REDIR_HEREDOC))
-		{
-			close(node->data.op.pipefd[0]);
-			close(node->data.op.pipefd[1]);
-		}
-		node = get_next_node(node);
-	}
-}
-
-static int execution_loop(t_shell_data *shell_data)
+static int exec_commands(t_shell_data *shell_data)
 {
 	t_s_token	*node;
+	int			ret;
 
 	node = shell_data->root;
 	int i = 0;
 	while (node)
 	{
 		i++;
-		#ifdef DEBUG
-			printf("Executing node %d: %p\n", i, node);
-		#endif
+		printf("Executing node %d: %p\n", i, node);
 		if (node->token_type == TK_CMD)
 		{
 			printf("\tExecuting  ");fflush(stdout);
-			if (execute_command(shell_data, node))
+			ret = exec_one_command(shell_data, node);
+			if (ret)
 			{
-				printf(CMD_ERROR_EXEC_MSG);
-				close_all_pipes(node);
-				return (CMD_ERROR_EXEC);
+				if (0) // TO DO:
+				{
+					/*
+						Check logical operator to see if
+						should exit or do another command
+					 */
+				}
+				else
+				{
+					printf(CMD_ERROR_EXEC_MSG);
+					close_all_pipes(node);
+					return (CMD_ERROR_EXEC);
+				}
 			}
-			#ifdef DEBUG
-				printf("Done\n");
-			#endif
+			printf("Done\n");
 		}
 		node = get_next_node(node);
 	}
-	#ifdef DEBUG
-		printf("Execution loop done\n");
-	#endif
+	printf("Execution loop done\n");
 	return (SUCCESS);
 }
 
-int	execute_commands(t_shell_data *shell_data)
+int	exec_tree(t_shell_data *shell_data)
 {
 	if (init_pipes(shell_data))
 		return (PIPE_ERROR);
-	if (execution_loop(shell_data))
+	if (exec_commands(shell_data))
 		return (EXECTION_ERROR);
 	return (SUCCESS);
 }

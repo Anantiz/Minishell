@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/21 14:59:14 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/21 15:13:41 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int			print_shell_intro(t_shell_data *shell_data, t_s_token *node);
 void		register_signals(void);
 int			session_start(t_shell_data *shell_data);
 int			parse_line(t_shell_data *shell_data, char *line);
-int			execute_commands(t_shell_data *shell_data);
+int			execute_tree(t_shell_data *shell_data);
 
 /* SHELL_DATA */
 
@@ -90,11 +90,13 @@ int			open_pipes(t_s_token *node);
 void		close_all_pipes(t_s_token *root);
 int			handle_file_bs(t_s_token *node);
 
-int			execute_command(t_shell_data *shell_data, t_s_token *node);
+int			exec_one_command(t_shell_data *shell_data, t_s_token *node);
 int			parent_process(t_shell_data *shell_data, \
 			t_s_token *redir_node, int pid);
+
 void		child_process(t_shell_data *shell_data, \
 			t_s_token *node, t_s_token *redir_node);
+int			cmd_redir_streams(t_s_token *cmd_node, t_s_token *redir_node);
 
 
 /* RED FUNCTIONS */
