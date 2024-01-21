@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:30:30 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/21 20:22:33 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/21 20:37:15 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@ int	cmd_redir_streams(t_s_token *cmd_node, t_s_token *redir_node)
 	We need to restore them after the command has been executed
 
 	This function is 100% protected *poggers*
-
 */
 int	restore_std_streams(void)
 {
@@ -53,6 +52,8 @@ int	restore_std_streams(void)
 		stdout_fd = dup(STDOUT_FILENO);
 		if (stdout_fd == -1)
 			return (perror("Initial stdout dup() error"), FAILURE);
+		fprintf(stderr, "Initial stdin_fd = %d\n", stdin_fd);
+		fprintf(stderr, "Initial stdout_fd = %d\n", stdout_fd);
 	}
 /* Restore */
 	else
@@ -65,6 +66,7 @@ int	restore_std_streams(void)
 			return (perror("Restoring stdin, dup2() error"), FAILURE);
 		if (dup2(stdout_fd, STDOUT_FILENO) == -1)
 			return (perror("Restoring stdout, dup2() error"), FAILURE);
+		fprintf(stderr, "Restored standard streams\n");
 	}
 	return (SUCCESS);
 }

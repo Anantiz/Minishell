@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:28:45 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/21 20:23:39 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/21 20:52:09 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,8 @@ static int	open_file(t_s_file *file, int flags)
 		perror("open_file(): Open error");
 		return (FAILURE);
 	}
+	ft_fprintf(file->fd, "File opened\n");
+	fprintf(stderr, "File opened: fd=%d\n", file->fd);
 	return (SUCCESS);
 }
 
@@ -41,7 +43,7 @@ static int	open_file(t_s_file *file, int flags)
 	Pieps were never opened in the first place
 	*vilain laugh*
 */
-static int	redir_filefd_in_op(t_s_op *redir_node, int fd)
+static int	copy_fd_in_redir_node(t_s_op *redir_node, int fd)
 {
 	if (fd == -1)
 	{
@@ -59,6 +61,7 @@ static int	redir_filefd_in_op(t_s_op *redir_node, int fd)
 		redir_node->pipefd[0] = -1;
 		redir_node->pipefd[1] = fd;
 	}
+	ft_fprintf(fd, "Fd copied\n");
 	return (SUCCESS);
 }
 
@@ -81,7 +84,7 @@ int	handle_file_bs(t_s_token *file_node)
 		return (FAILURE);
 	if (redir_node->data.op.type == REDIR_HEREDOC)
 	{
-		if (redir_filefd_in_op(&redir_node->data.op, -1))
+		if (copy_fd_in_redir_node(&redir_node->data.op, -1))
 			return (FAILURE);
 		return (SUCCESS); // No file to open
 	}
@@ -90,7 +93,7 @@ int	handle_file_bs(t_s_token *file_node)
 		flags = get_flags(redir_node->data.op.type);
 		if (open_file(&file_node->data.file, flags))
 			return (FAILURE);
-		if (redir_filefd_in_op(&redir_node->data.op, file_node->data.file.fd))
+		if (copy_fd_in_redir_node(&redir_node->data.op, file_node->data.file.fd))
 			return (FAILURE);
 	}
 	return (SUCCESS);

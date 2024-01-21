@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/01/21 19:26:02 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/21 20:41:16 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ int	parse_line(t_shell_data *shell_data, char *line)
 	// tk3->data.op.type = REDIR_OUT;
 
 	tk3->token_type = TK_FILE;
-	tk3->data.file.file_path = ft_strdup("new_file");
+	tk3->data.file.file_path = ft_strdup("new_file.txt");
 
 	shell_data->root = tk1;
 	tk1->parent = NULL;

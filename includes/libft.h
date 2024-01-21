@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 15:44:18 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/19 14:49:26 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/21 20:59:23 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,10 +84,10 @@ void		ft_striteri(char *s, void (*f)(unsigned int, char *));
 
 /* FILES ------------------------------------------------*/
 
-void		ft_putchar_fd(char s, int fd);
-void		ft_putstr_fd(char *s, int fd);
-void		ft_putendl_fd(char *s, int fd);
-void		ft_putnbr_fd(int n, int fd);
+int			ft_putchar_fd(char s, int fd);
+int			ft_putstr_fd(char *s, int fd);
+int			ft_putendl_fd(char *s, int fd);
+int			ft_putnbr_fd(int n, int fd);
 
 /*
 LINKED LIST

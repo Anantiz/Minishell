@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:41:43 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/21 20:21:27 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/21 21:02:03 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ o888bood8P'   `Y8bod8P' o888o o888o `Y8bod8P'
 
 int	our_echo(t_shell_data *shell_data, t_s_token *node)
 {
-	int			i;
 	int			fd;
+	int			i;
 	int			n_flag;
 	char		**args;
 	t_s_token	*redir_node;
@@ -41,32 +41,33 @@ int	our_echo(t_shell_data *shell_data, t_s_token *node)
 	}
 	else
 		fd = STDOUT_FILENO;
-	fprintf(stderr, "\tECHO: fd = %d\n", fd);
-	args = node->data.cmd.args;
+	fprintf(stderr, "\tECHO will write at %d\n\t\t", fd);
 	n_flag = 0;
-	i = 1;
+	args = node->data.cmd.args;
+	i = 0;
 	while (args[i])
 	{
 		if (ft_strcmp(args[i], "-n"))
 		{
 			n_flag = 1;
-			i++;
 			continue ;
 		}
-		if (ft_fprintf(fd, args[i]))
+		if (ft_putstr_fd(args[i], fd))
 			return (FAILURE);
-		if (args[i + 1])
+		fprintf(stderr, "%s", args[i]);
+		if (!args[i + 1])
 		{
-			if (ft_fprintf(fd, " "))
+			fprintf(stderr, " ");
+			if (ft_putchar_fd(' ', fd))
 				return (FAILURE);
 		}
 		i++;
 	}
 	if (!n_flag)
 	{
-		if (ft_fprintf(fd, "\n"))
+		if (ft_putchar_fd('\n', fd))
 			return (FAILURE);
 	}
-	close(fd);
+	fprintf(stderr, "\n");
 	return (SUCCESS);
 }

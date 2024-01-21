@@ -6,20 +6,20 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 16:00:39 by aurban            #+#    #+#             */
-/*   Updated: 2023/10/25 10:10:21 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/21 21:00:51 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putstr_fd(char *s, int fd)
+int	ft_putstr_fd(char *s, int fd)
 {
 	size_t	len;
 
 	if (!s)
-		return ;
+		return (-1);
 	len = 0;
 	while (s[len])
 		len++;
-	write(fd, s, len);
+	return (write(fd, s, len));
 }

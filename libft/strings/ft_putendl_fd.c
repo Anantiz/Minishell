@@ -6,19 +6,22 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 16:19:24 by aurban            #+#    #+#             */
-/*   Updated: 2023/10/25 10:11:06 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/21 21:00:41 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putendl_fd(char *s, int fd)
+int	ft_putendl_fd(char *s, int fd)
 {
 	size_t	len;
+	ssize_t	ret;
 
 	if (!s)
-		return ;
+		return (-1);
 	len = ft_strlen(s);
-	write(fd, s, len);
-	write(fd, "\n", 1);
+	ret = write(fd, s, len);
+	if (ret == -1)
+		return (-1);
+	return (write(fd, "\n", 1) + ret);
 }
