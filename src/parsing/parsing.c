@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/01/20 15:31:29 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/21 18:25:42 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,13 @@
 int	parse_line(t_shell_data *shell_data, char *line)
 {
 	(void)line;
-
 /* Test*/
 	t_s_token	*tk1 = malloc(sizeof(t_s_token));
 	t_s_token	*tk2 = malloc(sizeof(t_s_token));
 	t_s_token	*tk3 = malloc(sizeof(t_s_token));
 	t_s_token	*tk4 = malloc(sizeof(t_s_token));
 
-/*  do echo "Hey mom!" > new_file*/
+//echo "Hey mom!" > new_file
 	tk1->token_type = TK_OP;
 	tk1->data.op.type = PIPE;
 
@@ -40,18 +39,31 @@ int	parse_line(t_shell_data *shell_data, char *line)
 	tk4->data.file.file_path = ft_strdup("new_file");
 
 	shell_data->root = tk1;
-	tk1->left = tk2;
-	tk1->right = tk3;
-	tk3->left = tk4;
-
-	tk1->left->parent = tk1;
-	tk1->right->parent = tk1;
-	tk3->left->parent = tk3;
 	tk1->parent = NULL;
+
+	tk1->left = tk2;
+	tk1->left->parent = tk1;
+
+	tk1->right = tk3;
+	tk1->right->parent = tk1;
+
+	tk3->left = tk4;
+	tk3->left->parent = tk3;
+	tk3->right = NULL;
+
 	tk2->left = NULL;
 	tk2->right = NULL;
-	tk3->right = NULL;
+
 	tk4->left = NULL;
 	tk4->right = NULL;
+	fprintf(stderr, "TREE:\n");
+	t_s_token *node = shell_data->root;
+	int i = 0;
+	while (node)
+	{
+		fprintf(stderr, "Node %d: %p, type: %d\n",i++, node, node->token_type);
+		node = get_next_node(node);
+	}
+	fprintf(stderr, "\n");
 	return (SUCCESS);
 }

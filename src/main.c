@@ -6,13 +6,13 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:09:25 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/19 20:09:07 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/21 17:11:10 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		our_g_sig = 0;
+int		g_our_sig = 0;
 
 int	main(int argc, char **argv, char **envp)
 {
@@ -21,12 +21,13 @@ int	main(int argc, char **argv, char **envp)
 	(void)argc;
 	(void)argv;
 
-	register_signals();
+	rl_catch_signals = 0; // Disable signal catching by readline
+	replace_signals();
 	init_shell_data(&shell_data, envp);
 	print_shell_intro(NULL, NULL);
 	session_error = session_start(&shell_data);
 	if (session_error)
 		display_error(session_error);
-	return (cleanup_shell_data(&shell_data), session_error);
+	our_exit(&shell_data, NULL);
 }
 

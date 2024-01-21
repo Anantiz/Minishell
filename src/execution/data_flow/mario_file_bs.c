@@ -6,44 +6,44 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:28:45 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/21 13:58:47 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/21 18:42:39 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*
-oooooooooo.
-`888'   `Y8b
- 888      888  .ooooo.  ooo. .oo.    .ooooo.
- 888      888 d88' `88b `888P"Y88b  d88' `88b
- 888      888 888   888  888   888  888ooo888
- 888     d88' 888   888  888   888  888    .o
-o888bood8P'   `Y8bod8P' o888o o888o `Y8bod8P'
-*/
 
-// Return null on error, the redir node otherwise
-static t_s_token	*get_redir_node(t_s_token *file_node)
+/*
+	Actually this function might just be useless
+	because the way the tree is built, the closest redir node
+	is always the right one, no need to ignore the pipes
+*/
+static t_s_token	*fget_redir_node(t_s_token *file_node)
 {
 	t_s_token	*redir_node;
 
 	redir_node = file_node;
-	while (redir_node->parent != NULL && redir_node->parent->token_type != TK_OP)
+	while (redir_node && redir_node->token_type != TK_OP && \
+		(redir_node->data.op.type > PIPE && redir_node->data.op.type \
+		< REDIR_HEREDOC))
 		redir_node = redir_node->parent;
-	if (redir_node->parent == NULL && redir_node->token_type != TK_OP)
+	if (!redir_node)
+	{
+		ft_fprintf(2, "No token found, Abort\n");
 		return (NULL);
+	}
 	if (redir_node->data.op.type >= REDIR_IN
 		&& redir_node->data.op.type <= REDIR_HEREDOC)
 		return (redir_node);
 	return (NULL);
 }
 
-static int	get_flags(t_s_op *node)
+static int	get_flags(t_e_op_type type)
 {
-	if (node->type == REDIR_IN)
+	if (type == REDIR_IN)
 		return (O_RDONLY);
-	else if (node->type == REDIR_OUT)
+	else if (type == REDIR_OUT)
 		return (O_WRONLY | O_CREAT | O_TRUNC);
-	else if (node->type == REDIR_APPEND)
+	else if (type == REDIR_APPEND)
 		return (O_WRONLY | O_CREAT | O_APPEND);
 	else
 		return (-1);
@@ -107,7 +107,8 @@ int	handle_file_bs(t_s_token *file_node)
 	t_s_token	*redir_node;
 	int			flags;
 
-	redir_node = get_redir_node(file_node);
+	redir_node = fget_redir_node(file_node);
+	fprintf(stderr, "redir_node: %p\n", redir_node);fflush(stderr);
 	if (redir_node == NULL)
 		return (FAILURE);
 	if (redir_node->data.op.type == REDIR_HEREDOC)

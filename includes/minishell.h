@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/21 15:13:41 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/21 18:43:37 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 // REQUIRED for signal.h
 # define _POSIX_C_SOURCE 199309L
 # include <signal.h>
-extern int		our_g_sig;
+extern int		g_our_sig;
 
 # include <stdio.h>
 # include <stdbool.h>
@@ -53,6 +53,8 @@ extern int		our_g_sig;
 /* MISC */
 
 void		display_error(int error);
+void		replace_signals(void);
+void		our_sig_handl(int sig);
 int			print_shell_intro(t_shell_data *shell_data, t_s_token *node);
 
 /* SESSION */
@@ -60,7 +62,7 @@ int			print_shell_intro(t_shell_data *shell_data, t_s_token *node);
 void		register_signals(void);
 int			session_start(t_shell_data *shell_data);
 int			parse_line(t_shell_data *shell_data, char *line);
-int			execute_tree(t_shell_data *shell_data);
+int			exec_tree(t_shell_data *shell_data);
 
 /* SHELL_DATA */
 
@@ -87,21 +89,24 @@ char		*get_op(char *line, int *i);
 int			init_pipes(t_shell_data *shell_data);
 
 int			open_pipes(t_s_token *node);
-void		close_all_pipes(t_s_token *root);
 int			handle_file_bs(t_s_token *node);
+void		close_all_pipes(t_s_token *root);
+int			cmd_redir_streams(t_s_token *cmd_node, t_s_token *redir_node);
+t_s_token	*get_redir_node(t_s_token *cmd_node);
 
 int			exec_one_command(t_shell_data *shell_data, t_s_token *node);
+
+int			check_builtins(t_shell_data *shell_data, t_s_token *node, \
+			t_s_token *redir_node);
+
 int			parent_process(t_shell_data *shell_data, \
 			t_s_token *redir_node, int pid);
 
 void		child_process(t_shell_data *shell_data, \
 			t_s_token *node, t_s_token *redir_node);
-int			cmd_redir_streams(t_s_token *cmd_node, t_s_token *redir_node);
-
 
 /* RED FUNCTIONS */
 
-int			check_builtins(t_shell_data *shell_data, t_s_token *node);
 
 int			our_cd(t_shell_data *shell_data, t_s_token *node);
 int			our_pwd(t_shell_data *shell_data, t_s_token *node);

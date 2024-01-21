@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 17:07:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/19 19:32:44 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/21 16:53:01 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,5 +37,6 @@ int	our_exit(t_shell_data *shell_data, t_s_token *token)
 		status = 0;
 	if (shell_data)
 		cleanup_shell_data(shell_data);
+	ft_putendl_fd("exit", 1);
 	exit(status);
 }

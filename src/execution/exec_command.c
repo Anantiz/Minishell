@@ -11,12 +11,22 @@
 /* ************************************************************************** */
 
 #include "minishell.h"
+/*
+oooooooooo.
+`888'   `Y8b
+ 888      888  .ooooo.  ooo. .oo.    .ooooo.
+ 888      888 d88' `88b `888P"Y88b  d88' `88b
+ 888      888 888   888  888   888  888ooo888
+ 888     d88' 888   888  888   888  888    .o
+o888bood8P'   `Y8bod8P' o888o o888o `Y8bod8P'
+*/
 
 /*
-	Yes this function is almost a duplicate BUT
-	there is a small twist so don't judge me
+	Look for the first redir op
+		-If none found, return NULL
+		-Else return the node
 */
-static t_s_token	*get_redir_node(t_s_token *cmd_node)
+t_s_token	*get_redir_node(t_s_token *cmd_node)
 {
 	t_s_token	*redir_node;
 
@@ -31,12 +41,11 @@ static t_s_token	*get_redir_node(t_s_token *cmd_node)
 	return (NULL);
 }
 
-static int	execute_from_path(t_shell_data *shell_data, t_s_token *node)
+static int	execute_from_path(t_shell_data *shell_data, t_s_token *node, \
+	t_s_token *redir_node)
 {
 	int			pid;
-	t_s_token	*redir_node;
 
-	redir_node = get_redir_node(node);
 	pid = fork();
 	if (pid == -1)
 	{
@@ -45,7 +54,6 @@ static int	execute_from_path(t_shell_data *shell_data, t_s_token *node)
 	}
 	if (pid == 0)
 	{
-		signal(EOF, SIG_DFL);
 		signal(SIGINT, SIG_DFL);
 		child_process(shell_data, node, redir_node);
 	}
@@ -67,10 +75,12 @@ Fork:
 */
 int	exec_one_command(t_shell_data *shell_data, t_s_token *node)
 {
-	int		ret;
+	t_s_token	*redir_node;
+	int			ret;
 
-	ret = check_builtins(shell_data, node);
+	redir_node = get_redir_node(node);
+	ret = check_builtins(shell_data, node, redir_node);
 	if (ret == NOT_IN_BUILTINS)
-		return (execute_from_path(shell_data, node));
+		return (execute_from_path(shell_data, node, redir_node));
 	return (ret);
 }

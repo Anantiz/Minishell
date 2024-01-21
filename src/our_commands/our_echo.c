@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:41:43 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/19 16:17:09 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/21 18:41:07 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,15 @@ o888bood8P'   `Y8bod8P' o888o o888o `Y8bod8P'
 
 int	our_echo(t_shell_data *shell_data, t_s_token *node)
 {
-	int 	i;
+	int		i;
+	int		fd;
 	int		n_flag;
 	char	**args;
 
 	(void)shell_data;
+	fd = get_redir_node(node)->data.op.pipefd[1];
+	if (fd == -1)
+		fd = STDOUT_FILENO;
 	args = node->data.cmd.args;
 	n_flag = 0;
 	i = 1;
@@ -39,12 +43,12 @@ int	our_echo(t_shell_data *shell_data, t_s_token *node)
 			i++;
 			continue ;
 		}
-		ft_putstr_fd(args[i], 1);
+		ft_putstr_fd(args[i], fd);
 		if (args[i + 1])
-			ft_putstr_fd(" ", 1);
+			ft_putstr_fd(" ", fd);
 		i++;
 	}
 	if (!n_flag)
-		ft_putstr_fd("\n", 1);
+		ft_putstr_fd("\n", fd);
 	return (SUCCESS);
 }
