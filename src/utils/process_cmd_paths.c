@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   process_cmd_paths.c                                :+:      :+:    :+:   */
+/*   get_cmd_paths.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 11:24:00 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/16 14:31:01 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/19 18:04:39 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,15 +42,15 @@ static char	**custom_ft_split(const char *str, char sep)
 /*
 	Put any possible path into the node->data.cmd.paths
 */
-int	process_cmd_paths(t_shell_data *shell_data, t_s_token *node)
+int	get_cmd_paths(t_shell_data *shell_data, t_s_token *node)
 {
 	char	*old;
-	char	*path;
+	t_env	*var_path;
 	char	**paths;
 	int		i;
 
-	path = our_get_env(shell_data , "PATH");
-	paths = custom_ft_split(path, ':');
+	var_path = our_get_env(shell_data , "PATH");
+	paths = custom_ft_split(var_path->value, ':');
 	i = 0;
 	while (paths[i])
 	{

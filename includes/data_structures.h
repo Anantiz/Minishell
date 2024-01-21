@@ -6,7 +6,7 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:24:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/21 16:32:39 by loris            ###   ########.fr       */
+/*   Updated: 2024/01/21 16:41:41 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,6 @@
 /* ################################ */
 /* 				ENUM 				*/
 /* ################################ */
-
-typedef struct s_env
-{
-	char			*key;
-	char			*value;
-	struct s_env	*next;
-}t_env;
 
 typedef enum e_our_commands
 {
@@ -50,8 +43,8 @@ typedef enum t_e_op_type
 {
 	T_AND,
 	T_OR,
-	PIPE,
 	SEMICOLON,
+	PIPE,
 	REDIR_IN,
 	REDIR_OUT,
 	REDIR_APPEND,
@@ -75,7 +68,7 @@ typedef struct s_cmd
 
 typedef struct s_op
 {
-	t_e_op_type	op_type;
+	t_e_op_type	type;
 	int			pipefd[2];
 }t_s_op;
 
@@ -95,7 +88,6 @@ union u_token
 	t_s_var		var;
 };
 
-/* SHITTY */
 /* Binary tree */
 typedef struct s_token
 {
@@ -107,8 +99,12 @@ typedef struct s_token
 	struct s_token	*left;
 }t_s_token;
 
-/* ############################## */
-// ENVP Linked_list
+
+/*
+ENVP Linked_list
+	Because refactoring would be tedious (like more than 5 min, crazy right ?)
+	The struct will stay as is, and I won't use a t_pair_char
+*/
 typedef struct s_env
 {
 	char			*key;
@@ -123,7 +119,6 @@ typedef struct s_env
 typedef struct s_shell_data
 {
 	t_env		*envp;
-	t_llstr		*get_line_history;
 	t_s_token	*root;
 }t_shell_data;
 

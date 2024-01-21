@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:09:44 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/14 17:12:12 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/19 18:01:33 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ char	**ft_strdup_double_char(char **cc)
 	{
 		ret[i] = ft_strdup(cc[i]);
 		if (!ret[i])
-			return (free_double_char(ret));
+			return (free_double_char(ret), NULL);
 		i++;
 	}
 	ret[i] = NULL;

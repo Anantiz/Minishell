@@ -6,29 +6,57 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:13:22 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/16 17:10:05 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/19 15:15:30 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*our_get_env(t_shell_data *shell_data, char *key)
-{
-	t_env	*env;
+/*
+oooooooooo.
+`888'   `Y8b
+ 888      888  .ooooo.  ooo. .oo.    .ooooo.
+ 888      888 d88' `88b `888P"Y88b  d88' `88b
+ 888      888 888   888  888   888  888ooo888
+ 888     d88' 888   888  888   888  888    .o
+o888bood8P'   `Y8bod8P' o888o o888o `Y8bod8P'
+*/
 
-	env = shell_data->envp;
-	while (env)
+/*
+	Returns the struct t_env corresponding to the key
+	Returns NULL if not found
+*/
+t_env	*our_get_env(t_shell_data *shell_data, char *key)
+{
+	t_env	*var;
+
+	if (!key)
+		return (NULL);
+	var = shell_data->envp;
+	while (var)
 	{
-		if (!ft_strcmp(env->key, key))
-			return (env->value);
-		env = env->next;
+		if (!ft_strcmp(var->key, key))
+			return (var);
+		var = var->next;
 	}
 	return (NULL);
 }
 
+/* Simply print envp */
 int	our_env(t_shell_data *shell_data, t_s_token *token)
 {
+	t_env	*var;
+
 	(void)token;
-	(void)shell_data;
+	var = shell_data->envp;
+	while (var)
+	{
+		ft_fprintf(STDOUT_FILENO, "%s=", var->key);
+		if (var->value)
+			ft_fprintf(STDOUT_FILENO, "%s\n", var->value);
+		else
+			ft_fprintf(STDOUT_FILENO, "\n");
+		var = var->next;
+	}
 	return (SUCCESS);
 }

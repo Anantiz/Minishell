@@ -6,15 +6,11 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 08:26:52 by loris             #+#    #+#             */
-/*   Updated: 2024/01/21 10:24:27 by loris            ###   ########.fr       */
+/*   Updated: 2024/01/21 16:36:49 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-#include "stdbool.h"
-#include <stdio.h>
-#include <stdlib.h>
 
 /*
 *	Create a list of token base on the input line
@@ -27,17 +23,16 @@
 *		list_token[3] = "|"
 *		list_token[4] = "ls -l"
 *		list_token[5] = (null)
-*	
-*	Quotes and parenthesis are interpreted as token -> I deal with this when i build the tree 
+*
+*	Quotes and parenthesis are interpreted as token -> I deal with this when i build the tree
 *	(in file tokentotree.c)
 */
 
 int	ft_countword(char *line)
 {
-
 	int		count;
 	int		i;
-    bool    already_cmd;
+	bool	already_cmd;
 
 	i = -1;
 	count = 0;
@@ -46,10 +41,10 @@ int	ft_countword(char *line)
 	while (line[++i])
 	{
 		if (ft_is_op(line[i]) == true)
-        {
+		{
 			count++;
             if (line[i] == '|' || line[i] == '&')
-                if (line[i + 1] == '|' || line[i + 1] == '&')
+                if (line[i+1] == '|' || line[i+1] == '&')
                     i++;
             already_cmd = false;
         }
@@ -104,6 +99,7 @@ char    **ft_strtok(char *line)
 //     int i;
 //     char **tok;
 
+//     tok = ft_strtok(line);
 //     tok = ft_strtok(line);
 
 //     i = 0;

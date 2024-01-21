@@ -6,7 +6,7 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/01/21 13:31:13 by loris            ###   ########.fr       */
+/*   Updated: 2024/01/21 16:38:45 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char **next_token(char **token_list)
     }
     else
         return (NULL);
-    return (n_tok); 
+    return (n_tok);
 }
 /*
 *   main test for the next_token function

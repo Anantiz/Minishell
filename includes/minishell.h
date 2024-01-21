@@ -3,24 +3,36 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/17 13:44:25 by loris            ###   ########.fr       */
+/*   Updated: 2024/01/20 14:54:59 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
+// REQUIRED for signal.h
+# define _POSIX_C_SOURCE 199309L
+# include <signal.h>
+extern int		our_g_sig;
+
 # include <stdio.h>
 # include <stdbool.h>
 # include <fcntl.h>
+# include <errno.h>
+# include <string.h>
+# include <sys/wait.h>
+# include <readline/readline.h>
+# include <readline/history.h>
+
 
 # include "libft.h"
+# include "pair.h"
 # include "data_structures.h"
 
-# define SHELL_NAME "Joseph_Shell"
+# define SHELL_NAME "Joseph_shell"
 
 # define FAILURE 1
 # define SUCCESS 0
@@ -41,25 +53,25 @@
 /* MISC */
 
 void		display_error(int error);
-void		print_shell_intro(void);
+int			print_shell_intro(t_shell_data *shell_data, t_s_token *node);
 
 /* SESSION */
 
+void		register_signals(void);
 int			session_start(t_shell_data *shell_data);
 int			parse_line(t_shell_data *shell_data, char *line);
 int			execute_commands(t_shell_data *shell_data);
 
 /* SHELL_DATA */
 
-void		clean_shell_data(t_shell_data *shell_data);
+void		cleanup_shell_data(t_shell_data *shell_data);
 void		init_shell_data(t_shell_data *shell_data, char **envp);
-void		add_history(t_shell_data *shell_data, char *line);
+void		del_tree(t_shell_data *shell_data);
 
 /* PARSING */
 
-int     	ft_countword(char *line);
-char        **ft_strtok(char *line);
-
+int			ft_countword(char *line);
+char		**ft_strtok(char *line);
 
 /* PARSING UTILS */
 
@@ -70,16 +82,20 @@ char		*get_cmd(char *line, int *i);
 char		*get_speop(char *line, int *i);
 char		*get_op(char *line, int *i);
 
-
 /* EXECUTION */
 
 int			setup_pipes(t_shell_data *shell_data);
+int			redir_pipe(t_s_token *node);
+
+# define REDIR_FLAGS {O_RDONLY, O_WRONLY | O_CREAT | O_TRUNC, \
+	O_WRONLY | O_CREAT | O_APPEND};
+
 int			execute_command(t_shell_data *shell_data, t_s_token *node);
+void		child_process(t_shell_data *shell_data, t_s_token *node);
 
 /* RED FUNCTIONS */
 
 int			check_builtins(t_shell_data *shell_data, t_s_token *node);
-char		*our_get_env(t_shell_data *shell_data, char *key);
 
 int			our_cd(t_shell_data *shell_data, t_s_token *node);
 int			our_pwd(t_shell_data *shell_data, t_s_token *node);
@@ -90,20 +106,23 @@ int			our_unset(t_shell_data *shell_data, t_s_token *node);
 int			our_export(t_shell_data *shell_data, t_s_token *node);
 
 # define OUR_COMMANDS_NAMES {"cd", "pwd", "env", "echo", "exit", "unset", \
-		"export"};
+		"export", "red_square", NULL};
 
 # define OUR_COMMANDS_FNC_PTR {our_cd, our_pwd, our_env, our_echo, \
-		our_exit, our_unset, our_export};
+		our_exit, our_unset, our_export, print_shell_intro, NULL};
 
 typedef int (*t_our_cmd_ptr)(t_shell_data *, t_s_token *);
 
 /* UTILS */
 
 t_s_token	*get_next_node(t_s_token *node);
-int			process_cmd_paths(t_shell_data *shell_data, t_s_token *node);
+int			get_cmd_paths(t_shell_data *shell_data, t_s_token *node);
 
-void		t_env_del_node(t_env *node);
-void		t_env_del_list(t_env *list);
+/* T_ENV */
+char		**t_env_to_double_char(t_env *envp);
+t_env		*our_get_env(t_shell_data *shell_data, char *key);
+void		t_env_del_node(t_env **root, t_env *node_);
+void		t_env_del_list(t_env **root);
 t_env		*t_env_new_node(char *key, char *value);
 t_env		*t_env_add_back(t_env **head_, t_env *node);
 

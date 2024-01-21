@@ -6,13 +6,13 @@
 #    By: loris <loris@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/09 10:14:27 by aurban            #+#    #+#              #
-#    Updated: 2024/01/21 16:33:43 by loris            ###   ########.fr        #
+#    Updated: 2024/01/21 16:35:35 by loris            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 CC:=gcc
 INCLUDE_PATH=./includes
-CFLAGS:=-Wall -Wextra -I$(INCLUDE_PATH) -g3 -fsanitize=address
+CFLAGS:=-Wall -Wextra -I$(INCLUDE_PATH) -g3 -lreadline
 RM:=rm -rf
 
 NAME=minishell
@@ -25,24 +25,25 @@ LIBFT_PATH:=./libft
 ###############################################################################
 
 SRC=\
-	main.c	session_loop.c
+	main.c	session_loop.c signals/sig_handlers.c
 
 SRC_UTILS=\
 	utils.c	init_shell_data.c	tree_traversal.c	process_cmd_paths.c		\
-	kgb.c	envp_linked_list.c	
+	kgb.c	envp_linked_list.c	pair_char.c			other_envp_things.c
 
 SRC_PARSE=\
-	parsing.c tokentotree.c
+	parsing.c	get_token.c		parsing.c	tokentotree.c	parsing_utils.c	\
 
 SRC_EXEC=\
 	execute.c	read_tokens.c	mario_world.c	execute_command.c			\
+	execute_child_process.c
 
 SRC_ERR=\
 	session_error.c
 
 SRC_OURS=\
 	our_cd.c		our_pwd.c		our_env.c	our_echo.c	our_exit.c	\
-	our_unset.c		our_export.c	our_builtins.c	\
+	our_unset.c		our_export.c	our_builtins.c
 
 UTILS_PATH=utils
 SRC_UTILS:= $(addprefix $(UTILS_PATH)/,$(SRC_UTILS))
@@ -69,6 +70,9 @@ SRC_PATH=./src
 SRC:= $(addprefix $(SRC_PATH)/,$(SRC))
 SRC_OBJECTS= $(patsubst %.c,%.o,$(SRC))
 ###############################################################################
+
+%.o: %.c
+	@$(CC) $(CFLAGS) -c $< -o $@
 
 all: $(NAME)
 
