@@ -6,13 +6,13 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:12:50 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/20 14:50:21 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/21 19:13:23 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-#define MAGIC_VALUE_SUCCESS 69420
+#define MAGIC_VALUE_EXIT_SHELL 69420
 
 /* LORIS */
 void	del_tree(t_shell_data *shell_data)
@@ -23,37 +23,37 @@ void	del_tree(t_shell_data *shell_data)
 static int	sesion_routine(t_shell_data *shell_data)
 {
 	char	*line;
-	int		error;
+	int		ret;
 
 	line = readline(SHELL_NAME"$ ");
+	if (g_our_sig == SIGINT)
+		return (free(line), SUCCESS);
 	if (!line)
-		return (MAGIC_VALUE_SUCCESS);
+		return (MAGIC_VALUE_EXIT_SHELL);
 	add_history(line);
-	error = parse_line(shell_data, line);
+	ret = parse_line(shell_data, line);
 	free(line);
-	if (error)
+	if (ret)
 		return (PARSING_ERROR);
-	if (our_g_sig == SIGINT) // Display new prompt
-		return (SUCCESS);
-	error = execute_commands(shell_data);
-	if (error)
+	ret = exec_tree(shell_data);
+	if (ret)
 		return (EXECTION_ERROR);
 	return (SUCCESS);
 }
 
 int	session_start(t_shell_data *shell_data)
 {
-	int		error;
+	int		ret;
 
 	while (1)
 	{
-		our_g_sig = 0;
+		g_our_sig = 0;
 		shell_data->root = NULL;
-		error = sesion_routine(shell_data);
+		ret = sesion_routine(shell_data);
 		del_tree(shell_data);
-		if (error == MAGIC_VALUE_SUCCESS)
+		if (ret == MAGIC_VALUE_EXIT_SHELL)
 			return (SUCCESS);
-		if (error)
-			return (error);
+		if (ret)
+			return (ret);
 	}
 }

@@ -6,13 +6,13 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 16:21:13 by aurban            #+#    #+#             */
-/*   Updated: 2023/11/16 18:12:06 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/21 20:58:28 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_putnbr_fd(int n, int fd)
+int	ft_putnbr_fd(int n, int fd)
 {
 	char	c;
 
@@ -25,5 +25,5 @@ void	ft_putnbr_fd(int n, int fd)
 	n = n / 10;
 	if (n != 0)
 		ft_putnbr_fd(n, fd);
-	write(fd, &c, 1);
+	return (write(fd, &c, 1));
 }

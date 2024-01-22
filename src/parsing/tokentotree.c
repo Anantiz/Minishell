@@ -3,21 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tokentotree.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/01/21 18:50:04 by loris            ###   ########.fr       */
+/*   Created: 2024/01/16 08:27:27 by loris             #+#    #+#             */
+/*   Updated: 2024/01/22 11:16:21 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
-
-int	parse_line(t_shell_data *shell_data, char *line)
-{
-	(void)shell_data;
-	(void)line;
-	return (0);
-}
 
 /*
 *   Every time next_token is call, return the next token
@@ -67,7 +60,7 @@ t_s_token   *scan_token(char **token)
     t_s_token   *TK;
 
     TK = our_malloc(sizeof(t_s_token));
-    
+
     if (ft_is_op(*token[0]) == true)
     {
         if (ft_strlen(*token) == 2)
@@ -195,10 +188,10 @@ t_s_token   *parse_redir_in(char **token_list, int num_token)
 }
 t_s_token   *parse_pipeline(char **token_list, int num_token)
 {
-    
+
 }
 
-t_s_token   
+t_s_token
 
 int main()
 {

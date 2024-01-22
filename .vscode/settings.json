@@ -7,6 +7,8 @@
 		"errno.h": "c",
 		"features.h": "c",
 		"errno-base.h": "c",
-		"stdio.h": "c"
+		"stdio.h": "c",
+		"compare": "c",
+		"type_traits": "c"
 	}
 }
