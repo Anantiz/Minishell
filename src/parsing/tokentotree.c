@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokentotree.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/01/21 18:50:04 by loris            ###   ########.fr       */
+/*   Updated: 2024/01/22 12:46:35 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,74 +75,73 @@ t_s_token   *scan_token(char **token)
             if (*token[0] == '|' && *token[0 + 1] == '|')
             {
                 TK->token_type = TK_OP;
-                TK->data.op.op_type = T_OR;
+                TK->data.op.type = T_OR;
             }
             else if (**(token) == '&' && **(token + 1) == '&')
             {
                 TK->token_type = TK_OP;
-                TK->data.op.op_type = T_AND;
+                TK->data.op.type = T_AND;
             }
         }
         else if (**(token) == '|')
         {
             TK->token_type = TK_OP;
-            TK->data.op.op_type = PIPE;
+            TK->data.op.type = PIPE;
         }
         else if (**(token) == '<')
         {
             TK->token_type = TK_OP;
-            TK->data.op.op_type = REDIR_IN;
+            TK->data.op.type = REDIR_IN;
         }
         else if (**(token) == '>')
         {
             TK->token_type = TK_OP;
-            TK->data.op.op_type = REDIR_OUT;
+            TK->data.op.type = REDIR_OUT;
         }
         else if (**(token) == '>' && **(token + 1) == '>')
         {
             TK->token_type = TK_OP;
-            TK->data.op.op_type = REDIR_APPEND;
+            TK->data.op.type = REDIR_APPEND;
         }
         else if (**(token) == '<' && **(token + 1) == '<')
         {
             TK->token_type = TK_OP;
-            TK->data.op.op_type = REDIR_HEREDOC;
+            TK->data.op.type = REDIR_HEREDOC;
         }
         else if (**(token) == ';')
         {
             TK->token_type = TK_OP;
-            TK->data.op.op_type = SEMICOLON;
+            TK->data.op.type = SEMICOLON;
         }
     }
     if (!ft_is_op(*token[0]) && !ft_is_sep(*token[0]))
     {
         if (ft_strncmp("echo", *token, 4) == 0)
         {
-
             TK->token_type = TK_CMD;
             TK->data.cmd.args = ft_split(*token, ' ');
         }
-        if (ft_strncmp("pwd", *token, 3) == 0)
+        else if (ft_strncmp("pwd", *token, 3) == 0)
         {
             TK->token_type = TK_CMD;
             TK->data.cmd.args = ft_split(*token, ' ');
         }
-        if (ft_strncmp("export", *token, 6) == 0)
+        else if (ft_strncmp("export", *token, 6) == 0)
         {
             TK->token_type = TK_CMD;
             TK->data.cmd.args = ft_split(*token, ' ');
         }
-        if (ft_strncmp("unset", *token, 5) == 0)
+        else if (ft_strncmp("unset", *token, 5) == 0)
         {
             TK->token_type = TK_CMD;
             TK->data.cmd.args = ft_split(*token, ' ');
         }
-        if (ft_strncmp("env", *token, 3) == 0)
+        else if (ft_strncmp("env", *token, 3) == 0)
         {
             TK->token_type = TK_CMD;
             TK->data.cmd.args = ft_split(*token, ' ');
         }
-        if (ft_strncmp("exit", *token, 4) == 0)
+        else if (ft_strncmp("exit", *token, 4) == 0)
         {
             TK->token_type = TK_CMD;
             TK->data.cmd.args = ft_split(*token, ' ');
@@ -150,55 +149,16 @@ t_s_token   *scan_token(char **token)
     }
     return (TK);
 }
-int find_operator(char **token_list, int num_token)
-{
-    int i;
 
-    i = -1;
-    while(i < num_token)
-        if (!ft_strncmp(token_list[i], "||", 2) || !ft_strncmp(token_list[i], "&&", 2))
-            return (i);
-    return (-1);
-}
+// t_s_token   *tree_builder(char **token, int num_token)
+// {
+
+// }
 
 /*
 *   recursive parsing descent
 *   function (expression / redir_out / ..., for the priorities)
 */
-t_s_token   *parse_expression(char **token_list, int num_token)
-{
-    int         op_place;
-    t_s_token   *node;
-
-    op_place = find_operator(token_list, num_token);
-    if (op_place == -1)
-    {
-        node = parse_pipeline(token_list, num_token);
-        return (node);
-    }
-    node = scan_token((token + op_place));
-    node->left = parse_expression(token_list, op_place);
-    node->right = parse_expression(token_list + op_place + 1, num_token - op_place - 1); // second params should be just op_place ? focus on this tomorrow
-    return (node);
-}
-
-
-
-t_s_token   *parse_redir_out(char **token_list, int num_token)
-{
-
-}
-
-t_s_token   *parse_redir_in(char **token_list, int num_token)
-{
-
-}
-t_s_token   *parse_pipeline(char **token_list, int num_token)
-{
-    
-}
-
-t_s_token   
 
 int main()
 {
@@ -209,6 +169,6 @@ int main()
 
     token_list = array;
 
-    token = parse_E(token_list);
+    token = parse_expression(token_list, 2);
     printf("%d\n", token->token_type);
 }

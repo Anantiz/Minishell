@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 08:26:52 by loris             #+#    #+#             */
-/*   Updated: 2024/01/21 16:36:49 by loris            ###   ########.fr       */
+/*   Updated: 2024/01/22 11:46:26 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ char    **ft_strtok(char *line)
 
 // int main()
 // {
-//     char *line = "(ls -l) || $ARG | wc -l";
+//     char *line = "echo \"test\" $(TEST)";
 //     int i;
 //     char **tok;
 
