@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 12:42:06 by aurban            #+#    #+#             */
-/*   Updated: 2023/12/01 22:20:00 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/22 16:57:27 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ static char	*read_buffer(int fd, char *buff, char *line)
 		{
 			if (gnl_refill_buff(fd, buff) < 0)
 			{
-				free (line);
+				our_free (line);
 				return (NULL);
 			}
 		}
@@ -102,7 +102,7 @@ char	*get_next_line(int fd, int reset)
 
 	if (reset)
 	{
-		free(gnl_get_buff(fd, buffers_list));
+		our_free(gnl_get_buff(fd, buffers_list));
 		buffers_list[fd] = NULL;
 		return (NULL);
 	}
@@ -112,12 +112,12 @@ char	*get_next_line(int fd, int reset)
 	line = read_buffer(fd, buff, NULL);
 	if (line == NULL || (buff && buff[0] == '\0'))
 	{
-		free(buffers_list[fd]);
+		our_free(buffers_list[fd]);
 		buffers_list[fd] = NULL;
 	}
 	if (line && line[0] == '\0')
 	{
-		free(line);
+		our_free(line);
 		line = NULL;
 	}
 	return (str_nulltrim(line));

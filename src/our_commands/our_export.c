@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 17:08:31 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/19 16:17:16 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/22 16:57:27 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static void	free_appropriate_data(t_pair_char **pairs)
 	i = 0;
 	while (pairs[i])
 		pair_char_free(pairs[i++]);
-	free(pairs);
+	our_free(pairs);
 }
 
 /*
@@ -85,7 +85,7 @@ int	our_export(t_shell_data *shell_data, t_s_token *token)
 				(pairs[i]->key, pairs[i]->val));
 		else
 		{
-			free(var->value);
+			our_free(var->value);
 			var->value = ft_strdup(pairs[i]->val);
 		}
 	}

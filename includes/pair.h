@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 15:03:56 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/19 15:04:53 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/22 16:50:41 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 
 # include "libft.h"
 
-typedef struct	s_pair_char
+typedef struct s_pair_char
 {
 	char	*key;
 	char	*val;

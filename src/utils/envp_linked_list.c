@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 17:14:54 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/20 14:36:00 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/22 16:57:27 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,12 @@ void	t_env_del_node(t_env **root, t_env *node_)
 		prev->next = node->next;
 	if (node == *root)
 		*root = (*root)->next;
-	free(node->key);
-	free(node->value);
-	free(node);
+	if (node != NULL)
+	{
+		our_free(node->key);
+		our_free(node->value);
+	}
+	our_free(node);
 }
 
 void	t_env_del_list(t_env **root)
@@ -86,9 +89,9 @@ void	t_env_del_list(t_env **root)
 	while (node)
 	{
 		temp = node->next;
-		free(node->key);
-		free(node->value);
-		free(node);
+		our_free(node->key);
+		our_free(node->value);
+		our_free(node);
 		node = temp;
 	}
 	root = NULL;

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:39:33 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/21 20:36:53 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/22 12:16:20 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ static int exec_commands(t_shell_data *shell_data)
 	{
 		if (node->token_type == TK_CMD)
 		{
-			printf("Executing node %d: %p\n", i, node);
+			ft_fprintf(2, "Executing node %d: %p\n", i, node);
 			ret = exec_one_command(shell_data, node);
 			if (ret)
 			{
@@ -59,22 +59,22 @@ static int exec_commands(t_shell_data *shell_data)
 					return (CMD_ERROR_EXEC);
 				}
 			}
-			restore_std_streams();
-			fprintf(stderr, "Done\n");fflush(stderr);
+			// restore_std_streams();
+			ft_fprintf(2, "Done\n");
 		}
 		node = get_next_node(node);
 		i++;
 	}
-	fprintf(stderr, "Execution loop done\n\n");fflush(stderr);
+	ft_fprintf(2, "Execution loop done\n\n");
 	return (SUCCESS);
 }
 
 int	exec_tree(t_shell_data *shell_data)
 {
-	fprintf(stderr, "Executing tree\n");fflush(stderr);
+	ft_fprintf(2, "Executing tree\n");
 	if (init_pipes(shell_data))
 		return (PIPE_ERROR);
-	fprintf(stderr, "Pipes initialized\n");fflush(stderr);
+	ft_fprintf(2, "Pipes initialized\n");
 	if (exec_commands(shell_data))
 		return (EXECTION_ERROR);
 	return (SUCCESS);

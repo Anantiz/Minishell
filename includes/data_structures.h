@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:24:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/22 11:15:49 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/22 16:56:41 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,6 @@ typedef struct s_token
 	struct s_token	*right;
 	struct s_token	*left;
 }t_s_token;
-
 
 /*
 ENVP Linked_list

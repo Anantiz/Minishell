@@ -6,20 +6,22 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:30:30 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/22 11:24:12 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/22 14:56:41 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // Redirect the commands streams from and into the redir_node pipefd
-int	cmd_redir_streams(t_s_token *cmd_node, t_s_token *redir_node)
+int	cmd_redir_pipes_streams(t_s_token *cmd_node, t_s_token *redir_node)
 {
-	if (!redir_node)
+	if (!redir_node || redir_node->token_type != TK_OP || \
+		redir_node->data.op.type != PIPE)
 		return (SUCCESS);
-	if (redir_node->data.op.type == PIPE && redir_node->left != cmd_node)
+	if (redir_node->left != cmd_node)
 	{
 		// Read the pipe
+		//(it means everytithing read in stdin is actually read from pipe 0)
 		if (dup2(redir_node->data.op.pipefd[0], STDIN_FILENO) == -1)
 			return (perror("dup2() error"), FAILURE);
 	}
@@ -51,8 +53,6 @@ int	restore_std_streams(void)
 		stdout_fd = dup(STDOUT_FILENO);
 		if (stdout_fd == -1)
 			return (perror("Initial stdout dup() error"), FAILURE);
-		fprintf(stderr, "Initial stdin_fd = %d\n", stdin_fd);
-		fprintf(stderr, "Initial stdout_fd = %d\n", stdout_fd);
 	}
 /* Restore */
 	else

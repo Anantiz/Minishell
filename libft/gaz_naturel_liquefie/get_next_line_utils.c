@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/03 13:13:20 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/12 15:07:46 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/22 16:57:27 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ char	*resize_line(char *s1, size_t added_size)
 	while (i <= joined_size)
 		joined[i++] = '\0';
 	if (s1)
-		free(s1);
+		our_free(s1);
 	return (joined);
 }
 
@@ -90,6 +90,6 @@ char	*str_nulltrim(char *str)
 		i++;
 	}
 	new_str[i] = '\0';
-	free(str);
+	our_free(str);
 	return (new_str);
 }

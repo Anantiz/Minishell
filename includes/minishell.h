@@ -6,17 +6,14 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/21 20:22:24 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/22 16:56:32 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-// REQUIRED for signal.h
-# define _POSIX_C_SOURCE 199309L
 # include <signal.h>
-extern int		g_our_sig;
 
 # include <stdio.h>
 # include <stdbool.h>
@@ -26,7 +23,6 @@ extern int		g_our_sig;
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-
 
 # include "libft.h"
 # include "pair.h"
@@ -44,11 +40,17 @@ extern int		g_our_sig;
 # define CMD_ERROR_FORK 3
 # define CMD_ERROR_NOT_FOUND 4
 
-# define NOT_IN_BUILTINS 66
+// Magic value to differentiate between command errors and not found
+# define NOT_IN_BUILTINS 6666666
 
+// Most error messages are hardcoded so it's kinda stupid to have this here
+// But not in other places
 # define PIPE_ERROR_MSG_INIT "Pipe init error"
 # define CMD_ERROR_EXEC_MSG "Command execution error"
 # define CMD_ERROR_NOT_FOUND_MSG "Command not found"
+
+extern int	g_our_sig;
+typedef int	(*t_our_cmd_ptr)(t_shell_data *, t_s_token *);
 
 /* MISC */
 
@@ -93,22 +95,19 @@ int			init_pipes(t_shell_data *shell_data);
 int			open_pipes(t_s_token *node);
 int			handle_file_bs(t_s_token *node);
 void		close_all_pipes(t_s_token *root);
-int			cmd_redir_streams(t_s_token *cmd_node, t_s_token *redir_node);
+int			cmd_redir_pipes_streams(t_s_token *cmd_node, t_s_token *redir_node);
 t_s_token	*get_redir_node(t_s_token *cmd_node);
 
 int			exec_one_command(t_shell_data *shell_data, t_s_token *node);
 
-int			check_builtins(t_shell_data *shell_data, t_s_token *node, \
-			t_s_token *redir_node);
-
 int			parent_process(t_shell_data *shell_data, \
-			t_s_token *redir_node, int pid);
-
-void		child_process(t_shell_data *shell_data, \
-			t_s_token *node, t_s_token *redir_node);
+	t_s_token *redir_node, int pid);
+int			check_builtins(t_shell_data *shell_data, \
+	t_s_token *node, t_s_token *redir_node);
+void		child_process(t_shell_data *shell_data,	\
+	t_s_token *node, t_s_token *redir_node);
 
 /* RED FUNCTIONS */
-
 
 int			our_cd(t_shell_data *shell_data, t_s_token *node);
 int			our_pwd(t_shell_data *shell_data, t_s_token *node);
@@ -117,8 +116,6 @@ int			our_echo(t_shell_data *shell_data, t_s_token *node);
 int			our_exit(t_shell_data *shell_data, t_s_token *node);
 int			our_unset(t_shell_data *shell_data, t_s_token *node);
 int			our_export(t_shell_data *shell_data, t_s_token *node);
-
-typedef int (*t_our_cmd_ptr)(t_shell_data *, t_s_token *);
 
 /* UTILS */
 

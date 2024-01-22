@@ -12,57 +12,34 @@
 
 #include "libft.h"
 
-static int	ft_arg_to_buff3(char *buff, t_bd *bd, va_list *args, char c)
+/*
+Flushes the buffer to the file descriptor and update t_buffer_data
+*/
+void	ft_flush(char *buffer, t_bd *bd)
 {
-	unsigned int	un;
-	char			*str;
-	long			l;
-
-	if (c == 'X')
-	{
-		un = va_arg(*args, unsigned int);
-		str = ft_uitohex_up(un);
-		ft_send_str(buff, bd, str);
-		free(str);
-	}
-	else if (c == '%')
-		ft_send_char(buff, bd, '%');
-	else if (c == 'l')
-	{
-		l = va_arg(*args, long);
-		ft_send_decimal(buff, bd, l);
-	}
-	else
-		return (-1);
-	return (0);
+	bd->written += bd->offset;
+	if (bd->error > -1)
+		bd->error = write(bd->fd, buffer, bd->offset);
+	ft_bzero(buffer, bd->offset);
+	bd->offset = 0;
 }
 
-static int	ft_arg_to_buff2(char *buff, t_bd *bd, va_list *args, char c)
+static void	printf_send_hexa(char *buff, t_bd *bd, unsigned int n, char c)
 {
-	unsigned int	un;
-	int				n;
-	char			*str;
+	char	*str;
 
-	if (c == 'i' || c == 'd')
+	if (c == 'x')
 	{
-		n = va_arg(*args, int);
-		ft_send_decimal(buff, bd, n);
-	}
-	else if (c == 'u')
-	{
-		un = va_arg(*args, int);
-		ft_send_uint(buff, bd, un);
-	}
-	else if (c == 'x')
-	{
-		un = va_arg(*args, unsigned int);
-		str = ft_uitohex(un);
+		str = ft_uitohex(n);
 		ft_send_str(buff, bd, str);
-		free(str);
+		our_free(str);
 	}
-	else
-		return (ft_arg_to_buff3(buff, bd, args, c));
-	return (0);
+	else if (c == 'X')
+	{
+		str = ft_uitohex_up(n);
+		ft_send_str(buff, bd, str);
+		our_free(str);
+	}
 }
 
 /*
@@ -71,26 +48,23 @@ to cool to be used		:(			*sobbing noises*
 */
 int	ft_arg_to_buffer(char *buff, t_bd *bd, va_list *args, char c)
 {
-	void	*p;
-	char	*ch;
-	int		chr;
-
 	if (c == 'c')
-	{
-		chr = va_arg(*args, int);
-		ft_send_char(buff, bd, (char) chr);
-	}
+		ft_send_char(buff, bd, va_arg(*args, int));
 	else if (c == 's')
-	{
-		ch = va_arg(*args, char *);
-		ft_send_str(buff, bd, ch);
-	}
+		ft_send_str(buff, bd, va_arg(*args, char *));
 	else if (c == 'p')
-	{
-		p = va_arg(*args, void *);
-		ft_send_ptr(buff, bd, p);
-	}
+		ft_send_ptr(buff, bd, va_arg(*args, void *));
+	else if (c == 'i' || c == 'd')
+		ft_send_decimal(buff, bd, va_arg(*args, int));
+	else if (c == 'u')
+		ft_send_uint(buff, bd, va_arg(*args, int));
+	else if (c == 'x' || c == 'X')
+		printf_send_hexa(buff, bd, va_arg(*args, unsigned int), c);
+	else if (c == '%')
+		ft_send_char(buff, bd, '%');
+	else if (c == 'l')
+		ft_send_decimal(buff, bd, va_arg(*args, long));
 	else
-		return (ft_arg_to_buff2(buff, bd, args, c));
+		return (-1);
 	return (0);
 }

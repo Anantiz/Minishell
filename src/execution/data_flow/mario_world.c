@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 15:45:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/21 19:43:32 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/22 12:15:33 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int open_pipes(t_s_token *node)
 	{
 		if (pipe(node->data.op.pipefd))
 		{
-			perror("Pipe error");
+			perror("err 05: open_pipe :Pipe error\n");
 			return (FAILURE);
 		}
 	}
@@ -78,7 +78,7 @@ int	init_pipes(t_shell_data *shell_data)
 		{
 			if (open_pipes(node))
 			{
-				fprintf(stderr, "Open Pipe error\n");fflush(stderr);
+				ft_fprintf(2, "Open Pipe error\n");
 				close_all_pipes(shell_data->root);
 				return (FAILURE);
 			}
@@ -87,7 +87,7 @@ int	init_pipes(t_shell_data *shell_data)
 		{
 			if (handle_file_bs(node))
 			{
-				fprintf(stderr, "Open files error\n");fflush(stderr);
+				ft_fprintf(2, "Open files error\n");
 				close_all_pipes(shell_data->root);
 				return (FAILURE);
 			}
@@ -95,7 +95,7 @@ int	init_pipes(t_shell_data *shell_data)
 		node = get_next_node(node);
 	}
 	#ifdef DEBUG
-		printf("Pipe setup done\n");
+		ft_fprintf(2, "Pipe setup done\n");
 	#endif
 	return (SUCCESS);
 }

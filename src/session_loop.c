@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:12:50 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/21 19:13:23 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/22 16:57:27 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,12 @@ static int	sesion_routine(t_shell_data *shell_data)
 
 	line = readline(SHELL_NAME"$ ");
 	if (g_our_sig == SIGINT)
-		return (free(line), SUCCESS);
+		return (our_free(line), SUCCESS);
 	if (!line)
 		return (MAGIC_VALUE_EXIT_SHELL);
 	add_history(line);
 	ret = parse_line(shell_data, line);
-	free(line);
+	our_free(line);
 	if (ret)
 		return (PARSING_ERROR);
 	ret = exec_tree(shell_data);

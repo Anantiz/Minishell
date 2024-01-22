@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:48:14 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/19 14:49:01 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/22 16:48:23 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 size_t	ft_tablen(char **args)
 {
-	size_t i;
+	size_t	i;
 
 	if (!args)
 		return (0);

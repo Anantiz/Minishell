@@ -6,7 +6,7 @@
 #    By: aurban <aurban@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/20 06:06:39 by aurban            #+#    #+#              #
-#    Updated: 2024/01/20 14:25:03 by aurban           ###   ########.fr        #
+#    Updated: 2024/01/22 16:44:26 by aurban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,10 +16,13 @@ CC:=gcc
 INCLUDE_PATH= ../includes
 CFLAGS:=-Wall -Werror -Wextra -I$(INCLUDE_PATH) -g3
 
-FT_FILES:=		\
-	ft_bzero.c	\
-	ft_calloc.c	\
-	safe_malloc.c
+FT_FILES=
+
+# --- MEM MANAGER ---
+
+FT_MEM_MANAGER_PATH=Memory_manager
+FT_MEM_MANAGER_FILES=ft_bzero.c	ft_calloc.c mem_manager_op.c mem_manager.c
+FT_MEM_MANAGER_FILES:=$(addprefix $(FT_MEM_MANAGER_PATH)/,$(FT_MEM_MANAGER_FILES))
 
 # --- LINKED LIST ---
 
@@ -70,6 +73,7 @@ FT_FILES+=$(FT_CONVERSIONS_FILES)
 FT_FILES+=$(FT_PRINTF_FILES)
 FT_FILES+=$(FT_STRINGS_FILES)
 FT_FILES+=$(FT_GNL_FILES)
+FT_FILES+=$(FT_MEM_MANAGER_FILES)
 
 FT_PATH:=./
 FT_FILES:= $(addprefix $(FT_PATH)/,$(FT_FILES))

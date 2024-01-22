@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:28:45 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/21 20:52:09 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/22 15:13:00 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,6 @@ static int	open_file(t_s_file *file, int flags)
 		perror("open_file(): Open error");
 		return (FAILURE);
 	}
-	ft_fprintf(file->fd, "File opened\n");
-	fprintf(stderr, "File opened: fd=%d\n", file->fd);
 	return (SUCCESS);
 }
 
@@ -61,7 +59,6 @@ static int	copy_fd_in_redir_node(t_s_op *redir_node, int fd)
 		redir_node->pipefd[0] = -1;
 		redir_node->pipefd[1] = fd;
 	}
-	ft_fprintf(fd, "Fd copied\n");
 	return (SUCCESS);
 }
 

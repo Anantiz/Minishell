@@ -6,59 +6,68 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:41:43 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/22 11:11:49 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/22 15:13:47 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	our_echo(t_shell_data *shell_data, t_s_token *node)
+static int	get_echo_fd(t_s_token *node)
 {
-	int			fd;
-	int			i;
-	int			n_flag;
-	char		**args;
 	t_s_token	*redir_node;
+	int			fd;
 
-	(void)shell_data;
-	fprintf(stderr, "\t");
 	redir_node = get_redir_node(node);
-	print_node(redir_node);
+	// print_node(redir_node);
 	if (redir_node)
 	{
 		fd = redir_node->data.op.pipefd[1];
-		if (fd == -2) // Here_doc, but like , why would you do that?
+		if (fd == -2) // -2=Here_doc but like , why would you do that?
 			fd = STDIN_FILENO;
 	}
 	else
 		fd = STDOUT_FILENO;
-	fprintf(stderr, "\tECHO will write at %d\n\t\t", fd);
-	n_flag = 0;
-	args = node->data.cmd.args;
-	i = 0;
-	while (args[i])
+	return (fd);
+}
+
+static int	echo_check_end(char *arg, int n_flag, int fd)
+{
+	if (arg)
 	{
-		if (ft_strcmp(args[i], "-n"))
+		if (ft_putchar_fd(' ', fd) == -1)
+			return (FAILURE);
+	}
+	else if (!n_flag)
+	{
+		if (ft_putchar_fd('\n', fd) == -1)
+			return (FAILURE);
+	}
+	return (SUCCESS);
+}
+
+int	our_echo(t_shell_data *shell_data, t_s_token *node)
+{
+	int			fd;
+	int			n_flag;
+	char		**args;
+
+	(void)shell_data;
+	fd = get_echo_fd(node);
+	ft_fprintf(2, "\nECHO will write at %d\n", fd);
+	n_flag = 0;
+	args = node->data.cmd.args + 1;
+	while (*args)
+	{
+		if (!n_flag && !ft_strcmp(*args, "-n"))
 		{
 			n_flag = 1;
 			continue ;
 		}
-		if (ft_putstr_fd(args[i], fd))
+		if (ft_putstr_fd(*(args++), fd) == -1)
 			return (FAILURE);
-		fprintf(stderr, "%s", args[i]);
-		if (!args[i + 1])
-		{
-			fprintf(stderr, " ");
-			if (ft_putchar_fd(' ', fd))
-				return (FAILURE);
-		}
-		i++;
-	}
-	if (!n_flag)
-	{
-		if (ft_putchar_fd('\n', fd))
+		if (echo_check_end(*args, n_flag, fd) == FAILURE)
 			return (FAILURE);
 	}
-	fprintf(stderr, "\n");
+	close(fd);
 	return (SUCCESS);
 }

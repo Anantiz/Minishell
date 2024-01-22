@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 15:44:18 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/21 20:59:23 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/22 16:51:21 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,26 @@
 
 /* MEMORY */
 
-void		error_exit(const char *error);
+typedef struct s_g_mem_manager
+{
+	void					*addr;
+	struct s_g_mem_manager	*next;
+}t_mem_mng;
+
+# define SAFE_MALLOC_ALLOC 1
+# define SAFE_MALLOC_FREE 0
+# define SAFE_MALLOC_FREE_ALL -1
+
+void		mem_manager_del_list(t_mem_mng **root);
+void		mem_manager_del_node(t_mem_mng **root, void *address);
+void		mem_manager_add_front(t_mem_mng **head_, t_mem_mng *node);
+t_mem_mng	*mem_manager_new_node(size_t bytes, int *error);
+
 void		*our_malloc(size_t bytes);
+void		our_free(void *address);
+void		*safe_as_fuck_malloc(size_t bytes, void *address, int action);
+
+void		error_exit(const char *error);
 void		ft_bzero(void *s, size_t n);
 void		*ft_calloc(size_t nmemb, size_t size);
 
@@ -149,13 +167,13 @@ PRINTF
 
 typedef struct s_buffer_data
 {
-	int	offset;
-	int	written;
-	int	fd;
-	int	error;
+	int				fd;
+	unsigned int	offset;
+	ssize_t			error;
+	ssize_t			written;
 }t_bd;
 
-int			ft_printf(const char *s, ...);
+int			ft_printf(const char *format, ...);
 int			ft_fprintf(int fd, const char *format, ...);
 void		ft_flush(char *buffer, t_bd *bd);
 

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/01/22 11:15:07 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/22 15:12:35 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,31 +51,31 @@ static char *ret_str_op_type(int e)
 void	print_node(t_s_token *node)
 {
 	if (!node)
-		fprintf(stderr, "Node is NULL\n");
+		ft_fprintf(2, "Node is NULL\n");
 	else
 	{
-		fprintf(stderr, "Node %p: type: %s", node, ret_str_tk(node->token_type));
+		ft_fprintf(2, "Node %p: type: %s", node, ret_str_tk(node->token_type));
 		if (node->token_type == TK_OP)
 		{
-			fprintf(stderr, "\top: %s, pipe[0]=%d, pipe[1]=%d", \
+			ft_fprintf(2, "\top: %s, pipe[0]=%d, pipe[1]=%d", \
 			ret_str_op_type(node->data.op.type), \
 			node->data.op.pipefd[0], node->data.op.pipefd[1]);
 		}
 	}
-	fprintf(stderr, "\n");
+	ft_fprintf(2, "\n");
 }
 
 void	print_node_lite(t_s_token *node)
 {
 	if (!node)
-		fprintf(stderr, "Node is NULL\n");
+		ft_fprintf(2, "Node is NULL\n");
 	else
 	{
-		fprintf(stderr, "Node %p: type: %s", node, ret_str_tk(node->token_type));
+		ft_fprintf(2, "Node %p: type: %s", node, ret_str_tk(node->token_type));
 		if (node->token_type == TK_OP)
-			fprintf(stderr, "\top: %s", ret_str_op_type(node->data.op.type));
+			ft_fprintf(2, "\top: %s", ret_str_op_type(node->data.op.type));
 	}
-	fprintf(stderr, "\n");
+	ft_fprintf(2, "\n");
 }
 
 int	parse_line(t_shell_data *shell_data, char *line)
@@ -88,7 +88,7 @@ int	parse_line(t_shell_data *shell_data, char *line)
 
 //echo "Hey mom!" > new_file
 	tk1->token_type = TK_OP;
-	tk1->data.op.type = REDIR_OUT;
+	tk1->data.op.type = REDIR_APPEND;
 
 	tk2->token_type = TK_CMD;
 	tk2->data.cmd.args = malloc(sizeof(char *) * 3);
@@ -118,13 +118,13 @@ int	parse_line(t_shell_data *shell_data, char *line)
 	tk2->left = NULL;
 	tk2->right = NULL;
 
-	fprintf(stderr, "TREE:\n");
+	ft_fprintf(2, "TREE:\n");
 	t_s_token *node = shell_data->root;
 	while (node)
 	{
 		print_node_lite(node);
 		node = get_next_node(node);
 	}
-	fprintf(stderr, "\n");
+	ft_fprintf(2, "\n\n");
 	return (SUCCESS);
 }

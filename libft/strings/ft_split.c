@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/19 14:47:13 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/20 14:24:02 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/22 16:57:27 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,8 +47,8 @@ static int	check_error(char **strs, size_t j)
 	{
 		i = 0;
 		while (i < j - 1)
-			free(strs[i++]);
-		free(strs);
+			our_free(strs[i++]);
+		our_free(strs);
 		return (1);
 	}
 	return (0);
