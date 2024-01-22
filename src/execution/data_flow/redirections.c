@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:30:30 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/22 14:56:41 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/22 18:04:44 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ int	restore_std_streams(void)
 			return (perror("Restoring stdin, dup2() error"), FAILURE);
 		if (dup2(stdout_fd, STDOUT_FILENO) == -1)
 			return (perror("Restoring stdout, dup2() error"), FAILURE);
-		fprintf(stderr, "Restored standard streams\n");
 	}
 	return (SUCCESS);
 }

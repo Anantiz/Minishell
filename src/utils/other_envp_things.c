@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:14:30 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/22 16:57:27 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/22 17:43:20 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char		**t_env_to_double_char(t_env *envp)
 	while (envp)
 	{
 		temp = ft_strjoin(envp->key, "=");
-		ret[i] = ft_strjoin(temp, envp->value);
+		ret[i] = ft_strjoin(temp, envp->val);
 		our_free(temp);
 		envp = envp->next;
 		i++;

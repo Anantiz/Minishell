@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:24:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/22 16:56:41 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/22 18:08:43 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef enum e_our_commands
 	EXIT,
 	UNSET,
 	EXPORT,
+	RED_SQUARE,
 	E_END_CMD,
 }t_e_our_commands;
 
@@ -109,7 +110,7 @@ ENVP Linked_list
 typedef struct s_env
 {
 	char			*key;
-	char			*value;
+	char			*val;
 	struct s_env	*next;
 }t_env;
 

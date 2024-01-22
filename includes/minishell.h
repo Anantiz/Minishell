@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/22 16:56:32 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/22 17:56:12 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@
 # include "pair.h"
 # include "data_structures.h"
 
-# define SHELL_NAME "Joseph_shell"
+# define SHELL_NAME "Joseph_shell:"
 
 # define FAILURE 1
 # define SUCCESS 0

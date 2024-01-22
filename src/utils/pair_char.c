@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:00:38 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/22 16:57:27 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/22 17:57:02 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 t_pair_char	*pair_char_strtok(char *str, char sep)
 {
 	t_pair_char	*ret;
-	size_t		len;
 	char		*cut;
 
 	if (!str)
@@ -31,9 +30,8 @@ t_pair_char	*pair_char_strtok(char *str, char sep)
 		ret->val = NULL;
 		return (ret);
 	}
-	len = ft_strlen(str);
-	ret->key = ft_substr(str, 0, len - (cut - str) - 1);
-	ret->val = ft_substr(str, len - (cut - str), len);
+	ret->key = ft_substr(str, 0, (cut - str));
+	ret->val = ft_substr(cut, 1, ft_strlen(cut) - 1);
 	return (ret);
 }
 

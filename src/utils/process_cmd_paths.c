@@ -50,7 +50,7 @@ int	get_cmd_paths(t_shell_data *shell_data, t_s_token *node)
 	int		i;
 
 	var_path = our_get_env(shell_data , "PATH");
-	paths = custom_ft_split(var_path->value, ':');
+	paths = custom_ft_split(var_path->val, ':');
 	i = 0;
 	while (paths[i])
 	{

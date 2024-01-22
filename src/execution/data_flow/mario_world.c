@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 15:45:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/22 12:15:33 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/22 18:05:00 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,5 @@ int	init_pipes(t_shell_data *shell_data)
 		}
 		node = get_next_node(node);
 	}
-	#ifdef DEBUG
-		ft_fprintf(2, "Pipe setup done\n");
-	#endif
 	return (SUCCESS);
 }
