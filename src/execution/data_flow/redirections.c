@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:30:30 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/21 20:37:15 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/22 11:24:12 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,8 +17,7 @@ int	cmd_redir_streams(t_s_token *cmd_node, t_s_token *redir_node)
 {
 	if (!redir_node)
 		return (SUCCESS);
-	if (redir_node->data.op.type == REDIR_IN || (\
-		redir_node->data.op.type == PIPE && redir_node->left != cmd_node))
+	if (redir_node->data.op.type == PIPE && redir_node->left != cmd_node)
 	{
 		// Read the pipe
 		if (dup2(redir_node->data.op.pipefd[0], STDIN_FILENO) == -1)
