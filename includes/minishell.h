@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/23 11:59:28 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/23 12:41:15 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,17 +95,15 @@ int			init_pipes(t_shell_data *shell_data);
 int			open_pipes(t_s_token *node);
 int			handle_file_bs(t_s_token *node);
 void		close_all_pipes(t_s_token *root);
-int			cmd_redir_pipes_streams(t_s_token *cmd_node, t_s_token *redir_node);
-t_s_token	*get_redir_node(t_s_token *cmd_node);
+int			cmd_redir_streams(t_s_token *cmd_node);
+void		get_redir_nodes(t_s_token *cmd_node);
 
 int			exec_one_command(t_shell_data *shell_data, t_s_token *node);
 
-int	parent_process(t_shell_data *shell_data, t_s_token *cmd_node, \
-	t_s_token *redir_node, int pid);
-int			check_builtins(t_shell_data *shell_data, \
-	t_s_token *node, t_s_token *redir_node);
-void		child_process(t_shell_data *shell_data,	\
-	t_s_token *node, t_s_token *redir_node);
+int			parent_process(t_shell_data *shell_data, \
+	t_s_token *cmd_node, int pid);
+int			check_builtins(t_shell_data *shell_data, t_s_token *cmd_node);
+void		child_process(t_shell_data *shell_data,	t_s_token *cmd_node);
 
 /* RED FUNCTIONS */
 

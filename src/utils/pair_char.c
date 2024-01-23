@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:00:38 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/23 11:16:50 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/23 12:31:49 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,11 +44,16 @@ t_pair_char	*pair_char_strtok(char *str, char sep)
 	return (ret);
 }
 
-void		pair_char_free(t_pair_char *pair)
+/*
+	Free the malloced content of the pair
+	If the content wasn't malloc refer to pair_free(void *pair)
+	Free the pair object
+*/
+void		pair_mfree(void *pair)
 {
 	if (!pair)
 		return ;
-	our_free(pair->key);
-	our_free(pair->val);
+	our_free(((t_pair_void *)pair)->first);
+	our_free(((t_pair_void *)pair)->second);
 	our_free(pair);
 }

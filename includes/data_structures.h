@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:24:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/23 11:46:11 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/23 12:24:55 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,9 @@ typedef struct s_file
 
 typedef struct s_cmd
 {
-	char	**args;
-	char	**paths;
+	char		**args;
+	char		**paths;
+	t_pair_void redir_nodes;
 }t_s_cmd;
 
 typedef struct s_op

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 10:02:12 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/23 11:54:04 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/23 12:41:15 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,12 +36,12 @@ static void child_cleanup_crew(char **envp, char **paths)
 	else
 		ERROR: Not found
 */
-void	child_process(t_shell_data *shell_data, t_s_token *node, t_s_token *redir_node)
+void	child_process(t_shell_data *shell_data, t_s_token *node)
 {
 	int		i;
 	char	**envp;
 
-	if (cmd_redir_pipes_streams(node, redir_node))
+	if (cmd_redir_streams(node))
 		exit(errno);
 	get_cmd_paths(shell_data, node);
 	envp = t_env_to_double_char(shell_data->envp);

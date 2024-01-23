@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 17:08:31 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/23 11:07:26 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/23 12:13:52 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ static void	free_appropriate_data(t_pair_char **pairs)
 
 	i = 0;
 	while (pairs[i])
-		pair_char_free(pairs[i++]);
+		pair_mfree((void *)(pairs[i++]));
 	our_free(pairs);
 }
 

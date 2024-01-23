@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 15:45:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/22 18:05:00 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/23 12:37:40 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,12 +26,18 @@ void	close_all_pipes(t_s_token *node)
 {
 	while (node)
 	{
-		if (node->token_type == TK_OP && node->data.op.pipefd[0] != -1)
+		if (node->token_type == TK_OP)
 		{
-			if (node->data.op.type >= PIPE && node->data.op.type <= REDIR_HEREDOC)
+			if (node->data.op.type >= PIPE && node->data.op.type \
+				<= REDIR_HEREDOC)
 			{
-				close(node->data.op.pipefd[0]);
-				close(node->data.op.pipefd[1]);
+
+				if (node->data.op.pipefd[0] != -1)
+					close(node->data.op.pipefd[0]);
+				if (node->data.op.pipefd[1] != -1)
+					close(node->data.op.pipefd[1]);
+				node->data.op.pipefd[0] = -1;
+				node->data.op.pipefd[1] = -1;
 			}
 		}
 		node = get_next_node(node);
