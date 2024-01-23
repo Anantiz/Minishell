@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:24:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/23 12:24:55 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/23 15:43:58 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,15 +59,16 @@ typedef enum t_e_op_type
 
 typedef struct s_file
 {
-	char	*file_path;
-	int		fd;
+	int				fd;
+	char			*file_path;
+	struct s_token	*redir_nodes[2];
 }t_s_file;
 
 typedef struct s_cmd
 {
-	char		**args;
-	char		**paths;
-	t_pair_void redir_nodes;
+	char			**args;
+	char			**paths;
+	struct s_token	*redir_nodes[2];
 }t_s_cmd;
 
 typedef struct s_op
@@ -84,6 +85,7 @@ typedef struct s_var
 
 /* ############################## */
 
+// Union of all possible tokens
 union u_token
 {
 	t_s_file	file;

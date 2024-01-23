@@ -12,24 +12,6 @@
 
 #include "minishell.h"
 
-
-/*
-	Look for the first redir op
-		-If none found, return NULL
-		-Else return the node
-*/
-void	get_redir_nodes(t_s_token *cmd_node)
-{
-	t_s_token	*direct_redir_node;
-
-	direct_redir_node = cmd_node->parent;
-	while (direct_redir_node)
-	{
-		if (direct_redir_node->token_type = TK_OP)
-			break ;
-	}
-}
-
 static int	execute_from_path(t_shell_data *shell_data, t_s_token *node)
 {
 	int			pid;
@@ -63,10 +45,8 @@ Fork:
 */
 int	exec_one_command(t_shell_data *shell_data, t_s_token *node)
 {
-	t_pair_void	*redir_nodes;
 	int			ret;
 
-	get_redir_nodes(node);
 	ret = check_builtins(shell_data, node);
 	if (ret == NOT_IN_BUILTINS)
 		return (execute_from_path(shell_data, node));

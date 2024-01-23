@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 15:45:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/23 12:37:40 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/23 15:41:52 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,6 +97,10 @@ int	init_pipes(t_shell_data *shell_data)
 				close_all_pipes(shell_data->root);
 				return (FAILURE);
 			}
+		}
+		if (node->token_type == TK_CMD)
+		{
+			find_redir_nodes(node);
 		}
 		node = get_next_node(node);
 	}

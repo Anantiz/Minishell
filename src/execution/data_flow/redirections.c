@@ -6,56 +6,102 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:30:30 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/23 12:55:06 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/23 16:44:55 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+static void	get_parent_redir(t_s_token *child, t_s_token **parent)
+{
+	*parent = child->parent;
+	while ((*parent))
+	{
+		if ((*parent)->token_type == TK_OP)
+		{
+			if ((*parent)->data.op.type < PIPE)
+				(*parent) = NULL;
+			break ;
+		}
+		(*parent) = (*parent)->parent;
+	}
+}
+
 /*
-	Redir the standard streams with the pipes of the TK_OP
+	This works as expected for pipes
+*/
+static void	assign_redir_nodes(t_s_token *cmd_node, t_s_token *redir_nodes[2])
+{
+	if (!redir_nodes[1])
+	{
+		if (cmd_node == redir_nodes[0]->left)
+		{
+			cmd_node->data.cmd.redir_nodes[0] = NULL; // We do not redirect our stdin
+			cmd_node->data.cmd.redir_nodes[1] = redir_nodes[0]; // This is now were we redirect stdout
+		}
+		else
+		{
+			cmd_node->data.cmd.redir_nodes[1] = NULL; // We do not redirect our stdout
+			cmd_node->data.cmd.redir_nodes[0] = redir_nodes[0]; // This is were we get our stdin
+		}
+	}
+	else // B: there is a second parent, we are in the middle of a pipeline
+	{
+		cmd_node->data.cmd.redir_nodes[0] = redir_nodes[1]; // This is were we get our stdin
+		cmd_node->data.cmd.redir_nodes[1] = redir_nodes[0]; // This is now were we redirect stdout
+	}
+}
+
+/*
+Note that: if we encounter logical ops, they did break the pipelines, so we
+treat them as roots of a sub tree
+
+	The tree architecture is that we always redirect our output to the first
+	redirect_op we find, and we always take our input from the parent of this
+	very same redirect_op
+
+Find the first redir_parent
+Find the second redir_parent
+A:	If this redirect_op has no second parent, then it means:
+		Case1. (We are the left_child): We are the first command
+		Case2. (We are the right_child): There are only 2 commands
+				We are the last command and wrting to stdout
+B:	If it has a parent:
+		-Our first parent is the one we will write to
+		-Our second parent is the one we will read from
+*/
+void	find_redir_nodes(t_s_token *cmd_node)
+{
+	t_s_token	*redir_nodes[2];
+
+	cmd_node->data.cmd.redir_nodes[0] = NULL;
+	cmd_node->data.cmd.redir_nodes[1] = NULL;
+	get_parent_redir(cmd_node, &redir_nodes[0]);
+	if (!redir_nodes[0])
+		return ;
+	get_parent_redir(redir_nodes[0], &redir_nodes[1]);
+	assign_redir_nodes(cmd_node, redir_nodes);
+}
+
+/*
+	First we find the redir_nodes
+	Then we redirect our std-streams using the pipefd of the redir_nodes
 */
 int	cmd_redir_streams(t_s_token *cmd_node)
 {
-// Obsolete first attempt
-	// if (!redir_node || redir_node->token_type != TK_OP || \
-	// 	redir_node->data.op.type != PIPE)
-	// 	return (SUCCESS);
-	// if (redir_node->left != cmd_node)
-	// {
-	// 	// Read the pipe
-	// 	//(it means everytithing read in stdin is actually read from pipe 0)
-	// 	if (dup2(redir_node->data.op.pipefd[0], STDIN_FILENO) == -1)
-	// 		return (perror("dup2() error"), FAILURE);
-	// }
-	// else
-	// {
-	// 	// Write to the pipe
-	// 	if (dup2(redir_node->data.op.pipefd[1], STDOUT_FILENO) == -1)
-	// 		return (perror("dup2() error"), FAILURE);
-	// }
+	t_s_cmd	*cmd;
 
-// ACTUALL THING TO DO
-	/*
-		Find the closest parent that is not a logical op:
-			-get it
-
-		If there is one:
-			-The command on the right is your output, and this redir_op
-				is the pipe to write to , redir your stdout into it and close
-				your stdout (it was dup no worry)
-			-Put this node on the redir_nodes pair as the second field (cuz output)
-
-		Find whether it has a parent that is also an op but skip logicals_op:
-			-The comand on the left of is your input, and this redir_op
-				is the pipe to read from , redir your stdin into it and close
-				your stdin (it was dup no worry)
-			-Put this node on the redir_nodes pair ar the first field (cuz input)
-		Note:
-			The redir_nodes are stored so that the parent_process will be able
-			to send a null byte once the first command is done and clsoe them
-	*/
-	
+	cmd = &cmd_node->data.cmd;
+	if (cmd->redir_nodes[0])
+	{
+		if (dup2(cmd->redir_nodes[0]->data.op.pipefd[0], STDIN_FILENO) == -1)
+			return (perror("Redirecting STD-IN, dup2() error"), FAILURE);
+	}
+	if (cmd->redir_nodes[1])
+	{
+		if (dup2(cmd->redir_nodes[1]->data.op.pipefd[1], STDOUT_FILENO) == -1)
+			return (perror("Redirecting STD-OUT, dup2() error"), FAILURE);
+	}
 	return (SUCCESS);
 }
 
@@ -93,3 +139,21 @@ int	restore_std_streams(void)
 	}
 	return (SUCCESS);
 }
+
+/*
+Cas chiants:
+
+1.$< file cmd == cmd < file
+2.$file > file does Nothing
+3.$<file does nothing
+
+4.0$<< eof file \ Invalid
+4.1$<< eof cmd \ Ok
+*/
+
+/*
+Wildcard subtilities
+$ cmd > *
+Ca fait qq chose si Il y a un seul fichier dans le dossier
+autrement : "bash: *: ambiguous redirect"
+*/

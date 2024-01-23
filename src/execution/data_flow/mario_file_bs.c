@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:28:45 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/22 15:13:00 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/23 16:44:24 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,10 @@ int	handle_file_bs(t_s_token *file_node)
 	t_s_token	*redir_node;
 	int			flags;
 
-	redir_node = get_redir_node(file_node);
+	find_redir_nodes(file_node);
+	redir_node = file_node->data.file.redir_nodes[0];
+	if (redir_node == NULL)
+		redir_node = file_node->data.file.redir_nodes[1];
 	if (redir_node == NULL)
 		return (FAILURE);
 	if (redir_node->data.op.type == REDIR_HEREDOC)
