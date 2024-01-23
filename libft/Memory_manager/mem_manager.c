@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 15:04:58 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/22 17:23:05 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/23 11:57:26 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ action >=  1 -> SAFE_MALLOC_ALLOC
 action  =  0 -> SAFE_MALLOC_FREE
 action <= -1 -> SAFE_MALLOC_FREE_ALL
 
+Not thread safe, If we ever use threads add a mutex here,
+it would be a Giga bottleneck tho
 */
 void	*safe_as_fuck_malloc(size_t bytes, void *address, int action)
 {

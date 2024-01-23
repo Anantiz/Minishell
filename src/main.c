@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:09:25 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/22 18:11:33 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/23 11:40:32 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	main(int argc, char **argv, char **envp)
 	print_shell_intro(NULL, NULL);
 	session_error = session_start(&shell_data);
 	if (session_error)
-		display_error(session_error);
+		display_error(&shell_data, session_error);
 	our_exit(&shell_data, NULL);
 }
 

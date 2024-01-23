@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/22 17:56:12 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/23 11:59:28 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ typedef int	(*t_our_cmd_ptr)(t_shell_data *, t_s_token *);
 /* MISC */
 
 void		print_node(t_s_token *node);
-void		display_error(int error);
+void		display_error(t_shell_data *shell_data, int error);
 void		replace_signals(void);
 void		our_sig_handl(int sig);
 int			print_shell_intro(t_shell_data *shell_data, t_s_token *node);
@@ -100,7 +100,7 @@ t_s_token	*get_redir_node(t_s_token *cmd_node);
 
 int			exec_one_command(t_shell_data *shell_data, t_s_token *node);
 
-int			parent_process(t_shell_data *shell_data, \
+int	parent_process(t_shell_data *shell_data, t_s_token *cmd_node, \
 	t_s_token *redir_node, int pid);
 int			check_builtins(t_shell_data *shell_data, \
 	t_s_token *node, t_s_token *redir_node);

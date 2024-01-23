@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 10:02:12 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/22 15:11:10 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/23 11:54:04 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,12 @@ oooooooooo.
 o888bood8P'   `Y8bod8P' o888o o888o `Y8bod8P'
 */
 
+/* Absolutely not necessary, but it makes some people happy */
 static void child_cleanup_crew(char **envp, char **paths)
 {
 	free_double_char(paths);
 	free_double_char(envp);
+	safe_as_fuck_malloc(0, NULL, SAFE_MALLOC_FREE_ALL);
 }
 
 /*
@@ -50,8 +52,8 @@ void	child_process(t_shell_data *shell_data, t_s_token *node, t_s_token *redir_n
 		{
 			if (execve(node->data.cmd.paths[i], node->data.cmd.args, envp))
 			{
-				ft_fprintf(2, SHELL_NAME": %s: %s\n", *node->data.cmd.args, \
-					strerror(errno));
+				ft_fprintf(2, "Sub-process failure: %s: %s\n", \
+					*node->data.cmd.args, strerror(errno));
 				child_cleanup_crew(envp, node->data.cmd.paths);
 				exit(CMD_ERROR_EXEC);
 			}

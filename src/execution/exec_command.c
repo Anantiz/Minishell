@@ -57,7 +57,7 @@ static int	execute_from_path(t_shell_data *shell_data, t_s_token *node, \
 		signal(SIGINT, SIG_DFL);
 		child_process(shell_data, node, redir_node);
 	}
-	return (parent_process(shell_data, redir_node, pid));
+	return (parent_process(shell_data, node, redir_node, pid));
 }
 
 /*
