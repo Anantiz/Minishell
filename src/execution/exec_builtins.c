@@ -6,12 +6,20 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:20:58 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/23 12:41:15 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/24 16:03:34 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+/*
+	We do not fork() for builtins because we want to modify the shell_data
+	In our current model, if we use multiple builtins in a pipeline, and
+	exectute them in paralel since they allways dup2 to the standard
+	streams but we restore std-streams to default after each command\
+
+	Fuck !
+*/
 int	check_builtins(t_shell_data *shell_data, t_s_token *node)
 {
 	int							i;

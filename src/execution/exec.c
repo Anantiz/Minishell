@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:39:33 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/24 11:44:08 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/24 17:05:08 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int exec_commands(t_shell_data *shell_data)
 				}
 				else
 				{
-					printf(CMD_ERROR_EXEC_MSG);
+					ft_fprintf(2, "Error in command %d\n", i);
 					close_all_pipes(node);
 					return (CMD_ERROR_EXEC);
 				}

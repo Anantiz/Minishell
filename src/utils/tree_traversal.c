@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:11:05 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/23 11:17:05 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/24 15:58:29 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ o888bood8P'   `Y8bod8P' o888o o888o `Y8bod8P'
 
 /*
 	Depth first search to find the next node to visit
+	There is a universe in which oit loops infinitely
+	but the tree shiuld not be like this
 */
 t_s_token	*get_next_node(t_s_token *node)
 {
@@ -34,11 +36,12 @@ t_s_token	*get_next_node(t_s_token *node)
 		return (node->left);
 	if (node->right)
 		return (node->right);
-	if (node->parent)
+	while (node->parent)
 	{
 		parent = node->parent;
 		if (parent->right && parent->right != node)
 			return (parent->right);
+		node = parent;
 	}
 	return (NULL);
 }

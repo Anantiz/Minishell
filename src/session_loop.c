@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:12:50 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/24 12:05:28 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/24 16:50:06 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,10 @@ static char	*get_prompt_str(t_shell_data *shell_data)
 
 	env = our_get_env(shell_data, "PWD");
 	if (!env)
-		return (ft_strjoin(SHELL_NAME, "$ "));
+		return (ft_strjoin(SHELL_NAME, "|☭ "));
 	ret = ft_strjoin(SHELL_NAME, env->val);
 	old = ret;
-	ret = ft_strjoin(ret, "$ ");
+	ret = ft_strjoin(ret, "|☭ ");
 	our_free(old);
 	return (ret);
 }

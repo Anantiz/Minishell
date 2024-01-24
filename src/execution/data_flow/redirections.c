@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:30:30 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/24 11:58:28 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/24 17:32:39 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,16 @@ static void	assign_redir_nodes(t_s_token *cmd_node, t_s_token *redir_nodes[2])
 {
 	if (!redir_nodes[1])
 	{
+		/*
+			If there is only one redir_parent, then it means: there are only
+			two sub_token either piping two commands, or redir a cmd to/from
+			a file. We handle the case where we are the first or second(last)
+			command to be executed. We also inverse the order if we are
+			reading/writing to a file because dup2() will treat redir_nodes
+			order the same way we do for pipes .It kinda is stupid to not
+			directly use the pipefd, but It's clearer this way
+			and allow for better modularity
+		*/
 		if (cmd_node == redir_nodes[0]->left)
 		{
 			if (redir_nodes[0]->data.op.type != REDIR_IN)
@@ -58,15 +68,45 @@ static void	assign_redir_nodes(t_s_token *cmd_node, t_s_token *redir_nodes[2])
 			}
 			else
 			{
-				cmd_node->data.cmd.redir_nodes[0] = NULL; // We do not redirect our stdin, we are a file lol
+				cmd_node->data.cmd.redir_nodes[0] = NULL; // We do not redirect our stdin, we are a file lolc
 				cmd_node->data.cmd.redir_nodes[1] = redir_nodes[0]; // This is where the file fd is stored, where the command will read
 			}
 		}
 	}
-	else // B: there is a second parent, we are in the middle of a pipeline
+	else // B: there is a second parent, we are somewhat in the middle of a pipeline
 	{
-		cmd_node->data.cmd.redir_nodes[0] = redir_nodes[1]; // This is were we get our stdin
-		cmd_node->data.cmd.redir_nodes[1] = redir_nodes[0]; // This is now were we redirect stdout
+
+		/*
+			If you are the last node, do not redirect your output to the second parent,
+			 as it is actually the second parent of your input, you have none
+
+			If our first parent is the left child of the second parent,
+			then we write to the second parent and read from first parent
+				-> This is because we are both reading from a file, and redirecting our input
+				to an other command/file
+				if we were being piped from an other command there would only be a single
+
+			If our first parent is the right child of the second parent,
+			we read from the second parent and write to the first parent
+		*/
+		if (redir_nodes[0] == redir_nodes[1]->right)
+		{
+			if (cmd_node == redir_nodes[0]->right)
+			{
+				cmd_node->data.cmd.redir_nodes[0] = redir_nodes[0]; // The measured second parent is not related to use because we are the last command
+				cmd_node->data.cmd.redir_nodes[1] = NULL; // We do not redirect our stdout, we are the last args of the pipeline/subpipline
+			}
+			else
+			{
+				cmd_node->data.cmd.redir_nodes[0] = redir_nodes[1]; // This is were we get our stdin
+				cmd_node->data.cmd.redir_nodes[1] = redir_nodes[0]; // We do not redirect our stdout, we are the last args of the pipeline/subpipline
+			}
+		}
+		else
+		{
+			cmd_node->data.cmd.redir_nodes[0] = redir_nodes[0]; // This is were we get our stdin
+			cmd_node->data.cmd.redir_nodes[1] = redir_nodes[1]; // This is now were we redirect stdout
+		}
 	}
 }
 
@@ -110,15 +150,26 @@ int	cmd_redir_streams(t_s_token *cmd_node)
 	t_s_cmd	*cmd;
 
 	cmd = &cmd_node->data.cmd;
+	ft_fprintf(2, "node[0]: %p\n", cmd->redir_nodes[0]);
+	ft_fprintf(2, "node[1]: %p\n", cmd->redir_nodes[1]);
 	if (cmd->redir_nodes[0])
 	{
 		if (dup2(cmd->redir_nodes[0]->data.op.pipefd[0], STDIN_FILENO) == -1)
+		{
+			ft_fprintf(2, "redir_node pipefd[0]: %d, pipefd[1]: %d\n", cmd->redir_nodes[0]->data.op.pipefd[0], cmd->redir_nodes[1] != NULL ? cmd->redir_nodes[1]->data.op.pipefd[1] : -69);
 			return (perror("Redirecting STD-IN, dup2() error"), FAILURE);
+		}
+		ft_printf("\tiClosing: %d\n", cmd->redir_nodes[0]->data.op.pipefd[0]);
+		close(cmd->redir_nodes[0]->data.op.pipefd[0]);
+		cmd->redir_nodes[0]->data.op.pipefd[0] = -10;
 	}
 	if (cmd->redir_nodes[1])
 	{
 		if (dup2(cmd->redir_nodes[1]->data.op.pipefd[1], STDOUT_FILENO) == -1)
 			return (perror("Redirecting STD-OUT, dup2() error"), FAILURE);
+		ft_printf("\toClosing: %d\n", cmd->redir_nodes[1]->data.op.pipefd[1]);
+		close(cmd->redir_nodes[1]->data.op.pipefd[1]);
+		cmd->redir_nodes[1]->data.op.pipefd[1] = -10;
 	}
 	return (SUCCESS);
 }
