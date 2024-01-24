@@ -6,7 +6,7 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/01/24 09:17:04 by loris            ###   ########.fr       */
+/*   Updated: 2024/01/24 09:21:01 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,10 +150,6 @@ t_s_token   *scan_token(char **token)
     return (TK);
 }
 
-// t_s_token   *tree_builder(char **token, int num_token)
-// {
-
-// }
 
 /*
 *   recursive parsing descent
