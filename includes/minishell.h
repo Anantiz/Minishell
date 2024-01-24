@@ -6,17 +6,14 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/20 14:54:59 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/22 16:56:32 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-// REQUIRED for signal.h
-# define _POSIX_C_SOURCE 199309L
 # include <signal.h>
-extern int		our_g_sig;
 
 # include <stdio.h>
 # include <stdbool.h>
@@ -26,7 +23,6 @@ extern int		our_g_sig;
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
-
 
 # include "libft.h"
 # include "pair.h"
@@ -44,23 +40,33 @@ extern int		our_g_sig;
 # define CMD_ERROR_FORK 3
 # define CMD_ERROR_NOT_FOUND 4
 
-# define NOT_IN_BUILTINS 66
+// Magic value to differentiate between command errors and not found
+# define NOT_IN_BUILTINS 6666666
 
-# define PIPE_ERROR_MSG_INIT "Pipe init error\n"
-# define CMD_ERROR_EXEC_MSG "Command execution error\n"
+// Most error messages are hardcoded so it's kinda stupid to have this here
+// But not in other places
+# define PIPE_ERROR_MSG_INIT "Pipe init error"
+# define CMD_ERROR_EXEC_MSG "Command execution error"
 # define CMD_ERROR_NOT_FOUND_MSG "Command not found"
+
+extern int	g_our_sig;
+typedef int	(*t_our_cmd_ptr)(t_shell_data *, t_s_token *);
 
 /* MISC */
 
+void		print_node(t_s_token *node);
 void		display_error(int error);
+void		replace_signals(void);
+void		our_sig_handl(int sig);
 int			print_shell_intro(t_shell_data *shell_data, t_s_token *node);
 
 /* SESSION */
 
 void		register_signals(void);
+int			restore_std_streams(void);
 int			session_start(t_shell_data *shell_data);
 int			parse_line(t_shell_data *shell_data, char *line);
-int			execute_commands(t_shell_data *shell_data);
+int			exec_tree(t_shell_data *shell_data);
 
 /* SHELL_DATA */
 
@@ -84,18 +90,24 @@ char		*get_op(char *line, int *i);
 
 /* EXECUTION */
 
-int			setup_pipes(t_shell_data *shell_data);
-int			redir_pipe(t_s_token *node);
+int			init_pipes(t_shell_data *shell_data);
 
-# define REDIR_FLAGS {O_RDONLY, O_WRONLY | O_CREAT | O_TRUNC, \
-	O_WRONLY | O_CREAT | O_APPEND};
+int			open_pipes(t_s_token *node);
+int			handle_file_bs(t_s_token *node);
+void		close_all_pipes(t_s_token *root);
+int			cmd_redir_pipes_streams(t_s_token *cmd_node, t_s_token *redir_node);
+t_s_token	*get_redir_node(t_s_token *cmd_node);
 
-int			execute_command(t_shell_data *shell_data, t_s_token *node);
-void		child_process(t_shell_data *shell_data, t_s_token *node);
+int			exec_one_command(t_shell_data *shell_data, t_s_token *node);
+
+int			parent_process(t_shell_data *shell_data, \
+	t_s_token *redir_node, int pid);
+int			check_builtins(t_shell_data *shell_data, \
+	t_s_token *node, t_s_token *redir_node);
+void		child_process(t_shell_data *shell_data,	\
+	t_s_token *node, t_s_token *redir_node);
 
 /* RED FUNCTIONS */
-
-int			check_builtins(t_shell_data *shell_data, t_s_token *node);
 
 int			our_cd(t_shell_data *shell_data, t_s_token *node);
 int			our_pwd(t_shell_data *shell_data, t_s_token *node);
@@ -104,14 +116,6 @@ int			our_echo(t_shell_data *shell_data, t_s_token *node);
 int			our_exit(t_shell_data *shell_data, t_s_token *node);
 int			our_unset(t_shell_data *shell_data, t_s_token *node);
 int			our_export(t_shell_data *shell_data, t_s_token *node);
-
-# define OUR_COMMANDS_NAMES {"cd", "pwd", "env", "echo", "exit", "unset", \
-		"export", "red_square", NULL};
-
-# define OUR_COMMANDS_FNC_PTR {our_cd, our_pwd, our_env, our_echo, \
-		our_exit, our_unset, our_export, print_shell_intro, NULL};
-
-typedef int (*t_our_cmd_ptr)(t_shell_data *, t_s_token *);
 
 /* UTILS */
 

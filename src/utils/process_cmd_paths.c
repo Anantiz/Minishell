@@ -30,7 +30,7 @@ static char	**custom_ft_split(const char *str, char sep)
 			ret[i + 1] = temp[i];
 			i++;
 		}
-		free(temp);
+		our_free(temp);
 		ret[i] = NULL;
 	}
 	else
@@ -56,10 +56,10 @@ int	get_cmd_paths(t_shell_data *shell_data, t_s_token *node)
 	{
 		old = paths[i];
 		paths[i] = ft_strjoin(paths[i], "/");
-		free(old);
+		our_free(old);
 		old = paths[i];
 		paths[i] = ft_strjoin(paths[i], node->data.cmd.args[0]);
-		free(old);
+		our_free(old);
 		i++;
 	}
 	node->data.cmd.paths = paths;

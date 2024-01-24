@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:04:16 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/20 15:00:22 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/22 16:57:27 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ static t_env	*create_envp_list(char **envp)
 	{
 		var = pair_char_strtok(envp[i], '=');
 		t_env_add_back(&head, t_env_new_node(var->key, var->val));
-		free(var);
+		our_free(var);
 		i++;
 	}
 	return (head);

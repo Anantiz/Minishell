@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 14:00:38 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/20 14:34:00 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/22 16:57:27 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void		pair_char_free(t_pair_char *pair)
 {
 	if (!pair)
 		return ;
-	free(pair->key);
-	free(pair->val);
-	free(pair);
+	our_free(pair->key);
+	our_free(pair->val);
+	our_free(pair);
 }

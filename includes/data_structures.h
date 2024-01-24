@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_structures.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:24:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/21 16:41:41 by loris            ###   ########.fr       */
+/*   Updated: 2024/01/22 16:56:41 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ typedef enum e_our_commands
 	EXIT,
 	UNSET,
 	EXPORT,
-	END_OF_ENUM,
+	E_END_CMD,
 }t_e_our_commands;
 
 typedef enum e_token_type
@@ -41,14 +41,15 @@ typedef enum e_token_type
 
 typedef enum t_e_op_type
 {
-	T_AND,
-	T_OR,
 	SEMICOLON,
+	T_OR,
+	T_AND,
 	PIPE,
 	REDIR_IN,
 	REDIR_OUT,
 	REDIR_APPEND,
 	REDIR_HEREDOC,
+	E_END_OP,
 }t_e_op_type;
 
 /* ################################ */
@@ -58,6 +59,7 @@ typedef enum t_e_op_type
 typedef struct s_file
 {
 	char	*file_path;
+	int		fd;
 }t_s_file;
 
 typedef struct s_cmd
@@ -99,7 +101,6 @@ typedef struct s_token
 	struct s_token	*left;
 }t_s_token;
 
-
 /*
 ENVP Linked_list
 	Because refactoring would be tedious (like more than 5 min, crazy right ?)
@@ -120,6 +121,7 @@ typedef struct s_shell_data
 {
 	t_env		*envp;
 	t_s_token	*root;
+	int			last_wstatus;
 }t_shell_data;
 
 #endif
