@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/01/24 09:25:04 by loris            ###   ########.fr       */
-=======
-/*   Updated: 2024/01/23 16:45:17 by aurban           ###   ########.fr       */
->>>>>>> antoine
+/*   Updated: 2024/01/24 10:22:55 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +30,7 @@
 
 # define SHELL_NAME "Joseph_shell:"
 
-# define FAILURE 1
+# define FAILURE -1
 # define SUCCESS 0
 # define PARSING_ERROR 69
 # define EXECTION_ERROR 420
@@ -59,6 +55,7 @@ typedef int	(*t_our_cmd_ptr)(t_shell_data *, t_s_token *);
 /* MISC */
 
 void		print_node(t_s_token *node);
+void		print_node_lite(t_s_token *node);
 void		display_error(t_shell_data *shell_data, int error);
 void		replace_signals(void);
 void		our_sig_handl(int sig);
@@ -91,6 +88,8 @@ int			ft_cmdlen(char	*cmd);
 char		*get_cmd(char *line, int *i);
 char		*get_speop(char *line, int *i);
 char		*get_op(char *line, int *i);
+t_s_token   *parse_expression(char **token_list, int num_token);
+
 
 /* EXECUTION */
 

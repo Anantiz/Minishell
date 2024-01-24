@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:41:29 by loris             #+#    #+#             */
-/*   Updated: 2024/01/24 09:18:23 by loris            ###   ########.fr       */
+/*   Updated: 2024/01/24 10:19:36 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,20 @@ int	ft_cmdlen(char	*cmd)
 	i = 0;
 	while (ft_is_op(cmd[i]) == false && cmd[i])
 		i++;
-    i--;
-    while (ft_is_sep(cmd[i]) == true)
-        i--;
+	i--;
+	while (ft_is_sep(cmd[i]) == true)
+		i--;
 	return (i + 1);
 }
 
 char	*get_cmd(char *line, int *i)
 {
-	int	len_cmd;
+	int		len_cmd;
 	char	*ret;
 
 	len_cmd = ft_cmdlen(line);
-	ret  = ft_substr(line, 0, ft_cmdlen(line));
-	*i += ft_cmdlen(line);
+	ret  = ft_substr(line, 0, len_cmd); // ft_strdup ?
+	*i += len_cmd;
 	return (ret);
 }
 
@@ -59,7 +59,7 @@ char	*get_op(char *line, int *i)
 bool	ft_is_sep(char c)
 {
 	static const char	whitespace[] = " \t\r\n\v";
-	int		i;
+	int					i;
 
 	i = -1;
 	while (whitespace[++i])
@@ -70,10 +70,21 @@ bool	ft_is_sep(char c)
 	return (false);
 }
 
+// // Ma fois que c beaux
+// bool	ft_is_op(char c)
+// {
+// 	static const char	symbols[] = "|<>()'&$";
+// 	int					i;
+
+// 	i = 0;
+// 	while (symbols[i] && c != symbols[i])
+// 		i++;
+// 	return (c == symbols[i]);
+// }
 bool	ft_is_op(char c)
 {
 	static const char	symbols[] = "|<>()'&$";
-	int		i;
+	int					i;
 
 	i = -1;
 	while (symbols[++i])

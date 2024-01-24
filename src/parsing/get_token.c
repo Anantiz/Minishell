@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 08:26:52 by loris             #+#    #+#             */
-/*   Updated: 2024/01/24 09:16:17 by loris            ###   ########.fr       */
+/*   Updated: 2024/01/24 10:09:55 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,13 +70,15 @@ char    **ft_strtok(char *line)
 	int		i;
 	int		j;
 	int		word;
+	size_t	len;
 
 	j = 0;
 	i = 0;
+	len = ft_strlen(line); // tkt on fixe la norme plus tard, mets pas de ft_strlen dans une boucle
 	word = ft_countword(line);
 	list_token = our_malloc(sizeof(char *) * (word + 1));
 	list_token[word] = NULL;
-	while (i < ft_strlen(line))
+	while (i < (int)len)
 	{
 		if (ft_is_sep(line[i]) == false && ft_is_op(line[i]) == false)
 			list_token[j++] = get_cmd(&line[i], &i);
