@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:39:33 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/24 17:05:08 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/24 18:19:21 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,12 +61,13 @@ static int exec_commands(t_shell_data *shell_data)
 				}
 			}
 			restore_std_streams();
-			ft_fprintf(2, "CMD Done\n");
 		}
 		node = get_next_node(node);
 		i++;
+		fflush(NULL);
 	}
-	ft_fprintf(2, "Execution loop done\n\n");
+	waitpid(shell_data->last_pid, NULL, 0);
+	ft_fprintf(2, "\nExecution loop done\n\n");
 	return (SUCCESS);
 }
 
@@ -76,5 +77,6 @@ int	exec_tree(t_shell_data *shell_data)
 		return (PIPE_ERROR);
 	if (exec_commands(shell_data))
 		return (EXECTION_ERROR);
+	restore_std_streams();
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:05:20 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/24 11:15:33 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/24 18:34:53 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ static int	execute_from_path(t_shell_data *shell_data, t_s_token *node)
 {
 	int			pid;
 
+	cmd_redir_streams(node);
 	pid = fork();
 	if (pid == -1)
 	{
@@ -27,6 +28,7 @@ static int	execute_from_path(t_shell_data *shell_data, t_s_token *node)
 		signal(SIGINT, SIG_DFL);
 		child_process(shell_data, node);
 	}
+	shell_data->last_pid = pid;
 	return (parent_process(shell_data, node, pid));
 }
 

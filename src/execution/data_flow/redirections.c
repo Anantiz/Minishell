@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:30:30 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/24 17:32:39 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/24 18:30:11 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,16 +150,16 @@ int	cmd_redir_streams(t_s_token *cmd_node)
 	t_s_cmd	*cmd;
 
 	cmd = &cmd_node->data.cmd;
-	ft_fprintf(2, "node[0]: %p\n", cmd->redir_nodes[0]);
-	ft_fprintf(2, "node[1]: %p\n", cmd->redir_nodes[1]);
+	ft_fprintf(2, "\t%s node[0]: %p\n",cmd_node->data.cmd.args[0], cmd->redir_nodes[0]);
+	ft_fprintf(2, "\t%s node[1]: %p\n", cmd_node->data.cmd.args[0],cmd->redir_nodes[1]);
 	if (cmd->redir_nodes[0])
 	{
 		if (dup2(cmd->redir_nodes[0]->data.op.pipefd[0], STDIN_FILENO) == -1)
 		{
-			ft_fprintf(2, "redir_node pipefd[0]: %d, pipefd[1]: %d\n", cmd->redir_nodes[0]->data.op.pipefd[0], cmd->redir_nodes[1] != NULL ? cmd->redir_nodes[1]->data.op.pipefd[1] : -69);
+			ft_fprintf(2, "\t%s redir_node pipefd[0]: %d, pipefd[1]: %d\n",cmd_node->data.cmd.args[0], cmd->redir_nodes[0]->data.op.pipefd[0], cmd->redir_nodes[1] != NULL ? cmd->redir_nodes[1]->data.op.pipefd[1] : -69);
 			return (perror("Redirecting STD-IN, dup2() error"), FAILURE);
 		}
-		ft_printf("\tiClosing: %d\n", cmd->redir_nodes[0]->data.op.pipefd[0]);
+		ft_fprintf(2, "\t%s iClosing: %d\n", cmd_node->data.cmd.args[0],cmd->redir_nodes[0]->data.op.pipefd[0]);
 		close(cmd->redir_nodes[0]->data.op.pipefd[0]);
 		cmd->redir_nodes[0]->data.op.pipefd[0] = -10;
 	}
@@ -167,7 +167,7 @@ int	cmd_redir_streams(t_s_token *cmd_node)
 	{
 		if (dup2(cmd->redir_nodes[1]->data.op.pipefd[1], STDOUT_FILENO) == -1)
 			return (perror("Redirecting STD-OUT, dup2() error"), FAILURE);
-		ft_printf("\toClosing: %d\n", cmd->redir_nodes[1]->data.op.pipefd[1]);
+		ft_fprintf(2, "\t%s oClosing: %d\n",cmd_node->data.cmd.args[0], cmd->redir_nodes[1]->data.op.pipefd[1]);
 		close(cmd->redir_nodes[1]->data.op.pipefd[1]);
 		cmd->redir_nodes[1]->data.op.pipefd[1] = -10;
 	}

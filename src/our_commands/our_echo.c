@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:41:43 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/24 17:03:39 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/24 18:11:32 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ static int	echo_check_end(char *arg, int n_flag, int fd)
 		if (ft_putchar_fd(' ', fd) == -1)
 			return (FAILURE);
 	}
-	else if (!n_flag)
+	if (!n_flag)
 	{
 		if (ft_putchar_fd('\n', fd) == -1)
 			return (FAILURE);
@@ -46,8 +46,6 @@ int	our_echo(t_shell_data *shell_data, t_s_token *node)
 {
 	int			n_flag;
 	char		**args;
-	static int count = 1;
-	ft_fprintf(2, "our_echo: %d\n", count++);
 
 	(void)shell_data;
 	n_flag = 0;
