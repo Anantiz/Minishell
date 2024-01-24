@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 17:07:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/23 11:15:28 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/24 11:13:20 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ o888bood8P'   `Y8bod8P' o888o o888o `Y8bod8P'
 
 int	our_exit(t_shell_data *shell_data, t_s_token *token)
 {
-	int status;
+	int	status;
 
 	(void)shell_data;
 	if (token)

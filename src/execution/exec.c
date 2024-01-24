@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:39:33 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/23 11:47:12 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/24 11:44:08 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 	Protocol:
 		-1: Init all pipes
 		Loop:
-			-2: Execute commands  (Monitor global signal and send to children)
+			-2: Execute commands (Monitor global signal and send to childs)
 				-2.1: Handle redirections
 				-2.2: try:
 					-Execute from builtins
@@ -72,10 +72,8 @@ static int exec_commands(t_shell_data *shell_data)
 
 int	exec_tree(t_shell_data *shell_data)
 {
-	ft_fprintf(2, "Executing tree\n");
 	if (init_pipes(shell_data))
 		return (PIPE_ERROR);
-	ft_fprintf(2, "Pipes initialized\n");
 	if (exec_commands(shell_data))
 		return (EXECTION_ERROR);
 	return (SUCCESS);

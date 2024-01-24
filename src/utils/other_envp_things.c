@@ -6,13 +6,13 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:14:30 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/23 11:31:31 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/24 11:12:18 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char		**t_env_to_double_char(t_env *envp)
+char	**t_env_to_double_char(t_env *envp)
 {
 	char	**ret;
 	char	*old;

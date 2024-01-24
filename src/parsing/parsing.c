@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/01/24 10:21:46 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/24 12:08:52 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int	parse_line(t_shell_data *shell_data, char *line)
 	t_s_token	*tk0 = malloc(sizeof(t_s_token));
 	t_s_token	*tk1 = malloc(sizeof(t_s_token));
 	t_s_token	*tk2 = malloc(sizeof(t_s_token));
-	// t_s_token	*tk3 = malloc(sizeof(t_s_token));
+	t_s_token	*tk3 = malloc(sizeof(t_s_token));
 
-
+// cat Makefile | sed s/SRC/HAHAHA/g
 	// shell_data->root = tk0;
 	// tk0->token_type = TK_OP;
 	// tk0->data.op.type = PIPE;
@@ -47,36 +47,69 @@ int	parse_line(t_shell_data *shell_data, char *line)
 	// tk2->left = NULL;
 	// tk2->right = NULL;
 
-//echo "Hey mom! > file"
+//echo "Hey mom! > Newfile.txt"
+	// shell_data->root = tk0;
+	// tk0->token_type = TK_OP;
+	// tk0->data.op.type = REDIR_OUT;
+	// tk0->parent = NULL;
+	// tk0->left = tk1;
+	// tk0->right = tk2;
+
+	// tk1->token_type = TK_CMD;
+	// tk1->data.cmd.args = ft_calloc(sizeof(char *), 10);
+	// tk1->data.cmd.args[0] = ft_strdup("echo");
+	// tk1->data.cmd.args[1] = ft_strdup("Hey mom!");
+	// tk1->data.cmd.paths = NULL;
+	// tk1->parent = tk0;
+	// tk1->left = NULL;
+	// tk1->right = NULL;
+
+	// tk2->token_type = TK_FILE;
+	// tk2->data.file.file_path = ft_strdup("Newfile.txt");
+	// tk2->left = NULL;
+	// tk2->right = NULL;
+	// tk2->parent = tk0;
+
+// ls -l
+	// shell_data->root = tk0;
+	// tk0->token_type = TK_CMD;
+	// tk0->data.cmd.args = ft_calloc(sizeof(char *), 10);
+	// tk0->data.cmd.args[0] = ft_strdup("ls");
+	// tk0->data.cmd.args[1] = ft_strdup("-l");
+	// tk0->data.cmd.paths = NULL;
+	// tk0->parent = NULL;
+	// tk0->left = NULL;
+	// tk0->right = NULL;
+
+// cat < input.txt | sed s/SRC/HAHAHA/g > output.txt
 	shell_data->root = tk0;
 	tk0->token_type = TK_OP;
-	tk0->data.op.type = REDIR_OUT;
+	tk0->data.op.type = REDIR_IN;
 	tk0->parent = NULL;
 	tk0->left = tk1;
 	tk0->right = tk2;
 
 	tk1->token_type = TK_CMD;
 	tk1->data.cmd.args = ft_calloc(sizeof(char *), 10);
-	tk1->data.cmd.args[0] = ft_strdup("echo");
-	tk1->data.cmd.args[1] = ft_strdup("Hey mom!");
+	tk1->data.cmd.args[0] = ft_strdup("cat");
 	tk1->data.cmd.paths = NULL;
 	tk1->parent = tk0;
 	tk1->left = NULL;
 	tk1->right = NULL;
 
 	tk2->token_type = TK_FILE;
-	tk2->data.file.file_path = ft_strdup("Newfile.txt");
+	tk2->data.file.file_path = ft_strdup("Makefile");
 	tk2->left = NULL;
 	tk2->right = NULL;
 	tk2->parent = tk0;
 
-	ft_fprintf(2, "TREE:\n");
-	t_s_token *node = shell_data->root;
-	while (node)
-	{
-		print_node_lite(node);
-		node = get_next_node(node);
-	}
-	ft_fprintf(2, "\n\n");
+	// ft_fprintf(2, "TREE:\n");
+	// t_s_token *node = shell_data->root;
+	// while (node)
+	// {
+	// 	print_node_lite(node);
+	// 	node = get_next_node(node);
+	// }
+	// ft_fprintf(2, "\n\n");
 	return (SUCCESS);
 }

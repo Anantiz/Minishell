@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 10:02:12 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/23 12:41:15 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/24 11:15:13 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ o888bood8P'   `Y8bod8P' o888o o888o `Y8bod8P'
 */
 
 /* Absolutely not necessary, but it makes some people happy */
-static void child_cleanup_crew(char **envp, char **paths)
+static void	child_cleanup_crew(char **envp, char **paths)
 {
 	free_double_char(paths);
 	free_double_char(envp);

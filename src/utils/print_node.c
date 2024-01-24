@@ -6,13 +6,13 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:21:54 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/24 10:22:05 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/24 11:12:49 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char *ret_str_tk(int e)
+static char	*ret_str_tk(int e)
 {
 	if (e == TK_CMD)
 		return ("TK_CMD");
@@ -26,7 +26,7 @@ static char *ret_str_tk(int e)
 		return ("TK_UNKNOWN");
 }
 
-static char *ret_str_op_type(int e)
+static char	*ret_str_op_type(int e)
 {
 	if (e == SEMICOLON)
 		return ("SEMICOLON");

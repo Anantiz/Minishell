@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:04:16 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/23 11:42:26 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/24 11:11:55 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static t_env	*create_envp_list(char **envp)
 {
 	t_env		*head;
 	t_pair_char	*var;
-	int		i;
+	int			i;
 
 	i = 0;
 	head = NULL;

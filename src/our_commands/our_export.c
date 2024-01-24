@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 17:08:31 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/23 12:13:52 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/24 11:14:23 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static t_pair_char	**get_appropriate_data(char **args, char sep)
 
 static void	free_appropriate_data(t_pair_char **pairs)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (pairs[i])
@@ -78,12 +78,13 @@ int	our_export(t_shell_data *shell_data, t_s_token *token)
 	while (pairs[++i])
 	{
 		if (!pairs[i]->val)
-			continue;
+			continue ;
 		var = our_get_env(shell_data, pairs[i]->key);
 		if (!var)
-			var = t_env_add_back(&shell_data->envp, t_env_new_node\
-				(ft_strdup(pairs[i]->key), ft_strdup(pairs[i]->val)));
-		else // free the old value and replace it
+			var = t_env_add_back(&shell_data->envp, \
+				t_env_new_node(ft_strdup(pairs[i]->key), \
+				ft_strdup(pairs[i]->val)));
+		else
 		{
 			our_free(var->val);
 			var->val = ft_strdup(pairs[i]->val);

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:28:45 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/23 16:44:24 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/24 12:00:59 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,18 +45,17 @@ static int	copy_fd_in_redir_node(t_s_op *redir_node, int fd)
 {
 	if (fd == -1)
 	{
-		// Here_doc
 		redir_node->pipefd[0] = -2;
 		redir_node->pipefd[1] = -2;
 	}
 	else if (redir_node->type == REDIR_IN)	// Reads from file, so fd becomes pipefd[0]
 	{
 		redir_node->pipefd[0] = fd;
-		redir_node->pipefd[1] = -1;
+		redir_node->pipefd[1] = STDOUT_FILENO;
 	}
 	else									// Write to file, so fd becomes pipefd[1]
 	{
-		redir_node->pipefd[0] = -1;
+		redir_node->pipefd[0] = STDIN_FILENO;
 		redir_node->pipefd[1] = fd;
 	}
 	return (SUCCESS);
@@ -76,10 +75,9 @@ int	handle_file_bs(t_s_token *file_node)
 	t_s_token	*redir_node;
 	int			flags;
 
-	find_redir_nodes(file_node);
 	redir_node = file_node->data.file.redir_nodes[0];
 	if (redir_node == NULL)
-		redir_node = file_node->data.file.redir_nodes[1];
+		redir_node = file_node->data.file.redir_nodes[1]; // That should never happen, but just in case, cuz idk what my codes does anymore
 	if (redir_node == NULL)
 		return (FAILURE);
 	if (redir_node->data.op.type == REDIR_HEREDOC)

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 15:45:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/23 15:41:52 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/24 11:47:16 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,10 +31,9 @@ void	close_all_pipes(t_s_token *node)
 			if (node->data.op.type >= PIPE && node->data.op.type \
 				<= REDIR_HEREDOC)
 			{
-
-				if (node->data.op.pipefd[0] != -1)
+				if (node->data.op.pipefd[0] > STDERR_FILENO)
 					close(node->data.op.pipefd[0]);
-				if (node->data.op.pipefd[1] != -1)
+				if (node->data.op.pipefd[1] > STDERR_FILENO)
 					close(node->data.op.pipefd[1]);
 				node->data.op.pipefd[0] = -1;
 				node->data.op.pipefd[1] = -1;
@@ -45,7 +44,7 @@ void	close_all_pipes(t_s_token *node)
 }
 
 // Init a pipe for any Token that needs it
-int open_pipes(t_s_token *node)
+int	open_pipes(t_s_token *node)
 {
 	if (node->data.op.type == PIPE)
 	{
@@ -57,9 +56,35 @@ int open_pipes(t_s_token *node)
 	}
 	else
 	{
-		node->data.op.pipefd[0] = -1;
-		node->data.op.pipefd[1] = -1;
+		node->data.op.pipefd[0] = STDIN_FILENO;
+		node->data.op.pipefd[1] = STDOUT_FILENO;
 	}
+	return (SUCCESS);
+}
+
+int	init_pipes_iner_loop(t_shell_data *shell_data, t_s_token *node)
+{
+	if (node->token_type == TK_OP)
+	{
+		if (open_pipes(node))
+		{
+			ft_fprintf(2, "Open Pipe error\n");
+			close_all_pipes(shell_data->root);
+			return (FAILURE);
+		}
+	}
+	else if (node->token_type == TK_FILE)
+	{
+		find_redir_nodes(node);
+		if (handle_file_bs(node))
+		{
+			ft_fprintf(2, "Open files error\n");
+			close_all_pipes(shell_data->root);
+			return (FAILURE);
+		}
+	}
+	else if (node->token_type == TK_CMD)
+		find_redir_nodes(node);
 	return (SUCCESS);
 }
 
@@ -80,28 +105,8 @@ int	init_pipes(t_shell_data *shell_data)
 	node = shell_data->root;
 	while (node)
 	{
-		if (node->token_type == TK_OP)
-		{
-			if (open_pipes(node))
-			{
-				ft_fprintf(2, "Open Pipe error\n");
-				close_all_pipes(shell_data->root);
-				return (FAILURE);
-			}
-		}
-		else if (node->token_type == TK_FILE)
-		{
-			if (handle_file_bs(node))
-			{
-				ft_fprintf(2, "Open files error\n");
-				close_all_pipes(shell_data->root);
-				return (FAILURE);
-			}
-		}
-		if (node->token_type == TK_CMD)
-		{
-			find_redir_nodes(node);
-		}
+		if (init_pipes_iner_loop(shell_data, node))
+			return (FAILURE);
 		node = get_next_node(node);
 	}
 	return (SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:30:30 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/23 16:44:55 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/24 11:58:28 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ static void	get_parent_redir(t_s_token *child, t_s_token **parent)
 }
 
 /*
-	This works as expected for pipes
+	This function dont't handle here-docs for now
+	But here-docs are a special case of redir_in, I might implement it as a
+	redir_in in disguise, or as a special case, I don't know yet
 */
 static void	assign_redir_nodes(t_s_token *cmd_node, t_s_token *redir_nodes[2])
 {
@@ -36,13 +38,29 @@ static void	assign_redir_nodes(t_s_token *cmd_node, t_s_token *redir_nodes[2])
 	{
 		if (cmd_node == redir_nodes[0]->left)
 		{
-			cmd_node->data.cmd.redir_nodes[0] = NULL; // We do not redirect our stdin
-			cmd_node->data.cmd.redir_nodes[1] = redir_nodes[0]; // This is now were we redirect stdout
+			if (redir_nodes[0]->data.op.type != REDIR_IN)
+			{
+				cmd_node->data.cmd.redir_nodes[0] = NULL; // We do not redirect our stdin
+				cmd_node->data.cmd.redir_nodes[1] = redir_nodes[0]; // This is now were we redirect stdout
+			}
+			else
+			{
+				cmd_node->data.cmd.redir_nodes[0] = redir_nodes[0]; // Our stdin will be the file fd
+				cmd_node->data.cmd.redir_nodes[1] = NULL; // We do not redirect our stdout
+			}
 		}
 		else
 		{
-			cmd_node->data.cmd.redir_nodes[1] = NULL; // We do not redirect our stdout
-			cmd_node->data.cmd.redir_nodes[0] = redir_nodes[0]; // This is were we get our stdin
+			if (redir_nodes[0]->data.op.type != REDIR_IN)
+			{
+				cmd_node->data.cmd.redir_nodes[0] = redir_nodes[0]; // This is were we get our stdin
+				cmd_node->data.cmd.redir_nodes[1] = NULL; // We do not redirect our stdout, we are the last args of the pipeline
+			}
+			else
+			{
+				cmd_node->data.cmd.redir_nodes[0] = NULL; // We do not redirect our stdin, we are a file lol
+				cmd_node->data.cmd.redir_nodes[1] = redir_nodes[0]; // This is where the file fd is stored, where the command will read
+			}
 		}
 	}
 	else // B: there is a second parent, we are in the middle of a pipeline
@@ -115,7 +133,7 @@ int	restore_std_streams(void)
 {
 	static int	stdin_fd = -1;
 	static int	stdout_fd = -1;
-/* Initalise it */
+
 	if (stdin_fd == -1)
 	{
 		stdin_fd = dup(STDIN_FILENO);
@@ -125,7 +143,6 @@ int	restore_std_streams(void)
 		if (stdout_fd == -1)
 			return (perror("Initial stdout dup() error"), FAILURE);
 	}
-/* Restore */
 	else
 	{
 		if (close(STDIN_FILENO))

@@ -6,7 +6,7 @@
 #    By: aurban <aurban@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/09 10:14:27 by aurban            #+#    #+#              #
-#    Updated: 2024/01/22 11:15:42 by aurban           ###   ########.fr        #
+#    Updated: 2024/01/24 11:29:26 by aurban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,8 @@ SRC=\
 
 SRC_UTILS=\
 	utils.c	init_shell_data.c	tree_traversal.c	process_cmd_paths.c		\
-	kgb.c	envp_linked_list.c	pair_char.c			other_envp_things.c
+	kgb.c	envp_linked_list.c	pair_char.c			other_envp_things.c		\
+	print_node.c
 
 SRC_PARSE=\
 	parsing.c	get_token.c		parsing.c	tokentotree.c	parsing_utils.c	\
