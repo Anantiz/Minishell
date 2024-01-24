@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:14:30 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/22 16:57:27 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/23 11:31:31 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 char		**t_env_to_double_char(t_env *envp)
 {
 	char	**ret;
-	char	*temp;
+	char	*old;
 	t_env	*tmp;
-	size_t	i;
+	int		i;
 
 	if (!envp)
 		return (NULL);
@@ -32,11 +32,11 @@ char		**t_env_to_double_char(t_env *envp)
 	i = 0;
 	while (envp)
 	{
-		temp = ft_strjoin(envp->key, "=");
-		ret[i] = ft_strjoin(temp, envp->value);
-		our_free(temp);
+		old = ft_strjoin(envp->key, "=");
+		ret[i++] = ft_strjoin(old, envp->val);
+		our_free(old);
 		envp = envp->next;
-		i++;
 	}
+	ret[i] = NULL;
 	return (ret);
 }

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:04:16 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/22 16:57:27 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/23 11:42:26 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ static t_env	*create_envp_list(char **envp)
 void	init_shell_data(t_shell_data *shell_data, char **envp)
 {
 	shell_data->envp = create_envp_list(envp);
+	shell_data->last_wstatus = 0;
+	shell_data->last_command = NULL;
 }
 
 void	cleanup_shell_data(t_shell_data *shell_data)

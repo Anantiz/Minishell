@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:24:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/22 16:56:41 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/23 15:43:58 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef enum e_our_commands
 	EXIT,
 	UNSET,
 	EXPORT,
+	RED_SQUARE,
 	E_END_CMD,
 }t_e_our_commands;
 
@@ -58,14 +59,16 @@ typedef enum t_e_op_type
 
 typedef struct s_file
 {
-	char	*file_path;
-	int		fd;
+	int				fd;
+	char			*file_path;
+	struct s_token	*redir_nodes[2];
 }t_s_file;
 
 typedef struct s_cmd
 {
-	char	**args;
-	char	**paths;
+	char			**args;
+	char			**paths;
+	struct s_token	*redir_nodes[2];
 }t_s_cmd;
 
 typedef struct s_op
@@ -82,6 +85,7 @@ typedef struct s_var
 
 /* ############################## */
 
+// Union of all possible tokens
 union u_token
 {
 	t_s_file	file;
@@ -109,7 +113,7 @@ ENVP Linked_list
 typedef struct s_env
 {
 	char			*key;
-	char			*value;
+	char			*val;
 	struct s_env	*next;
 }t_env;
 
@@ -121,6 +125,7 @@ typedef struct s_shell_data
 {
 	t_env		*envp;
 	t_s_token	*root;
+	t_s_cmd		*last_command;
 	int			last_wstatus;
 }t_shell_data;
 

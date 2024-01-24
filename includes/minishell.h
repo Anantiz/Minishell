@@ -6,7 +6,11 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/01/24 09:25:04 by loris            ###   ########.fr       */
+=======
+/*   Updated: 2024/01/23 16:45:17 by aurban           ###   ########.fr       */
+>>>>>>> antoine
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +32,7 @@
 # include "pair.h"
 # include "data_structures.h"
 
-# define SHELL_NAME "Joseph_shell"
+# define SHELL_NAME "Joseph_shell:"
 
 # define FAILURE 1
 # define SUCCESS 0
@@ -55,7 +59,7 @@ typedef int	(*t_our_cmd_ptr)(t_shell_data *, t_s_token *);
 /* MISC */
 
 void		print_node(t_s_token *node);
-void		display_error(int error);
+void		display_error(t_shell_data *shell_data, int error);
 void		replace_signals(void);
 void		our_sig_handl(int sig);
 int			print_shell_intro(t_shell_data *shell_data, t_s_token *node);
@@ -92,20 +96,18 @@ char		*get_op(char *line, int *i);
 
 int			init_pipes(t_shell_data *shell_data);
 
+void		find_redir_nodes(t_s_token *cmd_node);
 int			open_pipes(t_s_token *node);
 int			handle_file_bs(t_s_token *node);
 void		close_all_pipes(t_s_token *root);
-int			cmd_redir_pipes_streams(t_s_token *cmd_node, t_s_token *redir_node);
-t_s_token	*get_redir_node(t_s_token *cmd_node);
+int			cmd_redir_streams(t_s_token *cmd_node);
 
 int			exec_one_command(t_shell_data *shell_data, t_s_token *node);
 
 int			parent_process(t_shell_data *shell_data, \
-	t_s_token *redir_node, int pid);
-int			check_builtins(t_shell_data *shell_data, \
-	t_s_token *node, t_s_token *redir_node);
-void		child_process(t_shell_data *shell_data,	\
-	t_s_token *node, t_s_token *redir_node);
+	t_s_token *cmd_node, int pid);
+int			check_builtins(t_shell_data *shell_data, t_s_token *cmd_node);
+void		child_process(t_shell_data *shell_data,	t_s_token *cmd_node);
 
 /* RED FUNCTIONS */
 

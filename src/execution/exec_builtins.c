@@ -6,14 +6,13 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:20:58 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/22 14:57:37 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/23 12:41:15 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_builtins(t_shell_data *shell_data, t_s_token *node, \
-	t_s_token *redir_node)
+int	check_builtins(t_shell_data *shell_data, t_s_token *node)
 {
 	int							i;
 	static const char			*name_map[] = {"cd", "pwd", "env", "echo", \
@@ -26,7 +25,7 @@ int	check_builtins(t_shell_data *shell_data, t_s_token *node, \
 	{
 		if (!ft_strcmp(node->data.cmd.args[0], name_map[i]))
 		{
-			if (cmd_redir_pipes_streams(node, redir_node) != SUCCESS)
+			if (cmd_redir_streams(node) != SUCCESS)
 				return (FAILURE);
 			return ((foo_map[i])(shell_data, node));
 		}
