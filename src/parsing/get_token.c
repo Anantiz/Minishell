@@ -14,7 +14,6 @@
 
 
 
-// if ARG=VALUE do not parse but add the variable to a linked list : use t_env
 /*
 *	Create a list of token base on the input line
 *	every command with his params will be a node of the tree
@@ -30,7 +29,6 @@
 *	Quotes and parenthesis are interpreted as token -> I deal with this when i build the tree
 *	(in file tokentotree.c)
 */
-
 int	ft_countword(char *line)
 {
 	int		count;

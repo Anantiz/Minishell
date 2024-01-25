@@ -175,10 +175,10 @@ int	cmd_redir_streams(t_s_token *cmd_node)
 }
 
 /*
-	Everytime we redirected the std_streams for a command
-	We need to restore them after the command has been executed
-
-	This function is 100% protected *poggers*
+*	Everytime we redirected the std_streams for a command
+*	We need to restore them after the command has been executed
+*
+*	This function is 100% protected *poggers*
 */
 int	restore_std_streams(void)
 {

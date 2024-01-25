@@ -87,10 +87,10 @@ t_s_token   *scan_token(char **token);
 int 		find_operator_addor(char **token_list, int num_token);
 int 		find_redir(char **token_list, int num_token);
 int 		find_pipeline(char **token_list, int num_token);
-t_s_token   *parse_expression(char **token_list, int num_token);
-t_s_token   *parse_redir(char **token_list, int num_token);
-t_s_token   *parse_pipeline(char **token_list, int num_token);
-t_s_token   *parse_cmd(char **token_list, int num_token);
+t_s_token   *parse_expression(char **token_list, int num_token, t_s_token *parent_node);
+t_s_token   *parse_redir(char **token_list, int num_token, t_s_token *parent_node);
+t_s_token   *parse_pipeline(char **token_list, int num_token, t_s_token *parent_node);
+t_s_token   *parse_cmd(char **token_list, int num_token, t_s_token *parent_node);
 
 /* PARSING UTILS */
 
@@ -100,7 +100,7 @@ int			ft_cmdlen(char	*cmd);
 char		*get_cmd(char *line, int *i);
 char		*get_speop(char *line, int *i);
 char		*get_op(char *line, int *i);
-t_s_token	*parse_expression(char **token_list, int num_token);
+t_s_token	*parse_expression(char **token_list, int num_token, t_s_token *parent_node);
 
 /* EXECUTION */
 

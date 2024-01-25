@@ -117,36 +117,8 @@ t_s_token   *scan_token(char **token)
 	}
 	if (!ft_is_op(*token[0]) && !ft_is_sep(*token[0]))
 	{
-		if (ft_strncmp("echo", *token, 4) == 0)
-		{
-			TK->token_type = TK_CMD;
-			TK->data.cmd.args = ft_split(*token, ' ');
-		}
-		else if (ft_strncmp("pwd", *token, 3) == 0)
-		{
-			TK->token_type = TK_CMD;
-			TK->data.cmd.args = ft_split(*token, ' ');
-		}
-		else if (ft_strncmp("export", *token, 6) == 0)
-		{
-			TK->token_type = TK_CMD;
-			TK->data.cmd.args = ft_split(*token, ' ');
-		}
-		else if (ft_strncmp("unset", *token, 5) == 0)
-		{
-			TK->token_type = TK_CMD;
-			TK->data.cmd.args = ft_split(*token, ' ');
-		}
-		else if (ft_strncmp("env", *token, 3) == 0)
-		{
-			TK->token_type = TK_CMD;
-			TK->data.cmd.args = ft_split(*token, ' ');
-		}
-		else if (ft_strncmp("exit", *token, 4) == 0)
-		{
-			TK->token_type = TK_CMD;
-			TK->data.cmd.args = ft_split(*token, ' ');
-		}
+		TK->token_type = TK_CMD;
+		TK->data.cmd.args = ft_split(*token, ' ');
 	}
 	return (TK);
 }
@@ -161,15 +133,50 @@ t_s_token   *scan_token(char **token)
 *   recursive parsing descent
 *   function (expression / redir_out / ..., for the priorities)
 */
+
+t_s_token	*get_next_node(t_s_token *node)
+{
+	t_s_token	*parent;
+
+	if (!node)
+		return (NULL);
+	if (node->left)
+		return (node->left);
+	if (node->right)
+		return (node->right);
+	while (node->parent)
+	{
+		parent = node->parent;
+		if (parent->right && parent->right != node)
+			return (parent->right);
+		node = parent;
+	}
+	return (NULL);
+}
+// cat < input.txt > output && cat < output | sed s/SRC/HAHAHA/g
+// a droite d' une redire c'est tjrs un fichier redir in
+// refaire les prioritees sur les redir
+// if ARG=VALUE do not parse but add the variable to a linked list : use t_env
+
+
 int main()
 {
-	char *array[] = {"pwd", "<", "echo", "|", "echo", ">", "pwd"};
+	char *array[] = {"cat", "<", "Makefile", ">", "input.t", "&&", "cat", "<", "input.t", "|", "sed", "s/SRC/HAHAHA/g", NULL};
 
 	char    **token_list;
 	t_s_token   *token;
 
 	token_list = array;
 
-	token = parse_expression(token_list, 6);
-	
+	token = parse_expression(token_list, ft_tablen(token_list), NULL);
+	ft_fprintf(2, "TREE:\n");
+	t_s_token *node = token;
+	int i = 0;
+	while (node)
+	{
+		ft_printf("%d ", i++);
+		print_node_lite(node);
+		node = get_next_node(node);
+	}
+	ft_fprintf(2, "\n\n");
 }
