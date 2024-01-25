@@ -72,7 +72,7 @@ bool	ft_is_sep(char c)
 
 bool	ft_is_op(char c)
 {
-	static const char	symbols[] = "|<>()'&$";
+	static const char	symbols[] = "|<>()'&";
 	int		i;
 
 	i = -1;

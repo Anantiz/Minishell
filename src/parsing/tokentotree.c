@@ -162,7 +162,7 @@ t_s_token   *scan_token(char **token)
 */
 int main()
 {
-	char *array[] = {"pwd", "<", "echo", "|", "echo", ">", " pwd"};
+	char *array[] = {"pwd", "<", "echo", "|", "echo", ">", "pwd"};
 
 	char    **token_list;
 	t_s_token   *token;
@@ -170,5 +170,5 @@ int main()
 	token_list = array;
 
 	token = parse_expression(token_list, 6);
-	printf("head_node->right->right %s\n", token->right->right->data.cmd.args[0]);
+	
 }

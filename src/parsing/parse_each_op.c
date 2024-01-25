@@ -46,7 +46,6 @@ t_s_token   *parse_redir(char **token_list, int num_token)
 		return (node);
 	}
 	node = scan_token((token_list + op_place));
-	printf("%s\n", *(token_list + op_place));
 	node->left = parse_expression(token_list, op_place);
 	node->right = parse_expression(token_list + op_place + 1, num_token - op_place - 1);
 	return (node);

@@ -12,6 +12,9 @@
 
 #include "../../includes/minishell.h"
 
+
+
+// if ARG=VALUE do not parse but add the variable to a linked list : use t_env
 /*
 *	Create a list of token base on the input line
 *	every command with his params will be a node of the tree
@@ -95,7 +98,7 @@ char    **ft_strtok(char *line)
 
 // int main()
 // {
-//     char *line = "echo \"test\" $(TEST)";
+//     char *line = "echo $TEST";
 //     int i;
 //     char **tok;
 
