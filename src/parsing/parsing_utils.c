@@ -83,8 +83,8 @@ bool	ft_is_sep(char c)
 // }
 bool	ft_is_op(char c)
 {
-	static const char	symbols[] = "|<>()'&$";
-	int					i;
+	static const char	symbols[] = "|<>()'&";
+	int		i;
 
 	i = -1;
 	while (symbols[++i])

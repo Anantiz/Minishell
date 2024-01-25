@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
+/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/24 11:11:39 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/20 14:54:59 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # include <sys/wait.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+
 
 # include "libft.h"
 # include "pair.h"
@@ -79,6 +80,17 @@ void		del_tree(t_shell_data *shell_data);
 
 int			ft_countword(char *line);
 char		**ft_strtok(char *line);
+t_s_token   *scan_token(char **token);
+
+/* PARSING FIND_OP / PARSE_OP */
+
+int 		find_operator_addor(char **token_list, int num_token);
+int 		find_redir(char **token_list, int num_token);
+int 		find_pipeline(char **token_list, int num_token);
+t_s_token   *parse_expression(char **token_list, int num_token);
+t_s_token   *parse_redir(char **token_list, int num_token);
+t_s_token   *parse_pipeline(char **token_list, int num_token);
+t_s_token   *parse_cmd(char **token_list, int num_token);
 
 /* PARSING UTILS */
 
