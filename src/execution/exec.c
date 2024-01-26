@@ -6,11 +6,16 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:39:33 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/26 11:36:36 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/26 12:10:05 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+	TO DO:
+		-HANDLE LOGICAL OPERATORS USING RETURN VALUES
+*/
 
 /*
 	Protocol:
