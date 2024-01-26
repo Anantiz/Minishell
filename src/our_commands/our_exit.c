@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 17:07:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/24 18:16:03 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/26 12:04:03 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,13 @@ int	our_exit(t_shell_data *shell_data, t_s_token *token)
 {
 	int	status;
 
-	(void)shell_data;
 	if (token)
 		status = ft_atoi(token->data.cmd.args[1]);
 	else
 		status = 0;
-	ft_putendl_fd("☭ exit ☭", 1);
+	close_all_pipes(shell_data->root);
+	cleanup_shell_data(shell_data);
+	ft_putendl_fd("☭ Слава герою Советского Союза☭", 1);
 	safe_as_fuck_malloc(0, NULL, SAFE_MALLOC_FREE_ALL);
 	exit(status);
 }

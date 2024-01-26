@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:05:20 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/24 18:34:53 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/26 10:49:02 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ static int	execute_from_path(t_shell_data *shell_data, t_s_token *node)
 	if (pid == 0)
 	{
 		signal(SIGINT, SIG_DFL);
+		signal(SIGKILL, SIG_DFL);
 		child_process(shell_data, node);
 	}
 	shell_data->last_pid = pid;

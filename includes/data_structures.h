@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:24:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/24 18:18:56 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/26 11:42:44 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,18 +57,25 @@ typedef enum t_e_op_type
 /* 				TOKENS 				*/
 /* ################################ */
 
+/*
+	Because s_file and s_comand
+	get initalized by the same function
+	the redir_nodes has to be at the same place
+*/
+
 typedef struct s_file
 {
-	int				fd;
-	char			*file_path;
 	struct s_token	*redir_nodes[2];
+	char			*file_path;
+	int				fd;
 }t_s_file;
 
 typedef struct s_cmd
 {
-	char			**args;
-	char			**paths;
 	struct s_token	*redir_nodes[2];
+	char			**paths;
+	char			**args;
+	bool			is_last;
 }t_s_cmd;
 
 typedef struct s_op
@@ -128,6 +135,8 @@ typedef struct s_shell_data
 	t_s_cmd		*last_command;
 	int			last_wstatus;
 	int			last_pid;
+	int			stdin_fd;
+	int			stdout_fd;
 }t_shell_data;
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:30:30 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/24 18:30:11 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/26 11:22:50 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	get_parent_redir(t_s_token *child, t_s_token **parent)
 		{
 			if ((*parent)->data.op.type < PIPE)
 				(*parent) = NULL;
-			break ;
+			return ;
 		}
 		(*parent) = (*parent)->parent;
 	}
@@ -177,10 +177,8 @@ int	cmd_redir_streams(t_s_token *cmd_node)
 /*
 	Everytime we redirected the std_streams for a command
 	We need to restore them after the command has been executed
-
-	This function is 100% protected *poggers*
 */
-int	restore_std_streams(void)
+int	restore_std_streams(t_shell_data *shell_data)
 {
 	static int	stdin_fd = -1;
 	static int	stdout_fd = -1;
@@ -193,13 +191,13 @@ int	restore_std_streams(void)
 		stdout_fd = dup(STDOUT_FILENO);
 		if (stdout_fd == -1)
 			return (perror("Initial stdout dup() error"), FAILURE);
+		shell_data->stdin_fd = stdin_fd;
+		shell_data->stdout_fd = stdout_fd;
 	}
 	else
 	{
-		if (close(STDIN_FILENO))
-			return (perror("Restoring stdin, close() error"), FAILURE);
-		if (close(STDOUT_FILENO))
-			return (perror("Restoring stdout, close() error"), FAILURE);
+		close(STDIN_FILENO);
+		close(STDOUT_FILENO);
 		if (dup2(stdin_fd, STDIN_FILENO) == -1)
 			return (perror("Restoring stdin, dup2() error"), FAILURE);
 		if (dup2(stdout_fd, STDOUT_FILENO) == -1)

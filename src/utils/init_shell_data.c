@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:04:16 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/24 18:21:28 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/26 11:23:53 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,4 +46,6 @@ void	cleanup_shell_data(t_shell_data *shell_data)
 	rl_clear_history();
 	del_tree(shell_data);
 	t_env_del_list(&shell_data->envp);
+	close(shell_data->stdin_fd);
+	close(shell_data->stdout_fd);
 }

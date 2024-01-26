@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 15:04:58 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/23 11:57:26 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/26 11:56:54 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,6 @@ void	our_free(void *address)
 
 void	error_exit(const char *error)
 {
-	printf("\033[31m🚨%s🚨\033[31m\n", error);
+	ft_fprintf(2, "\033[31m🚨%s🚨\033[31m\n", error);
 	exit(EXIT_FAILURE);
 }

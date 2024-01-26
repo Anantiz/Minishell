@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/20 14:54:59 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/26 11:36:00 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@
 // Magic value to differentiate between command errors and not found
 # define NOT_IN_BUILTINS 6666666
 
-// Most error messages are hardcoded so it's kinda stupid to have this here
-// But not in other places
+// Most error messages are hardcoded so it's kinda stupid to have these here
+// But not the others
 # define PIPE_ERROR_MSG_INIT "Pipe init error"
 # define CMD_ERROR_EXEC_MSG "Command execution error"
 # define CMD_ERROR_NOT_FOUND_MSG "Command not found"
@@ -65,7 +65,7 @@ int			print_shell_intro(t_shell_data *shell_data, t_s_token *node);
 /* SESSION */
 
 void		register_signals(void);
-int			restore_std_streams(void);
+int			restore_std_streams(t_shell_data *shell_data);
 int			session_start(t_shell_data *shell_data);
 int			parse_line(t_shell_data *shell_data, char *line);
 int			exec_tree(t_shell_data *shell_data);

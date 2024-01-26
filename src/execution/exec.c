@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:39:33 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/24 18:19:21 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/26 11:36:36 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ static int exec_commands(t_shell_data *shell_data)
 					return (CMD_ERROR_EXEC);
 				}
 			}
-			restore_std_streams();
+			restore_std_streams(NULL);
 		}
 		node = get_next_node(node);
 		i++;
@@ -77,6 +77,6 @@ int	exec_tree(t_shell_data *shell_data)
 		return (PIPE_ERROR);
 	if (exec_commands(shell_data))
 		return (EXECTION_ERROR);
-	restore_std_streams();
+	restore_std_streams(NULL);
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:41:29 by loris             #+#    #+#             */
-/*   Updated: 2024/01/24 10:19:36 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/26 10:41:40 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,17 +70,6 @@ bool	ft_is_sep(char c)
 	return (false);
 }
 
-// // Ma fois que c beaux
-// bool	ft_is_op(char c)
-// {
-// 	static const char	symbols[] = "|<>()'&$";
-// 	int					i;
-
-// 	i = 0;
-// 	while (symbols[i] && c != symbols[i])
-// 		i++;
-// 	return (c == symbols[i]);
-// }
 bool	ft_is_op(char c)
 {
 	static const char	symbols[] = "|<>()'&";

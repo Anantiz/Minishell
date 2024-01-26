@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/01/24 18:36:32 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/26 11:48:19 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,17 +16,17 @@ int	parse_line(t_shell_data *shell_data, char *line)
 {
 	(void)line;
 /* Test*/
-	t_s_token	*tk0 = malloc(sizeof(t_s_token));
-	t_s_token	*tk1 = malloc(sizeof(t_s_token));
-	t_s_token	*tk2 = malloc(sizeof(t_s_token));
-	t_s_token	*tk3 = malloc(sizeof(t_s_token));
-	t_s_token	*tk4 = malloc(sizeof(t_s_token));
-	t_s_token	*tk5 = malloc(sizeof(t_s_token));
-	t_s_token	*tk6 = malloc(sizeof(t_s_token));
-	t_s_token	*tk7 = malloc(sizeof(t_s_token));
-	t_s_token	*tk7_1 = malloc(sizeof(t_s_token));
-	t_s_token	*tk7_2 = malloc(sizeof(t_s_token));
-	t_s_token	*tk8 = malloc(sizeof(t_s_token));
+	t_s_token	*tk0 = our_malloc(sizeof(t_s_token));
+	t_s_token	*tk1 = our_malloc(sizeof(t_s_token));
+	t_s_token	*tk2 = our_malloc(sizeof(t_s_token));
+	t_s_token	*tk3 = our_malloc(sizeof(t_s_token));
+	t_s_token	*tk4 = our_malloc(sizeof(t_s_token));
+	t_s_token	*tk5 = our_malloc(sizeof(t_s_token));
+	t_s_token	*tk6 = our_malloc(sizeof(t_s_token));
+	t_s_token	*tk7 = our_malloc(sizeof(t_s_token));
+	t_s_token	*tk7_1 = our_malloc(sizeof(t_s_token));
+	t_s_token	*tk7_2 = our_malloc(sizeof(t_s_token));
+	t_s_token	*tk8 = our_malloc(sizeof(t_s_token));
 
 // cat Makefile | sed s/SRC/HAHAHA/g
 	// shell_data->root = tk0;
@@ -142,6 +142,7 @@ int	parse_line(t_shell_data *shell_data, char *line)
 	tk2->parent = tk1;
 	tk2->left = NULL;
 	tk2->right = NULL;
+	tk2->data.cmd.is_last = false;
 
 	tk3->token_type = TK_FILE;
 	tk3->data.file.file_path = ft_strdup("Makefile");
@@ -186,6 +187,7 @@ int	parse_line(t_shell_data *shell_data, char *line)
 	tk7_1->parent = tk7;
 	tk7_1->left = NULL;
 	tk7_1->right = NULL;
+	tk7_1->data.cmd.is_last = false;
 
 	tk8->token_type = TK_CMD;
 	tk8->data.cmd.args = ft_calloc(sizeof(char *), 10);
@@ -195,6 +197,7 @@ int	parse_line(t_shell_data *shell_data, char *line)
 	tk8->parent = tk6;
 	tk8->left = NULL;
 	tk8->right = NULL;
+	tk8->data.cmd.is_last = true;
 
 	ft_fprintf(2, "TREE:\n");
 	t_s_token *node = shell_data->root;
