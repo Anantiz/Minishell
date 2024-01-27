@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tree_traversal.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fender <fender@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:11:05 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/24 15:58:29 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/27 16:36:11 by fender           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,4 +44,12 @@ t_s_token	*get_next_node(t_s_token *node)
 		node = parent;
 	}
 	return (NULL);
+}
+
+t_s_token	*get_next_subtree(t_s_token *node)
+{
+	node = get_next_node(node);
+	while (node && node->token_type != TK_OP && node->data.op.type >= PIPE)
+		node = get_next_node(node);
+	return (node);
 }

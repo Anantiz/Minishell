@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fender <fender@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:39:33 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/26 12:10:05 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/27 16:33:43 by fender           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,27 +44,40 @@ static int exec_commands(t_shell_data *shell_data)
 	int i = 0;
 	while (node)
 	{
-		if (node->token_type == TK_CMD)
+		if (node->token_type == TK_OP)
+		{
+			if (node->data.op.type == T_AND)
+			{
+				if (shell_data->last_wstatus != 0)
+					node = get_next_subtree(node);
+			}
+			else if (node->token_type == T_OR)
+			{
+				if (shell_data->last_wstatus == 0)
+					node = get_next_subtree(node);
+			}
+		}
+		else if (node->token_type == TK_CMD)
 		{
 			ft_fprintf(2, "Executing node %d: %p\n", i, node);
 			shell_data->last_command = &node->data.cmd;
 			ret = exec_one_command(shell_data, node);
-			if (ret)
-			{
-				if (0) // TO DO:
-				{
-					/*
-						Check logical operator to see if
-						should exit or do another command
-					 */
-				}
-				else
-				{
-					ft_fprintf(2, "Error in command %d\n", i);
-					close_all_pipes(node);
-					return (CMD_ERROR_EXEC);
-				}
-			}
+			// if (ret)
+			// {
+			// 	if () // TO DO:
+			// 	{
+			// 		/*
+			// 			Check logical operator to see if
+			// 			should exit or do another command
+			// 		 */
+			// 	}
+			// 	else
+			// 	{
+			// 		ft_fprintf(2, "Error in command %d\n", i);
+			// 		close_all_pipes(node);
+			// 		return (CMD_ERROR_EXEC);
+			// 	}
+			// }
 			restore_std_streams(NULL);
 		}
 		node = get_next_node(node);
