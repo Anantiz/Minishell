@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 17:08:31 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/24 11:14:23 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/29 12:13:50 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,23 +55,11 @@ static void	free_appropriate_data(t_pair_char **pairs)
 	our_free(pairs);
 }
 
-/*
-	Syntax: export [name[=value] ...]
-
-	IF value is not set : ignore
-
-	Else :
-		- If name does not exist in envp : add it
-		- Else : replace it
-
-	For each pair, we check if the key exists in envp
-	We update or add it, only if the value is non NULL
-*/
-int	our_export(t_shell_data *shell_data, t_s_token *token)
+static int	our_export_with_args(t_shell_data *shell_data, t_s_token *token)
 {
-	t_pair_char	**pairs;
-	t_env		*var;
 	int			i;
+	t_env		*var;
+	t_pair_char	**pairs;
 
 	pairs = get_appropriate_data(token->data.cmd.args, '=');
 	i = -1;
@@ -91,5 +79,38 @@ int	our_export(t_shell_data *shell_data, t_s_token *token)
 		}
 	}
 	free_appropriate_data(pairs);
+}
+
+/*
+	Syntax: export [name[=value] ...]
+
+	IF value is not set : ignore
+
+	Else :
+		- If name does not exist in envp : add it
+		- Else : replace it
+
+	For each pair, we check if the key exists in envp
+	We update or add it, only if the value is non NULL
+*/
+int	our_export(t_shell_data *shell_data, t_s_token *token)
+{
+	t_env		*var;
+
+	if (token->data.cmd.args[1] == NULL)
+	{
+		var = shell_data->envp;
+		while (var)
+		{
+			ft_fprintf(STDOUT_FILENO, "declare -x %s=", var->key);
+			if (var->val)
+				ft_fprintf(STDOUT_FILENO, "%s\n", var->val);
+			else
+				write(STDOUT_FILENO, "\n", 1);
+			var = var->next;
+		}
+	}
+	else
+		our_export_with_args(shell_data, token);
 	return (SUCCESS);
 }

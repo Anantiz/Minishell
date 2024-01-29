@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 14:51:50 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/23 11:15:17 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/29 11:52:01 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ int	our_cd(t_shell_data *shell_data, t_s_token *node)
 {
 	t_env	*var;
 
-	printf("our_cd\n");
 	if (chdir(node->data.cmd.args[1]))
 	{
 		ft_fprintf(2, "cd: %s: %s\n", node->data.cmd.args[1], strerror(errno));

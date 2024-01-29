@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: fender <fender@student.42.fr>              +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/27 16:39:39 by fender           ###   ########.fr       */
+/*   Updated: 2024/01/29 11:47:52 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # include "pair.h"
 # include "data_structures.h"
 
-# define SHELL_NAME "Joseph_shell:"
+# define SHELL_NAME "\033[31mJoseph_shell:\033[0m"
 
 # define FAILURE -1
 # define SUCCESS 0
@@ -107,6 +107,8 @@ t_s_token	*parse_expression(char **token_list, int num_token);
 int			init_pipes(t_shell_data *shell_data);
 
 void		find_redir_nodes(t_s_token *cmd_node);
+void		assign_redir_nodes(t_s_token *cmd_node, t_s_token *redir_nodes[2]);
+
 int			open_pipes(t_s_token *node);
 int			handle_file_bs(t_s_token *node);
 void		close_all_pipes(t_s_token *root);

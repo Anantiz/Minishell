@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 17:07:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/26 12:04:03 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/29 11:41:49 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,8 @@ int	our_exit(t_shell_data *shell_data, t_s_token *token)
 		status = 0;
 	close_all_pipes(shell_data->root);
 	cleanup_shell_data(shell_data);
-	ft_putendl_fd("☭ Слава герою Советского Союза☭", 1);
+	ft_putendl_fd("\033[93m☭\033[0m \033[31mСлава герою \
+Советского Союза\033[93m☭\033[0m", 1);
 	safe_as_fuck_malloc(0, NULL, SAFE_MALLOC_FREE_ALL);
 	exit(status);
 }

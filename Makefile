@@ -6,7 +6,7 @@
 #    By: aurban <aurban@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/09 10:14:27 by aurban            #+#    #+#              #
-#    Updated: 2024/01/24 11:29:26 by aurban           ###   ########.fr        #
+#    Updated: 2024/01/29 11:49:22 by aurban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,8 +38,8 @@ SRC_PARSE=\
 
 SRC_EXEC=\
 	exec.c	data_flow/mario_world.c	exec_command.c	exec_child_process.c	\
-	data_flow/redirections.c	data_flow/mario_file_bs.c	exec_builtins.c	\
-	exec_parent.c
+	data_flow/redirections_1.c	data_flow/mario_file_bs.c	exec_builtins.c	\
+	exec_parent.c	data_flow/redirections_2.c
 
 SRC_ERR=\
 	session_error.c
