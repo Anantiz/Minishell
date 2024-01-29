@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:39:33 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/29 10:34:31 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/29 15:21:33 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,6 @@
 static int exec_commands(t_shell_data *shell_data)
 {
 	t_s_token	*node;
-	// int			ret;
 
 	node = shell_data->root;
 	int i = 0;
@@ -64,12 +63,6 @@ static int exec_commands(t_shell_data *shell_data)
 			shell_data->last_command = &node->data.cmd;
 			exec_one_command(shell_data, node);
 			restore_std_streams(NULL);
-			// if (node->data.cmd.is_last && ret)
-			// {
-			// 	display_error(shell_data, ret);
-			// 	close_all_pipes(node);
-			// 	return (CMD_ERROR_EXEC);
-			// }
 		}
 		node = get_next_node(node);
 		i++;
