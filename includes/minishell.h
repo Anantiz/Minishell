@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
+/*   By: fender <fender@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/26 11:36:00 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/27 16:39:39 by fender           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ int			our_export(t_shell_data *shell_data, t_s_token *node);
 /* UTILS */
 
 t_s_token	*get_next_node(t_s_token *node);
+t_s_token	*get_next_subtree(t_s_token *node);
 int			get_cmd_paths(t_shell_data *shell_data, t_s_token *node);
 
 /* T_ENV */

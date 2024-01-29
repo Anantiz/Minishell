@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:39:33 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/26 14:28:47 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/29 09:56:12 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,21 +48,13 @@ static int exec_commands(t_shell_data *shell_data)
 		{
 			if (node->data.op.type == T_AND)
 			{
-				if (shell_data->last_wstatus)
-				{
-					// Don't execute this subtree
-					// Jump to the next subtree (T_AND or T_OR)
-					// node = get_next_subtree(node);
-				}
+				if (shell_data->last_wstatus != 0)
+					node = get_next_subtree(node);
 			}
-			else if (node->data.op.type = T_OR)
+			else if (node->token_type == T_OR)
 			{
-				if (!shell_data->last_wstatus)
-				{
-					// Don't execute this subtree
-					// Jump to the next subtree (T_AND or T_OR)
-					// node = get_next_subtree(node);
-				}
+				if (shell_data->last_wstatus == 0)
+					node = get_next_subtree(node);
 			}
 		}
 		else if (node->token_type == TK_CMD)
@@ -72,7 +64,19 @@ static int exec_commands(t_shell_data *shell_data)
 			ret = exec_one_command(shell_data, node);
 			if (ret)
 			{
-				ft_fprintf(2, "Error `%s`: %d\n", *node->data.cmd.args, i);
+				if (0) // TO DO:
+				{
+					/*
+						Check logical operator to see if
+						should exit or do another command
+					 */
+				}
+				else
+				{
+					ft_fprintf(2, "Error in command %d\n", i);
+					close_all_pipes(node);
+					return (CMD_ERROR_EXEC);
+				}
 			}
 			restore_std_streams(NULL);
 		}
