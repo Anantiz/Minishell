@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:41:29 by loris             #+#    #+#             */
-/*   Updated: 2024/01/24 10:19:36 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/29 11:51:13 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ bool	ft_is_sep(char c)
 // }
 bool	ft_is_op(char c)
 {
-	static const char	symbols[] = "|<>()'&";
+	static const char	symbols[] = "|<>()&";
 	int		i;
 
 	i = -1;

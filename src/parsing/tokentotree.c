@@ -6,7 +6,7 @@
 /*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/01/22 12:46:35 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/01/29 12:28:43 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,11 @@ char **next_token(char **token_list)
 t_s_token   *scan_token(char **token)
 {
 	t_s_token   *TK;
+	bool		single_quote;
+
+	single_quote = false;
+	if (ft_strchr(*token, '\'') != NULL)
+		single_quote = true;
 
 	TK = our_malloc(sizeof(t_s_token));
 	
@@ -77,6 +82,7 @@ t_s_token   *scan_token(char **token)
 			{
 				TK->token_type = TK_OP;
 				TK->data.op.type = T_OR;
+
 			}
 			else if (**(token) == '&' && token[0][1] == '&')
 			{
@@ -119,6 +125,7 @@ t_s_token   *scan_token(char **token)
 	{
 		TK->token_type = TK_CMD;
 		TK->data.cmd.args = ft_split(*token, ' ');
+		TK->data.cmd.single = single_quote;
 	}
 	return (TK);
 }
@@ -158,12 +165,12 @@ t_s_token	*get_next_node(t_s_token *node)
 // refaire les prioritees sur les redir
 // if ARG=VALUE do not parse but add the variable to a linked list : use t_env
 
-
+// < a une priorite superieur a >
 int main()
 {
 	char *array[] = {"cat", "<", "Makefile", ">", "input.t", "&&", "cat", "<", "input.t", "|", "sed", "s/SRC/HAHAHA/g", NULL};
 
-	char    **token_list;
+	char    	**token_list;
 	t_s_token   *token;
 
 	token_list = array;
