@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:13:22 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/22 17:52:30 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/26 14:17:50 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	our_env(t_shell_data *shell_data, t_s_token *token)
 		if (var->val)
 			ft_fprintf(STDOUT_FILENO, "%s\n", var->val);
 		else
-			ft_fprintf(STDOUT_FILENO, "\n");
+			write(STDOUT_FILENO, "\n", 1);
 		var = var->next;
 	}
 	return (SUCCESS);

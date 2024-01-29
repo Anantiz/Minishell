@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:05:20 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/26 12:09:37 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/26 14:19:04 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	exec_one_command(t_shell_data *shell_data, t_s_token *node)
 {
 	int			ret;
 
+	//expand_vars(shell_data, node); // strdup() the args if they are shell vars
 	ret = check_builtins(shell_data, node);
 	if (ret == NOT_IN_BUILTINS)
 		return (execute_from_path(shell_data, node));

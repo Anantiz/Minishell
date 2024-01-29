@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:28:45 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/26 12:09:24 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/26 14:05:11 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,8 @@ static int	copy_fd_in_redir_node(t_s_op *redir_node, int fd)
 {
 	if (fd == -1)
 	{
-		redir_node->pipefd[0] = -2;
-		redir_node->pipefd[1] = -2;
+		redir_node->pipefd[0] = STDIN_FILENO;
+		redir_node->pipefd[1] = STDERR_FILENO;
 	}
 	else if (redir_node->type == REDIR_IN)	// Reads from file, so fd becomes pipefd[0]
 	{
