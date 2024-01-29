@@ -6,12 +6,15 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/18 13:50:25 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/19 19:40:53 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/29 20:14:51 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
+/*
+	Allocates memory for a copy of s1, does the copy, returns the copy
+*/
 char	*ft_strdup(const char *s)
 {
 	char	*duplicate_str;
@@ -26,3 +29,24 @@ char	*ft_strdup(const char *s)
 	ft_strlcpy(duplicate_str, s, len + 1);
 	return (duplicate_str);
 }
+
+/*
+	Replaces the content of old with new
+	free content of old
+*/
+void	ft_replace_str(char **old, char *new)
+{
+	our_free(*old);
+	*old = new;
+}
+
+/*
+	Replaces the content of old with a copy of new
+	free content of old
+*/
+void	ft_replace_dupstr(char **old, char *new)
+{
+	our_free(*old);
+	*old = ft_strdup(new);
+}
+

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:24:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/26 11:42:44 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/29 20:03:33 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,6 +137,7 @@ typedef struct s_shell_data
 	int			last_pid;
 	int			stdin_fd;
 	int			stdout_fd;
+	char		*our_pwd;
 }t_shell_data;
 
 #endif

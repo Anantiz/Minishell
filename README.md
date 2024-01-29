@@ -10,3 +10,7 @@ When you delete all environment variable, you still need to keep a Basic PWD and
 Fix export such that PATH= clears the variable but PATH don't, also check again abou using variables direclty as export args
 
 `exit` has to take into account any situation where the value isn't a valid int (overflow, char etc...)
+
+
+WHY THE FUCK IF I PATH=" "
+It is impossible to launch any binary

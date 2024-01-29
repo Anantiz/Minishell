@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/29 11:47:52 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/29 20:40:51 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,9 @@
 # define PIPE_ERROR_MSG_INIT "Pipe init error"
 # define CMD_ERROR_EXEC_MSG "Command execution error"
 # define CMD_ERROR_NOT_FOUND_MSG "Command not found"
+
+# define OG_FUCKING_PATH "/usr/local/sbin:/usr/local/bin:\
+/usr/sbin:/usr/bin:/sbin:/bin"
 
 extern int	g_our_sig;
 typedef int	(*t_our_cmd_ptr)(t_shell_data *, t_s_token *);
@@ -138,7 +141,7 @@ t_s_token	*get_next_subtree(t_s_token *node);
 int			get_cmd_paths(t_shell_data *shell_data, t_s_token *node);
 
 /* T_ENV */
-char		**t_env_to_double_char(t_env *envp);
+char		**t_env_to_double_char(t_shell_data *shell_data, t_env *envp);
 t_env		*our_get_env(t_shell_data *shell_data, char *key);
 void		t_env_del_node(t_env **root, t_env *node_);
 void		t_env_del_list(t_env **root);

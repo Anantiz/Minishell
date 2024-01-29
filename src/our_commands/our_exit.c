@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 17:07:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/29 17:03:58 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/29 18:53:46 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	our_exit(t_shell_data *shell_data, t_s_token *token)
 {
 	int	status;
 
-	if (is_valid_integer(token->data.cmd.args[1]))
+	if (token && is_valid_integer(token->data.cmd.args[1]))
 	{
 		ft_fprintf(2, "exit: %s: numeric argument required\n",
 			token->data.cmd.args[1]);
