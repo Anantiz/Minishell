@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokentotree.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/01/30 10:11:32 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/30 10:15:11 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,9 @@ int main()
 
 	char    	**token_list;
 	t_s_token   *token;
+	int			*i;
 
+	*i = 1;
 	token_list = array;
 
 	token = parse_expression(token_list, ft_tablen(token_list), NULL);

@@ -1,26 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parse_variable.c                                   :+:      :+:    :+:   */
+/*   recheck_tree.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/29 12:28:55 by lkary-po          #+#    #+#             */
-/*   Updated: 2024/01/29 13:26:40 by loris            ###   ########.fr       */
+/*   Created: 2024/01/29 13:30:17 by loris             #+#    #+#             */
+/*   Updated: 2024/01/29 13:37:40 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../../includes/minishell.h"
+#include "../../includes/minishell"
 
-bool    add_var(char *str)
+void	search_redir(t_s_token *head)
 {
-    char    *ret;
-
-    if (ft_strncmp(str, "ARG=", 4) == 0)
-    {
-        ret = str + 4;
-        //add to linked list
-        return (true);
-    }
-    return(false);
+	
 }
