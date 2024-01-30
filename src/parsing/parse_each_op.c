@@ -6,7 +6,7 @@
 /*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:43:37 by lkary-po          #+#    #+#             */
-/*   Updated: 2024/01/29 11:55:09 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/01/30 10:12:10 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,5 +80,10 @@ t_s_token   *parse_cmd(char **token_list, int num_token, t_s_token *parent_node)
 	node->parent = parent_node;
 	node->right = NULL;
 	node->left = NULL;
+	if (parent_is_redir(node) == true)
+	{
+		if (is_right_child(node) == true)
+			node->token_type = TK_FILE;
+	}
 	return (node);
 }

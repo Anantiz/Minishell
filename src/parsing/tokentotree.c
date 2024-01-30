@@ -6,7 +6,7 @@
 /*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/01/29 12:28:43 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/01/30 09:48:48 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -172,7 +172,9 @@ int main()
 
 	char    	**token_list;
 	t_s_token   *token;
+	int			*i;
 
+	*i = 1;
 	token_list = array;
 
 	token = parse_expression(token_list, ft_tablen(token_list), NULL);

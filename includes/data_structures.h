@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_structures.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:24:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/24 18:18:56 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/29 11:39:11 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,22 +59,24 @@ typedef enum t_e_op_type
 
 typedef struct s_file
 {
+	struct s_token	*redir_nodes[2];
 	int				fd;
 	char			*file_path;
-	struct s_token	*redir_nodes[2];
 }t_s_file;
 
 typedef struct s_cmd
 {
+	struct s_token	*redir_nodes[2];
 	char			**args;
 	char			**paths;
-	struct s_token	*redir_nodes[2];
+	bool			single;
 }t_s_cmd;
 
 typedef struct s_op
 {
 	t_e_op_type	type;
 	int			pipefd[2];
+	
 }t_s_op;
 
 // To search in shell_data->envp

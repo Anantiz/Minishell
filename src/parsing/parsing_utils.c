@@ -6,7 +6,7 @@
 /*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:41:29 by loris             #+#    #+#             */
-/*   Updated: 2024/01/29 11:51:13 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/01/30 10:06:18 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,4 +93,26 @@ bool	ft_is_op(char c)
 			return (true);
 	}
 	return (false);
+}
+
+bool	is_right_child(t_s_token *node)
+{
+	t_s_token	*node_save;
+
+	node_save = node;
+
+	if (node->parent->right == node_save)
+		return (true);
+	return (false);
+}
+
+bool	parent_is_redir(t_s_token *node)
+{
+	if (node->parent->data.op.type == 4
+			|| node->parent->data.op.type == 5 
+			|| node->parent->data.op.type == 6 
+			|| node->parent->data.op.type == 7)
+			return (true);
+	else
+		return (false);
 }
