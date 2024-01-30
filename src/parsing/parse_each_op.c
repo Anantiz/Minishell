@@ -6,7 +6,7 @@
 /*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:43:37 by lkary-po          #+#    #+#             */
-/*   Updated: 2024/01/30 10:14:38 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/01/30 10:29:00 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,7 +73,8 @@ t_s_token   *parse_pipeline(char **token_list, int num_token, t_s_token *parent_
 
 t_s_token   *parse_cmd(char **token_list, int num_token, t_s_token *parent_node)
 {
-	int         op_place;
+	// int         op_place;
+	(void)num_token;
 	t_s_token   *node;
 
 	node = scan_token(token_list);
