@@ -6,7 +6,7 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/20 14:54:59 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/29 13:27:16 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,6 +101,7 @@ char		*get_cmd(char *line, int *i);
 char		*get_speop(char *line, int *i);
 char		*get_op(char *line, int *i);
 t_s_token	*parse_expression(char **token_list, int num_token, t_s_token *parent_node);
+bool    	add_var(char *str);	
 
 /* EXECUTION */
 
