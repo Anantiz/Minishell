@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 17:08:43 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/29 19:33:55 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/30 18:16:25 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,7 @@ o888bood8P'   `Y8bod8P' o888o o888o `Y8bod8P'
 
 int	our_pwd(t_shell_data *shell_data, t_s_token *token)
 {
-	t_env	*pwd;
-
 	(void)token;
-	pwd = our_get_env(shell_data, "PWD");
-	if (!pwd)
-		return (FAILURE);
-	ft_printf("%s\n", pwd->val);
+	ft_printf("%s\n", shell_data->our_pwd);
 	return (SUCCESS);
 }

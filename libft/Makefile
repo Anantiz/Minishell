@@ -6,7 +6,7 @@
 #    By: aurban <aurban@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/20 06:06:39 by aurban            #+#    #+#              #
-#    Updated: 2024/01/30 11:57:17 by aurban           ###   ########.fr        #
+#    Updated: 2024/01/30 17:39:48 by aurban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ FT_FILES=
 # --- MEM MANAGER ---
 
 FT_MEM_MANAGER_PATH=Memory_manager
-FT_MEM_MANAGER_FILES=ft_bzero.c	ft_calloc.c mem_manager_op.c mem_manager.c
+FT_MEM_MANAGER_FILES=ft_bzero.c	ft_calloc.c mem_manager_op.c mem_manager.c \
+	mem_manager_utils.c
 FT_MEM_MANAGER_FILES:=$(addprefix $(FT_MEM_MANAGER_PATH)/,$(FT_MEM_MANAGER_FILES))
 
 # --- LINKED LIST ---

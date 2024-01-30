@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 17:07:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/30 11:51:37 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/30 18:24:24 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ static int	check_input(t_s_token *token, int *exit_code)
 {
 	if (!token)
 		*exit_code = 0;
-	else if (token->data.cmd.args[2])
+	else if (token->data.cmd.args[1] && token->data.cmd.args[2])
 	{
 		ft_fprintf(2, "exit: too many arguments\n");
 		return (FAILURE);

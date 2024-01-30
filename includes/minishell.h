@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/30 10:21:17 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/30 18:12:35 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,10 +108,8 @@ t_s_token	*parse_expression(char **token_list, int num_token, t_s_token *parent_
 /* EXECUTION */
 
 int			init_pipes(t_shell_data *shell_data);
-
 void		find_redir_nodes(t_s_token *cmd_node);
 void		assign_redir_nodes(t_s_token *cmd_node, t_s_token *redir_nodes[2]);
-
 int			open_pipes(t_s_token *node);
 int			handle_file_bs(t_s_token *node);
 void		close_all_pipes(t_s_token *root);
@@ -139,6 +137,9 @@ int			our_export(t_shell_data *shell_data, t_s_token *node);
 t_s_token	*get_next_node(t_s_token *node);
 t_s_token	*get_next_subtree(t_s_token *node);
 int			get_cmd_paths(t_shell_data *shell_data, t_s_token *node);
+
+char		*get_clean_path_shell(t_shell_data *shell_data);
+char		*get_clean_path(t_shell_data *shell_data, char *str_path);
 
 /* T_ENV */
 char		**t_env_to_double_char(t_shell_data *shell_data, t_env *envp);

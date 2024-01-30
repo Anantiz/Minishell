@@ -6,40 +6,40 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:12:50 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/30 12:21:59 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/30 18:45:15 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// Hopefully no process will ever return this value :)
 #define MAGIC_VALUE_EXIT_SHELL 69420
+
+void	del_tree(t_shell_data *shell_data)
+{
+	(void)shell_data;
+	//to do
+	shell_data->root = NULL; // ok for now
+}
 
 static char	*get_prompt_str(t_shell_data *shell_data)
 {
 	char	*clean_path;
 	char	*ret;
-	char	*old;
-	t_env	*env;
+	t_env	*env_pwd;
 
-	// Fix this if PWD don't exist
-	env = our_get_env(shell_data, "PWD");
-	clean_path = get_clean_path(shell_data ,env);
+	env_pwd = our_get_env(shell_data, "PWD");
+	if (!env_pwd)
+		clean_path = get_clean_path_shell(shell_data);
+	else
+		clean_path = get_clean_path(shell_data, ft_strdup(env_pwd->val));
 	ret = ft_strjoin("\033[33m", clean_path);
 	our_free(clean_path);
-	old = ret;
-	ret = ft_strjoin(SHELL_NAME, ret);
-	our_free(old);
-	old = ret;
-	ret = ft_strjoin(ret, "|\033[93m☭\033[0m ");
-	our_free(old);
+	ft_replace_str(&ret, ft_strjoin(SHELL_NAME, ret));
+	ft_replace_str(&ret, ft_strjoin(ret, "|\033[93m☭\033[0m "));
 	return (ret);
 }
 
-/* LORIS */
-void	del_tree(t_shell_data *shell_data)
-{
-	(void)shell_data;
-}
 
 static int	sesion_routine(t_shell_data *shell_data)
 {
@@ -48,7 +48,7 @@ static int	sesion_routine(t_shell_data *shell_data)
 	int		ret;
 
 	prompt_str = get_prompt_str(shell_data);
-	line = readline(prompt_str);
+	line = unionize_str(readline(prompt_str));
 	our_free(prompt_str);
 	if (!line)
 		return (MAGIC_VALUE_EXIT_SHELL);

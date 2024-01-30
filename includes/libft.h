@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 15:44:18 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/30 11:37:38 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/30 17:39:08 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,28 @@ typedef struct s_g_mem_manager
 # define SAFE_MALLOC_FREE 0
 # define SAFE_MALLOC_FREE_ALL -1
 
+// Memory manager : private
+
 void		mem_manager_del_list(t_mem_mng **root);
 void		mem_manager_del_node(t_mem_mng **root, void *address);
 void		mem_manager_add_front(t_mem_mng **head_, t_mem_mng *node);
 t_mem_mng	*mem_manager_new_node(size_t bytes, int *error);
 
-void		*our_malloc(size_t bytes);
+// Core : public
+
 void		our_free(void *address);
+void		*our_malloc(size_t bytes);
 void		*safe_as_fuck_malloc(size_t bytes, void *address, int action);
+
+// Misc : public
 
 void		error_exit(const char *error);
 void		ft_bzero(void *s, size_t n);
 void		*ft_calloc(size_t nmemb, size_t size);
+
+// Unionize non-socialist memory : public
+
+char		*unionize_str(char *theirs);
 
 /* STRING -----------------------------------------------*/
 /* UTILS */

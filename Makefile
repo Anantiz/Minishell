@@ -6,7 +6,7 @@
 #    By: aurban <aurban@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/09 10:14:27 by aurban            #+#    #+#              #
-#    Updated: 2024/01/30 10:22:19 by aurban           ###   ########.fr        #
+#    Updated: 2024/01/30 16:58:11 by aurban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -47,7 +47,7 @@ SRC_ERR=\
 
 SRC_OURS=\
 	our_cd.c		our_pwd.c		our_env.c	our_echo.c	our_exit.c	\
-	our_unset.c		our_export.c
+	our_unset.c		our_export.c	our_cd2.c
 
 UTILS_PATH=utils
 SRC_UTILS:= $(addprefix $(UTILS_PATH)/,$(SRC_UTILS))

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:16:34 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/30 12:31:11 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/30 18:12:55 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,28 @@ bool	has_siblings(t_s_token *node)
 }
 
 /*
+Uses the inner our_pwd for the path
 	Replace absolute path with ~ if possible
-	Cleans the path from any useless / and . and ..
-	Also removes the last / if there is one
 */
 char	*get_clean_path_shell(t_shell_data *shell_data)
 {
-	char	*str_path;
+	return (get_clean_path(shell_data, ft_strdup(shell_data->our_pwd)));
+}
+
+char	*get_clean_path(t_shell_data *shell_data, char *str_path)
+{
 	char	*str_home;
 	t_env	*env_tmp;
+	size_t	home_len;
 
-	str_path = ft_strdup(shell_data->our_pwd);
+	if (!str_path)
+		return (ft_strdup(""));
 	env_tmp = our_get_env(shell_data, "HOME");
 	if (env_tmp)
 		str_home = env_tmp->val;
 	else
 		str_home = NULL;
-	home_len = ft_strlen(str_home)
+	home_len = ft_strlen(str_home);
 	if (home_len > 0)
 	{
 		if (!ft_strncmp(str_path, str_home, home_len))
@@ -50,5 +55,5 @@ char	*get_clean_path_shell(t_shell_data *shell_data)
 			ft_replace_str(&str_path, ft_strjoin("~", str_path + home_len));
 		}
 	}
-
+	return (str_path);
 }
