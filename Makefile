@@ -6,7 +6,7 @@
 #    By: aurban <aurban@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/09 10:14:27 by aurban            #+#    #+#              #
-#    Updated: 2024/01/29 19:03:13 by aurban           ###   ########.fr        #
+#    Updated: 2024/01/30 10:22:19 by aurban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRC_UTILS=\
 
 SRC_PARSE=\
 	parsing.c	get_token.c		parsing.c	tokentotree.c	parsing_utils.c	\
+	parse_each_op.c	parse_variable.c	find_each_op.c
 
 SRC_EXEC=\
 	exec.c	data_flow/mario_world.c	exec_command.c	exec_child_process.c	\

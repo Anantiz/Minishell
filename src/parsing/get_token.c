@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 08:26:52 by loris             #+#    #+#             */
-/*   Updated: 2024/01/30 10:10:11 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/30 10:20:16 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,28 +94,4 @@ char    **ft_strtok(char *line)
 			i++;
 	}
 	return (list_token);
-}
-
-int main()
-{
-    char *line = "echo \'text\'";
-    int i;
-    char **tok;
-
-    tok = ft_strtok(line);
-    tok = ft_strtok(line);
-
-    i = 0;
-    while (tok[i] != NULL)
-    {
-        printf("(%s)", tok[i]);
-        i++;
-    }
-	i = 0;
-	while (tok[i])
-    {
-        free(tok[i]);
-        i++;
-    }
-	free(tok);
 }

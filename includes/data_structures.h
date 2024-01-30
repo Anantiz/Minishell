@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:24:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/29 20:03:33 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/30 10:18:31 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,9 +73,10 @@ typedef struct s_file
 typedef struct s_cmd
 {
 	struct s_token	*redir_nodes[2];
-	char			**paths;
 	char			**args;
+	char			**paths;
 	bool			is_last;
+	bool			single;
 }t_s_cmd;
 
 typedef struct s_op
