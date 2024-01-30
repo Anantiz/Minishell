@@ -6,7 +6,7 @@
 /*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 08:26:52 by loris             #+#    #+#             */
-/*   Updated: 2024/01/30 10:31:29 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/01/30 10:42:18 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,8 +73,8 @@ char    **ft_strtok(char *line)
 	int		word;
 	size_t	len;
 
-	if (add_var(line) == true)
-		return (NULL);
+	// if (add_var(line) == true)
+	// 	return (NULL);
 	j = 0;
 	i = 0;
 	len = ft_strlen(line); // tkt on fixe la norme plus tard, mets pas de ft_strlen dans une boucle
