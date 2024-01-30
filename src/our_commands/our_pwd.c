@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 17:08:43 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/22 17:38:00 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/29 19:33:55 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ int	our_pwd(t_shell_data *shell_data, t_s_token *token)
 	pwd = our_get_env(shell_data, "PWD");
 	if (!pwd)
 		return (FAILURE);
-	ft_fprintf(STDOUT_FILENO, "%s\n", pwd->val);
+	ft_printf("%s\n", pwd->val);
 	return (SUCCESS);
 }

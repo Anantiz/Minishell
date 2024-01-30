@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 10:09:25 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/23 11:40:32 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/26 11:58:39 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char **argv, char **envp)
 
 	rl_catch_signals = 0; // Disable signal catching by readline
 	replace_signals();
-	restore_std_streams(); // First call simply saves the streams
+	restore_std_streams(&shell_data); // First call simply saves the streams
 	init_shell_data(&shell_data, envp);
 	print_shell_intro(NULL, NULL);
 	session_error = session_start(&shell_data);

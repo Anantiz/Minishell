@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/20 14:54:59 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/29 20:40:51 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # include "pair.h"
 # include "data_structures.h"
 
-# define SHELL_NAME "Joseph_shell:"
+# define SHELL_NAME "\033[31mJoseph_shell:\033[0m"
 
 # define FAILURE -1
 # define SUCCESS 0
@@ -44,11 +44,14 @@
 // Magic value to differentiate between command errors and not found
 # define NOT_IN_BUILTINS 6666666
 
-// Most error messages are hardcoded so it's kinda stupid to have this here
-// But not in other places
+// Most error messages are hardcoded so it's kinda stupid to have these here
+// But not the others
 # define PIPE_ERROR_MSG_INIT "Pipe init error"
 # define CMD_ERROR_EXEC_MSG "Command execution error"
 # define CMD_ERROR_NOT_FOUND_MSG "Command not found"
+
+# define OG_FUCKING_PATH "/usr/local/sbin:/usr/local/bin:\
+/usr/sbin:/usr/bin:/sbin:/bin"
 
 extern int	g_our_sig;
 typedef int	(*t_our_cmd_ptr)(t_shell_data *, t_s_token *);
@@ -65,7 +68,7 @@ int			print_shell_intro(t_shell_data *shell_data, t_s_token *node);
 /* SESSION */
 
 void		register_signals(void);
-int			restore_std_streams(void);
+int			restore_std_streams(t_shell_data *shell_data);
 int			session_start(t_shell_data *shell_data);
 int			parse_line(t_shell_data *shell_data, char *line);
 int			exec_tree(t_shell_data *shell_data);
@@ -107,6 +110,8 @@ t_s_token	*parse_expression(char **token_list, int num_token, t_s_token *parent_
 int			init_pipes(t_shell_data *shell_data);
 
 void		find_redir_nodes(t_s_token *cmd_node);
+void		assign_redir_nodes(t_s_token *cmd_node, t_s_token *redir_nodes[2]);
+
 int			open_pipes(t_s_token *node);
 int			handle_file_bs(t_s_token *node);
 void		close_all_pipes(t_s_token *root);
@@ -132,10 +137,11 @@ int			our_export(t_shell_data *shell_data, t_s_token *node);
 /* UTILS */
 
 t_s_token	*get_next_node(t_s_token *node);
+t_s_token	*get_next_subtree(t_s_token *node);
 int			get_cmd_paths(t_shell_data *shell_data, t_s_token *node);
 
 /* T_ENV */
-char		**t_env_to_double_char(t_env *envp);
+char		**t_env_to_double_char(t_shell_data *shell_data, t_env *envp);
 t_env		*our_get_env(t_shell_data *shell_data, char *key);
 void		t_env_del_node(t_env **root, t_env *node_);
 void		t_env_del_list(t_env **root);

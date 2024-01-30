@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:41:43 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/24 18:11:32 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/26 14:14:42 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ static int	echo_check_end(char *arg, int n_flag, int fd)
 {
 	if (arg)
 	{
-		if (ft_putchar_fd(' ', fd) == -1)
+		if (write(fd, " ", 1) < 0)
 			return (FAILURE);
 	}
-	if (!n_flag)
+	else if (!n_flag)
 	{
-		if (ft_putchar_fd('\n', fd) == -1)
+		if (write(fd, "\n", 1) < 0)
 			return (FAILURE);
 	}
 	return (SUCCESS);
@@ -50,15 +50,16 @@ int	our_echo(t_shell_data *shell_data, t_s_token *node)
 	(void)shell_data;
 	n_flag = 0;
 	args = node->data.cmd.args + 1;
-	while (*args)
+	while (args && !ft_strcmp(*args, "-n"))
 	{
-		if (!n_flag && !ft_strcmp(*args, "-n"))
-		{
-			n_flag = 1;
-			continue ;
-		}
-		if (ft_putstr_fd(*(args++), STDOUT_FILENO) == -1)
+		n_flag = 1;
+		args++;
+	}
+	while (args)
+	{
+		if (ft_putstr_fd(*args, STDOUT_FILENO) < 0)
 			return (FAILURE);
+		args++;
 		if (echo_check_end(*args, n_flag, STDOUT_FILENO) == FAILURE)
 			return (FAILURE);
 	}

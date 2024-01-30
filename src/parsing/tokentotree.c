@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokentotree.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/01/29 12:28:43 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/01/30 10:11:32 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,7 @@ t_s_token   *scan_token(char **token)
 		single_quote = true;
 
 	TK = our_malloc(sizeof(t_s_token));
-	
+
 	if (ft_is_op(*token[0]) == true)
 	{
 

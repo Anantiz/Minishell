@@ -6,11 +6,20 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:28:45 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/24 12:00:59 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/29 11:53:55 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+/*
+oooooooooo.
+`888'   `Y8b
+ 888      888  .ooooo.  ooo. .oo.    .ooooo.
+ 888      888 d88' `88b `888P"Y88b  d88' `88b
+ 888      888 888   888  888   888  888ooo888
+ 888     d88' 888   888  888   888  888    .o
+o888bood8P'   `Y8bod8P' o888o o888o `Y8bod8P'
+*/
 
 static int	get_flags(t_e_op_type type)
 {
@@ -37,16 +46,13 @@ static int	open_file(t_s_file *file, int flags)
 
 /*
 	fd == -1 means heredoc
-	Screw the pipes, we just close them and put fd instead
-	Pieps were never opened in the first place
-	*vilain laugh*
 */
 static int	copy_fd_in_redir_node(t_s_op *redir_node, int fd)
 {
 	if (fd == -1)
 	{
-		redir_node->pipefd[0] = -2;
-		redir_node->pipefd[1] = -2;
+		redir_node->pipefd[0] = STDIN_FILENO;
+		redir_node->pipefd[1] = STDERR_FILENO;
 	}
 	else if (redir_node->type == REDIR_IN)	// Reads from file, so fd becomes pipefd[0]
 	{

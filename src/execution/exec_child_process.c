@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/19 10:02:12 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/24 18:34:33 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/29 20:51:48 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,10 +41,8 @@ void	child_process(t_shell_data *shell_data, t_s_token *node)
 	int		i;
 	char	**envp;
 
-	// if (cmd_redir_streams(node))
-	// 	exit(errno);
 	get_cmd_paths(shell_data, node);
-	envp = t_env_to_double_char(shell_data->envp);
+	envp = t_env_to_double_char(shell_data, shell_data->envp);
 	i = 0;
 	while (node->data.cmd.paths[i])
 	{
@@ -60,7 +58,7 @@ void	child_process(t_shell_data *shell_data, t_s_token *node)
 		}
 		i++;
 	}
-	ft_fprintf(2, SHELL_NAME": %s: command not found\n", *node->data.cmd.args);
+	ft_fprintf(2, SHELL_NAME" %s: command not found\n", *node->data.cmd.args);
 	child_cleanup_crew(envp, node->data.cmd.paths);
 	exit(CMD_ERROR_NOT_FOUND);
 }

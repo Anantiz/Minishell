@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 15:54:26 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/14 18:16:08 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/29 19:14:43 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,10 @@ int	ft_strncmp(const char *s1, const char *s2, size_t n)
 	return ((int)((unsigned char)s1[i] - (unsigned char)s2[i]));
 }
 
-/* input must be null terminated */
+/*
+ input must be null terminated
+ returns 0 if the strings are identical
+*/
 int	ft_strcmp(const char *s1, const char *s2)
 {
 	size_t	i;

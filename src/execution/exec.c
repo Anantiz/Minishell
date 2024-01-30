@@ -6,11 +6,16 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:39:33 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/24 18:19:21 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/29 15:21:33 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+/*
+	TO DO:
+		-HANDLE LOGICAL OPERATORS USING RETURN VALUES
+*/
 
 /*
 	Protocol:
@@ -33,50 +38,46 @@
 static int exec_commands(t_shell_data *shell_data)
 {
 	t_s_token	*node;
-	int			ret;
 
 	node = shell_data->root;
 	int i = 0;
 	while (node)
 	{
-		if (node->token_type == TK_CMD)
+		if (node->token_type == TK_OP)
+		{
+			waitpid(shell_data->last_pid, NULL, 0);
+			if (node->data.op.type == T_AND)
+			{
+				if (shell_data->last_wstatus != 0)
+					node = get_next_subtree(node);
+			}
+			else if (node->data.op.type == T_OR)
+			{
+				if (shell_data->last_wstatus == 0)
+					node = get_next_subtree(node);
+			}
+		}
+		else if (node->token_type == TK_CMD)
 		{
 			ft_fprintf(2, "Executing node %d: %p\n", i, node);
 			shell_data->last_command = &node->data.cmd;
-			ret = exec_one_command(shell_data, node);
-			if (ret)
-			{
-				if (0) // TO DO:
-				{
-					/*
-						Check logical operator to see if
-						should exit or do another command
-					 */
-				}
-				else
-				{
-					ft_fprintf(2, "Error in command %d\n", i);
-					close_all_pipes(node);
-					return (CMD_ERROR_EXEC);
-				}
-			}
-			restore_std_streams();
+			exec_one_command(shell_data, node);
+			restore_std_streams(NULL);
 		}
 		node = get_next_node(node);
 		i++;
-		fflush(NULL);
 	}
 	waitpid(shell_data->last_pid, NULL, 0);
-	ft_fprintf(2, "\nExecution loop done\n\n");
 	return (SUCCESS);
 }
 
+// Returning an error is useless because they are already handled
 int	exec_tree(t_shell_data *shell_data)
 {
 	if (init_pipes(shell_data))
-		return (PIPE_ERROR);
+		return (SUCCESS);
 	if (exec_commands(shell_data))
-		return (EXECTION_ERROR);
-	restore_std_streams();
+		return (SUCCESS);
+	restore_std_streams(NULL);
 	return (SUCCESS);
 }
