@@ -1,3 +1,5 @@
+ANTOINE:
+
 Errors to think about:
 
 Dereferencing '$' without issues
@@ -14,3 +16,6 @@ Fix export such that PATH= clears the variable but PATH don't, also check again 
 
 WHY THE FUCK IF I PATH=" "
 It is impossible to launch any binary
+
+
+LORIS:

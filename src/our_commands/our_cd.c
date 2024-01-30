@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 14:51:50 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/30 10:42:44 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/30 12:18:36 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,8 @@ int	our_cd(t_shell_data *shell_data, t_s_token *node)
 	char	*path;
 	t_env	*old_pwd;
 
+	// cd without args should go to HOME
+	// if Home not set it shall raise an error
 	if (!ft_strcmp(node->data.cmd.args[1], "-"))
 	{
 		old_pwd = our_get_env(shell_data, "OLDPWD");
