@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:24:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/30 10:18:31 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/30 10:37:24 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,6 +132,7 @@ typedef struct s_env
 typedef struct s_shell_data
 {
 	t_env		*envp;
+	t_env		*shell_var;
 	t_s_token	*root;
 	t_s_cmd		*last_command;
 	int			last_wstatus;

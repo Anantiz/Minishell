@@ -6,21 +6,14 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/01/30 10:25:25 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/30 10:45:33 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-// int	parse_line(t_shell_data *shell_data, char *line)
-// {
-// 	(void)shell_data;
-// 	(void)line;
-// 	return (0);
-// }
-
 /*
-*   Every time next_token is call, return the next token
+*   Every time next_token is called, return the next token
 *   until we reach the end of the list of token then return NULL
 *   Usefull to take a decision that depend on the next token
 */

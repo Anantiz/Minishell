@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:14:30 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/29 20:53:12 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/30 10:59:25 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,6 @@ static int	get_env_size(t_env *envp, bool path_pwd[2])
 	i = 3;
 	while (envp)
 	{
-		envp = envp->next;
 		if (!ft_strcmp(envp->key, "PATH"))
 		{
 			path_pwd[0] = true;
@@ -47,6 +46,7 @@ static int	get_env_size(t_env *envp, bool path_pwd[2])
 		}
 		if (envp->val != NULL && envp->val[0] != '\0')
 			i++;
+		envp = envp->next;
 	}
 	return (i);
 }
