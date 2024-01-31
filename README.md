@@ -13,13 +13,9 @@ Fix export such that PATH= clears the variable but PATH don't, also check again 
 FIXED:
 `exit` has to take into account any situation where the value isn't a valid int (overflow, char etc...)
 
-`cat ` will read from the stdin before fork
-
-`clear` sometimes does not work and idk why
-	(i guess it's because I didn't exit all programs that where reading from stdin)
-
-WHY THE FUCK IF I PATH=" "
-It is impossible to launch any binary
+When there is:
+	A | B | C ...
+The last command will somehow never terminate and will wait for someone to close the pipe
 
 
 LORIS:

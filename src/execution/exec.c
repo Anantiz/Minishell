@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:39:33 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/31 11:14:51 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/31 15:55:03 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,13 @@ static int exec_commands(t_shell_data *shell_data)
 		}
 		else if (node->token_type == TK_CMD)
 		{
-			ft_fprintf(2, "Executing node %d: %p\n", i, node);
+			ft_fprintf(2, "Executing node %d: %s: %p\n", i, node->data.cmd.args[0], node);
+			ft_fprintf(2, "\tredir[0]: %p\n",node->data.cmd.redir_nodes[0]);
+			ft_fprintf(2, "\tredir[1]: %p\n\n", node->data.cmd.redir_nodes[1]);
 			shell_data->last_command = &node->data.cmd;
 			exec_one_command(shell_data, node);
+			restore_std_streams(NULL);
+
 		}
 		node = get_next_node(node);
 		i++;
@@ -77,5 +81,7 @@ int	exec_tree(t_shell_data *shell_data)
 	if (exec_commands(shell_data))
 		return (SUCCESS);
 	restore_std_streams(NULL);
+	// rl_replace_line("", 0);
+	rl_on_new_line();
 	return (SUCCESS);
 }

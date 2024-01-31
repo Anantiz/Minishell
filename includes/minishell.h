@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/31 11:16:13 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/31 14:31:55 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ t_s_token	*new_tokenfile(t_s_token *node);
 /* EXECUTION */
 
 int			init_pipes(t_shell_data *shell_data);
+void		our_heredoc(t_s_token *redir_node);
 void		find_redir_nodes(t_s_token *cmd_node);
 void		assign_redir_nodes(t_s_token *cmd_node, t_s_token *redir_nodes[2]);
 int			open_pipes(t_s_token *node);
@@ -128,6 +129,7 @@ int			parent_process(t_shell_data *shell_data, \
 	t_s_token *cmd_node, int pid);
 int			check_builtins(t_shell_data *shell_data, t_s_token *cmd_node);
 void		child_process(t_shell_data *shell_data,	t_s_token *cmd_node);
+
 
 /* RED FUNCTIONS */
 

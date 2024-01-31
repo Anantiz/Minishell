@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 15:45:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/30 19:34:14 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/31 14:33:24 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,15 @@ void	close_all_pipes(t_s_token *node)
 // Init a pipe for any Token that needs it
 int	open_pipes(t_s_token *node)
 {
-	if (node->data.op.type == PIPE)
+	if (node->data.op.type == PIPE || node->data.op.type == REDIR_HEREDOC)
 	{
 		if (pipe(node->data.op.pipefd))
 		{
-			perror("err 05: open_pipe :Pipe error\n");
+			ft_fprintf(2, "%sPipe error : %s\n", SHELL_NAME, strerror(errno));
 			return (FAILURE);
 		}
+		if (node->data.op.type == REDIR_HEREDOC)
+			our_heredoc(node);
 	}
 	else
 	{
