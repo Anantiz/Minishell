@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:04:16 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/29 20:53:44 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/30 10:55:52 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,3 +55,9 @@ void	cleanup_shell_data(t_shell_data *shell_data)
 	close(shell_data->stdin_fd);
 	close(shell_data->stdout_fd);
 }
+
+// str_tok(var_str) -->pair
+
+// new_node = t_pair_new_node(pair->key, pair->val);
+// free(pair)
+// add_back(&shell_data->shell_var, new_node)

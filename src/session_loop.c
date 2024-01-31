@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:12:50 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/29 11:17:43 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/30 10:29:27 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static char	*get_prompt_str(t_shell_data *shell_data)
 	char	*ret;
 	char	*old;
 	t_env	*env;
+	// Fix this if PWD don't exist
 
 	env = our_get_env(shell_data, "PWD");
 	if (!env)
