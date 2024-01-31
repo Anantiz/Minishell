@@ -6,7 +6,11 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:05:20 by aurban            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/01/31 10:40:59 by aurban           ###   ########.fr       */
+=======
+/*   Updated: 2024/01/30 19:20:01 by aurban           ###   ########.fr       */
+>>>>>>> antoine
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +41,7 @@ static int	execute_from_path(t_shell_data *shell_data, t_s_token *node)
 		signal(SIGINT, SIG_DFL);
 		signal(SIGKILL, SIG_DFL);
 		child_process(shell_data, node);
+		exit(FAILURE);
 	}
 	shell_data->last_pid = pid;
 	return (parent_process(shell_data, node, pid));

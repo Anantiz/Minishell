@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 15:45:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/24 11:47:16 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/30 19:34:14 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,6 +105,17 @@ int	init_pipes(t_shell_data *shell_data)
 	node = shell_data->root;
 	while (node)
 	{
+		/* FIXING HERE NOW but shall do elsewhere later*/
+		if (node->token_type == TK_CMD)
+		{
+			node->data.cmd.is_last = false;
+			if (node->right == NULL)
+			{
+				node->data.cmd.is_last = true;
+				if (node->parent && node->parent->right != node)
+					node->data.cmd.is_last = false;
+			}
+		}
 		if (init_pipes_iner_loop(shell_data, node))
 			return (FAILURE);
 		node = get_next_node(node);

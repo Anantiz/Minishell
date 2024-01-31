@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:13:22 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/26 14:17:50 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/30 11:54:51 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ t_env	*our_get_env(t_shell_data *shell_data, char *key)
 	t_env	*var;
 
 	if (!key)
+		return (NULL);
+	if (!shell_data->envp)
 		return (NULL);
 	var = shell_data->envp;
 	while (var)

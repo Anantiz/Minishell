@@ -1,29 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   our_pwd.c                                          :+:      :+:    :+:   */
+/*   mem_manager_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/16 17:08:43 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/30 18:16:25 by aurban           ###   ########.fr       */
+/*   Created: 2024/01/30 17:34:38 by aurban            #+#    #+#             */
+/*   Updated: 2024/01/30 17:39:15 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-/*
-oooooooooo.
-`888'   `Y8b
- 888      888  .ooooo.  ooo. .oo.    .ooooo.
- 888      888 d88' `88b `888P"Y88b  d88' `88b
- 888      888 888   888  888   888  888ooo888
- 888     d88' 888   888  888   888  888    .o
-o888bood8P'   `Y8bod8P' o888o o888o `Y8bod8P'
-*/
+#include "libft.h"
 
-int	our_pwd(t_shell_data *shell_data, t_s_token *token)
+/*
+	Duplicate a string and free the original
+	It allows us to use our memory to track the new string
+*/
+char	*unionize_str(char *theirs)
 {
-	(void)token;
-	ft_printf("%s\n", shell_data->our_pwd);
-	return (SUCCESS);
+	char	*ours;
+
+	ours = ft_strdup(theirs);
+	free(theirs);
+	return (ours);
 }
