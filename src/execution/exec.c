@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:39:33 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/29 15:21:33 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/31 10:40:45 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,6 @@ static int exec_commands(t_shell_data *shell_data)
 			ft_fprintf(2, "Executing node %d: %p\n", i, node);
 			shell_data->last_command = &node->data.cmd;
 			exec_one_command(shell_data, node);
-			restore_std_streams(NULL);
 		}
 		node = get_next_node(node);
 		i++;
