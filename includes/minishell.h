@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/30 10:21:17 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/31 10:12:59 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,13 @@ t_s_token   *scan_token(char **token);
 /* PARSING FIND_OP / PARSE_OP */
 
 int 		find_operator_addor(char **token_list, int num_token);
-int 		find_redir(char **token_list, int num_token);
+int 		find_redir_out(char **token_list, int num_token);
+int 		find_redir_in(char **token_list, int num_token);
+
 int 		find_pipeline(char **token_list, int num_token);
 t_s_token   *parse_expression(char **token_list, int num_token, t_s_token *parent_node);
-t_s_token   *parse_redir(char **token_list, int num_token, t_s_token *parent_node);
+t_s_token   *parse_redir_in(char **token_list, int num_token, t_s_token *parent_node);
+t_s_token   *parse_redir_out(char **token_list, int num_token, t_s_token *parent_node);
 t_s_token   *parse_pipeline(char **token_list, int num_token, t_s_token *parent_node);
 t_s_token   *parse_cmd(char **token_list, int num_token, t_s_token *parent_node);
 
@@ -104,6 +107,10 @@ char		*get_cmd(char *line, int *i);
 char		*get_speop(char *line, int *i);
 char		*get_op(char *line, int *i);
 t_s_token	*parse_expression(char **token_list, int num_token, t_s_token *parent_node);
+bool    	add_var(char *str);	
+void    	replace_file(t_s_token *node);
+t_s_token	*new_tokenfile(t_s_token *node);
+
 
 /* EXECUTION */
 

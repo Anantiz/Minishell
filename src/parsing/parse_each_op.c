@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_each_op.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:43:37 by lkary-po          #+#    #+#             */
-/*   Updated: 2024/01/30 10:23:48 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/31 10:14:26 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,15 +35,33 @@ t_s_token   *parse_expression(char **token_list, int num_token, t_s_token *paren
 	return (node);
 }
 
-t_s_token   *parse_redir(char **token_list, int num_token, t_s_token *parent_node)
+t_s_token	*parse_redir_in(char **token_list, int num_token, t_s_token *parent_node)
 {
 	int         op_place;
 	t_s_token   *node;
 
-	op_place = find_redir(token_list, num_token);
+	op_place = find_redir_in(token_list, num_token);
 	if (op_place == -1)
 	{
 		node = parse_cmd(token_list, num_token, parent_node);
+		return (node);
+	}
+	node = scan_token((token_list + op_place));
+	node->parent = parent_node;
+	node->left = parse_expression(token_list, op_place, node);
+	node->right = parse_expression(token_list + op_place + 1, num_token - op_place - 1, node);
+	return (node);
+}
+
+t_s_token	*parse_redir_out(char **token_list, int num_token, t_s_token *parent_node)
+{
+	int         op_place;
+	t_s_token   *node;
+
+	op_place = find_redir_out(token_list, num_token);
+	if (op_place == -1)
+	{
+		node = parse_redir_in(token_list, num_token, parent_node);
 		return (node);
 	}
 	node = scan_token((token_list + op_place));
@@ -61,7 +79,7 @@ t_s_token   *parse_pipeline(char **token_list, int num_token, t_s_token *parent_
 	op_place = find_pipeline(token_list, num_token);
 	if (op_place == -1)
 	{
-		node = parse_redir(token_list, num_token, parent_node);
+		node = parse_redir_out(token_list, num_token, parent_node);
 		return (node);
 	}
 	node = scan_token((token_list + op_place));
