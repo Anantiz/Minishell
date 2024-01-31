@@ -6,7 +6,7 @@
 /*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 13:30:17 by loris             #+#    #+#             */
-/*   Updated: 2024/01/31 09:55:02 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/01/31 10:38:56 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,10 +26,12 @@ void	replace_file(t_s_token *node)
 t_s_token	*new_tokenfile(t_s_token *node)
 {
 	t_s_token	*TK;
+	char	*t;
 
 	TK = our_malloc(sizeof(t_s_token));
 	TK->token_type = TK_FILE;
-	TK->data.file.file_path = node->data.cmd.args[0];
+	t = node->right->data.cmd.args[0];
+	TK->data.file.file_path = t;
 	TK->parent = node->parent;
 	TK->left = node->left;
 	TK->right = node->right;
