@@ -6,13 +6,10 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:39:33 by aurban            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/01/31 10:40:45 by aurban           ###   ########.fr       */
-=======
-/*   Updated: 2024/01/30 19:38:39 by aurban           ###   ########.fr       */
->>>>>>> antoine
+/*   Updated: 2024/01/31 11:14:51 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "minishell.h"
 
@@ -49,7 +46,6 @@ static int exec_commands(t_shell_data *shell_data)
 	{
 		if (node->token_type == TK_OP)
 		{
-			waitpid(shell_data->last_pid, NULL, 0);
 			if (node->data.op.type == T_AND)
 			{
 				if (shell_data->last_wstatus != 0)
@@ -70,7 +66,6 @@ static int exec_commands(t_shell_data *shell_data)
 		node = get_next_node(node);
 		i++;
 	}
-	waitpid(shell_data->last_pid, NULL, 0);
 	return (SUCCESS);
 }
 
