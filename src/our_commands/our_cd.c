@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 14:51:50 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/29 20:56:44 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/30 10:42:44 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@
  ( ()||((( ())|         |  |( (( () ) )
 */
 
+/*
+	How do I handle stderr with redirections ? ????
+*/
 /*
 	This may not be the exact way the real bash does it
 	but fuck it, it works
@@ -55,7 +58,6 @@ static int	update_pwd(t_shell_data *shell_data, t_env *pwd_var, char *path)
 		else
 			pwd_var->val = ft_strdup("");
 		ft_fprintf(2, "cd: %s: %s\n", path, strerror(errno));
-		ft_fprintf(1, "cd: %s: %s\n", path, strerror(errno));
 		return (FAILURE);
 	}
 	ft_replace_dupstr(&shell_data->our_pwd, pwd_var->val);
@@ -79,7 +81,6 @@ static int	our_cd_basic(t_shell_data *shell_data, char *path)
 	if (chdir(path))
 	{
 		ft_fprintf(2, "cd: %s: %s\n", path, strerror(errno));
-		ft_fprintf(1, "cd: %s: %s\n", path, strerror(errno));
 		return (FAILURE);
 	}
 	pwd_var = our_get_env(shell_data, "PWD");
@@ -101,7 +102,6 @@ int	our_cd(t_shell_data *shell_data, t_s_token *node)
 		if (!old_pwd)
 		{
 			ft_fprintf(2, "cd: OLDPWD not set\n");
-			ft_fprintf(1, "cd: OLDPWD not set\n");
 			return (FAILURE);
 		}
 		path = ft_strdup(old_pwd->val);
