@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:04:16 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/01 19:05:20 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/01 19:28:35 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,17 +28,6 @@ static void	create_envp_list(t_shell_data *shell_data, char **envp)
 		t_env_add_back(head, t_env_new_node(pair->key, pair->val));
 		our_free(pair);
 		envp++;
-	}
-	var = our_get_env(shell_data, "OLDPWD");
-	if (!var)
-	{
-		var = our_get_env(shell_data, "PWD");
-		if (var)
-			t_env_add_back(head, t_env_new_node(ft_strdup("OLDPWD"), \
-				ft_strdup(var->val)));
-		else
-			t_env_add_back(head, t_env_new_node(ft_strdup("OLDPWD"), \
-				unionize_str(getcwd(NULL, 0))));
 	}
 }
 
