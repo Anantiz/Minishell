@@ -1,60 +1,76 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   variables.c                                        :+:      :+:    :+:   */
+/*   expand_var.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:10:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/29 17:53:43 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/01 19:00:29 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 /*
-new str, which is the old one, cut at the first dollar,
-then we copy var_content, then once done we copy og_str again */
-static void	replace_here(char **str, char *var_content, int cut, int var_size)
+
+*/
+static void replace_here(char **str, char *var_content, int cut, int var_size)
 {
 	char	*new_str;
 	char	*og_str;
-	size_t	i;
+	int		i;
 
 	og_str = *str;
 	new_str = our_malloc(ft_strlen(og_str) + var_size + 1 * sizeof(char));
 	i = 0;
 	while (i < cut)
-		new_str[i++] = og_str++;
+		new_str[i++] = *og_str++;
 	while (*var_content)
 		new_str[i++] = *var_content++;
 	while (++og_str)
-		new_str[i++] = og_str;
+		new_str[i++] = *og_str;
 	new_str[i] = '\0';
-	free(*str);
+	our_free(*str);
 	*str = new_str;
 }
 
-static char	*expand_here(t_shell_data *shell_data, char *str, int *var_len)
+/*
+	Get the variable name
+	Search for it in the env
+	If found, return the content
+	Else return NULL
+*/
+static char *get_the_var(t_shell_data *shell_data, char *str, int *var_len)
 {
 	int		i;
-	char	*temp;
-	char	*ret;
+	char	*var_name;
+	t_env	*ret;
 
 	i = 0;
-	while (str[i] && (str[i] != '$' || !ft_is_whitespace(str[i])))
+	while (str[i] && !(str[i] == '$' || ft_isspace(str[i]) ||
+			str[i] == '=' || str[i] == '\'' || str[i] == '\"'))
 	{
 		i++;
 	}
 	*var_len = i;
-	temp = ft_substr(str, 0, i);
-	ret = our_get_env(shell_data, temp)->val;
-	free(temp);
-	return (ret);
+	var_name = ft_substr(str, 0, i);
+	ret = our_get_env(shell_data, var_name);
+	our_free(var_name);
+	if (!ret)
+	{
+		*var_len = -1;
+		return (NULL);
+	}
+	return (ret->val);
 }
 
-static char	*expand_variable(t_shell_data *shell_data, t_s_token *node, \
-	char **str)
+/*
+	Searches for a $ in the string
+		If found:
+			-Get the content of the variable
+*/
+static void expand_this_str(t_shell_data *shell_data, char **str)
 {
 	size_t	i;
 	int		var_len;
@@ -65,13 +81,13 @@ static char	*expand_variable(t_shell_data *shell_data, t_s_token *node, \
 	{
 		if ((*str)[i] == '$')
 		{
-			var_content = expand_here(shell_data, (*str) + 1, &var_len);
+			var_content = get_the_var(shell_data, (*str) + 1, &var_len);
 			if (var_len > 0)
 			{
 				replace_here(str, var_content, i, var_len);
 				i += var_len - 1;
 			}
-			free(var_content);
+			our_free(var_content);
 		}
 		i++;
 	}
@@ -87,23 +103,20 @@ static char	*expand_variable(t_shell_data *shell_data, t_s_token *node, \
 			-Args
 		-File Paths
 */
-void	expand_variables(t_shell_data *shell_data, t_s_token *node)
+void expand_variables(t_shell_data *shell_data, t_s_token *node)
 {
-	int	i;
+	int i;
 
 	i = 0;
 	if (node->token_type == TK_CMD)
 	{
 		while (node->data.cmd.args[i])
 		{
-			node->data.cmd.args[i] = expand_variable(shell_data,
-				node, &node->data.cmd.args[i]);
-			i++;
+			expand_this_str(shell_data, &node->data.cmd.args[i++]);
 		}
 	}
 	else if (node->token_type == TK_FILE)
 	{
-		node->data.file.file_path = expand_variable(shell_data,
-			node, &node->data.file.file_path);
+		expand_this_str(shell_data, &node->data.file.file_path);
 	}
 }

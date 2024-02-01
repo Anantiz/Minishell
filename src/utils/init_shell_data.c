@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:04:16 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/30 18:44:03 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/01 19:05:20 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ static void	create_envp_list(t_shell_data *shell_data, char **envp)
 	{
 		pair = pair_char_strtok(*envp, '=');
 		t_env_add_back(head, t_env_new_node(pair->key, pair->val));
-		if (!ft_strcmp(pair->key, "PWD"))
-			shell_data->our_pwd = ft_strdup(pair->val);
 		our_free(pair);
 		envp++;
 	}
@@ -40,7 +38,29 @@ static void	create_envp_list(t_shell_data *shell_data, char **envp)
 				ft_strdup(var->val)));
 		else
 			t_env_add_back(head, t_env_new_node(ft_strdup("OLDPWD"), \
-				getcwd(NULL, 0)));
+				unionize_str(getcwd(NULL, 0))));
+	}
+}
+
+static void	handle_non_existing_path(t_shell_data *shell_data)
+{
+	t_env		*var;
+	char		*pwd;
+
+	var = our_get_env(shell_data, "PATH");
+	if (!var)
+	{
+		var = t_env_new_node(ft_strdup("PATH"), ft_strdup(OG_FUCKING_PATH));
+		var->hidden = true;
+		t_env_add_back(&shell_data->envp, var);
+	}
+	var = our_get_env(shell_data, "PWD");
+	if (!var)
+	{
+		pwd = unionize_str(getcwd(NULL, 0));
+		var = t_env_new_node(ft_strdup("PWD"), pwd);
+		t_env_add_back(&shell_data->envp, var);
+		shell_data->our_pwd = ft_strdup(pwd);
 	}
 }
 
@@ -49,6 +69,7 @@ void	init_shell_data(t_shell_data *shell_data, char **envp)
 	shell_data->envp = NULL;
 	shell_data->our_pwd = NULL;
 	create_envp_list(shell_data, envp);
+	handle_non_existing_path(shell_data);
 	shell_data->root = NULL;
 	shell_data->last_command = NULL;
 	shell_data->last_pid = 0;

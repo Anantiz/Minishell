@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:24:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/01 12:35:55 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/01 16:27:48 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -115,6 +115,7 @@ ENVP Linked_list
 */
 typedef struct s_env
 {
+	bool			hidden;
 	char			*key;
 	char			*val;
 	struct s_env	*next;

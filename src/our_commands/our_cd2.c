@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 16:57:13 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/30 18:32:17 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/01 19:20:59 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@
 	but fuck it, it works
 	But like, why the fuck did you even delete the PWD from the first place ?
 */
-static int	update_pwd(t_shell_data *shell_data)
+static int	update_pwd(t_shell_data *shell_data, char *path)
 {
 	t_env	*old_pwd_v;
 	t_env	*cur_pwd_v;
@@ -55,6 +55,8 @@ SHELL_NAME, strerror(errno));
 		if (cur_pwd_v)
 			ft_replace_dupstr(&old_pwd_v->val, cur_pwd_v->val);
 	}
+	if (!ft_strcmp(new_pwd_s, "/") && !ft_strcmp(path, "//"))
+		ft_replace_dupstr(&new_pwd_s, "//");
 	if (cur_pwd_v)
 		ft_replace_str(&cur_pwd_v->val, new_pwd_s);
 	shell_data->our_pwd = ft_strdup(new_pwd_s);
@@ -126,6 +128,8 @@ int	cd_path(t_shell_data *shell_data, char *path)
 {
 	char	*temp;
 
+	if (!path)
+		return (FAILURE);
 	temp = getcwd(NULL, 0);
 	if (path_is_satanic(path) && !temp)
 	{
@@ -140,7 +144,7 @@ int	cd_path(t_shell_data *shell_data, char *path)
 		ft_fprintf(2, "cd: %s: %s\n", path, strerror(errno));
 		return (FAILURE);
 	}
-	if (update_pwd(shell_data) == FAILURE)
+	if (update_pwd(shell_data, path) == FAILURE)
 		return (FAILURE);
 	return (SUCCESS);
 }

@@ -17,5 +17,8 @@ When there is:
 	A | B | C ...
 The last command will somehow never terminate and will wait for someone to close the pipe
 
+TO DO:
+	Si PATH n'existe pas au depart, cree un PATH basic en hidden, il sera pas print, mais existe qd meme et tu peu le delete stv
+
 
 LORIS:

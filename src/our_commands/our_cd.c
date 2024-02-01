@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 14:51:50 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/30 18:22:23 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/01 19:16:01 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,23 @@
 
 // Implemented in our_cd2.c
 int	cd_path(t_shell_data *shell_data, char *path);
+
+static char	*expand_tild(t_shell_data *shell_data, char *path)
+{
+	t_env	*home_var;
+
+	home_var = our_get_env(shell_data, "HOME");
+	if (!home_var)
+	{
+		ft_fprintf(2, "cd: HOME not set\n");
+		return (NULL);
+	}
+	if (*path == '~' && (*(path + 1) == '/' || *(path + 1) == '\0'))
+		path = ft_strjoin(home_var->val, path + 1);
+	else
+		path = ft_strdup(path);
+	return (path);
+}
 
 static int	cd_home(t_shell_data *shell_data)
 {
@@ -58,6 +75,7 @@ int	our_cd(t_shell_data *shell_data, t_s_token *node)
 	else if (!ft_strcmp(node->data.cmd.args[1], "-"))
 		return (cd_back(shell_data));
 	else
-		return (cd_path(shell_data, node->data.cmd.args[1]));
+		return (cd_path(shell_data, expand_tild(shell_data, \
+		node->data.cmd.args[1])));
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 17:14:54 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/23 11:16:18 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/01 17:55:12 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,16 @@ t_env	*t_env_add_back(t_env **head_, t_env *node)
 	return (node);
 }
 
-/* new_node */
+/*
+	For compatibility reason, `hidden` is always set to false
+	If it should be true, just change it afterwards
+*/
 t_env	*t_env_new_node(char *key, char *value)
 {
 	t_env	*node;
 
 	node = our_malloc(sizeof(t_env));
+	node->hidden = false;
 	node->key = key;
 	node->val = value;
 	node->next = NULL;

@@ -27,7 +27,8 @@ SRC_PARSE=\
 SRC_EXEC=\
 	exec.c	data_flow/mario_world.c	exec_command.c	exec_child_process.c	\
 	data_flow/redirections_1.c	data_flow/mario_file_bs.c	exec_builtins.c	\
-	exec_parent.c	data_flow/redirections_2.c	heredoc.c
+	exec_parent.c	data_flow/redirections_2.c	heredoc.c	set_var.c		\
+	expand_var.c
 
 SRC_ERR=\
 	session_error.c
