@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:05:20 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/01 12:35:11 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/01 13:05:39 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,25 @@ o888bood8P'   `Y8bod8P' o888o o888o `Y8bod8P'
 	Parent closes both pipes because it does not need them
 	So let's just not open them in the first place
 */
-static void	parent_close_pipes(t_s_cmd *cmd)
+void	parent_close_pipes(t_s_cmd *cmd)
 {
 	if (cmd->redir_nodes[0] && !cmd->redir_nodes[1])
 	{
 		if (close(cmd->redir_nodes[0]->data.op.pipefd[0]))
-			perror("PA: close() error");
+		{
+						ft_fprintf(2, "CLOSING error : %s : fd=%d\n", \
+				strerror(errno), cmd->redir_nodes[0]->data.op.pipefd[0]);
+			// perror("PA: close() error");
+		}
 		else
 			cmd->redir_nodes[0]->data.op.pipefd[0] = -496;
 
 		if (close(cmd->redir_nodes[0]->data.op.pipefd[1]))
-			perror("PB: close() error");
+		{
+			// perror("PB: close() error");
+						ft_fprintf(2, "CLOSING error : %s : fd=%d\n", \
+				strerror(errno), cmd->redir_nodes[0]->data.op.pipefd[1]);
+		}
 		else
 			cmd->redir_nodes[0]->data.op.pipefd[1] = -490;
 	}

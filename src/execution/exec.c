@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:39:33 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/01 12:38:13 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/01 13:18:03 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,8 @@ static void	wait_last_subtree(t_shell_data *shell_data)
 	static int	skip = 0;
 	while (skip < shell_data->pid_count)
 	{
-		waitpid(shell_data->pid_list[skip], &shell_data->last_wstatus, 0);
+		if (shell_data->pid_list[skip] != -69)
+			waitpid(shell_data->pid_list[skip], &shell_data->last_wstatus, 0);
 		skip++;
 	}
 	if (skip == shell_data->cmd_count)
@@ -89,9 +90,13 @@ static int exec_commands(t_shell_data *shell_data)
 // Returning an error is useless because they are already handled
 int	exec_tree(t_shell_data *shell_data)
 {
+	size_t	len;
+
 	if (init_pipes(shell_data))
 		return (SUCCESS);
-	shell_data->pid_list = ft_calloc(shell_data->cmd_count, sizeof(int));
+	len = shell_data->cmd_count * sizeof(int);
+	shell_data->pid_list = our_malloc(len);
+	ft_memset(shell_data->pid_list, -69, len);
 	if (exec_commands(shell_data))
 		return (SUCCESS);
 	restore_std_streams(NULL);
