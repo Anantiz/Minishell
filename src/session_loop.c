@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:12:50 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/31 15:40:06 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/01 12:36:10 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static char	*get_prompt_str(t_shell_data *shell_data)
 	return (ret);
 }
 
-
 static int	sesion_routine(t_shell_data *shell_data)
 {
 	char	*line;
@@ -73,6 +72,8 @@ int	session_start(t_shell_data *shell_data)
 	{
 		g_our_sig = 0;
 		shell_data->root = NULL;
+		shell_data->cmd_count = 0;
+		shell_data->pid_count = 0;
 		ret = sesion_routine(shell_data);
 		del_tree(shell_data);
 		if (ret == MAGIC_VALUE_EXIT_SHELL)
