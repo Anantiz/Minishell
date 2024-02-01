@@ -6,7 +6,7 @@
 /*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 08:26:52 by loris             #+#    #+#             */
-/*   Updated: 2024/01/30 10:42:18 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/01/31 12:03:51 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,9 @@ char    **ft_strtok(char *line)
 	i = 0;
 	len = ft_strlen(line); // tkt on fixe la norme plus tard, mets pas de ft_strlen dans une boucle
 	word = ft_countword(line);
-	list_token = our_malloc(sizeof(char *) * (word + 1));
-	list_token[word] = NULL;
+	list_token = our_malloc(sizeof(char *) * (word + 1) + 1);
+	list_token[word + 1] = NULL;
+	list_token[0] = NULL;
 	while (i < (int)len)
 	{
 		if (ft_is_sep(line[i]) == false && ft_is_op(line[i]) == false)

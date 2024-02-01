@@ -6,7 +6,7 @@
 /*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:43:37 by lkary-po          #+#    #+#             */
-/*   Updated: 2024/01/31 10:14:26 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/01/31 12:16:23 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,23 @@ t_s_token	*parse_redir_in(char **token_list, int num_token, t_s_token *parent_no
 	node->left = parse_expression(token_list, op_place, node);
 	node->right = parse_expression(token_list + op_place + 1, num_token - op_place - 1, node);
 	return (node);
+}
+
+t_s_token	*redir_node_cmd_behind(char **token_list, int num_token, t_s_token *parent_node)
+{
+	
+}
+
+t_s_token	*redir_node_cmd_after(char **token_list, int num_token, t_s_token *parent_node)
+{
+
+}
+
+bool	is_cmd_behind(char **token_list)
+{
+	if (*(token_list - 1))
+		return (true);
+	return (false);
 }
 
 t_s_token	*parse_redir_out(char **token_list, int num_token, t_s_token *parent_node)
