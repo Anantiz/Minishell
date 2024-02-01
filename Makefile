@@ -1,16 +1,3 @@
-# **************************************************************************** #
-#                                                                              #
-#                                                         :::      ::::::::    #
-#    Makefile                                           :+:      :+:    :+:    #
-#                                                     +:+ +:+         +:+      #
-#    By: aurban <aurban@student.42.fr>              +#+  +:+       +#+         #
-#                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2024/01/09 10:14:27 by aurban            #+#    #+#              #
-#    Updated: 2024/01/31 11:05:03 by aurban           ###   ########.fr        #
-#                                                                              #
-# **************************************************************************** #
-
-
 CC:=gcc
 INCLUDE_PATH=./includes
 CFLAGS:=-Wall -Wextra -I$(INCLUDE_PATH) -g3 -lreadline -fsanitize=address
@@ -40,7 +27,7 @@ SRC_PARSE=\
 SRC_EXEC=\
 	exec.c	data_flow/mario_world.c	exec_command.c	exec_child_process.c	\
 	data_flow/redirections_1.c	data_flow/mario_file_bs.c	exec_builtins.c	\
-	exec_parent.c	data_flow/redirections_2.c
+	exec_parent.c	data_flow/redirections_2.c	heredoc.c
 
 SRC_ERR=\
 	session_error.c

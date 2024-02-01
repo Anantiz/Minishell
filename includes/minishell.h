@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2024/01/31 10:12:59 by lkary-po         ###   ########.fr       */
-=======
-/*   Updated: 2024/01/30 18:12:35 by aurban           ###   ########.fr       */
->>>>>>> antoine
+/*   Updated: 2024/01/31 14:31:55 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +107,7 @@ char		*get_cmd(char *line, int *i);
 char		*get_speop(char *line, int *i);
 char		*get_op(char *line, int *i);
 t_s_token	*parse_expression(char **token_list, int num_token, t_s_token *parent_node);
-bool    	add_var(char *str);	
+bool    	add_var(char *str);
 void    	replace_file(t_s_token *node);
 t_s_token	*new_tokenfile(t_s_token *node);
 
@@ -119,6 +115,7 @@ t_s_token	*new_tokenfile(t_s_token *node);
 /* EXECUTION */
 
 int			init_pipes(t_shell_data *shell_data);
+void		our_heredoc(t_s_token *redir_node);
 void		find_redir_nodes(t_s_token *cmd_node);
 void		assign_redir_nodes(t_s_token *cmd_node, t_s_token *redir_nodes[2]);
 int			open_pipes(t_s_token *node);
@@ -132,6 +129,7 @@ int			parent_process(t_shell_data *shell_data, \
 	t_s_token *cmd_node, int pid);
 int			check_builtins(t_shell_data *shell_data, t_s_token *cmd_node);
 void		child_process(t_shell_data *shell_data,	t_s_token *cmd_node);
+
 
 /* RED FUNCTIONS */
 

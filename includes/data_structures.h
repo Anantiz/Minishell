@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_structures.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:24:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/31 10:25:31 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/01/31 14:03:25 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,14 +83,10 @@ typedef struct s_op
 {
 	t_e_op_type	type;
 	int			pipefd[2];
-	
+	char		*heredoc_str;
+	char		*eof;
+	size_t		heredoc_len;
 }t_s_op;
-
-// To search in shell_data->envp
-typedef struct s_var
-{
-	char	*var_name;
-}t_s_var;
 
 /* ############################## */
 
@@ -100,7 +96,6 @@ union u_token
 	t_s_file	file;
 	t_s_cmd		cmd;
 	t_s_op		op;
-	t_s_var		var;
 };
 
 /* Binary tree */
@@ -108,7 +103,6 @@ typedef struct s_token
 {
 	t_e_token_type	token_type;
 	union u_token	data;
-
 	struct s_token	*parent;
 	struct s_token	*right;
 	struct s_token	*left;

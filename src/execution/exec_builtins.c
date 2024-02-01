@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:20:58 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/26 12:09:28 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/31 15:51:13 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ int	check_builtins(t_shell_data *shell_data, t_s_token *node)
 		{
 			if (cmd_redir_streams(node) != SUCCESS)
 				return (FAILURE);
-			return ((foo_map[i])(shell_data, node));
+			i = (foo_map[i])(shell_data, node);
+			return (i);
 		}
 		i++;
 	}

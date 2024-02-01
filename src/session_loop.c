@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:12:50 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/30 18:45:15 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/31 15:40:06 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ static int	sesion_routine(t_shell_data *shell_data)
 	our_free(prompt_str);
 	if (!line)
 		return (MAGIC_VALUE_EXIT_SHELL);
-	if (g_our_sig == SIGINT || !*line || (line[0] == '\n' && line[1] == '\0'))
+	if (!*line || (line[0] == '\n' && line[1] == '\0'))
 		return (our_free(line), SUCCESS);
 	add_history(line);
 	ret = parse_line(shell_data, line);

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:30:30 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/30 19:13:47 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/31 14:29:35 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void do_redir_2(t_s_token *cmd_node, t_s_token **redir_nodes)
 			cmd_node->data.cmd.redir_nodes[1] = redir_nodes[0]; // We do not redirect our stdout, we are the last args of the pipeline/subpipline
 		}
 	}
-	else // What even is this case
+	else // Protected against Nazis, like if they explode the code, it still works
 	{
 		ft_fprintf(2, "Weird ass thing that should not happen just happened\n");
 		cmd_node->data.cmd.redir_nodes[0] = redir_nodes[0]; // This is were we get our stdin

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 13:44:49 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/30 19:30:16 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/31 16:11:56 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,14 +37,17 @@ int	parent_process(t_shell_data *shell_data, t_s_token *cmd_node, int pid)
 	if (cmd_node->data.cmd.is_last == true)
 	{
 		ft_fprintf(2, "%p, IS LAST\n", cmd_node);
+		if (cmd_node->data.cmd.redir_nodes[0])
+			close(cmd_node->data.cmd.redir_nodes[0]->data.op.pipefd[1]);
 		ret = waitpid(pid, &wstatus, 0);
+		ft_fprintf(2, "%p, DONE HAHAHAHAHAH\n", cmd_node);
 		if (WIFEXITED(wstatus))
 			shell_data->last_wstatus = WEXITSTATUS(wstatus);
 		else if (WIFSIGNALED(wstatus))
 			shell_data->last_wstatus = WTERMSIG(wstatus) + 128;
 		if (ret == -1)
 			return (perror("Error in child process"), FAILURE);
-		if (wstatus)
+		else if (wstatus)
 			return (FAILURE);
 	}
 	return (SUCCESS);
