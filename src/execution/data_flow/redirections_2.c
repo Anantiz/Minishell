@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:44:08 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/31 16:05:43 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/01 12:14:41 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,35 +26,28 @@ int	cmd_redir_streams(t_s_token *cmd_node)
 	if (cmd->redir_nodes[0] \
 		&& cmd->redir_nodes[0]->data.op.type != REDIR_HEREDOC)
 	{
-		if (cmd->redir_nodes[0]->data.op.pipefd[0] != STDIN_FILENO)
+		close(cmd->redir_nodes[0]->data.op.pipefd[1]);
+		if (dup2(cmd->redir_nodes[0]->data.op.pipefd[0], STDIN_FILENO) == -1)
 		{
-			close(cmd->redir_nodes[0]->data.op.pipefd[1]);
-			cmd->redir_nodes[0]->data.op.pipefd[1] = -69420;
-			if (dup2(cmd->redir_nodes[0]->data.op.pipefd[0], STDIN_FILENO) == -1)
-			{
-				ft_fprintf(2, "\t%s redir_node pipefd[0]: %d, pipefd[1]: %d\n",cmd_node->data.cmd.args[0], cmd->redir_nodes[0]->data.op.pipefd[0], cmd->redir_nodes[1] != NULL ? cmd->redir_nodes[1]->data.op.pipefd[1] : -69);
-				return (perror("Redirecting STD-IN, dup2() error"), FAILURE);
-			}
-			// ft_fprintf(2, "\t%s iClosing: %d\n", cmd_node->data.cmd.args[0],cmd->redir_nodes[0]->data.op.pipefd[0]);
-			close(cmd->redir_nodes[0]->data.op.pipefd[0]);
-			cmd->redir_nodes[0]->data.op.pipefd[0] = -420;
+			ft_fprintf(2, "Node: %p: ", cmd_node);
+			ft_fprintf(2, "Redirecting STD-IN, dup2() error : %s : fd=%d\n", \
+			strerror(errno), cmd->redir_nodes[0]->data.op.pipefd[0]);
+			return (FAILURE);
 		}
-		else
-			ft_fprintf(2, "HAHAHAHAHAH IT BLOCKED \n"); // will never happen,debug test
+		close(cmd->redir_nodes[0]->data.op.pipefd[0]);
 	}
 	if (cmd->redir_nodes[1] \
 		&& cmd->redir_nodes[1]->data.op.type != REDIR_HEREDOC)
 	{
-		if (cmd->redir_nodes[1]->data.op.pipefd[1] != STDOUT_FILENO)
+		close(cmd->redir_nodes[1]->data.op.pipefd[0]);
+		if (dup2(cmd->redir_nodes[1]->data.op.pipefd[1], STDOUT_FILENO) == -1)
 		{
-			close(cmd->redir_nodes[1]->data.op.pipefd[0]);
-			cmd->redir_nodes[1]->data.op.pipefd[0] = -42069;
-			if (dup2(cmd->redir_nodes[1]->data.op.pipefd[1], STDOUT_FILENO) == -1)
-				return (perror("Redirecting STD-OUT, dup2() error"), FAILURE);
-			// ft_fprintf(2, "\t%s oClosing: %d\n",cmd_node->data.cmd.args[0], cmd->redir_nodes[1]->data.op.pipefd[1]);
-			close(cmd->redir_nodes[1]->data.op.pipefd[1]);
-			cmd->redir_nodes[1]->data.op.pipefd[1] = -420;
+			ft_fprintf(2, "Node %p: ", cmd_node);
+			ft_fprintf(2, "Redirecting STD-OUT, dup2() error : %s : fd=%d\n", \
+			strerror(errno), cmd->redir_nodes[1]->data.op.pipefd[1]);
+			return (FAILURE);
 		}
+		close(cmd->redir_nodes[1]->data.op.pipefd[1]);
 	}
 	return (SUCCESS);
 }

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:30:30 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/31 14:29:35 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/01 11:12:58 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ o888bood8P'   `Y8bod8P' o888o o888o `Y8bod8P'
 
 /*
 	If you are the last node, do not redirect your output to the second parent,
-	 as it is actually the second parent of your input, you have none
+	 as it actually is the second parent of your input, you yourself have none
 	If our first parent is the left child of the second parent,
 	then we write to the second parent and read from first parent
 		-> This is because we are both reading from a file, and redirecting our input
 		to an other command/file
-		if we were being piped from an other command there would only be a single
+		If we were being piped from an other command there would only be a single redir
 	If our first parent is the right child of the second parent,
 	we read from the second parent and write to the first parent
 */
@@ -129,10 +129,10 @@ static void	get_parent_redir(t_s_token *child, t_s_token **parent)
 }
 
 /*
-Note that: if we encounter logical ops, they did break the pipelines, so we
+Note that: If we encounter logical ops, they did break the pipelines, so we
 treat them as roots of a sub tree
 
-	The tree architecture is that we always redirect our output to the first
+	The tree architecture is such that we always redirect our output to the first
 	redirect_op we find, and we always take our input from the parent of this
 	very same redirect_op
 

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:39:33 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/31 15:55:03 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/01 12:38:13 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,17 @@
 			done;
 		-3: Cleanup and wait for next command-line
 */
+static void	wait_last_subtree(t_shell_data *shell_data)
+{
+	static int	skip = 0;
+	while (skip < shell_data->pid_count)
+	{
+		waitpid(shell_data->pid_list[skip], &shell_data->last_wstatus, 0);
+		skip++;
+	}
+	if (skip == shell_data->cmd_count)
+		skip = 0;
+}
 
 static int exec_commands(t_shell_data *shell_data)
 {
@@ -46,6 +57,7 @@ static int exec_commands(t_shell_data *shell_data)
 	{
 		if (node->token_type == TK_OP)
 		{
+			wait_last_subtree(shell_data);
 			if (node->data.op.type == T_AND)
 			{
 				if (shell_data->last_wstatus != 0)
@@ -70,6 +82,7 @@ static int exec_commands(t_shell_data *shell_data)
 		node = get_next_node(node);
 		i++;
 	}
+	wait_last_subtree(shell_data);
 	return (SUCCESS);
 }
 
@@ -78,10 +91,11 @@ int	exec_tree(t_shell_data *shell_data)
 {
 	if (init_pipes(shell_data))
 		return (SUCCESS);
+	shell_data->pid_list = ft_calloc(shell_data->cmd_count, sizeof(int));
 	if (exec_commands(shell_data))
 		return (SUCCESS);
 	restore_std_streams(NULL);
-	// rl_replace_line("", 0);
-	rl_on_new_line();
+	// We have issues with readline that sometimes print the prompt twice
+	// Fix this somehow
 	return (SUCCESS);
 }
