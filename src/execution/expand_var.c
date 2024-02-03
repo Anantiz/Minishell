@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:10:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/01 19:00:29 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/03 11:49:25 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 
 */
-static void replace_here(char **str, char *var_content, int cut, int var_size)
+static void	replace_here(char **str, char *var_content, int cut, int var_size)
 {
 	char	*new_str;
 	char	*og_str;
@@ -41,7 +41,7 @@ static void replace_here(char **str, char *var_content, int cut, int var_size)
 	If found, return the content
 	Else return NULL
 */
-static char *get_the_var(t_shell_data *shell_data, char *str, int *var_len)
+static char	*get_the_var(t_shell_data *shell_data, char *str, int *var_len)
 {
 	int		i;
 	char	*var_name;
@@ -70,7 +70,7 @@ static char *get_the_var(t_shell_data *shell_data, char *str, int *var_len)
 		If found:
 			-Get the content of the variable
 */
-static void expand_this_str(t_shell_data *shell_data, char **str)
+static void	expand_this_str(t_shell_data *shell_data, char **str)
 {
 	size_t	i;
 	int		var_len;
@@ -103,7 +103,7 @@ static void expand_this_str(t_shell_data *shell_data, char **str)
 			-Args
 		-File Paths
 */
-void expand_variables(t_shell_data *shell_data, t_s_token *node)
+void	expand_variables(t_shell_data *shell_data, t_s_token *node)
 {
 	int i;
 

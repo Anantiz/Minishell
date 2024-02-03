@@ -7,10 +7,10 @@ Expending a variable that does not exist should return an empty string
 Fix export such that PATH= clears the variable but PATH don't, also check again abou using variables direclty as export args
 
 BUG:
-	in ZSH:	env -i ./minishell
 
 TO DO:
 
+	in ZSH:	env -i ./minishell
 	Environment variables:
 		`SHLVL`
 		`_`

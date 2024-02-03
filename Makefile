@@ -18,7 +18,7 @@ SRC=\
 SRC_UTILS=\
 	utils.c	init_shell_data.c	tree_traversal.c	process_cmd_paths.c		\
 	kgb.c	envp_linked_list.c	pair_char.c			other_envp_things.c		\
-	print_node.c
+	print_node.c	live_init_cmd_token.c
 
 SRC_PARSE=\
 	parsing.c	get_token.c		parsing.c	tokentotree.c	parsing_utils.c	\

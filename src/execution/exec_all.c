@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:39:33 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/03 11:09:37 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/03 11:42:52 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,7 +94,7 @@ static int exec_commands(t_shell_data *shell_data)
 // Returning an error is useless because they are already handled
 int	exec_tree(t_shell_data *shell_data)
 {
-	if (init_pipes(shell_data))
+	if (pre_init(shell_data))
 		return (SUCCESS);
 	shell_data->pid_list = our_malloc(shell_data->cmd_count * sizeof(int));
 	ft_memset_int(shell_data->pid_list, -69, shell_data->cmd_count);

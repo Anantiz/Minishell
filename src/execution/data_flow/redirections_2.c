@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:44:08 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/03 11:33:41 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/03 11:56:37 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,7 @@ int	cmd_redir_streams(t_s_token *cmd_node)
 	t_s_cmd	*cmd;
 	int		ret;
 
+	ret = SUCCESS;
 	cmd = &cmd_node->data.cmd;
 	if (cmd->redir_nodes[0])
 		ret = cmd_redir_streams_2(cmd);
