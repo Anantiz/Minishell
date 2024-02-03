@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 16:44:55 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/01 18:57:31 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/03 09:33:56 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -139,6 +139,7 @@ t_pair_char	*create_var_pair(const char *start, int *name_len)
 
 	ret = our_malloc(sizeof(t_pair_char));
 	phase = CREATE_VAR_GET_NAME;
+	i = 0;
 	while (start[i] && phase != CREATE_VAR_ABORT)
 	{
 		if (phase == CREATE_VAR_GET_NAME)

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:04:16 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/01 19:28:35 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/03 09:01:42 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@
 static void	create_envp_list(t_shell_data *shell_data, char **envp)
 {
 	t_env		**head;
-	t_env		*var;
 	t_pair_char	*pair;
 
 	head = &shell_data->envp;

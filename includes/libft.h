@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 15:44:18 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/01 13:19:20 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/03 09:44:40 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,7 +108,8 @@ void		free_double_char(char **cc);
 void		free_triple_char(char ***ccc);
 void		*ft_memcpy(void *dest, const void *src, size_t n);
 void		*ft_memmove(void *dest, const void *src, size_t n);
-void		*ft_memset(void *s, int val, size_t n);
+void		*ft_memset(void *s, char val, size_t n);
+void		*ft_memset_int(void *s, int val, size_t n);
 size_t		ft_strlcat(char *dst, const char *src, size_t size);
 size_t		ft_strlcpy(char *dst, const char *src, size_t size);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
@@ -119,10 +120,10 @@ void		ft_striteri(char *s, void (*f)(unsigned int, char *));
 
 /* FILES ------------------------------------------------*/
 
-int			ft_putchar_fd(char s, int fd);
-int			ft_putstr_fd(char *s, int fd);
-int			ft_putendl_fd(char *s, int fd);
-int			ft_putnbr_fd(int n, int fd);
+ssize_t		ft_putchar_fd(char s, int fd);
+ssize_t		ft_putstr_fd(char *s, int fd);
+ssize_t		ft_putendl_fd(char *s, int fd);
+ssize_t		ft_putnbr_fd(int n, int fd);
 
 /*
 LINKED LIST

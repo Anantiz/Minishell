@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 08:26:52 by loris             #+#    #+#             */
-/*   Updated: 2024/01/30 10:42:18 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/03 09:56:56 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ int	ft_countword(char *line)
 
 	i = -1;
 	count = 0;
+	already_cmd = false;
 	while (ft_is_sep(*line))
 		line++;
 	while (line[++i])
@@ -49,11 +50,9 @@ int	ft_countword(char *line)
                     i++;
             already_cmd = false;
         }
-        if ((!ft_is_op(line[i]) && !ft_is_sep(line[i]) && already_cmd == false))
-        {
-        	count++;
+        if ((!ft_is_op(line[i]) && !ft_is_sep(line[i]) && already_cmd == false) \
+			&& count++ != -69)
             already_cmd = true;
-        }
 	}
 	return(count);
 }

@@ -6,13 +6,13 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/23 16:00:39 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/21 21:00:51 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/03 09:43:48 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_putstr_fd(char *s, int fd)
+ssize_t	ft_putstr_fd(char *s, int fd)
 {
 	size_t	len;
 

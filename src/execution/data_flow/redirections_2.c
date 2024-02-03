@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:44:08 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/01 12:14:41 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/03 11:24:00 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,15 @@ int	cmd_redir_streams(t_s_token *cmd_node)
 	if (cmd->redir_nodes[0] \
 		&& cmd->redir_nodes[0]->data.op.type != REDIR_HEREDOC)
 	{
-		close(cmd->redir_nodes[0]->data.op.pipefd[1]);
+		if (cmd->redir_nodes[0]->data.op.pipefd[1] != -66)
+		{
+			ft_fprintf(2, "Child closing fd=%d\n", cmd->redir_nodes[0]->data.op.pipefd[1]);
+			if (cmd->redir_nodes[0]->data.op.pipefd[1] != -66)
+			{
+				if (close(cmd->redir_nodes[0]->data.op.pipefd[1]))
+					perror("AA: close() error");
+			}
+		}
 		if (dup2(cmd->redir_nodes[0]->data.op.pipefd[0], STDIN_FILENO) == -1)
 		{
 			ft_fprintf(2, "Node: %p: ", cmd_node);
@@ -34,12 +42,14 @@ int	cmd_redir_streams(t_s_token *cmd_node)
 			strerror(errno), cmd->redir_nodes[0]->data.op.pipefd[0]);
 			return (FAILURE);
 		}
-		close(cmd->redir_nodes[0]->data.op.pipefd[0]);
+		ft_fprintf(2, "\tiClosing %d: \n", cmd->redir_nodes[0]->data.op.pipefd[0]);
+		if (close(cmd->redir_nodes[0]->data.op.pipefd[0]))
+			ft_fprintf(2, "Error : %s\n", strerror(errno));
+		cmd->redir_nodes[0]->data.op.pipefd[0] = -66;
 	}
 	if (cmd->redir_nodes[1] \
 		&& cmd->redir_nodes[1]->data.op.type != REDIR_HEREDOC)
 	{
-		close(cmd->redir_nodes[1]->data.op.pipefd[0]);
 		if (dup2(cmd->redir_nodes[1]->data.op.pipefd[1], STDOUT_FILENO) == -1)
 		{
 			ft_fprintf(2, "Node %p: ", cmd_node);
@@ -47,7 +57,10 @@ int	cmd_redir_streams(t_s_token *cmd_node)
 			strerror(errno), cmd->redir_nodes[1]->data.op.pipefd[1]);
 			return (FAILURE);
 		}
-		close(cmd->redir_nodes[1]->data.op.pipefd[1]);
+		ft_fprintf(2, "\toClosing %d: \n", cmd->redir_nodes[1]->data.op.pipefd[1]);
+		if (close(cmd->redir_nodes[1]->data.op.pipefd[1]))
+			ft_fprintf(2, "Error : %s\n", strerror(errno));
+		cmd->redir_nodes[1]->data.op.pipefd[1] = -66;
 	}
 	return (SUCCESS);
 }

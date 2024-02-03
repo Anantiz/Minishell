@@ -1,6 +1,6 @@
 CC:=gcc
 INCLUDE_PATH=./includes
-CFLAGS:=-Wall -Wextra -I$(INCLUDE_PATH) -g3 -lreadline -fsanitize=address
+CFLAGS:=-Wall -Wextra -I$(INCLUDE_PATH) -g3 -lreadline
 RM:=rm -rf
 
 NAME=minishell
@@ -25,7 +25,7 @@ SRC_PARSE=\
 	parse_each_op.c	parse_variable.c	find_each_op.c recheck_tree.c
 
 SRC_EXEC=\
-	exec.c	data_flow/mario_world.c	exec_command.c	exec_child_process.c	\
+	exec_all.c	data_flow/mario_world.c	exec_one.c	exec_child_process.c	\
 	data_flow/redirections_1.c	data_flow/mario_file_bs.c	exec_builtins.c	\
 	exec_parent.c	data_flow/redirections_2.c	heredoc.c	set_var.c		\
 	expand_var.c

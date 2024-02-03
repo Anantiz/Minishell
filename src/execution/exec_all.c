@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec.c                                             :+:      :+:    :+:   */
+/*   exec_all.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:39:33 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/01 13:18:03 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/03 11:09:37 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,13 +35,17 @@
 			done;
 		-3: Cleanup and wait for next command-line
 */
+
 static void	wait_last_subtree(t_shell_data *shell_data)
 {
 	static int	skip = 0;
 	while (skip < shell_data->pid_count)
 	{
 		if (shell_data->pid_list[skip] != -69)
+		{
 			waitpid(shell_data->pid_list[skip], &shell_data->last_wstatus, 0);
+		}
+		ft_fprintf(2, "Last pid: %d\n", shell_data->pid_list[skip]);
 		skip++;
 	}
 	if (skip == shell_data->cmd_count)
@@ -58,14 +62,15 @@ static int exec_commands(t_shell_data *shell_data)
 	{
 		if (node->token_type == TK_OP)
 		{
-			wait_last_subtree(shell_data);
 			if (node->data.op.type == T_AND)
 			{
+				wait_last_subtree(shell_data);
 				if (shell_data->last_wstatus != 0)
 					node = get_next_subtree(node);
 			}
 			else if (node->data.op.type == T_OR)
 			{
+				wait_last_subtree(shell_data);
 				if (shell_data->last_wstatus == 0)
 					node = get_next_subtree(node);
 			}
@@ -75,10 +80,9 @@ static int exec_commands(t_shell_data *shell_data)
 			ft_fprintf(2, "Executing node %d: %s: %p\n", i, node->data.cmd.args[0], node);
 			ft_fprintf(2, "\tredir[0]: %p\n",node->data.cmd.redir_nodes[0]);
 			ft_fprintf(2, "\tredir[1]: %p\n\n", node->data.cmd.redir_nodes[1]);
-			shell_data->last_command = &node->data.cmd;
 			exec_one_command(shell_data, node);
-			restore_std_streams(NULL);
-
+			shell_data->last_command = &node->data.cmd;
+			restore_std_streams(shell_data);
 		}
 		node = get_next_node(node);
 		i++;
@@ -90,17 +94,12 @@ static int exec_commands(t_shell_data *shell_data)
 // Returning an error is useless because they are already handled
 int	exec_tree(t_shell_data *shell_data)
 {
-	size_t	len;
-
 	if (init_pipes(shell_data))
 		return (SUCCESS);
-	len = shell_data->cmd_count * sizeof(int);
-	shell_data->pid_list = our_malloc(len);
-	ft_memset(shell_data->pid_list, -69, len);
+	shell_data->pid_list = our_malloc(shell_data->cmd_count * sizeof(int));
+	ft_memset_int(shell_data->pid_list, -69, shell_data->cmd_count);
 	if (exec_commands(shell_data))
 		return (SUCCESS);
 	restore_std_streams(NULL);
-	// We have issues with readline that sometimes print the prompt twice
-	// Fix this somehow
 	return (SUCCESS);
 }

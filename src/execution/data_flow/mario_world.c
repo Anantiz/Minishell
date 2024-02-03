@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 15:45:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/01 12:31:42 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/03 10:14:05 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,11 +55,13 @@ int	open_pipes(t_s_token *node)
 		}
 		if (node->data.op.type == REDIR_HEREDOC)
 			our_heredoc(node);
+		ft_printf("pipefd[0]=%d pipefd[1]=%d\n", node->data.op.pipefd[0], \
+			node->data.op.pipefd[1]);
 	}
 	else
 	{
-		node->data.op.pipefd[0] = STDIN_FILENO;
-		node->data.op.pipefd[1] = STDOUT_FILENO;
+		node->data.op.pipefd[0] = -690;
+		node->data.op.pipefd[1] = -4200;
 	}
 	return (SUCCESS);
 }

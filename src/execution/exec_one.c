@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_command.c                                     :+:      :+:    :+:   */
+/*   exec_one.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:05:20 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/01 13:05:39 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/03 11:22:08 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,39 +29,21 @@ o888bood8P'   `Y8bod8P' o888o o888o `Y8bod8P'
 */
 void	parent_close_pipes(t_s_cmd *cmd)
 {
-	if (cmd->redir_nodes[0] && !cmd->redir_nodes[1])
+	if (cmd->redir_nodes[0])
 	{
-		if (close(cmd->redir_nodes[0]->data.op.pipefd[0]))
+		ft_fprintf(2, "_Parent closing fd=%d\n", cmd->redir_nodes[0]->data.op.pipefd[0]);
+		if (cmd->redir_nodes[0]->data.op.pipefd[0] != -66)
 		{
-						ft_fprintf(2, "CLOSING error : %s : fd=%d\n", \
-				strerror(errno), cmd->redir_nodes[0]->data.op.pipefd[0]);
-			// perror("PA: close() error");
+			if (close(cmd->redir_nodes[0]->data.op.pipefd[0]))
+				perror("PPA: close() error");
 		}
-		else
-			cmd->redir_nodes[0]->data.op.pipefd[0] = -496;
 
-		if (close(cmd->redir_nodes[0]->data.op.pipefd[1]))
+		ft_fprintf(2, "_Parent closing fd=%d\n", cmd->redir_nodes[0]->data.op.pipefd[1]);
+		if (cmd->redir_nodes[0]->data.op.pipefd[1] != -66)
 		{
-			// perror("PB: close() error");
-						ft_fprintf(2, "CLOSING error : %s : fd=%d\n", \
-				strerror(errno), cmd->redir_nodes[0]->data.op.pipefd[1]);
+			if (close(cmd->redir_nodes[0]->data.op.pipefd[1]))
+				perror("PPB: close() error");
 		}
-		else
-			cmd->redir_nodes[0]->data.op.pipefd[1] = -490;
-	}
-	else if (cmd->redir_nodes[0] && cmd->redir_nodes[1])
-	{
-		// Close both ends of second parent
-		// First parent will be second parent's of next node
-		if (close(cmd->redir_nodes[0]->data.op.pipefd[0]))
-			perror("PC close() error");
-		else
-			cmd->redir_nodes[0]->data.op.pipefd[0] = -469;
-
-		if (close(cmd->redir_nodes[0]->data.op.pipefd[1]))
-			perror("PD close() error");
-		else
-			cmd->redir_nodes[0]->data.op.pipefd[1] = -470;
 	}
 }
 
