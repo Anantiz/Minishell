@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:04:16 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/03 09:01:42 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/03 14:17:43 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,9 @@ static void	create_envp_list(t_shell_data *shell_data, char **envp)
 	}
 }
 
-static void	handle_non_existing_path(t_shell_data *shell_data)
+static void	handle_non_existing_path(t_shell_data *shell_data, char *argv[])
 {
 	t_env		*var;
-	char		*pwd;
 
 	var = our_get_env(shell_data, "PATH");
 	if (!var)
@@ -45,19 +44,26 @@ static void	handle_non_existing_path(t_shell_data *shell_data)
 	var = our_get_env(shell_data, "PWD");
 	if (!var)
 	{
-		pwd = unionize_str(getcwd(NULL, 0));
-		var = t_env_new_node(ft_strdup("PWD"), pwd);
+		var = t_env_new_node(ft_strdup("PWD"), unionize_str(getcwd(NULL, 0)));
 		t_env_add_back(&shell_data->envp, var);
-		shell_data->our_pwd = ft_strdup(pwd);
+		shell_data->our_pwd = ft_strdup(ft_strdup(var->val));
 	}
+	var = our_get_env(shell_data, "SHLVL");
+	if (!var)
+		t_env_add_back(&shell_data->envp, \
+		t_env_new_node(ft_strdup("SHLVL"), ft_strdup("1")));
+	var = our_get_env(shell_data, "_");
+	if (!var)
+		t_env_add_back(&shell_data->envp, \
+		t_env_new_node(ft_strdup("_"), ft_strdup(argv[0])));
 }
 
-void	init_shell_data(t_shell_data *shell_data, char **envp)
+void	init_shell_data(t_shell_data *shell_data, char **envp, char *argv[])
 {
 	shell_data->envp = NULL;
 	shell_data->our_pwd = NULL;
 	create_envp_list(shell_data, envp);
-	handle_non_existing_path(shell_data);
+	handle_non_existing_path(shell_data, argv);
 	shell_data->root = NULL;
 	shell_data->last_command = NULL;
 	shell_data->last_pid = 0;

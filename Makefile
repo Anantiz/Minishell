@@ -28,14 +28,14 @@ SRC_EXEC=\
 	exec_all.c	data_flow/mario_world.c	exec_one.c	exec_child_process.c	\
 	data_flow/redirections_1.c	data_flow/mario_file_bs.c	exec_builtins.c	\
 	exec_parent.c	data_flow/redirections_2.c	heredoc.c	set_var.c		\
-	expand_var.c
+	expand_var.c	expand_wildcards.c
 
 SRC_ERR=\
 	session_error.c
 
 SRC_OURS=\
 	our_cd.c		our_pwd.c		our_env.c	our_echo.c	our_exit.c	\
-	our_unset.c		our_export.c	our_cd2.c
+	our_unset.c		our_export.c	our_cd2.c	our_cd3.c
 
 UTILS_PATH=utils
 SRC_UTILS:= $(addprefix $(UTILS_PATH)/,$(SRC_UTILS))

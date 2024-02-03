@@ -6,71 +6,41 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 18:14:30 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/31 11:17:32 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/03 15:31:10 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	add_missing_envp(t_shell_data *shell_data, char **ret, \
-bool path_pwd[2])
+static int	get_env_size(t_env *envp)
 {
-	int	i;
+	int	ret;
 
-	i = 0;
-	if (!path_pwd[0])
-		ret[i++] = ft_strdup(OG_FUCKING_PATH);
-	if (!path_pwd[1])
-		ret[i++] = ft_strdup(shell_data->our_pwd);
-	return (i);
-}
-
-static int	get_env_size(t_env *envp, bool path_pwd[2])
-{
-	int	i;
-
-	path_pwd[0] = false;
-	path_pwd[1] = false;
-	i = 3;
+	ret = 0;
 	while (envp)
 	{
-		if (!ft_strcmp(envp->key, "PATH"))
-		{
-			path_pwd[0] = true;
-			i--;
-		}
-		else if (!ft_strcmp(envp->key, "PWD"))
-		{
-			path_pwd[1] = true;
-			i--;
-		}
-		if (envp->val != NULL && envp->val[0] != '\0')
-			i++;
+		ret++;
 		envp = envp->next;
 	}
-	return (i);
+	return (ret + 1);
 }
 
 /*
 	IF PATH OR PWD ARE NOT SET, THEY ARE CREATED
 */
-char	**t_env_to_double_char(t_shell_data *shell_data, t_env *envp)
+char	**t_env_to_double_char(t_env *envp)
 {
 	char	**ret;
 	char	*old;
 	int		i;
-	bool	path_pwd[2];
 
-	ret = our_malloc(sizeof(char *) * (get_env_size(envp, path_pwd)));
-	i = add_missing_envp(shell_data, ret, path_pwd);
+	ret = our_malloc(sizeof(char *) * (get_env_size(envp) + 1));
+	i = 0;
 	while (envp)
 	{
-		if (!ft_is_blank_str(envp->val))
-		{
-			old = ft_strjoin(envp->key, "=");
-			ret[i++] = ft_strjoin(old, envp->val);
-			our_free(old);
-		}
+		old = ft_strjoin(envp->key, "=");
+		ret[i++] = ft_strjoin(old, envp->val);
+		our_free(old);
 		envp = envp->next;
 	}
 	ret[i] = NULL;

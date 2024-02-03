@@ -10,13 +10,9 @@ BUG:
 
 TO DO:
 
-	in ZSH:	env -i ./minishell
 	Environment variables:
-		`SHLVL`
-		`_`
-	Add them if they don't exist, and give them appropriate value
+		`_` -> Exist but I never update it, idk if it's required by subject ...
 
-	OLDPWD, handle it like PATH
 	Have a environment variable that you keep updated if it exist
 	but also your `our_oldpwd` that you always keep track of (and that you init with OLDPWD)
 	the environment variable has priority over `our_oldpwd`

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 11:43:59 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/03 11:55:14 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/03 16:31:24 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,4 +27,5 @@ void	init_cmd_token(t_shell_data *shell_data, t_s_token *node)
 	shell_data->cmd_count++;
 	init_cmd_token_last(node);
 	expand_variables(shell_data, node);
+	expand_wildcard(node);
 }

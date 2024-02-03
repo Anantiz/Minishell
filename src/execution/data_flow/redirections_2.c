@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:44:08 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/03 11:56:37 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/03 13:38:20 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,10 +62,6 @@ int	cmd_redir_streams(t_s_token *cmd_node)
 	return (SUCCESS);
 }
 
-/* **************************************************************************
-	Everytime we redirected the std_streams for a command
-	We need to restore them after the command has been executed
-*/
 int	restore_std_streams(t_shell_data *shell_data)
 {
 	static int	stdin_fd = -1;

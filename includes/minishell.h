@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/03 11:50:22 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/03 16:31:06 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int			exec_tree(t_shell_data *shell_data);
 /* SHELL_DATA */
 
 void		cleanup_shell_data(t_shell_data *shell_data);
-void		init_shell_data(t_shell_data *shell_data, char **envp);
+void		init_shell_data(t_shell_data *shell_data, char **envp, char *argv[]);
 void		del_tree(t_shell_data *shell_data);
 
 /* PARSING */
@@ -114,6 +114,7 @@ t_s_token	*new_tokenfile(t_s_token *node);
 
 /* EXECUTION */
 
+void		expand_wildcard(t_s_token *node);
 int			pre_init(t_shell_data *shell_data);
 void		our_heredoc(t_s_token *redir_node);
 void		find_redir_nodes(t_s_token *cmd_node);
@@ -158,7 +159,7 @@ void		expand_variables(t_shell_data *shell_data, t_s_token *node);
 void		init_cmd_token(t_shell_data *shell_data, t_s_token *node);
 
 /* T_ENV */
-char		**t_env_to_double_char(t_shell_data *shell_data, t_env *envp);
+char		**t_env_to_double_char(t_env *envp);
 void		t_env_del_node(t_env **root, t_env *node_);
 void		t_env_del_list(t_env **root);
 t_env		*t_env_new_node(char *key, char *value);

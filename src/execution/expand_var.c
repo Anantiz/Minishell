@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:10:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/03 11:49:25 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/03 15:33:25 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,29 @@
 /*
 
 */
-static void	replace_here(char **str, char *var_content, int cut, int var_size)
+static void	replace_here(char **str, char *var_str, int cut, int key_len)
 {
 	char	*new_str;
 	char	*og_str;
 	int		i;
 
 	og_str = *str;
-	new_str = our_malloc(ft_strlen(og_str) + var_size + 1 * sizeof(char));
+	new_str = our_malloc((ft_strlen(og_str) + ft_strlen(var_str) + 2) * \
+		sizeof(char));
 	i = 0;
 	while (i < cut)
 		new_str[i++] = *og_str++;
-	while (*var_content)
-		new_str[i++] = *var_content++;
-	while (++og_str)
-		new_str[i++] = *og_str;
+	while (key_len-- > -1)
+		og_str++;
+	while (*var_str)
+	{
+		new_str[i++] = *var_str;
+		var_str++;
+	}
+	while (*og_str)
+		new_str[i++] = *og_str++;
 	new_str[i] = '\0';
-	our_free(*str);
-	*str = new_str;
+	ft_replace_str(str, new_str);
 }
 
 /*
@@ -41,7 +46,7 @@ static void	replace_here(char **str, char *var_content, int cut, int var_size)
 	If found, return the content
 	Else return NULL
 */
-static char	*get_the_var(t_shell_data *shell_data, char *str, int *var_len)
+static char	*get_the_var(t_shell_data *shell_data, char *str, int *key_len)
 {
 	int		i;
 	char	*var_name;
@@ -53,16 +58,19 @@ static char	*get_the_var(t_shell_data *shell_data, char *str, int *var_len)
 	{
 		i++;
 	}
-	*var_len = i;
+	*key_len = i;
 	var_name = ft_substr(str, 0, i);
+	ft_fprintf(2, "var_name: %s\n", var_name);
+	if (ft_strcmp(var_name, "?") == 0)
+	{
+		our_free(var_name);
+		return (ft_itoa(shell_data->last_wstatus));
+	}
 	ret = our_get_env(shell_data, var_name);
 	our_free(var_name);
 	if (!ret)
-	{
-		*var_len = -1;
 		return (NULL);
-	}
-	return (ret->val);
+	return (ft_strdup(ret->val));
 }
 
 /*
@@ -73,21 +81,23 @@ static char	*get_the_var(t_shell_data *shell_data, char *str, int *var_len)
 static void	expand_this_str(t_shell_data *shell_data, char **str)
 {
 	size_t	i;
-	int		var_len;
-	char	*var_content;
+	char	*var_str;
+	int		offset;
+	int		key_len;
 
 	i = 0;
+	offset = 0;
 	while ((*str)[i])
 	{
 		if ((*str)[i] == '$')
 		{
-			var_content = get_the_var(shell_data, (*str) + 1, &var_len);
-			if (var_len > 0)
+			var_str = get_the_var(shell_data, &(*str)[i + 1], &key_len);
+			if (var_str)
 			{
-				replace_here(str, var_content, i, var_len);
-				i += var_len - 1;
+				replace_here(str, var_str, i + offset, key_len);
+				offset += ft_strlen(var_str);
 			}
-			our_free(var_content);
+			our_free(var_str);
 		}
 		i++;
 	}

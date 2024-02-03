@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 16:57:13 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/01 19:20:59 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/03 14:22:32 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,39 +29,7 @@
  ( ()||((( ())|         |  |( (( () ) )
 */
 
-/*
-	This may not be the exact way the real bash does it
-	but fuck it, it works
-	But like, why the fuck did you even delete the PWD from the first place ?
-*/
-static int	update_pwd(t_shell_data *shell_data, char *path)
-{
-	t_env	*old_pwd_v;
-	t_env	*cur_pwd_v;
-	char	*new_pwd_s;
-
-	cur_pwd_v = our_get_env(shell_data, "PWD");
-	old_pwd_v = our_get_env(shell_data, "OLDPWD");
-	new_pwd_s = unionize_str(getcwd(NULL, 0));
-	if (!new_pwd_s)
-	{
-		ft_fprintf(2, "%s cd: The system ran out of memory, so `getcwd()` \
-failed to return the new path, like fr does `bash` even handles this ???:%s\n", \
-SHELL_NAME, strerror(errno));
-		return (FAILURE);
-	}
-	if (old_pwd_v)
-	{
-		if (cur_pwd_v)
-			ft_replace_dupstr(&old_pwd_v->val, cur_pwd_v->val);
-	}
-	if (!ft_strcmp(new_pwd_s, "/") && !ft_strcmp(path, "//"))
-		ft_replace_dupstr(&new_pwd_s, "//");
-	if (cur_pwd_v)
-		ft_replace_str(&cur_pwd_v->val, new_pwd_s);
-	shell_data->our_pwd = ft_strdup(new_pwd_s);
-	return (SUCCESS);
-}
+int	update_pwd(t_shell_data *shell_data, char *path);
 
 static bool	path_is_satanic_inner(char c, bool *was_point)
 {
@@ -111,11 +79,14 @@ static void	update_satanic_path(t_shell_data *shell_data, char *path)
 	t_env	*pwd_var;
 
 	new_pwd = ft_strjoin(shell_data->our_pwd, "/");
-	ft_replace_str(&new_pwd, ft_strjoin(new_pwd, path));
-	pwd_var = our_get_env(shell_data, "PWD");
-	if (pwd_var)
-		ft_replace_dupstr(&pwd_var->val, new_pwd);
-	ft_replace_str(&shell_data->our_pwd, new_pwd);
+	if (ft_strlen(new_pwd) < 4096 && ft_strlen(path) < 4096)
+	{
+		ft_replace_str(&new_pwd, ft_strjoin(new_pwd, path));
+		pwd_var = our_get_env(shell_data, "PWD");
+		if (pwd_var)
+			ft_replace_dupstr(&pwd_var->val, new_pwd);
+		ft_replace_str(&shell_data->our_pwd, new_pwd);
+	}
 }
 
 /*
