@@ -9,12 +9,6 @@ Fix export such that PATH= clears the variable but PATH don't, also check again 
 BUG:
 	in ZSH:	env -i ./minishell
 
-	in minishell: do env, then the prompt comes two time at exit
-
-	in minishell: env | grep SHLVL
-		->Somehow quits the shell
-		It seems bultins into a pipe quit the shell
-
 TO DO:
 
 	Environment variables:

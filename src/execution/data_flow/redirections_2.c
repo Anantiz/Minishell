@@ -6,11 +6,30 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:44:08 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/03 11:24:00 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/03 11:33:41 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	cmd_redir_streams_2(t_s_cmd *cmd)
+{
+	if (cmd->redir_nodes[0]->data.op.pipefd[1] != -66)
+	{
+		if (close(cmd->redir_nodes[0]->data.op.pipefd[1]))
+			perror("Redirection: close() error");
+		cmd->redir_nodes[0]->data.op.pipefd[1] = -66;
+	}
+	if (dup2(cmd->redir_nodes[0]->data.op.pipefd[0], STDIN_FILENO) == -1)
+	{
+		perror("Redirecting STD-IN, dup2() error");
+		return (FAILURE);
+	}
+	if (close(cmd->redir_nodes[0]->data.op.pipefd[0]))
+		perror("Redirection: close() error");
+	cmd->redir_nodes[0]->data.op.pipefd[0] = -66;
+	return (SUCCESS);
+}
 
 /*
 	First we find the redir_nodes
@@ -21,47 +40,24 @@
 int	cmd_redir_streams(t_s_token *cmd_node)
 {
 	t_s_cmd	*cmd;
+	int		ret;
 
 	cmd = &cmd_node->data.cmd;
-	if (cmd->redir_nodes[0] \
-		&& cmd->redir_nodes[0]->data.op.type != REDIR_HEREDOC)
-	{
-		if (cmd->redir_nodes[0]->data.op.pipefd[1] != -66)
-		{
-			ft_fprintf(2, "Child closing fd=%d\n", cmd->redir_nodes[0]->data.op.pipefd[1]);
-			if (cmd->redir_nodes[0]->data.op.pipefd[1] != -66)
-			{
-				if (close(cmd->redir_nodes[0]->data.op.pipefd[1]))
-					perror("AA: close() error");
-			}
-		}
-		if (dup2(cmd->redir_nodes[0]->data.op.pipefd[0], STDIN_FILENO) == -1)
-		{
-			ft_fprintf(2, "Node: %p: ", cmd_node);
-			ft_fprintf(2, "Redirecting STD-IN, dup2() error : %s : fd=%d\n", \
-			strerror(errno), cmd->redir_nodes[0]->data.op.pipefd[0]);
-			return (FAILURE);
-		}
-		ft_fprintf(2, "\tiClosing %d: \n", cmd->redir_nodes[0]->data.op.pipefd[0]);
-		if (close(cmd->redir_nodes[0]->data.op.pipefd[0]))
-			ft_fprintf(2, "Error : %s\n", strerror(errno));
-		cmd->redir_nodes[0]->data.op.pipefd[0] = -66;
-	}
-	if (cmd->redir_nodes[1] \
-		&& cmd->redir_nodes[1]->data.op.type != REDIR_HEREDOC)
+	if (cmd->redir_nodes[0])
+		ret = cmd_redir_streams_2(cmd);
+	if (cmd->redir_nodes[1])
 	{
 		if (dup2(cmd->redir_nodes[1]->data.op.pipefd[1], STDOUT_FILENO) == -1)
 		{
-			ft_fprintf(2, "Node %p: ", cmd_node);
-			ft_fprintf(2, "Redirecting STD-OUT, dup2() error : %s : fd=%d\n", \
-			strerror(errno), cmd->redir_nodes[1]->data.op.pipefd[1]);
+			perror("Redirecting STD-OUT, dup2() error");
 			return (FAILURE);
 		}
-		ft_fprintf(2, "\toClosing %d: \n", cmd->redir_nodes[1]->data.op.pipefd[1]);
 		if (close(cmd->redir_nodes[1]->data.op.pipefd[1]))
-			ft_fprintf(2, "Error : %s\n", strerror(errno));
+			perror("Redirection: close() error");
 		cmd->redir_nodes[1]->data.op.pipefd[1] = -66;
 	}
+	if (ret == FAILURE)
+		return (FAILURE);
 	return (SUCCESS);
 }
 
