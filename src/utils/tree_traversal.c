@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:11:05 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/29 09:55:27 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/05 19:05:46 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,17 @@ t_s_token	*get_next_node(t_s_token *node)
 	return (NULL);
 }
 
-t_s_token	*get_next_subtree(t_s_token *node)
+t_s_token	*get_next_subtree(t_shell_data *shell_data)
 {
-	node = get_next_node(node);
-	while (node && node->token_type != TK_OP && node->data.op.type >= PIPE)
-		node = get_next_node(node);
+	t_s_token	*node;
+
+	node = shell_data->root;
+	while (node && node->token_type == TK_OP && node->data.op.did_exec)
+	{
+		if (node->data.op.did_exec)
+			node = node->right;
+		else
+			node = node->left;
+	}
 	return (node);
 }

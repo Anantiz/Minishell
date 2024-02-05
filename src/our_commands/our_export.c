@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 17:08:31 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/01 19:00:44 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/05 17:46:31 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static t_pair_char	**get_appropriate_data(char **args)
 	j = 0;
 	while (args[i])
 	{
-		pair =  create_var_pair(args[i++], NULL);
+		pair = create_var_pair(args[i++], NULL);
 		if (pair)
 			ret[j++] = pair;
 	}
@@ -97,7 +97,8 @@ int	our_export(t_shell_data *shell_data, t_s_token *token)
 {
 	t_env		*var;
 
-	if (token->data.cmd.args[1] == NULL)
+	if (token->data.cmd.args[1] == NULL || \
+	ft_is_blank_str(token->data.cmd.args[1]))
 	{
 		var = shell_data->envp;
 		while (var)

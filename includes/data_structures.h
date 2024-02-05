@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:24:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/05 11:48:49 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/05 18:56:45 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ typedef struct s_op
 	char		*heredoc_str;
 	char		*eof;
 	size_t		heredoc_len;
+	bool		did_exec;
 }t_s_op;
 
 /* ############################## */

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:39:33 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/03 14:04:56 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/05 19:06:48 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,10 +42,7 @@ static void	wait_last_subtree(t_shell_data *shell_data)
 	while (skip < shell_data->pid_count)
 	{
 		if (shell_data->pid_list[skip] != -69)
-		{
-			waitpid(shell_data->pid_list[skip], &shell_data->last_wstatus, 0);
-		}
-		ft_fprintf(2, "Last pid: %d\n", shell_data->pid_list[skip]);
+			waitpid(shell_data->pid_list[skip], NULL, 0);
 		skip++;
 	}
 	if (skip == shell_data->cmd_count)
@@ -60,34 +57,48 @@ static int exec_commands(t_shell_data *shell_data)
 	int i = 0;
 	while (node)
 	{
-		if (node->token_type == TK_OP)
+		while (node)
 		{
-			if (node->data.op.type == T_AND)
+			if (node->token_type == TK_OP)
 			{
-				wait_last_subtree(shell_data);
-				if (shell_data->last_wstatus != 0)
-					node = get_next_subtree(node);
+				ft_fprintf(2, "Executing node %d: %s: %p\tlast_status=%d\n", \
+				i, node->data.op.type == T_AND ? "AND" : "OR", node, shell_data->last_wstatus);
+				if (node->data.op.type == T_AND)
+				{
+					if (node->data.op.did_exec == true)
+					{
+						if (shell_data->last_wstatus != 0)
+							node = get_next_subtree(shell_data);
+					}
+					else
+						node->data.op.did_exec = true;
+				}
+				else if (node->data.op.type == T_OR)
+				{
+					if (node->data.op.did_exec == true)
+					{
+						if (shell_data->last_wstatus == 0)
+							node = get_next_subtree(shell_data);
+					}
+					else
+						node->data.op.did_exec = true;
+				}
 			}
-			else if (node->data.op.type == T_OR)
+			else if (node->token_type == TK_CMD)
 			{
-				wait_last_subtree(shell_data);
-				if (shell_data->last_wstatus == 0)
-					node = get_next_subtree(node);
+				ft_fprintf(2, "Executing node %d: %s: %p\n", i, node->data.cmd.args[0], node);
+				ft_fprintf(2, "\tredir[0]: %p\n",node->data.cmd.redir_nodes[0]);
+				ft_fprintf(2, "\tredir[1]: %p\n\n", node->data.cmd.redir_nodes[1]);
+				exec_one_command(shell_data, node);
+				shell_data->last_command = &node->data.cmd;
+				restore_std_streams(shell_data);
 			}
+			node = get_next_node(node);
+			i++;
 		}
-		else if (node->token_type == TK_CMD)
-		{
-			ft_fprintf(2, "Executing node %d: %s: %p\n", i, node->data.cmd.args[0], node);
-			ft_fprintf(2, "\tredir[0]: %p\n",node->data.cmd.redir_nodes[0]);
-			ft_fprintf(2, "\tredir[1]: %p\n\n", node->data.cmd.redir_nodes[1]);
-			exec_one_command(shell_data, node);
-			shell_data->last_command = &node->data.cmd;
-			restore_std_streams(shell_data);
-		}
-		node = get_next_node(node);
-		i++;
+		wait_last_subtree(shell_data);
+		node = get_next_subtree(shell_data);
 	}
-	wait_last_subtree(shell_data);
 	return (SUCCESS);
 }
 

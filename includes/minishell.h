@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/05 12:31:04 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/05 19:06:10 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -155,7 +155,7 @@ int			our_export(t_shell_data *shell_data, t_s_token *node);
 /* UTILS */
 
 t_s_token	*get_next_node(t_s_token *node);
-t_s_token	*get_next_subtree(t_s_token *node);
+t_s_token	*get_next_subtree(t_shell_data *shell_data);
 int			get_cmd_paths(t_shell_data *shell_data, t_s_token *node);
 
 char		*get_clean_path_shell(t_shell_data *shell_data);

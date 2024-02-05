@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 11:43:59 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/03 16:31:24 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/05 18:45:47 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static void init_cmd_token_last(t_s_token *node)
 {
 	if (node->parent && node->parent->right == node && !node->right)
 			node->data.cmd.is_last = true;
+	else if (!node->parent && !node->right && !node->left)
+		node->data.cmd.is_last = true;
 	else
 		node->data.cmd.is_last = false;
 	node->data.cmd.redir_nodes[0] = NULL;
