@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:10:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/03 15:33:25 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/05 12:47:00 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,11 +122,14 @@ void	expand_variables(t_shell_data *shell_data, t_s_token *node)
 	{
 		while (node->data.cmd.args[i])
 		{
-			expand_this_str(shell_data, &node->data.cmd.args[i++]);
+			if (node->data.cmd.single[i] == false)
+				expand_this_str(shell_data, &node->data.cmd.args[i]);
+			i++;
 		}
 	}
 	else if (node->token_type == TK_FILE)
 	{
-		expand_this_str(shell_data, &node->data.file.file_path);
+		if (node->data.file.single == false)
+			expand_this_str(shell_data, &node->data.file.file_path);
 	}
 }

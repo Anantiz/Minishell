@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:20:58 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/03 09:36:31 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/05 12:50:40 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	check_builtins(t_shell_data *shell_data, t_s_token *node)
 				return (FAILURE);
 			shell_data->pid_count++;
 			i = (foo_map[i])(shell_data, node);
+			shell_data->last_wstatus = i;
 			return (i);
 		}
 		i++;

@@ -22,7 +22,8 @@ SRC_UTILS=\
 
 SRC_PARSE=\
 	parsing.c	get_token.c		parsing.c	tokentotree.c	parsing_utils.c	\
-	parse_each_op.c	parse_variable.c	find_each_op.c recheck_tree.c
+	parse_each_op.c	find_each_op.c recheck_tree.c	scan_token_extended.c	\
+	
 
 SRC_EXEC=\
 	exec_all.c	data_flow/mario_world.c	exec_one.c	exec_child_process.c	\

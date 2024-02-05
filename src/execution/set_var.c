@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 16:44:55 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/03 09:33:56 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/05 11:24:51 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ static char	*our_awesomest_substr(char *str, int i)
 	char	*temp_str;
 	int		j;
 
+	ft_fprintf(2, "our_awesomest_substr: %s\n", str);
 	j = 0;
 	temp_str = str;
 	while (*temp_str)
@@ -28,14 +29,17 @@ static char	*our_awesomest_substr(char *str, int i)
 		if (*temp_str++ != -1)
 			j++;
 	}
-	temp_str = our_malloc(j + 1 * sizeof(char));
+	temp_str = our_malloc((j + 1 ) * sizeof(char));
 	j = 0;
-	while (j < i && *str)
+	ft_fprintf(2, "i= %d, our_awesomest_substr: ", i);
+	while (*str && j < i)
 	{
+		ft_fprintf(2, "%c ", *str);
 		if (*str != -1)
 			temp_str[j++] = *str;
 		str++;
 	}
+	ft_fprintf(2, "\n");
 	temp_str[j] = '\0';
 	return (temp_str);
 }
@@ -51,7 +55,8 @@ static int	create_var_get_name(const char *start, int i, t_pair_char *ret, \
 
 	if (start[i] == '=')
 	{
-		*name_len = i;
+		if (name_len)
+			*name_len = i;
 		ret->key = ft_substr(start, 0, i);
 		return (CREATE_VAR_GET_CONTENT);
 	}
@@ -76,7 +81,7 @@ static int	create_var_get_name(const char *start, int i, t_pair_char *ret, \
 */
 static int	create_var_get_val_2(char *c, char *quote)
 {
-	if (!(*quote) && !ft_isspace(*c))
+	if (!(*quote) && ft_isspace(*c))
 		return (1);
 	else if (*c == '"' || *c == '\'')
 	{
@@ -106,12 +111,15 @@ static int	create_var_get_val(char *start, t_pair_char *ret)
 
 	i = 0;
 	quote = 0;
+	ft_fprintf(2, "create_var_get_val: ");
 	while (start[i])
 	{
+		ft_fprintf(2, "%c ", start[i]);
 		if (create_var_get_val_2(&start[i], &quote))
 			break ;
 		i++;
 	}
+	ft_fprintf(2, "\n");
 	if (quote)
 	{
 		our_free(ret->key);
@@ -159,3 +167,4 @@ t_pair_char	*create_var_pair(const char *start, int *name_len)
 	}
 	return (ret);
 }
+
