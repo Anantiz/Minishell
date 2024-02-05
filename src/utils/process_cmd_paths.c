@@ -20,7 +20,7 @@ static char	**custom_ft_split(const char *str, char sep)
 	int		i;
 
 	temp = ft_split(str, sep);
-	ret = our_malloc(sizeof(char *) * (ft_strslen((const char **)temp) + 2));
+	ret = our_malloc(sizeof(char *) * (ft_strslen(temp) + 2));
 	ret[0] = ft_strdup(".");
 	if (temp)
 	{

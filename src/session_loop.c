@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:12:50 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/01 12:36:10 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/01 13:12:21 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,6 +76,7 @@ int	session_start(t_shell_data *shell_data)
 		shell_data->pid_count = 0;
 		ret = sesion_routine(shell_data);
 		del_tree(shell_data);
+		our_free(shell_data->pid_list);
 		if (ret == MAGIC_VALUE_EXIT_SHELL)
 			return (SUCCESS);
 		if (ret)

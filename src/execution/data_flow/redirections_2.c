@@ -6,11 +6,30 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:44:08 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/01 12:14:41 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/03 13:38:20 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static int	cmd_redir_streams_2(t_s_cmd *cmd)
+{
+	if (cmd->redir_nodes[0]->data.op.pipefd[1] != -66)
+	{
+		if (close(cmd->redir_nodes[0]->data.op.pipefd[1]))
+			perror("Redirection: close() error");
+		cmd->redir_nodes[0]->data.op.pipefd[1] = -66;
+	}
+	if (dup2(cmd->redir_nodes[0]->data.op.pipefd[0], STDIN_FILENO) == -1)
+	{
+		perror("Redirecting STD-IN, dup2() error");
+		return (FAILURE);
+	}
+	if (close(cmd->redir_nodes[0]->data.op.pipefd[0]))
+		perror("Redirection: close() error");
+	cmd->redir_nodes[0]->data.op.pipefd[0] = -66;
+	return (SUCCESS);
+}
 
 /*
 	First we find the redir_nodes
@@ -21,41 +40,28 @@
 int	cmd_redir_streams(t_s_token *cmd_node)
 {
 	t_s_cmd	*cmd;
+	int		ret;
 
+	ret = SUCCESS;
 	cmd = &cmd_node->data.cmd;
-	if (cmd->redir_nodes[0] \
-		&& cmd->redir_nodes[0]->data.op.type != REDIR_HEREDOC)
+	if (cmd->redir_nodes[0])
+		ret = cmd_redir_streams_2(cmd);
+	if (cmd->redir_nodes[1])
 	{
-		close(cmd->redir_nodes[0]->data.op.pipefd[1]);
-		if (dup2(cmd->redir_nodes[0]->data.op.pipefd[0], STDIN_FILENO) == -1)
-		{
-			ft_fprintf(2, "Node: %p: ", cmd_node);
-			ft_fprintf(2, "Redirecting STD-IN, dup2() error : %s : fd=%d\n", \
-			strerror(errno), cmd->redir_nodes[0]->data.op.pipefd[0]);
-			return (FAILURE);
-		}
-		close(cmd->redir_nodes[0]->data.op.pipefd[0]);
-	}
-	if (cmd->redir_nodes[1] \
-		&& cmd->redir_nodes[1]->data.op.type != REDIR_HEREDOC)
-	{
-		close(cmd->redir_nodes[1]->data.op.pipefd[0]);
 		if (dup2(cmd->redir_nodes[1]->data.op.pipefd[1], STDOUT_FILENO) == -1)
 		{
-			ft_fprintf(2, "Node %p: ", cmd_node);
-			ft_fprintf(2, "Redirecting STD-OUT, dup2() error : %s : fd=%d\n", \
-			strerror(errno), cmd->redir_nodes[1]->data.op.pipefd[1]);
+			perror("Redirecting STD-OUT, dup2() error");
 			return (FAILURE);
 		}
-		close(cmd->redir_nodes[1]->data.op.pipefd[1]);
+		if (close(cmd->redir_nodes[1]->data.op.pipefd[1]))
+			perror("Redirection: close() error");
+		cmd->redir_nodes[1]->data.op.pipefd[1] = -66;
 	}
+	if (ret == FAILURE)
+		return (FAILURE);
 	return (SUCCESS);
 }
 
-/* **************************************************************************
-	Everytime we redirected the std_streams for a command
-	We need to restore them after the command has been executed
-*/
 int	restore_std_streams(t_shell_data *shell_data)
 {
 	static int	stdin_fd = -1;

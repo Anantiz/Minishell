@@ -3,19 +3,16 @@ ANTOINE:
 Dereferencing '$' without issues
 Expending a variable that does not exist should return an empty string
 
-FIXED:
-`cd` and `pwd` need to have predictable behavior when the PATH or any other Environment variable is deleted
-When you delete all environment variable, you still need to keep a Basic PWD and PATH
-
 `export` need to sort in alphabetical order while env just prints in chronological order
 Fix export such that PATH= clears the variable but PATH don't, also check again abou using variables direclty as export args
 
-FIXED:
-`exit` has to take into account any situation where the value isn't a valid int (overflow, char etc...)
+BUG:
 
-When there is:
-	A | B | C ...
-The last command will somehow never terminate and will wait for someone to close the pipe
+TO DO:
 
+	Environment variables:
+		`_` -> Exist but I never update it, idk if it's required by subject ...
 
-LORIS:
+	Have a environment variable that you keep updated if it exist
+	but also your `our_oldpwd` that you always keep track of (and that you init with OLDPWD)
+	the environment variable has priority over `our_oldpwd`

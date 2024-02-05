@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:24:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/01 12:35:55 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/05 11:48:49 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_file
 	struct s_token	*redir_nodes[2];
 	char			*file_path;
 	int				fd;
+	bool			single;
 }t_s_file;
 
 typedef struct s_cmd
@@ -76,7 +77,7 @@ typedef struct s_cmd
 	char			**args;
 	char			**paths;
 	bool			is_last;
-	bool			single;
+	bool			*single;
 }t_s_cmd;
 
 typedef struct s_op
@@ -115,6 +116,7 @@ ENVP Linked_list
 */
 typedef struct s_env
 {
+	bool			hidden;
 	char			*key;
 	char			*val;
 	struct s_env	*next;
@@ -133,6 +135,7 @@ typedef struct s_shell_data
 	int			stdin_fd;
 	int			stdout_fd;
 	char		*our_pwd;
+	char		*our_oldpwd;
 	int			last_pid;
 	int			last_wstatus;
 	int			cmd_count;

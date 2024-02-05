@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 15:44:18 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/30 17:39:08 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/03 16:32:37 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int			ft_tolower(int c);
 int			ft_toupper(int c);
 size_t		ft_tablen(char **args);
 size_t		ft_strlen(const char *s);
-size_t		ft_strslen(const char **strs);
+size_t		ft_strslen(char **strs);
 char		*ft_strtrim(char const *s1, char const *set);
 
 void		ft_replace_str(char **old, char *new);
@@ -108,21 +108,22 @@ void		free_double_char(char **cc);
 void		free_triple_char(char ***ccc);
 void		*ft_memcpy(void *dest, const void *src, size_t n);
 void		*ft_memmove(void *dest, const void *src, size_t n);
-void		*ft_memset(void *s, int c, size_t n);
+void		*ft_memset(void *s, char val, size_t n);
+void		*ft_memset_int(void *s, int val, size_t n);
 size_t		ft_strlcat(char *dst, const char *src, size_t size);
 size_t		ft_strlcpy(char *dst, const char *src, size_t size);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
-char		*ft_strjoin(char const *s1, char const *s2);
+char		*ft_strjoin(const char *s1, const char *s2);
 char		**ft_split(const char *s, char c);
 char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void		ft_striteri(char *s, void (*f)(unsigned int, char *));
 
 /* FILES ------------------------------------------------*/
 
-int			ft_putchar_fd(char s, int fd);
-int			ft_putstr_fd(char *s, int fd);
-int			ft_putendl_fd(char *s, int fd);
-int			ft_putnbr_fd(int n, int fd);
+ssize_t		ft_putchar_fd(char s, int fd);
+ssize_t		ft_putstr_fd(char *s, int fd);
+ssize_t		ft_putendl_fd(char *s, int fd);
+ssize_t		ft_putnbr_fd(int n, int fd);
 
 /*
 LINKED LIST

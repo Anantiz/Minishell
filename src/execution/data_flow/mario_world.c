@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 15:45:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/01 12:31:42 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/03 11:54:01 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,16 +55,18 @@ int	open_pipes(t_s_token *node)
 		}
 		if (node->data.op.type == REDIR_HEREDOC)
 			our_heredoc(node);
+		ft_printf("pipefd[0]=%d pipefd[1]=%d\n", node->data.op.pipefd[0], \
+			node->data.op.pipefd[1]);
 	}
 	else
 	{
-		node->data.op.pipefd[0] = STDIN_FILENO;
-		node->data.op.pipefd[1] = STDOUT_FILENO;
+		node->data.op.pipefd[0] = -690;
+		node->data.op.pipefd[1] = -4200;
 	}
 	return (SUCCESS);
 }
 
-int	init_pipes_iner_loop(t_shell_data *shell_data, t_s_token *node)
+int	init_pipes(t_shell_data *shell_data, t_s_token *node)
 {
 	if (node->token_type == TK_OP)
 	{
@@ -100,7 +102,7 @@ int	init_pipes_iner_loop(t_shell_data *shell_data, t_s_token *node)
 		We do not redirect commands in this current function
 		However, we already redirect files in the pipefd
 */
-int	init_pipes(t_shell_data *shell_data)
+int	pre_init(t_shell_data *shell_data)
 {
 	t_s_token	*node;
 
@@ -110,16 +112,9 @@ int	init_pipes(t_shell_data *shell_data)
 		/* FIXING HERE NOW but shall do elsewhere later*/
 		if (node->token_type == TK_CMD)
 		{
-			shell_data->cmd_count++;
-			node->data.cmd.is_last = false;
-			if (node->right == NULL)
-			{
-				node->data.cmd.is_last = true;
-				if (node->parent && node->parent->right != node)
-					node->data.cmd.is_last = false;
-			}
+			init_cmd_token(shell_data, node);
 		}
-		if (init_pipes_iner_loop(shell_data, node))
+		if (init_pipes(shell_data, node))
 			return (FAILURE);
 		node = get_next_node(node);
 	}

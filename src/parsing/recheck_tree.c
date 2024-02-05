@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   recheck_tree.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 13:30:17 by loris             #+#    #+#             */
-/*   Updated: 2024/01/31 10:38:56 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/05 16:12:31 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,17 +23,16 @@ void	replace_file(t_s_token *node)
 	}
 }
 
-t_s_token	*new_tokenfile(t_s_token *node)
+t_s_token *new_tokenfile(t_s_token *node_)
 {
-	t_s_token	*TK;
-	char	*t;
+	t_s_token *node;
 
-	TK = our_malloc(sizeof(t_s_token));
-	TK->token_type = TK_FILE;
-	t = node->right->data.cmd.args[0];
-	TK->data.file.file_path = t;
-	TK->parent = node->parent;
-	TK->left = node->left;
-	TK->right = node->right;
-	return (TK);
+	node = our_malloc(sizeof(t_s_token));
+	scan_token_extended(node_->data.cmd.args[0], node, TK_FILE);
+	node->parent = node_->parent;
+	node->left = node_->left;
+	node->right = node_->right;
+	our_free(node_->data.cmd.args[0]);
+	our_free(node_);
+	return (node);
 }

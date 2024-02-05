@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 14:37:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/31 15:43:41 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/03 15:05:14 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@ void	our_sig_handl(int sig)
 {
 	if (sig == SIGINT)
 	{
+		write(1, "^C", 2);
 		rl_replace_line("", 0);
 		write(1, "\n", 1);
 		rl_on_new_line();
@@ -34,5 +35,5 @@ void	our_sig_handl(int sig)
 void	replace_signals(void)
 {
 	signal(SIGINT, our_sig_handl);
-	signal(SIGQUIT, our_sig_handl);
+	// signal(SIGQUIT, our_sig_handl);
 }
