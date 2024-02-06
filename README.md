@@ -55,3 +55,6 @@ TEST-----------------------------
 
 TO DO:
 	Implement a functioning logic to the get_next_tree() concept
+
+
+Giga BUG, read line takes too much drug

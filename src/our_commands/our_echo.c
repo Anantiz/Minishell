@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:41:43 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/30 10:56:30 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/06 12:39:48 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ int	our_echo(t_shell_data *shell_data, t_s_token *node)
 		if (n_flag > 1 && ft_is_blank_str(&((*args)[n_flag])))
 			args++;
 	}
-	while (args)
+	while (args && *args)
 	{
 		if (ft_putstr_fd(*args, STDOUT_FILENO) < 0)
 			return (FAILURE);

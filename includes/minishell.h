@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/05 19:06:10 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/06 12:29:01 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <errno.h>
 # include <string.h>
 # include <sys/wait.h>
+# include <sys/types.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -123,7 +124,6 @@ void		expand_wildcard(t_s_token *node);
 int			pre_init(t_shell_data *shell_data);
 void		our_heredoc(t_s_token *redir_node);
 void		find_redir_nodes(t_s_token *cmd_node);
-void		assign_redir_nodes(t_s_token *cmd_node, t_s_token *redir_nodes[2]);
 int			open_pipes(t_s_token *node);
 int			handle_file_bs(t_s_token *node);
 void		close_all_pipes(t_s_token *root);
@@ -155,7 +155,8 @@ int			our_export(t_shell_data *shell_data, t_s_token *node);
 /* UTILS */
 
 t_s_token	*get_next_node(t_s_token *node);
-t_s_token	*get_next_subtree(t_shell_data *shell_data);
+t_s_token	*get_next_node_no_op(t_s_token *node);
+t_s_token	*get_next_logical_op(t_s_token *node);
 int			get_cmd_paths(t_shell_data *shell_data, t_s_token *node);
 
 char		*get_clean_path_shell(t_shell_data *shell_data);

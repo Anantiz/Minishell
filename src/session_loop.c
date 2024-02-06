@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:12:50 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/01 13:12:21 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/06 12:19:27 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ static int	sesion_routine(t_shell_data *shell_data)
 
 	prompt_str = get_prompt_str(shell_data);
 	line = unionize_str(readline(prompt_str));
+	ft_fprintf(2, "Line= %s\n", line);
 	our_free(prompt_str);
 	if (!line)
 		return (MAGIC_VALUE_EXIT_SHELL);
