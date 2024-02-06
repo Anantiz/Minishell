@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/06 12:29:01 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/06 17:17:12 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@
 # define CMD_ERROR_NOT_FOUND 4
 
 // Magic value to differentiate between command errors and not found
+// Hopefully it's not a valid errno, so it should be fine
 # define NOT_IN_BUILTINS 6666666
 
 // Most error messages are hardcoded so it's kinda stupid to have these here
@@ -137,6 +138,9 @@ int			check_builtins(t_shell_data *shell_data, t_s_token *cmd_node);
 void		child_process(t_shell_data *shell_data,	t_s_token *cmd_node);
 void		parent_close_pipes(t_s_cmd *cmd);
 
+/* Exec utils*/
+void		wait_last_subtree(t_shell_data *shell_data);
+
 /* VARIABLES BULLSHIT*/
 
 t_pair_char	*create_var_pair(const char *start, int *name_len);
@@ -163,6 +167,7 @@ char		*get_clean_path_shell(t_shell_data *shell_data);
 char		*get_clean_path(t_shell_data *shell_data, char *str_path);
 void		expand_variables(t_shell_data *shell_data, t_s_token *node);
 void		init_cmd_token(t_shell_data *shell_data, t_s_token *node);
+bool		is_logop(t_s_token *node);
 
 /* T_ENV */
 char		**t_env_to_double_char(t_env *envp);

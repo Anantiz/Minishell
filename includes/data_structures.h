@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:24:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/05 18:56:45 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/06 19:06:17 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -142,6 +142,7 @@ typedef struct s_shell_data
 	int			cmd_count;
 	int			pid_count;
 	int			*pid_list;
+	int			skip;
 }t_shell_data;
 
 #endif

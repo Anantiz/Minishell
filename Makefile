@@ -23,13 +23,13 @@ SRC_UTILS=\
 SRC_PARSE=\
 	parsing.c	get_token.c		parsing.c	tokentotree.c	parsing_utils.c	\
 	parse_each_op.c	find_each_op.c recheck_tree.c	scan_token_extended.c	\
-	
+
 
 SRC_EXEC=\
-	exec_all.c	data_flow/mario_world.c	exec_one.c	exec_child_process.c	\
+	exec_tree.c	data_flow/mario_world.c	exec_one_cmd.c	exec_child_process.c	\
 	data_flow/redirections_1.c	data_flow/mario_file_bs.c	exec_builtins.c	\
 	exec_parent.c	data_flow/redirections_2.c	heredoc.c	set_var.c		\
-	expand_var.c	expand_wildcards.c
+	expand_var.c	expand_wildcards.c	exec_utils.c
 
 SRC_ERR=\
 	session_error.c

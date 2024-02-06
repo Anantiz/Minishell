@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 17:07:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/30 18:24:24 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/06 19:17:28 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,21 +40,26 @@ static int	is_valid_integer(char *str)
 
 static int	check_input(t_s_token *token, int *exit_code)
 {
-	if (!token)
-		*exit_code = 0;
-	else if (token->data.cmd.args[1] && token->data.cmd.args[2])
+	int	len;
+
+	*exit_code = 0;
+	len = ft_strslen(token->data.cmd.args);
+	if (len > 2)
 	{
 		ft_fprintf(2, "exit: too many arguments\n");
 		return (FAILURE);
 	}
-	else if (!is_valid_integer(token->data.cmd.args[1]))
+	else if (len == 2)
 	{
-		ft_fprintf(2, "exit: %s: numeric argument required\n",
-			token->data.cmd.args[1]);
-		*exit_code = 2;
+		if (!is_valid_integer(token->data.cmd.args[1]))
+		{
+			ft_fprintf(2, "exit: %s: numeric argument required\n",
+				token->data.cmd.args[1]);
+			*exit_code = 2;
+		}
+		else
+			*exit_code = ft_atoll(token->data.cmd.args[1]);
 	}
-	else
-		*exit_code = ft_atoll(token->data.cmd.args[1]);
 	return (SUCCESS);
 }
 
