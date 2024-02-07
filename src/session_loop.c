@@ -6,38 +6,37 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:12:50 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/30 10:29:27 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/07 10:33:38 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+// Hopefully no process will ever return this value :)
 #define MAGIC_VALUE_EXIT_SHELL 69420
+
+void	del_tree(t_shell_data *shell_data)
+{
+	//to do
+	shell_data->root = NULL; // ok for now
+}
 
 static char	*get_prompt_str(t_shell_data *shell_data)
 {
+	char	*clean_path;
 	char	*ret;
-	char	*old;
-	t_env	*env;
-	// Fix this if PWD don't exist
+	t_env	*env_pwd;
 
-	env = our_get_env(shell_data, "PWD");
-	if (!env)
-		return (ft_strjoin(SHELL_NAME, "|\033[93m☭ \033[0m"));
-	ret = ft_strjoin("\033[33m", env->val);
-	old = ret;
-	ret = ft_strjoin(SHELL_NAME, ret);
-	our_free(old);
-	old = ret;
-	ret = ft_strjoin(ret, "|\033[93m☭\033[0m ");
-	our_free(old);
+	env_pwd = our_get_env(shell_data, "PWD");
+	if (!env_pwd)
+		clean_path = get_clean_path_shell(shell_data);
+	else
+		clean_path = get_clean_path(shell_data, ft_strdup(env_pwd->val));
+	ret = ft_strjoin("\033[33m", clean_path);
+	our_free(clean_path);
+	ft_replace_str(&ret, ft_strjoin(SHELL_NAME, ret));
+	ft_replace_str(&ret, ft_strjoin(ret, "|\033[93m☭\033[0m "));
 	return (ret);
-}
-
-/* LORIS */
-void	del_tree(t_shell_data *shell_data)
-{
-	(void)shell_data;
 }
 
 static int	sesion_routine(t_shell_data *shell_data)
@@ -46,12 +45,13 @@ static int	sesion_routine(t_shell_data *shell_data)
 	char	*prompt_str;
 	int		ret;
 
+	replace_signals();
 	prompt_str = get_prompt_str(shell_data);
-	line = readline(prompt_str);
+	line = unionize_str(readline(prompt_str));
 	our_free(prompt_str);
 	if (!line)
 		return (MAGIC_VALUE_EXIT_SHELL);
-	if (g_our_sig == SIGINT || !*line || (line[0] == '\n' && line[1] == '\0'))
+	if (!*line || (line[0] == '\n' && line[1] == '\0'))
 		return (our_free(line), SUCCESS);
 	add_history(line);
 	ret = parse_line(shell_data, line);
@@ -72,6 +72,8 @@ int	session_start(t_shell_data *shell_data)
 	{
 		g_our_sig = 0;
 		shell_data->root = NULL;
+		shell_data->cmd_count = 0;
+		shell_data->pid_count = 0;
 		ret = sesion_routine(shell_data);
 		del_tree(shell_data);
 		if (ret == MAGIC_VALUE_EXIT_SHELL)
@@ -79,4 +81,5 @@ int	session_start(t_shell_data *shell_data)
 		if (ret)
 			return (ret);
 	}
+	return (SUCCESS);
 }

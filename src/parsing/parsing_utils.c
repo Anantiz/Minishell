@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:41:29 by loris             #+#    #+#             */
-/*   Updated: 2024/01/30 11:46:48 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/05 11:25:12 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*get_cmd(char *line, int *i)
 	char	*ret;
 
 	len_cmd = ft_cmdlen(line);
-	ret  = ft_substr(line, 0, len_cmd); // ft_strdup ?
+	ret  = ft_substr(line, 0, len_cmd);
 	*i += len_cmd;
 	return (ret);
 }

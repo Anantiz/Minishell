@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 15:44:18 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/29 20:46:38 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/07 10:07:11 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,18 +31,28 @@ typedef struct s_g_mem_manager
 # define SAFE_MALLOC_FREE 0
 # define SAFE_MALLOC_FREE_ALL -1
 
+// Memory manager : private
+
 void		mem_manager_del_list(t_mem_mng **root);
 void		mem_manager_del_node(t_mem_mng **root, void *address);
 void		mem_manager_add_front(t_mem_mng **head_, t_mem_mng *node);
 t_mem_mng	*mem_manager_new_node(size_t bytes, int *error);
 
-void		*our_malloc(size_t bytes);
+// Core : public
+
 void		our_free(void *address);
+void		*our_malloc(size_t bytes);
 void		*safe_as_fuck_malloc(size_t bytes, void *address, int action);
+
+// Misc : public
 
 void		error_exit(const char *error);
 void		ft_bzero(void *s, size_t n);
 void		*ft_calloc(size_t nmemb, size_t size);
+
+// Unionize non-socialist memory : public
+
+char		*unionize_str(char *theirs);
 
 /* STRING -----------------------------------------------*/
 /* UTILS */
@@ -50,7 +60,7 @@ int			ft_tolower(int c);
 int			ft_toupper(int c);
 size_t		ft_tablen(char **args);
 size_t		ft_strlen(const char *s);
-size_t		ft_strslen(const char **strs);
+size_t		ft_strslen(char **strs);
 char		*ft_strtrim(char const *s1, char const *set);
 
 void		ft_replace_str(char **old, char *new);
@@ -85,6 +95,8 @@ char		*ft_ltohex(long n);
 char		*ft_ltohex_up(long n);
 char		*ft_ultohex(unsigned long n);
 char		*ft_ultohex_up(unsigned long n);
+long long	ft_atoll_safe(char *s, long long max_value, int *valid);
+
 
 long long	ft_abs_ll(long long n);
 long long	ft_max_ll(long long a, long long b);
@@ -96,21 +108,26 @@ void		free_double_char(char **cc);
 void		free_triple_char(char ***ccc);
 void		*ft_memcpy(void *dest, const void *src, size_t n);
 void		*ft_memmove(void *dest, const void *src, size_t n);
-void		*ft_memset(void *s, int c, size_t n);
+void		*ft_memset(void *s, char val, size_t n);
+void		*ft_memset_int(void *s, int val, size_t n);
 size_t		ft_strlcat(char *dst, const char *src, size_t size);
 size_t		ft_strlcpy(char *dst, const char *src, size_t size);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
-char		*ft_strjoin(char const *s1, char const *s2);
+char		*ft_strjoin(const char *s1, const char *s2);
 char		**ft_split(const char *s, char c);
 char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void		ft_striteri(char *s, void (*f)(unsigned int, char *));
 
+/* SORTING */
+
+char		**ft_strs_sort(char **str_tab);
+
 /* FILES ------------------------------------------------*/
 
-int			ft_putchar_fd(char s, int fd);
-int			ft_putstr_fd(char *s, int fd);
-int			ft_putendl_fd(char *s, int fd);
-int			ft_putnbr_fd(int n, int fd);
+ssize_t		ft_putchar_fd(char s, int fd);
+ssize_t		ft_putstr_fd(char *s, int fd);
+ssize_t		ft_putendl_fd(char *s, int fd);
+ssize_t		ft_putnbr_fd(int n, int fd);
 
 /*
 LINKED LIST

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:28:45 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/29 11:53:55 by aurban           ###   ########.fr       */
+/*   Updated: 2024/01/31 14:31:09 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,13 +46,24 @@ static int	open_file(t_s_file *file, int flags)
 
 /*
 	fd == -1 means heredoc
+	In heredoc mode, we write to the pipe the data we read from stdin
+		-> We do not need to open a file
 */
 static int	copy_fd_in_redir_node(t_s_op *redir_node, int fd)
 {
+	ssize_t	nwrite;
+
 	if (fd == -1)
 	{
-		redir_node->pipefd[0] = STDIN_FILENO;
-		redir_node->pipefd[1] = STDERR_FILENO;
+		nwrite = write(redir_node->pipefd[1], redir_node->heredoc_str, \
+			redir_node->heredoc_len);
+		our_free(redir_node->heredoc_str);
+		close(redir_node->pipefd[1]);
+		if (nwrite == -1)
+		{
+			ft_fprintf(2, "%sWrite error : %s\n", SHELL_NAME, strerror(errno));
+			return (FAILURE);
+		}
 	}
 	else if (redir_node->type == REDIR_IN)	// Reads from file, so fd becomes pipefd[0]
 	{

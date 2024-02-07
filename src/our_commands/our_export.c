@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 17:08:31 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/29 15:08:01 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/07 10:01:26 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,10 @@ o888bood8P'   `Y8bod8P' o888o o888o `Y8bod8P'
 	We need to split the args into pairs of key/value
 	We use the '=' as a separator
 */
-static t_pair_char	**get_appropriate_data(char **args, char sep)
+static t_pair_char	**get_appropriate_data(char **args)
 {
 	t_pair_char	**ret;
+	t_pair_char	*pair;
 	int			i;
 	int			j;
 
@@ -36,10 +37,9 @@ static t_pair_char	**get_appropriate_data(char **args, char sep)
 	j = 0;
 	while (args[i])
 	{
-		ret[j] = pair_char_strtok(args[i], sep);
-		if (ret[j]->key)
-			j++;
-		i++;
+		pair = create_var_pair(args[i++], NULL);
+		if (pair)
+			ret[j++] = pair;
 	}
 	ret[j] = NULL;
 	return (ret);
@@ -61,7 +61,7 @@ static void	our_export_with_args(t_shell_data *shell_data, t_s_token *token)
 	t_env		*var;
 	t_pair_char	**pairs;
 
-	pairs = get_appropriate_data(token->data.cmd.args, '=');
+	pairs = get_appropriate_data(token->data.cmd.args);
 	i = -1;
 	while (pairs[++i])
 	{
@@ -95,20 +95,15 @@ static void	our_export_with_args(t_shell_data *shell_data, t_s_token *token)
 */
 int	our_export(t_shell_data *shell_data, t_s_token *token)
 {
-	t_env		*var;
+	char	**exports;
 
-	if (token->data.cmd.args[1] == NULL)
+	if (token->data.cmd.args[1] == NULL || \
+	ft_is_blank_str(token->data.cmd.args[1]))
 	{
-		var = shell_data->envp;
-		while (var)
-		{
-			ft_fprintf(STDOUT_FILENO, "declare -x %s=", var->key);
-			if (var->val)
-				ft_fprintf(STDOUT_FILENO, "%s\n", var->val);
-			else
-				write(STDOUT_FILENO, "\n", 1);
-			var = var->next;
-		}
+		exports = t_env_to_double_char(shell_data->envp);
+		ft_strs_sort(exports);
+		while (exports && *exports)
+			ft_printf("declare -x %s\n", *exports++);
 	}
 	else
 		our_export_with_args(shell_data, token);

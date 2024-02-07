@@ -6,7 +6,7 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 13:30:17 by loris             #+#    #+#             */
-/*   Updated: 2024/02/07 11:48:40 by loris            ###   ########.fr       */
+/*   Updated: 2024/02/07 10:56:05 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	replace_file(t_s_token *node)
 	}
 }
 
-t_s_token	*new_tokenfile(t_s_token *node)
+t_s_token *new_tokenfile(t_s_token *node_)
 {
 	t_s_token	*new_node;
 	char	*t;

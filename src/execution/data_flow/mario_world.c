@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 15:45:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/24 11:47:16 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/05 18:58:11 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,29 +46,34 @@ void	close_all_pipes(t_s_token *node)
 // Init a pipe for any Token that needs it
 int	open_pipes(t_s_token *node)
 {
-	if (node->data.op.type == PIPE)
+	if (node->data.op.type == PIPE || node->data.op.type == REDIR_HEREDOC)
 	{
 		if (pipe(node->data.op.pipefd))
 		{
-			perror("err 05: open_pipe :Pipe error\n");
+			ft_fprintf(2, "%sPipe error : %s\n", SHELL_NAME, strerror(errno));
 			return (FAILURE);
 		}
+		if (node->data.op.type == REDIR_HEREDOC)
+			our_heredoc(node);
+		ft_printf("pipefd[0]=%d pipefd[1]=%d\n", node->data.op.pipefd[0], \
+			node->data.op.pipefd[1]);
 	}
 	else
 	{
-		node->data.op.pipefd[0] = STDIN_FILENO;
-		node->data.op.pipefd[1] = STDOUT_FILENO;
+		node->data.op.pipefd[0] = -690;
+		node->data.op.pipefd[1] = -4200;
 	}
 	return (SUCCESS);
 }
 
-int	init_pipes_iner_loop(t_shell_data *shell_data, t_s_token *node)
+int	init_pipes(t_shell_data *shell_data, t_s_token *node)
 {
 	if (node->token_type == TK_OP)
 	{
-		if (open_pipes(node))
+		node->data.op.did_exec = false;
+		if (node->data.op.type >= PIPE && open_pipes(node))
 		{
-			ft_fprintf(2, "Open Pipe error\n");
+			ft_fprintf(2, "Open Pipe error :%s\n", strerror(errno));
 			close_all_pipes(shell_data->root);
 			return (FAILURE);
 		}
@@ -98,14 +103,19 @@ int	init_pipes_iner_loop(t_shell_data *shell_data, t_s_token *node)
 		We do not redirect commands in this current function
 		However, we already redirect files in the pipefd
 */
-int	init_pipes(t_shell_data *shell_data)
+int	pre_init(t_shell_data *shell_data)
 {
 	t_s_token	*node;
 
 	node = shell_data->root;
 	while (node)
 	{
-		if (init_pipes_iner_loop(shell_data, node))
+		/* FIXING HERE NOW but shall do elsewhere later*/
+		if (node->token_type == TK_CMD)
+		{
+			init_cmd_token(shell_data, node);
+		}
+		if (init_pipes(shell_data, node))
 			return (FAILURE);
 		node = get_next_node(node);
 	}

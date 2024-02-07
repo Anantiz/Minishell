@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 17:07:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/29 18:53:46 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/07 09:48:52 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ o888bood8P'   `Y8bod8P' o888o o888o `Y8bod8P'
 static int	is_valid_integer(char *str)
 {
 	int	i;
+	int	valid;
 
 	i = 0;
 	if (!str)
@@ -32,28 +33,50 @@ static int	is_valid_integer(char *str)
 		i++;
 	while (str[i])
 		if (!ft_isdigit(str[i++]))
-			return (1);
-	return (0);
+			return (0);
+	ft_atoll_safe(str, LONG_MAX, &valid);
+	return (valid);
+}
+
+static int	check_input(t_s_token *token, int *exit_code)
+{
+	int	len;
+
+	*exit_code = 0;
+	if (!token)
+		return (SUCCESS);
+	len = ft_strslen(token->data.cmd.args);
+	if (len > 2)
+	{
+		ft_fprintf(2, "exit: too many arguments\n");
+		return (FAILURE);
+	}
+	else if (len == 2)
+	{
+		if (!is_valid_integer(token->data.cmd.args[1]))
+		{
+			ft_fprintf(2, "exit: %s: numeric argument required\n",
+				token->data.cmd.args[1]);
+			*exit_code = 2;
+		}
+		else
+			*exit_code = ft_atoll(token->data.cmd.args[1]);
+	}
+	return (SUCCESS);
 }
 
 int	our_exit(t_shell_data *shell_data, t_s_token *token)
 {
-	int	status;
+	int	exit_code;
+	int	ret;
 
-	if (token && is_valid_integer(token->data.cmd.args[1]))
-	{
-		ft_fprintf(2, "exit: %s: numeric argument required\n",
-			token->data.cmd.args[1]);
-		status = 1;
-	}
-	else if (token)
-		status = ft_atoll(token->data.cmd.args[1]);
-	else
-		status = 0;
+	ret = check_input(token, &exit_code);
+	if (ret == FAILURE)
+		return (FAILURE);
 	close_all_pipes(shell_data->root);
 	cleanup_shell_data(shell_data);
 	ft_putendl_fd("\033[93m☭\033[0m \033[31mСлава герою \
 Советского Союза\033[93m☭\033[0m", 1);
 	safe_as_fuck_malloc(0, NULL, SAFE_MALLOC_FREE_ALL);
-	exit(status);
+	exit(exit_code);
 }

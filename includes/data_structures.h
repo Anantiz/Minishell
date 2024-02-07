@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   data_structures.h                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:24:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/31 10:25:31 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/07 10:48:41 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_file
 	struct s_token	*redir_nodes[2];
 	char			*file_path;
 	int				fd;
+	bool			single;
 }t_s_file;
 
 typedef struct s_cmd
@@ -76,31 +77,26 @@ typedef struct s_cmd
 	char			**args;
 	char			**paths;
 	bool			is_last;
-	bool			single;
+	bool			*single;
 }t_s_cmd;
 
 typedef struct s_op
 {
 	t_e_op_type	type;
 	int			pipefd[2];
-	
+	char		*heredoc_str;
+	char		*eof;
+	size_t		heredoc_len;
+	bool		did_exec;
 }t_s_op;
-
-// To search in shell_data->envp
-typedef struct s_var
-{
-	char	*var_name;
-}t_s_var;
 
 /* ############################## */
 
-// Union of all possible tokens
 union u_token
 {
 	t_s_file	file;
 	t_s_cmd		cmd;
 	t_s_op		op;
-	t_s_var		var;
 };
 
 /* Binary tree */
@@ -108,7 +104,6 @@ typedef struct s_token
 {
 	t_e_token_type	token_type;
 	union u_token	data;
-
 	struct s_token	*parent;
 	struct s_token	*right;
 	struct s_token	*left;
@@ -121,6 +116,7 @@ ENVP Linked_list
 */
 typedef struct s_env
 {
+	bool			hidden;
 	char			*key;
 	char			*val;
 	struct s_env	*next;
@@ -136,11 +132,16 @@ typedef struct s_shell_data
 	t_env		*shell_var;
 	t_s_token	*root;
 	t_s_cmd		*last_command;
-	int			last_wstatus;
-	int			last_pid;
 	int			stdin_fd;
 	int			stdout_fd;
 	char		*our_pwd;
+	char		*our_oldpwd;
+	int			last_pid;
+	int			last_wstatus;
+	int			cmd_count;
+	int			pid_count;
+	int			*pid_list;
+	int			skip;
 }t_shell_data;
 
 #endif
