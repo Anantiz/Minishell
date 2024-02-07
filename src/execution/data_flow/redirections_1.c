@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:30:30 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/06 11:39:33 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/07 10:58:19 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ o888bood8P'   `Y8bod8P' o888o o888o `Y8bod8P'
 	If our first parent is the right child of the second parent,
 	we read from the second parent and write to the first parent
 */
-static void do_redir_2(t_s_token *cmd_node, t_s_token **redir_nodes)
+static void	do_redir_2(t_s_token *cmd_node, t_s_token **redir_nodes)
 {
 	if (redir_nodes[0] == redir_nodes[1]->right)
 	{

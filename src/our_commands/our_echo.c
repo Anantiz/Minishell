@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 14:41:43 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/06 16:59:07 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/07 10:56:18 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,4 +67,3 @@ int	our_echo(t_shell_data *shell_data, t_s_token *node)
 	}
 	return (SUCCESS);
 }
-

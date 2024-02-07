@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:11:05 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/06 12:15:58 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/07 10:55:51 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,7 @@ t_s_token	*get_next_logical_op(t_s_token *node)
 	node = node->parent;
 	ft_fprintf(2, "\033[33mStarting at node %p\033[0m\n", prev_node);
 	ft_fprintf(2, "\033[33mParent is %p\033[0m\n", node);
-	while(node)
+	while (node)
 	{
 		if (node->token_type == TK_OP && node->data.op.type < PIPE)
 		{

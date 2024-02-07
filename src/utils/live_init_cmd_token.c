@@ -6,17 +6,19 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 11:43:59 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/06 19:25:03 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/07 10:55:36 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void init_cmd_token_last(t_s_token *node)
+static void	init_cmd_token_last(t_s_token *node)
 {
-	if (node->parent && node->parent->right == node && !node->right && !node->left)
-			node->data.cmd.is_last = true;
-	else if ((!node->parent || is_logop(node->parent)) && !node->right && !node->left)
+	if (node->parent && node->parent->right == node \
+		&& !node->right && !node->left)
+		node->data.cmd.is_last = true;
+	else if ((!node->parent || is_logop(node->parent)) \
+		&& !node->right && !node->left)
 		node->data.cmd.is_last = true;
 	else
 		node->data.cmd.is_last = false;

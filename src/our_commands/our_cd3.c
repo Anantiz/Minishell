@@ -6,13 +6,13 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 14:07:49 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/03 14:30:30 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/07 10:56:26 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void print_our_long_msg(void)
+static void	print_our_long_msg(void)
 {
 	ft_fprintf(2, "%s cd: The system ran out of memory, so `getcwd()` "
 		"failed to return the new path, like fr does `bash` "
