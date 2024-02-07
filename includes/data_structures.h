@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:24:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/05 11:48:49 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/07 10:48:41 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,11 +87,11 @@ typedef struct s_op
 	char		*heredoc_str;
 	char		*eof;
 	size_t		heredoc_len;
+	bool		did_exec;
 }t_s_op;
 
 /* ############################## */
 
-// Union of all possible tokens
 union u_token
 {
 	t_s_file	file;
@@ -141,6 +141,7 @@ typedef struct s_shell_data
 	int			cmd_count;
 	int			pid_count;
 	int			*pid_list;
+	int			skip;
 }t_shell_data;
 
 #endif

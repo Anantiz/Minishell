@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:10:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/05 12:47:00 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/05 18:42:26 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,8 @@ static void	replace_here(char **str, char *var_str, int cut, int key_len)
 	Get the variable name
 	Search for it in the env
 	If found, return the content
-	Else return NULL
+	Else return return an empty string
+	cuz bash does that , so we do that, too, I guess, it's stupid
 */
 static char	*get_the_var(t_shell_data *shell_data, char *str, int *key_len)
 {
@@ -60,7 +61,6 @@ static char	*get_the_var(t_shell_data *shell_data, char *str, int *key_len)
 	}
 	*key_len = i;
 	var_name = ft_substr(str, 0, i);
-	ft_fprintf(2, "var_name: %s\n", var_name);
 	if (ft_strcmp(var_name, "?") == 0)
 	{
 		our_free(var_name);
@@ -69,7 +69,7 @@ static char	*get_the_var(t_shell_data *shell_data, char *str, int *key_len)
 	ret = our_get_env(shell_data, var_name);
 	our_free(var_name);
 	if (!ret)
-		return (NULL);
+		return (ft_strdup(""));
 	return (ft_strdup(ret->val));
 }
 
@@ -82,11 +82,9 @@ static void	expand_this_str(t_shell_data *shell_data, char **str)
 {
 	size_t	i;
 	char	*var_str;
-	int		offset;
 	int		key_len;
 
 	i = 0;
-	offset = 0;
 	while ((*str)[i])
 	{
 		if ((*str)[i] == '$')
@@ -94,8 +92,8 @@ static void	expand_this_str(t_shell_data *shell_data, char **str)
 			var_str = get_the_var(shell_data, &(*str)[i + 1], &key_len);
 			if (var_str)
 			{
-				replace_here(str, var_str, i + offset, key_len);
-				offset += ft_strlen(var_str);
+				replace_here(str, var_str, i , key_len);
+				i += ft_strlen(var_str) - key_len;
 			}
 			our_free(var_str);
 		}

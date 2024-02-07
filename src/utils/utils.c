@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:16:34 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/30 18:12:55 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/06 19:23:45 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,4 +56,12 @@ char	*get_clean_path(t_shell_data *shell_data, char *str_path)
 		}
 	}
 	return (str_path);
+}
+
+bool	is_logop(t_s_token *node)
+{
+	if (!node)
+		return (false);
+	return (node->token_type == TK_OP && (node->data.op.type == T_AND
+			|| node->data.op.type == T_OR));
 }

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 15:45:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/03 11:54:01 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/05 18:58:11 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,10 @@ int	init_pipes(t_shell_data *shell_data, t_s_token *node)
 {
 	if (node->token_type == TK_OP)
 	{
-		if (open_pipes(node))
+		node->data.op.did_exec = false;
+		if (node->data.op.type >= PIPE && open_pipes(node))
 		{
-			ft_fprintf(2, "Open Pipe error\n");
+			ft_fprintf(2, "Open Pipe error :%s\n", strerror(errno));
 			close_all_pipes(shell_data->root);
 			return (FAILURE);
 		}

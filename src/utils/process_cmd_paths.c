@@ -20,21 +20,18 @@ static char	**custom_ft_split(const char *str, char sep)
 	int		i;
 
 	temp = ft_split(str, sep);
-	ret = our_malloc(sizeof(char *) * (ft_strslen(temp) + 2));
-	ret[0] = ft_strdup(".");
+	ret = our_malloc(sizeof(char *) * (ft_strslen(temp) + 1));
+	i = 0;
 	if (temp)
 	{
-		i = 0;
 		while (temp[i])
 		{
-			ret[i + 1] = temp[i];
+			ret[i] = temp[i];
 			i++;
 		}
 		our_free(temp);
-		ret[i] = NULL;
 	}
-	else
-		ret[1] = NULL;
+	ret[i] = NULL;
 	return (ret);
 }
 
@@ -44,23 +41,28 @@ static char	**custom_ft_split(const char *str, char sep)
 */
 int	get_cmd_paths(t_shell_data *shell_data, t_s_token *node)
 {
-	char	*old;
 	t_env	*var_path;
 	char	**paths;
 	int		i;
 
-	var_path = our_get_env(shell_data, "PATH");
-	paths = custom_ft_split(var_path->val, ':');
-	i = 0;
-	while (paths[i])
+	if (ft_strncmp(node->data.cmd.args[0], "./", 2))
 	{
-		old = paths[i];
-		paths[i] = ft_strjoin(paths[i], "/");
-		our_free(old);
-		old = paths[i];
-		paths[i] = ft_strjoin(paths[i], node->data.cmd.args[0]);
-		our_free(old);
-		i++;
+		var_path = our_get_env(shell_data, "PATH");
+		paths = custom_ft_split(var_path->val, ':');
+		i = 0;
+		while (paths[i])
+		{
+			ft_replace_str(&paths[i], ft_strjoin(paths[i], "/"));
+			ft_replace_str(&paths[i], ft_strjoin(paths[i], \
+				node->data.cmd.args[0]));
+			i++;
+		}
+	}
+	else
+	{
+		paths = our_malloc(sizeof(char *) * 2);
+		paths[0] = ft_strdup(node->data.cmd.args[0]);
+		paths[1] = NULL;
 	}
 	node->data.cmd.paths = paths;
 	return (SUCCESS);

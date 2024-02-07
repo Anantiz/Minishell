@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:21:54 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/24 11:12:49 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/05 18:46:52 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,16 @@ void	print_node(t_s_token *node)
 			ft_fprintf(2, "\top: %s, pipe[0]=%d, pipe[1]=%d", \
 			ret_str_op_type(node->data.op.type), \
 			node->data.op.pipefd[0], node->data.op.pipefd[1]);
+		}
+	}
+	if (node->token_type == TK_CMD)
+	{
+		ft_fprintf(2, "\targs: ");
+		int i = 0;
+		while (node->data.cmd.args[i])
+		{
+			ft_fprintf(2, "%s ", node->data.cmd.args[i]);
+			i++;
 		}
 	}
 	ft_fprintf(2, "\n");

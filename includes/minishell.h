@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/05 12:31:04 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/07 10:49:52 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <errno.h>
 # include <string.h>
 # include <sys/wait.h>
+# include <sys/types.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 
@@ -42,6 +43,7 @@
 # define CMD_ERROR_NOT_FOUND 4
 
 // Magic value to differentiate between command errors and not found
+// Hopefully it's not a valid errno, so it should be fine
 # define NOT_IN_BUILTINS 6666666
 
 // Most error messages are hardcoded so it's kinda stupid to have these here
@@ -62,7 +64,8 @@ void		print_node(t_s_token *node);
 void		print_node_lite(t_s_token *node);
 void		display_error(t_shell_data *shell_data, int error);
 void		replace_signals(void);
-void		our_sig_handl(int sig);
+void		replace_signals_2(void);
+// void		our_sig_handl(int sig);
 int			print_shell_intro(t_shell_data *shell_data, t_s_token *node);
 
 /* SESSION */
@@ -76,14 +79,15 @@ int			exec_tree(t_shell_data *shell_data);
 /* SHELL_DATA */
 
 void		cleanup_shell_data(t_shell_data *shell_data);
-void		init_shell_data(t_shell_data *shell_data, char **envp, char *argv[]);
+void		init_shell_data(t_shell_data *shell_data, char **envp, \
+char *argv[]);
 void		del_tree(t_shell_data *shell_data);
 
 /* PARSING */
 
 int			ft_countword(char *line);
 char		**ft_strtok(char *line);
-t_s_token   *scan_token(char **token);
+t_s_token	*scan_token(char **token);
 void		scan_tk_str_cmd(char *token_str, t_s_token *token);
 void		scan_tk_str_file(char *token_str, t_s_token *token);
 void		scan_token_extended(char *token_str, t_s_token *token, \
@@ -94,9 +98,9 @@ t_e_token_type type);
 
 int 		find_operator_addor(char **token_list, int num_token);
 int 		find_redir_out(char **token_list, int num_token);
-int 		find_redir_in(char **token_list, int num_token);
+int			find_redir_in(char **token_list, int num_token);
 
-int 		find_pipeline(char **token_list, int num_token);
+int			find_pipeline(char **token_list, int num_token);
 t_s_token	*parse_expression(char **token_list, int num_token, t_s_token *parent_node);
 t_s_token	*parse_redir_in(char **token_list, int num_token, t_s_token *parent_node);
 t_s_token	*parse_redir_out(char **token_list, int num_token, t_s_token *parent_node);
@@ -112,8 +116,8 @@ char		*get_cmd(char *line, int *i);
 char		*get_speop(char *line, int *i);
 char		*get_op(char *line, int *i);
 t_s_token	*parse_expression(char **token_list, int num_token, t_s_token *parent_node);
-bool    	add_var(char *str);
-void    	replace_file(t_s_token *node);
+bool		add_var(char *str);
+void		replace_file(t_s_token *node);
 t_s_token	*new_tokenfile(t_s_token *node);
 
 
@@ -123,7 +127,6 @@ void		expand_wildcard(t_s_token *node);
 int			pre_init(t_shell_data *shell_data);
 void		our_heredoc(t_s_token *redir_node);
 void		find_redir_nodes(t_s_token *cmd_node);
-void		assign_redir_nodes(t_s_token *cmd_node, t_s_token *redir_nodes[2]);
 int			open_pipes(t_s_token *node);
 int			handle_file_bs(t_s_token *node);
 void		close_all_pipes(t_s_token *root);
@@ -136,6 +139,9 @@ int			parent_process(t_shell_data *shell_data, \
 int			check_builtins(t_shell_data *shell_data, t_s_token *cmd_node);
 void		child_process(t_shell_data *shell_data,	t_s_token *cmd_node);
 void		parent_close_pipes(t_s_cmd *cmd);
+
+/* Exec utils*/
+void		wait_last_subtree(t_shell_data *shell_data);
 
 /* VARIABLES BULLSHIT*/
 
@@ -155,13 +161,15 @@ int			our_export(t_shell_data *shell_data, t_s_token *node);
 /* UTILS */
 
 t_s_token	*get_next_node(t_s_token *node);
-t_s_token	*get_next_subtree(t_s_token *node);
+t_s_token	*get_next_node_no_op(t_s_token *node);
+t_s_token	*get_next_logical_op(t_s_token *node);
 int			get_cmd_paths(t_shell_data *shell_data, t_s_token *node);
 
 char		*get_clean_path_shell(t_shell_data *shell_data);
 char		*get_clean_path(t_shell_data *shell_data, char *str_path);
 void		expand_variables(t_shell_data *shell_data, t_s_token *node);
 void		init_cmd_token(t_shell_data *shell_data, t_s_token *node);
+bool		is_logop(t_s_token *node);
 
 /* T_ENV */
 char		**t_env_to_double_char(t_env *envp);

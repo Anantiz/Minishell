@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:30:30 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/01 11:12:58 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/06 11:39:33 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,19 +100,6 @@ static void	do_redir_1(t_s_token *cmd_node, t_s_token **redir_nodes)
 		do_redir_1_1(cmd_node, redir_nodes);
 }
 
-/*
-	This function dont't handle here-docs for now
-	But here-docs are a special case of redir_in, I might implement it as a
-	redir_in in disguise, or as a special case, I don't know yet
-*/
-void	assign_redir_nodes(t_s_token *cmd_node, t_s_token *redir_nodes[2])
-{
-	if (!redir_nodes[1]) // if no second parent
-		do_redir_1(cmd_node, redir_nodes);
-	else // B: there is a second parent, we are in the middle of a pipeline
-		do_redir_2(cmd_node, redir_nodes);
-}
-
 static void	get_parent_redir(t_s_token *child, t_s_token **parent)
 {
 	*parent = child->parent;
@@ -156,6 +143,8 @@ void	find_redir_nodes(t_s_token *cmd_node)
 	if (!redir_nodes[0])
 		return ;
 	get_parent_redir(redir_nodes[0], &redir_nodes[1]);
-	assign_redir_nodes(cmd_node, redir_nodes);
+	if (!redir_nodes[1]) // if no second parent
+		do_redir_1(cmd_node, redir_nodes);
+	else // B: there is a second parent, we are in the middle of a pipeline
+		do_redir_2(cmd_node, redir_nodes);
 }
-

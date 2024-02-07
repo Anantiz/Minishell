@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 12:11:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/05 12:45:34 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/05 18:45:19 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ void	scan_tk_str_cmd(char *token_str, t_s_token *token)
 			strdup_dbl_q(&args[i], &token->data.cmd.single[i]);
 		else
 			token->data.cmd.single[i] = false;
-		ft_fprintf(2, "args[%d]: %s\n", i, args[i]);
 		i++;
 	}
 	token->data.cmd.args = args;

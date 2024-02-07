@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 17:08:31 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/01 19:00:44 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/07 10:01:26 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ static t_pair_char	**get_appropriate_data(char **args)
 	j = 0;
 	while (args[i])
 	{
-		pair =  create_var_pair(args[i++], NULL);
+		pair = create_var_pair(args[i++], NULL);
 		if (pair)
 			ret[j++] = pair;
 	}
@@ -95,24 +95,15 @@ static void	our_export_with_args(t_shell_data *shell_data, t_s_token *token)
 */
 int	our_export(t_shell_data *shell_data, t_s_token *token)
 {
-	t_env		*var;
+	char	**exports;
 
-	if (token->data.cmd.args[1] == NULL)
+	if (token->data.cmd.args[1] == NULL || \
+	ft_is_blank_str(token->data.cmd.args[1]))
 	{
-		var = shell_data->envp;
-		while (var)
-		{
-			// Redo this later, sort strings by KEYY, case insensitive
-			if (!var->hidden)
-			{
-				ft_fprintf(STDOUT_FILENO, "declare -x %s=", var->key);
-				if (var->val)
-					ft_fprintf(STDOUT_FILENO, "%s\n", var->val);
-				else
-					write(STDOUT_FILENO, "\n", 1);
-			}
-			var = var->next;
-		}
+		exports = t_env_to_double_char(shell_data->envp);
+		ft_strs_sort(exports);
+		while (exports && *exports)
+			ft_printf("declare -x %s\n", *exports++);
 	}
 	else
 		our_export_with_args(shell_data, token);

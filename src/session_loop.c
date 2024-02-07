@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:12:50 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/01 13:12:21 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/07 10:33:38 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,6 @@
 
 void	del_tree(t_shell_data *shell_data)
 {
-	(void)shell_data;
 	//to do
 	shell_data->root = NULL; // ok for now
 }
@@ -46,6 +45,7 @@ static int	sesion_routine(t_shell_data *shell_data)
 	char	*prompt_str;
 	int		ret;
 
+	replace_signals();
 	prompt_str = get_prompt_str(shell_data);
 	line = unionize_str(readline(prompt_str));
 	our_free(prompt_str);
@@ -76,10 +76,10 @@ int	session_start(t_shell_data *shell_data)
 		shell_data->pid_count = 0;
 		ret = sesion_routine(shell_data);
 		del_tree(shell_data);
-		our_free(shell_data->pid_list);
 		if (ret == MAGIC_VALUE_EXIT_SHELL)
 			return (SUCCESS);
 		if (ret)
 			return (ret);
 	}
+	return (SUCCESS);
 }
