@@ -6,7 +6,7 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 13:46:46 by loris             #+#    #+#             */
-/*   Updated: 2024/02/07 11:33:49 by loris            ###   ########.fr       */
+/*   Updated: 2024/02/07 11:20:01 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,6 @@ char    **new_list_token_redir(char **token_list, int op_place)
 	char	**array;
 	int		i;
 	char	**split_cmd;
-	char	*str;
 
 	i = 0;
 	array = our_malloc((op_place + 1) * sizeof(char *));
