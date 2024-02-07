@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:24:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/06 19:06:17 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/07 10:48:41 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ typedef struct s_op
 
 /* ############################## */
 
-// Union of all possible tokens
 union u_token
 {
 	t_s_file	file;
