@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_each_op.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:43:37 by lkary-po          #+#    #+#             */
-/*   Updated: 2024/02/07 11:49:52 by loris            ###   ########.fr       */
+/*   Updated: 2024/02/07 11:53:30 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,6 @@ t_s_token	*parse_redir_out(char **token_list, int num_token, t_s_token *parent_n
 	int         op_place;
 	t_s_token   *node;
 	char		**new_token_left;
-	int			i;
-
-	i = 0;
 
 	op_place = find_redir_out(token_list, num_token);
 	if (op_place == -1)
@@ -81,9 +78,7 @@ t_s_token	*parse_redir_in(char **token_list, int num_token, t_s_token *parent_no
 	int         op_place;
 	t_s_token   *node;
 	char		**new_token_left;
-	int			i;
 
-	i = 0;
 	op_place = find_redir_in(token_list, num_token);
 	if (op_place == -1)
 	{
@@ -131,7 +126,7 @@ t_s_token   *parse_cmd(char **token_list, int num_token, t_s_token *parent_node)
 // 	node = scan_token(token_list);
 // 	node->right = scan_token(token_list + 1);
 // 	node->left = scan_token(token_list + 2);
-// 	return (node);	
+// 	return (node);
 // }
 
 // bool	is_cmd_behind(char **token_list)
@@ -140,9 +135,3 @@ t_s_token   *parse_cmd(char **token_list, int num_token, t_s_token *parent_node)
 // 		return (true);
 // 	return (false);
 // }
-
-
-
-
-
-

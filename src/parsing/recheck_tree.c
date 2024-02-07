@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   recheck_tree.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 13:30:17 by loris             #+#    #+#             */
-/*   Updated: 2024/02/07 10:56:05 by loris            ###   ########.fr       */
+/*   Updated: 2024/02/07 11:51:20 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 
 void	replace_file(t_s_token *node)
-{ 
+{
 	while (node)
 	{
 		if (node && node->token_type == TK_OP && (node->data.op.type == 4 || node->data.op.type == 5 || node->data.op.type == 6 || node->data.op.type == 7))
@@ -23,7 +23,7 @@ void	replace_file(t_s_token *node)
 	}
 }
 
-t_s_token *new_tokenfile(t_s_token *node_)
+t_s_token *new_tokenfile(t_s_token *node)
 {
 	t_s_token	*new_node;
 	char	*t;
