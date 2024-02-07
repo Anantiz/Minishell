@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 17:07:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/06 19:17:28 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/07 09:48:52 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ static int	check_input(t_s_token *token, int *exit_code)
 	int	len;
 
 	*exit_code = 0;
+	if (!token)
+		return (SUCCESS);
 	len = ft_strslen(token->data.cmd.args);
 	if (len > 2)
 	{

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 15:44:18 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/03 16:32:37 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/07 10:07:11 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,10 @@ char		*ft_strjoin(const char *s1, const char *s2);
 char		**ft_split(const char *s, char c);
 char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void		ft_striteri(char *s, void (*f)(unsigned int, char *));
+
+/* SORTING */
+
+char		**ft_strs_sort(char **str_tab);
 
 /* FILES ------------------------------------------------*/
 

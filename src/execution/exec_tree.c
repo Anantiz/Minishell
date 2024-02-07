@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:39:33 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/06 19:18:12 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/07 10:16:32 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,28 +33,20 @@ About Finding the Different subtrees
 /*
 	Returns the last node executed
 */
-static int	exec_subtree(t_shell_data *shell_data, t_s_token *node, bool reset)
+static int	exec_subtree(t_shell_data *shell_data, t_s_token *node)
 {
-	static		int debug_i = 0;
-
-	if (reset)
-	{
-		debug_i = 0;
-		return (0);
-	}
 	ft_fprintf(2, "Executing subtree\n");
 	while (node)
 	{
 		if (node->token_type == TK_CMD)
 		{
-			ft_fprintf(2, "Executing node %d: %s: %p\n", debug_i, node->data.cmd.args[0], node);
+			ft_fprintf(2, "Executing node : %s: %p\n", node->data.cmd.args[0], node);
 			ft_fprintf(2, "\tredir[0]: %p\n",node->data.cmd.redir_nodes[0]);
 			ft_fprintf(2, "\tredir[1]: %p\n\n", node->data.cmd.redir_nodes[1]);
 			exec_one_command(shell_data, node);
 			shell_data->last_command = &node->data.cmd;
 			restore_std_streams(shell_data);
 		}
-		debug_i++;
 		node = get_next_node_no_op(node);
 	}
 	wait_last_subtree(shell_data);
@@ -79,7 +71,7 @@ int	super_tree(t_shell_data *shell_data, t_s_token *node)
 			ret = super_tree(shell_data, node->right);
 	}
 	else
-		ret = exec_subtree(shell_data, node, false);
+		ret = exec_subtree(shell_data, node);
 	restore_std_streams(NULL);
 	return (ret);
 }
@@ -93,9 +85,9 @@ int	exec_tree(t_shell_data *shell_data)
 	shell_data->pid_list = our_malloc(shell_data->cmd_count * sizeof(int));
 	ft_memset_int(shell_data->pid_list, -69, shell_data->cmd_count);
 	super_tree(shell_data, shell_data->root);
-	exec_subtree(NULL, NULL, true); // Reset the static variable, to remove in future
-	our_free(shell_data->pid_list);
 	shell_data->last_wstatus = 0;
 	shell_data->last_command = NULL;
+	our_free(shell_data->pid_list);
+	rl_on_new_line();
 	return (SUCCESS);
 }

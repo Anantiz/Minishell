@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/06 17:17:12 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/07 10:35:46 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,8 @@ void		print_node(t_s_token *node);
 void		print_node_lite(t_s_token *node);
 void		display_error(t_shell_data *shell_data, int error);
 void		replace_signals(void);
-void		our_sig_handl(int sig);
+void		replace_signals_2(void);
+// void		our_sig_handl(int sig);
 int			print_shell_intro(t_shell_data *shell_data, t_s_token *node);
 
 /* SESSION */

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:05:20 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/06 19:09:23 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/07 10:13:12 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ void	parent_close_pipes(t_s_cmd *cmd)
 		if (cmd->redir_nodes[0]->data.op.pipefd[0] != -66)
 		{
 			if (close(cmd->redir_nodes[0]->data.op.pipefd[0]))
-				perror("PPA: close() error");
+				perror("close() error");
 		}
 		if (cmd->redir_nodes[0]->data.op.pipefd[1] != -66)
 		{
 			if (close(cmd->redir_nodes[0]->data.op.pipefd[1]))
-				perror("PPB: close() error");
+				perror("close() error");
 		}
 	}
 }

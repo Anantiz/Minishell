@@ -6,7 +6,7 @@
 #    By: aurban <aurban@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/10/20 06:06:39 by aurban            #+#    #+#              #
-#    Updated: 2024/02/03 09:41:37 by aurban           ###   ########.fr        #
+#    Updated: 2024/02/07 10:04:33 by aurban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,12 @@ FT_MEM_MANAGER_PATH=Memory_manager
 FT_MEM_MANAGER_FILES=ft_bzero.c	ft_calloc.c mem_manager_op.c mem_manager.c \
 	mem_manager_utils.c
 FT_MEM_MANAGER_FILES:=$(addprefix $(FT_MEM_MANAGER_PATH)/,$(FT_MEM_MANAGER_FILES))
+
+# --- SORTING ---
+
+FT_SORTING_PATH=sorting
+FT_SORTING_FILES=ft_strs_sort.c
+FT_SORTING_FILES:=$(addprefix $(FT_SORTING_PATH)/,$(FT_SORTING_FILES))
 
 # --- LINKED LIST ---
 
@@ -75,6 +81,7 @@ FT_FILES+=$(FT_PRINTF_FILES)
 FT_FILES+=$(FT_STRINGS_FILES)
 FT_FILES+=$(FT_GNL_FILES)
 FT_FILES+=$(FT_MEM_MANAGER_FILES)
+FT_FILES+=$(FT_SORTING_FILES)
 
 FT_PATH:=./
 FT_FILES:= $(addprefix $(FT_PATH)/,$(FT_FILES))

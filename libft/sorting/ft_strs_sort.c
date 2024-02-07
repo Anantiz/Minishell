@@ -1,27 +1,41 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   exec_utils.c                                       :+:      :+:    :+:   */
+/*   ft_strs_sort.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/06 17:16:42 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/07 10:34:41 by aurban           ###   ########.fr       */
+/*   Created: 2024/02/07 10:02:01 by aurban            #+#    #+#             */
+/*   Updated: 2024/02/07 10:06:47 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "libft.h"
 
-void	wait_last_subtree(t_shell_data *shell_data)
+/*
+	Ugly bubble sort for a string list
+*/
+char	**ft_strs_sort(char **str_tab)
 {
-	while (shell_data->skip < shell_data->pid_count)
+	int		i;
+	int		j;
+	char	*tmp;
+
+	i = 0;
+	while (str_tab[i])
 	{
-		if (shell_data->pid_list[shell_data->skip] != -69)
+		j = i + 1;
+		while (str_tab[j])
 		{
-			replace_signals_2();
-			waitpid(shell_data->pid_list[shell_data->skip], NULL, 0);
-			replace_signals();
+			if (ft_strcmp(str_tab[i], str_tab[j]) > 0)
+			{
+				tmp = str_tab[i];
+				str_tab[i] = str_tab[j];
+				str_tab[j] = tmp;
+			}
+			j++;
 		}
-		shell_data->skip++;
+		i++;
 	}
+	return (str_tab);
 }
