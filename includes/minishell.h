@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/31 10:12:59 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/07 11:50:26 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,6 +110,13 @@ t_s_token	*parse_expression(char **token_list, int num_token, t_s_token *parent_
 bool    	add_var(char *str);	
 void    	replace_file(t_s_token *node);
 t_s_token	*new_tokenfile(t_s_token *node);
+
+/* PARSING REDIR */
+
+void    del_item_array(char **array, char *str_to_delete, int op_place);
+char    **add_back_array(char **array, char *str);
+char	*custom_join(char *s1, char *s2);
+char    **new_list_token_redir(char **token_list, int op_place);
 
 
 /* EXECUTION */

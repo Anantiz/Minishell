@@ -3,14 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   tree_traversal.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
+/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:11:05 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/29 09:55:27 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/07 09:54:36 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 /*
 oooooooooo.
 `888'   `Y8b

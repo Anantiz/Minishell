@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokentotree.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
+/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/01/31 10:25:45 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/07 11:50:10 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,26 +29,6 @@ char **next_token(char **token_list)
 		return (NULL);
 	return (n_tok);
 }
-/*
-*   main test for the next_token function
-*/
-// int main()
-// {
-//     char *line = "ls -l || wc -l";
-//     int i;
-//     char **tok;
-
-//     tok = ft_strtok(line);
-//     i = 0;
-//     while (*tok)
-//     {
-//         tok = next_token(tok);
-
-//         printf("(%s)", *tok);
-//         i++;
-//     }
-//     free(tok - i);
-// }
 
 /*
 *   Take a token from list of token, scan if it is op / cmd / ..
@@ -122,3 +102,15 @@ t_s_token   *scan_token(char **token)
 	}
 	return (TK);
 }
+
+// int	main()
+// {
+// 	char line[] = "cmd1 < file > file paramcmd1";
+// 	char **array;
+// 	t_s_token	*head;
+// 	array = ft_strtok(line);
+// 	array++;
+// 	head = parse_expression(array, ft_tablen(array), NULL);
+// 	replace_file(head);
+// 	printf("%d\n", head->right->token_type);
+// }
