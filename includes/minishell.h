@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/07 10:52:01 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/07 11:47:06 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,14 @@ t_s_token *parent_node);
 bool		add_var(char *str);
 void		replace_file(t_s_token *node);
 t_s_token	*new_tokenfile(t_s_token *node);
+
+/* PARSING REDIR */
+
+void    del_item_array(char **array, char *str_to_delete, int op_place);
+char    **add_back_array(char **array, char *str);
+char	*custom_join(char *s1, char *s2);
+char    **new_list_token_redir(char **token_list, int op_place);
+
 
 /* EXECUTION */
 

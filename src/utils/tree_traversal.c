@@ -6,11 +6,11 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:11:05 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/07 10:55:51 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/07 11:47:16 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
+#include "../../includes/minishell.h"
 /*
 oooooooooo.
 `888'   `Y8b
