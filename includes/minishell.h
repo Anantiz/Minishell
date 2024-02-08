@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/08 11:49:41 by loris            ###   ########.fr       */
+/*   Updated: 2024/02/08 13:18:42 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,7 @@ t_s_token *parent_node);
 bool   		ft_is_o_parenthesis(char *token);
 bool    	ft_is_c_parenthesis(char *token);
 bool		ft_is_parenthesis(char **token_list);
-void		**del_parenthesis(char **token_list, int op_place);
+void		del_parenthesis(char **token_list, int op_place);
 
 /* PARSING UTILS */
 

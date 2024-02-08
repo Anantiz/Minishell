@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: loris <loris@student.42.fr>                +#+  +:+       +#+         #
+#    By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/09 10:14:27 by aurban            #+#    #+#              #
-#    Updated: 2024/02/08 11:49:32 by loris            ###   ########.fr        #
+#    Updated: 2024/02/08 14:13:59 by lkary-po         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-CC:=gcc -fsanitize=address -g3
+CC:=gcc
 INCLUDE_PATH=./includes
-CFLAGS:=-Wall -Wextra -I$(INCLUDE_PATH) -g3 -lreadline
+CFLAGS:=-Wall -Wextra -I$(INCLUDE_PATH) -g3 -lreadline -fsanitize=address -g3
 RM:=rm -rf
 
 NAME=minishell
