@@ -6,7 +6,7 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 13:46:46 by loris             #+#    #+#             */
-/*   Updated: 2024/02/07 11:20:01 by loris            ###   ########.fr       */
+/*   Updated: 2024/02/08 11:45:30 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ char    **new_list_token_redir(char **token_list, int op_place)
 		i++;
 	}
 	split_cmd = ft_split(*(token_list + op_place + 1), ' ');
-	if (ft_tablen(split_cmd) == 2 && scan_token((token_list + op_place + 2))->token_type != TK_OP)
+	if ((ft_tablen(split_cmd) == 2 && scan_token((token_list + op_place + 2))->token_type != TK_OP))
 		array[i - 1] = custom_join(array[i - 1], split_cmd[1]);
 	return (array);
 }

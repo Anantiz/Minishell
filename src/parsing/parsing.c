@@ -6,7 +6,7 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/02/07 09:50:26 by loris            ###   ########.fr       */
+/*   Updated: 2024/02/08 11:41:05 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ int	parse_line(t_shell_data *shell_data, char *line)
 
 	array = ft_strtok(line);
 	token_list = array;
-	token = parse_expression(token_list, ft_tablen(token_list + 1), NULL);
+	token_list++;
+	token = parse_expression(token_list, ft_tablen(token_list), NULL);
 	replace_file(token);
 	shell_data->root = token;
 	ft_fprintf(2, "TREE:\n");

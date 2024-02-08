@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   recheck_tree.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
+/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 13:30:17 by loris             #+#    #+#             */
-/*   Updated: 2024/02/07 11:51:20 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/07 12:02:11 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	replace_file(t_s_token *node)
 t_s_token *new_tokenfile(t_s_token *node)
 {
 	t_s_token	*new_node;
-	char	*t;
+	char		*t;
 
 	new_node = our_malloc(sizeof(t_s_token));
 	new_node->token_type = TK_FILE;

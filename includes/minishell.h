@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
+/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/07 11:47:06 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/08 10:44:24 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,6 +109,10 @@ t_s_token	*parse_pipeline(char **token_list, int num_token, \
 t_s_token *parent_node);
 t_s_token	*parse_cmd(char **token_list, int num_token, \
 t_s_token *parent_node);
+bool   		ft_is_o_parenthesis(char *token);
+bool    	ft_is_c_parenthesis(char *token);
+bool		ft_is_parenthesis(char **token_list);
+void		**del_parenthesis(char **token_list, int op_place);
 
 /* PARSING UTILS */
 
