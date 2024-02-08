@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/24 10:21:54 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/07 10:54:29 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/08 11:32:09 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,6 @@ static char	*ret_str_tk(int e)
 		return ("TK_OP");
 	else if (e == TK_FILE)
 		return ("TK_FILE");
-	else if (e == TK_VAR)
-		return ("TK_VAR");
 	else
 		return ("TK_UNKNOWN");
 }

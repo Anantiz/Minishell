@@ -3,16 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   get_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 08:26:52 by loris             #+#    #+#             */
-/*   Updated: 2024/02/07 10:55:38 by loris            ###   ########.fr       */
+/*   Updated: 2024/02/08 11:45:05 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-
+static bool	is_speop(char *sub_str)
+{
+	if(!ft_strncmp(sub_str, "||", 2))
+		return (true);
+	else if (!ft_strncmp(sub_str, "&&", 2))
+		return (true);
+	else if (!ft_strncmp(sub_str, "<<", 2))
+		return (true);
+	else if (!ft_strncmp(sub_str, ">>", 2))
+		return (true);
+	return (false);
+}
 
 /*
 *	Create a list of token base on the input line
@@ -29,15 +40,15 @@
 *	Quotes and parenthesis are interpreted as token -> I deal with this when i build the tree
 *	(in file tokentotree.c)
 */
-int	ft_countword(char *line)
+int	ft_count_token(char *line)
 {
 	int		count;
 	int		i;
-	bool	already_cmd;
+	bool	is_cmd;
 
 	i = -1;
 	count = 0;
-	already_cmd = false;
+	is_cmd = false;
 	while (ft_is_sep(*line))
 		line++;
 	while (line[++i])
@@ -45,14 +56,15 @@ int	ft_countword(char *line)
 		if (ft_is_op(line[i]) == true)
 		{
 			count++;
-            if (line[i] == '|' || line[i] == '&')
-                if (line[i+1] == '|' || line[i+1] == '&')
-                    i++;
-            already_cmd = false;
-        }
-        if ((!ft_is_op(line[i]) && !ft_is_sep(line[i]) && already_cmd == false) \
-			&& count++ != -69)
-            already_cmd = true;
+			if (is_speop(&line[i]) == true)
+				i++;
+			is_cmd = false;
+		}
+		else if (is_cmd == false && ft_is_sep(line[i]) == false)
+		{
+			is_cmd = true;
+			count++;
+		}
 	}
 	return(count);
 }
@@ -67,33 +79,29 @@ int	ft_countword(char *line)
 char    **ft_strtok(char *line)
 {
 	char	**list_token;
+	int		tk_count;
+	int		len;
 	int		i;
 	int		j;
-	int		word;
-	size_t	len;
 
-	// if (add_var(line) == true)
-	// 	return (NULL);
-	j = 1;
+	j = 0;
 	i = 0;
-	len = ft_strlen(line); // tkt on fixe la norme plus tard, mets pas de ft_strlen dans une boucle
-	word = ft_countword(line);
-	list_token = our_malloc(sizeof(char *) * (word + 2));
-	list_token[word + 1] = NULL;
-	list_token[0] = NULL;
-	while (i < (int)len)
+	len = (int)ft_strlen(line);
+	tk_count = ft_count_token(line);
+	ft_fprintf(2, "\033[34mtoken_count = %d\033[0m\n", tk_count);
+	list_token = our_malloc(sizeof(char *) * (tk_count + 2));
+	list_token[j++] = NULL;
+	while (i < len)
 	{
-		if (ft_is_sep(line[i]) == false && ft_is_op(line[i]) == false)
-			list_token[j++] = get_cmd(&line[i], &i);
+        if (is_speop(&line[i]) == true)
+			list_token[j++] = get_speop(&line[i], &i);
         else if (ft_is_op(line[i]) == true)
-        {
-            if ((line[i] == '|' || line[i] == '&') && (line[i + 1] == '|' || line[i + 1] == '&'))
-                list_token[j++] = get_speop(&line[i], &i);
-            else
-                list_token[j++] = get_op(&line[i], &i);
-        }
-		else
-			i++;
+            list_token[j++] = get_op(&line[i], &i);
+		else if (ft_is_sep(line[i]) == false)
+			list_token[j++] = get_cmd(&line[i], &i);
+		i++;
 	}
+	list_token[j] = NULL;
 	return (list_token);
 }
+

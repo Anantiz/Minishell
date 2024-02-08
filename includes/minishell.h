@@ -6,7 +6,7 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/08 10:44:24 by loris            ###   ########.fr       */
+/*   Updated: 2024/02/08 11:49:41 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void		del_tree(t_shell_data *shell_data);
 
 /* PARSING */
 
-int			ft_countword(char *line);
+int			ft_count_token(char *line);
 char		**ft_strtok(char *line);
 t_s_token	*scan_token(char **token);
 void		scan_tk_str_cmd(char *token_str, t_s_token *token);
@@ -97,9 +97,13 @@ t_e_token_type type);
 int			find_operator_addor(char **token_list, int num_token);
 int			find_redir_out(char **token_list, int num_token);
 int			find_redir_in(char **token_list, int num_token);
+int			find_pipe_op(char **token_list, int num_token);
 
-int			find_pipeline(char **token_list, int num_token);
+t_s_token	*parse_expression_clean(char **token_list, int token_count, \
+t_s_token *parent_node);
 t_s_token	*parse_expression(char **token_list, int num_token, \
+t_s_token *parent_node);
+t_s_token	*parse_addor(char **token_list, int token_count, \
 t_s_token *parent_node);
 t_s_token	*parse_redir_in(char **token_list, int num_token, \
 t_s_token *parent_node);

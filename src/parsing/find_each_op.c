@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/07 13:34:23 by loris             #+#    #+#             */
-/*   Updated: 2024/02/08 11:34:55 by loris            ###   ########.fr       */
+/*   Created: 2024/01/22 10:42:11 by lkary-po          #+#    #+#             */
+/*   Updated: 2024/02/08 11:51:50 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ bool    ft_is_c_parenthesis(char *token)
 	return (false);
 }
 
-int find_operator_addor(char **token_list, int num_token)
+int find_operator_addor(char **token_list, int token_count)
 {
 	int i;
 	int	parenthesis_count;
@@ -66,7 +66,7 @@ int find_redir_in(char **token_list, int num_token)
 	return (-1);
 }
 
-int find_pipeline(char **token_list, int num_token)
+int find_pipe_op(char **token_list, int token_count)
 {
 	int i;
 	int	parenthesis_count;
@@ -85,7 +85,7 @@ int find_pipeline(char **token_list, int num_token)
 	return (-1);
 }
 
-int find_redir_out(char **token_list, int num_token)
+int find_redir_out(char **token_list, int token_count)
 {
 	int i;
 	int	parenthesis_count;

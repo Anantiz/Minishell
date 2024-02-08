@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 11:46:14 by loris             #+#    #+#             */
-/*   Updated: 2024/02/05 13:55:19 by loris            ###   ########.fr       */
+/*   Updated: 2024/02/08 09:13:25 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,15 +54,3 @@ t_s_token	*node_cmd_redir(char **token_list)
     node->data.cmd.args = arg;
     return (node);
 }
-
-// int	main()
-// {
-// 	char 		*list[] = {"ls cat", ">", "file txt -l", NULL};
-// 	t_s_token 	*node;
-
-// 	node = node_cmd_redir(list + 1);
-//     printf("%s ", node->data.cmd.args[0]);
-//     printf("%s ", node->data.cmd.args[1]);
-//     printf("%s ", node->data.cmd.args[2]);
-//     printf("%s", node->data.cmd.args[3]);
-// }

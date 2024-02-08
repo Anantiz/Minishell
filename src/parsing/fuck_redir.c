@@ -6,12 +6,13 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 13:46:46 by loris             #+#    #+#             */
-/*   Updated: 2024/02/08 11:45:30 by loris            ###   ########.fr       */
+/*   Updated: 2024/02/08 11:53:05 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+void	print_token_list(char **tk_list, int tk_count);
 
 // array for the left side of the tree is done
 // to do -> Conciliate array and the recursive parsing
@@ -45,8 +46,6 @@ void    del_item_array(char **array, char *str_to_delete, int op_place)
 		array++;
 	}
 }
-
-
 
 char    **add_back_array(char **array, char *str)
 {
@@ -94,27 +93,31 @@ char	*custom_join(char *s1, char *s2)
 	return (ret);
 }
 
+/*
+	Copy the whole token list until the operator,
+	skip the operator and join the next token with the previous one
+	Thus if the command args are after the operator, we still have them
+*/
 char    **new_list_token_redir(char **token_list, int op_place)
 {
+	char	**split_cmd;
 	char	**array;
 	int		i;
-	char	**split_cmd;
 
+	print_token_list(token_list, ft_tablen(token_list));
 	i = 0;
 	array = our_malloc((op_place + 1) * sizeof(char *));
 	array[op_place] = NULL;
-	while (array[i] && i < op_place)
+	while (i < op_place)
 	{
 		array[i] = token_list[i];
 		i++;
 	}
-	split_cmd = ft_split(*(token_list + op_place + 1), ' ');
-	if ((ft_tablen(split_cmd) == 2 && scan_token((token_list + op_place + 2))->token_type != TK_OP))
-		array[i - 1] = custom_join(array[i - 1], split_cmd[1]);
+	split_cmd = ft_split(token_list[op_place + 1], ' ');
+	if (ft_tablen(split_cmd) == 2 && scan_token((token_list + op_place + 2))->token_type != TK_OP)
+		array[op_place - 1] = custom_join(array[op_place - 1], split_cmd[1]);
 	return (array);
 }
-
-
 
 // int main()
 // {

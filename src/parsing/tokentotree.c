@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokentotree.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/02/07 10:56:53 by loris            ###   ########.fr       */
+/*   Updated: 2024/02/08 10:16:06 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static void	scan_tk_str_op(char *token_str, t_s_token *node)
 {
+	// to fix for |||
 	node->token_type = TK_OP;
 	if (ft_strlen(token_str) == 2)
 	{
@@ -50,16 +51,28 @@ t_e_token_type type)
 /*
 *   Take a token from list of token, scan if it is op / cmd / ..
 *   and create the appropriate node of the tree. This node will next be
-*   used to creat the tree
+*   used to create the tree
 */
-t_s_token   *scan_token(char **token)
+t_s_token   *scan_token(char **token_strs)
 {
 	t_s_token   *node;
-	node = our_malloc(sizeof(t_s_token));
 
-	if (*token && ft_is_op(*token[0]) == true)
-		scan_token_extended(*token, node, TK_OP);
-	if (*token && !ft_is_op(*token[0]) && !ft_is_sep(*token[0]))
-		scan_token_extended(*token, node, TK_CMD);
+	if (!token_strs || !*token_strs)
+		return (NULL);
+	node = our_malloc(sizeof(t_s_token));
+	if (ft_is_op(**token_strs) == true)
+		scan_token_extended(*token_strs, node, TK_OP);
+	else if (!ft_is_op(**token_strs) && !ft_is_sep(**token_strs))
+		scan_token_extended(*token_strs, node, TK_CMD);
+	else
+	{
+		// To remove in the future
+		ft_fprintf(2, "Error: unknown token: \n", *token_strs);
+		for (int i = 0; token_strs[i]; i++)
+		{
+			ft_fprintf(2, "token_strs[%d] = %s\n", i, token_strs[i]);
+		}
+		return (our_free(node), NULL);
+	}
 	return (node);
 }

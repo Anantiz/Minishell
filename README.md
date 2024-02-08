@@ -58,3 +58,8 @@ TO DO:
 
 
 Giga BUG, read line takes too much drug
+
+
+
+BUG:
+	If a file fails to open, it kills the whole command line and not just the one function
