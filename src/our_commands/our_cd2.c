@@ -6,11 +6,12 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/30 16:57:13 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/03 14:22:32 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/08 07:54:42 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#define MAX_PWD_LEN 2048
 /*
    , ,, ,
    | || |    ,/  _____  \.
@@ -79,7 +80,7 @@ static void	update_satanic_path(t_shell_data *shell_data, char *path)
 	t_env	*pwd_var;
 
 	new_pwd = ft_strjoin(shell_data->our_pwd, "/");
-	if (ft_strlen(new_pwd) < 4096 && ft_strlen(path) < 4096)
+	if (ft_strlen(new_pwd) < MAX_PWD_LEN && ft_strlen(path) < MAX_PWD_LEN)
 	{
 		ft_replace_str(&new_pwd, ft_strjoin(new_pwd, path));
 		pwd_var = our_get_env(shell_data, "PWD");

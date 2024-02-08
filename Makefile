@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: loris <loris@student.42.fr>                +#+  +:+       +#+         #
+#    By: aurban <aurban@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/09 10:14:27 by aurban            #+#    #+#              #
-#    Updated: 2024/02/07 11:18:38 by loris            ###   ########.fr        #
+#    Updated: 2024/02/08 08:37:20 by aurban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,7 +35,7 @@ SRC_UTILS=\
 
 SRC_PARSE=\
 	parsing.c	get_token.c		parsing.c	tokentotree.c	parsing_utils.c	\
-	parse_each_op.c find_each_op.c recheck_tree.c \
+	parse_each_op.c find_each_op.c recheck_tree.c clean_op_parsing.c		\
 	fuck_redir.c redir.c scan_token_extended.c
 
 SRC_EXEC=\
