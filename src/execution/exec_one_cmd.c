@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:05:20 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/07 10:13:12 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/08 18:38:33 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,16 +31,20 @@ void	parent_close_pipes(t_s_cmd *cmd)
 {
 	if (cmd->redir_nodes[0])
 	{
-		if (cmd->redir_nodes[0]->data.op.pipefd[0] != -66)
+		if (cmd->redir_nodes[0]->data.op.pipefd[0] != PIPE_CLOSED)
 		{
 			if (close(cmd->redir_nodes[0]->data.op.pipefd[0]))
 				perror("close() error");
+			cmd->redir_nodes[0]->data.op.pipefd[0] = PIPE_CLOSED;
 		}
-		if (cmd->redir_nodes[0]->data.op.pipefd[1] != -66)
+		if (cmd->redir_nodes[0]->data.op.pipefd[1] != PIPE_CLOSED)
 		{
 			if (close(cmd->redir_nodes[0]->data.op.pipefd[1]))
 				perror("close() error");
+			cmd->redir_nodes[0]->data.op.pipefd[1] = PIPE_CLOSED;
 		}
+		else
+			ft_fprintf(2, "pipefd[1] is already closed\n");
 	}
 }
 
