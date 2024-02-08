@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 08:26:52 by loris             #+#    #+#             */
-/*   Updated: 2024/02/08 11:50:30 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/08 14:55:34 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,8 @@ char    **ft_strtok(char *line)
             list_token[j++] = get_op(&line[i], &i);
 		else if (ft_is_sep(line[i]) == false)
 			list_token[j++] = get_cmd(&line[i], &i);
-		i++;
+		else
+			i++;
 	}
 	list_token[j] = NULL;
 	return (list_token);

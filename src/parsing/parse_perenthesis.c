@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_perenthesis.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:32:02 by loris             #+#    #+#             */
-/*   Updated: 2024/02/08 11:18:38 by loris            ###   ########.fr       */
+/*   Updated: 2024/02/08 13:22:45 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ bool	ft_is_parenthesis(char **token_list)
 	return (false);
 }
 
-void	**del_parenthesis(char **token_list, int op_place)
+void	del_parenthesis(char **token_list, int op_place)
 {
 	int	i;
 

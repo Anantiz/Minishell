@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   recheck_tree.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 13:30:17 by loris             #+#    #+#             */
-/*   Updated: 2024/02/08 11:56:31 by loris            ###   ########.fr       */
+/*   Updated: 2024/02/08 14:25:44 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ void	replace_file(t_s_token *node)
 	{
 		if (node->token_type == TK_OP && (node->data.op.type > PIPE \
 			&& node->data.op.type <= REDIR_HEREDOC))
+		{
 			node->right = new_tokenfile(node->right);
+		}
 		node = get_next_node(node);
 	}
 }

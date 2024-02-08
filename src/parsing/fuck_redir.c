@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fuck_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 13:46:46 by loris             #+#    #+#             */
-/*   Updated: 2024/02/08 11:53:05 by loris            ###   ########.fr       */
+/*   Updated: 2024/02/08 14:49:03 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,8 +114,16 @@ char    **new_list_token_redir(char **token_list, int op_place)
 		i++;
 	}
 	split_cmd = ft_split(token_list[op_place + 1], ' ');
-	if (ft_tablen(split_cmd) == 2 && scan_token((token_list + op_place + 2))->token_type != TK_OP)
+	if (ft_tablen(split_cmd) != 1)
+	{
 		array[op_place - 1] = custom_join(array[op_place - 1], split_cmd[1]);
+	}
+	int	j = 0;
+	while (array[j])
+	{
+		ft_fprintf(2, "array after redir = %s\n", array[j]);
+		j++;
+	}
 	return (array);
 }
 

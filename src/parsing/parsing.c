@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/02/08 11:55:48 by loris            ###   ########.fr       */
+/*   Updated: 2024/02/08 14:25:52 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,12 @@ int	parse_line(t_shell_data *shell_data, char *line)
 	t_s_token	*token;
 
 	array = ft_strtok(line);
+	// int	j = 1;
+	// while (array[j])
+	// {
+	// 	ft_fprintf(2, "%s\n", array[j]);
+	// 	j++;
+	// }
 	token_list = array;
 	token_list++;
 	token = parse_expression(token_list, ft_tablen(token_list), NULL);
