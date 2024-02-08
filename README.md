@@ -63,3 +63,9 @@ Giga BUG, read line takes too much drug
 
 BUG:
 	If a file fails to open, it kills the whole command line and not just the one function
+
+
+08/02/24
+BUG:
+	cat > file1 > file2
+	HEredoc ferme pas
