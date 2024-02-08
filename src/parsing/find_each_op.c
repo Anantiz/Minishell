@@ -6,7 +6,7 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:42:11 by lkary-po          #+#    #+#             */
-/*   Updated: 2024/02/08 11:56:58 by loris            ###   ########.fr       */
+/*   Updated: 2024/02/08 12:00:13 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int find_operator_addor(char **token_list, int token_count)
 
 	i = -1;
 	parenthesis_count = 0;
-	while(++i < num_token)
+	while(++i < token_count)
 	{
 		if (ft_is_o_parenthesis(token_list[i]))
 			parenthesis_count++;
@@ -47,14 +47,14 @@ int find_operator_addor(char **token_list, int token_count)
 	return (-1);
 }
 
-int find_redir_in(char **token_list, int num_token)
+int find_redir_in(char **token_list, int token_count)
 {
 	int i;
 	int	parenthesis_count;
 
 	i = -1;
 	parenthesis_count = 0;
-	while(++i < num_token)
+	while(++i < token_count)
 	{
 		if (ft_is_o_parenthesis(token_list[i]))
 			parenthesis_count++;
@@ -73,7 +73,7 @@ int find_pipe_op(char **token_list, int token_count)
 
 	i = -1;
 	parenthesis_count = 0;
-	while(++i < num_token)
+	while(++i < token_count)
 	{
 		if (ft_is_o_parenthesis(token_list[i]))
 			parenthesis_count++;
