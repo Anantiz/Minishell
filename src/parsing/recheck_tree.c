@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   recheck_tree.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 13:30:17 by loris             #+#    #+#             */
-/*   Updated: 2024/02/08 11:56:31 by loris            ###   ########.fr       */
+/*   Updated: 2024/02/08 14:50:05 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_s_token *new_tokenfile(t_s_token *node)
 		return (NULL);
 	print_node(node);
 	new_node = our_malloc(sizeof(t_s_token));
+	// to fix
 	scan_tk_str_file(node->data.cmd.args[0], new_node);
 	new_node->parent = node->parent;
 	new_node->left = node->left;

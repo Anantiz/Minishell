@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_perenthesis.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:32:02 by loris             #+#    #+#             */
-/*   Updated: 2024/02/08 11:18:38 by loris            ###   ########.fr       */
+/*   Updated: 2024/02/08 12:03:03 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 // to do :  - function to parse recursivly parenthesis after redire / before cmd
 //          - function  to create a new array who cut the parenthesis
-//          - this array will be the new "left" of the new parenthesis function 
+//          - this array will be the new "left" of the new parenthesis function
 
 bool	ft_is_parenthesis(char **token_list)
 {
@@ -23,7 +23,7 @@ bool	ft_is_parenthesis(char **token_list)
 	return (false);
 }
 
-void	**del_parenthesis(char **token_list, int op_place)
+void	del_parenthesis(char **token_list, int op_place)
 {
 	int	i;
 
@@ -34,6 +34,7 @@ void	**del_parenthesis(char **token_list, int op_place)
 		token_list[i] = token_list[i + 1];
 		i++;
 	}
+
 }
 
 // int	main()

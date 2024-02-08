@@ -6,11 +6,30 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 12:11:03 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/08 11:52:44 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/08 14:26:38 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+#define EOF_ERR_MSG "\n%s warning: here-document at line \
+%d delimited by end-of-file (wanted `%s'\n"
+#define EOF_NO_EOF_ERR_MSG "syntax error near unexpected token `newline'"
+
+static bool	ft_is_eof(char *s1, char *s2, int n)
+{
+	while (s1 && s2 && n--)
+	{
+		if (*s1 != *s2)
+		{
+			if (n == 0 && *s1 == '\n' && *s2 == '\0')
+				return (true);
+			return (false);
+		}
+		s1++;
+		s2++;
+	}
+	return (true);
+}
 
 /*
 Handle Here_doc
@@ -26,47 +45,47 @@ ISSUES:
 	It will use a lot of RAM, so very large here_doc make cause issue
 	but who the fuck use heredocs for large inputs anyway
 */
-
 static char	*get_heredoc_str(size_t *len, char *eof)
 {
-	char	*line;
-	char	*ret;
-	ssize_t	nread;
+	static int	line_count = 0;
+	ssize_t		nread;
+	char		*line;
+	char		*ret;
 
 	get_next_line(STDIN_FILENO, 1);
 	ret = ft_strdup("");
 	nread = -1;
-	while (nread)
+	while (nread && (++line_count))
 	{
 		ft_printf("\033[93m☭ >\033[0m ");
-		line = get_next_line(STDIN_FILENO, 0);
+		 ft_replace_str(&line, get_next_line(STDIN_FILENO, 0));
 		nread = ft_strlen(line);
 		if (nread)
 		{
-			if (!ft_strcmp(line, eof))
+			if (ft_is_eof(line, eof, nread))
 				break ;
 			ft_replace_str(&ret, ft_strjoin(ret, line));
 			*len += nread;
 		}
+		else if (!line || !*line)
+			ft_printf(EOF_ERR_MSG, SHELL_NAME, line_count, eof);
 	}
-	get_next_line(STDIN_FILENO, 1);
-	ft_fprintf(2, "HEREDOC DONE\n");
-	return (ret);
+	return (our_free(line), ret);
 }
 
 void	our_heredoc(t_s_token *redir_node)
 {
 	t_s_op	*redir_op;
 
+	redir_op = &redir_node->data.op;
 	redir_op->heredoc_len = 0;
 	if (!redir_node->right)
 	{
 		redir_op->heredoc_str = ft_strdup("");
-		ft_fprintf(2, "%s syntax error near unexpected token `newline'\n", \
-		SHELL_NAME);
+		ft_fprintf(2, "%s %s\n", SHELL_NAME, EOF_NO_EOF_ERR_MSG);
 		return ;
 	}
-	redir_op = &redir_node->data.op;
-	redir_op->heredoc_str = get_heredoc_str(&redir_op->heredoc_len, redir_node->data.file.file_path);
+	redir_op->heredoc_str = get_heredoc_str(&redir_op->heredoc_len, \
+	redir_node->right->data.file.file_path);
 }
 

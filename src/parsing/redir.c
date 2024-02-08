@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 11:46:14 by loris             #+#    #+#             */
-/*   Updated: 2024/02/08 09:13:25 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/08 14:50:30 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 char	**cmd_arg(char **token_list)
 {
-	int		i;
-	char	**arg;
-	char	**cmd;
+    int		i;
+    char	**arg;
+    char	**cmd;
     char    **after_redir;
 
     after_redir = ft_split(*(token_list + 1), ' ');
     // printf("after redir  = %s  ||  ", *(after_redir + 1));
-	cmd = ft_split(*(token_list - 1), ' ');
+    cmd = ft_split(*(token_list - 1), ' ');
     // printf("cmd  = %s  ", *cmd);
     after_redir++;
     i = ft_tablen(after_redir) + ft_tablen(cmd);
@@ -40,7 +40,7 @@ char	**cmd_arg(char **token_list)
         arg++;
         after_redir++;
     }
-	return (arg - i);
+    return (arg - i);
 }
 
 t_s_token	*node_cmd_redir(char **token_list)

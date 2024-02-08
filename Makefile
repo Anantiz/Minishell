@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: loris <loris@student.42.fr>                +#+  +:+       +#+         #
+#    By: aurban <aurban@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/09 10:14:27 by aurban            #+#    #+#              #
-#    Updated: 2024/02/08 11:49:32 by loris            ###   ########.fr        #
+#    Updated: 2024/02/08 12:02:00 by aurban           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 
-CC:=gcc -fsanitize=address -g3
+CC:=gcc
 INCLUDE_PATH=./includes
 CFLAGS:=-Wall -Wextra -I$(INCLUDE_PATH) -g3 -lreadline
 RM:=rm -rf

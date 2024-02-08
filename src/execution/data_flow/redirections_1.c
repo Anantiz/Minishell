@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:30:30 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/07 10:58:19 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/08 14:52:11 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -148,3 +148,4 @@ void	find_redir_nodes(t_s_token *cmd_node)
 	else // B: there is a second parent, we are in the middle of a pipeline
 		do_redir_2(cmd_node, redir_nodes);
 }
+
