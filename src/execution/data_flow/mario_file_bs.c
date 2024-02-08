@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:28:45 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/31 14:31:09 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/08 10:50:38 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ static int	copy_fd_in_redir_node(t_s_op *redir_node, int fd)
 
 	if (fd == -1)
 	{
+		ft_fprintf(2, "\033[34mheredoc\033[0m\n");
 		nwrite = write(redir_node->pipefd[1], redir_node->heredoc_str, \
 			redir_node->heredoc_len);
 		our_free(redir_node->heredoc_str);

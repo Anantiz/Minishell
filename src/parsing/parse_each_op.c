@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:43:37 by lkary-po          #+#    #+#             */
-/*   Updated: 2024/02/08 09:11:31 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/08 10:56:24 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,11 +33,6 @@ t_s_token	*parse_addor(char **token_list, int token_count, t_s_token *parent_nod
 	t_s_token   *node;
 
 	op_place = find_operator_addor(token_list, token_count);
-	// if (op_place == -1)
-	// {
-	// 	node = parse_pipeline(token_list, token_count, parent_node);
-	// 	return (node);
-	// }
 	node = scan_token((token_list + op_place));
 	if (!node)
 		return (NULL);
@@ -53,11 +48,6 @@ t_s_token   *parse_pipeline(char **token_list, int token_count, t_s_token *paren
 	t_s_token	*node;
 
 	op_place = find_pipe_op(token_list, token_count);
-	// if (op_place == -1)
-	// {
-	// 	node = parse_redir_out(token_list, token_count, parent_node);
-	// 	return (node);
-	// }
 	node = scan_token((token_list + op_place));
 	if (!node)
 		return (NULL);
@@ -74,11 +64,6 @@ t_s_token	*parse_redir_out(char **token_list, int token_count, t_s_token *parent
 	char		**new_token_left;
 
 	op_place = find_redir_out(token_list, token_count);
-	// if (op_place == -1)
-	// {
-	// 	node = parse_redir_in(token_list, token_count, parent_node);
-	// 	return (node);
-	// }
 	new_token_left = new_list_token_redir(token_list, op_place);
 	node = scan_token((token_list + op_place));
 	if (!node)
@@ -96,11 +81,6 @@ t_s_token	*parse_redir_in(char **token_list, int token_count, t_s_token *parent_
 	char		**new_token_left;
 
 	op_place = find_redir_in(token_list, token_count);
-	// if (op_place == -1)
-	// {
-	// 	node = parse_cmd(token_list, token_count, parent_node);
-	// 	return (node);
-	// }
 	node = scan_token((token_list + op_place));
 	if (!node)
 		return (NULL);

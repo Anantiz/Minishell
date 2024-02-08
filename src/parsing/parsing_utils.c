@@ -6,12 +6,13 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:41:29 by loris             #+#    #+#             */
-/*   Updated: 2024/02/08 09:10:15 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/08 10:48:59 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+/* Advance until an op is found, then trim the trailing white spaces */
 int	ft_cmdlen(char	*cmd)
 {
 	int		i;
@@ -20,7 +21,7 @@ int	ft_cmdlen(char	*cmd)
 	while (ft_is_op(cmd[i]) == false && cmd[i])
 		i++;
 	i--;
-	while (ft_is_sep(cmd[i]) == true)
+	while (i > -1 && ft_is_sep(cmd[i]) == true)
 		i--;
 	return (i + 1);
 }
@@ -31,7 +32,8 @@ char	*get_cmd(char *line, int *i)
 	char	*ret;
 
 	len_cmd = ft_cmdlen(line);
-	ret  = ft_substr(line, 0, len_cmd);
+	ret = ft_substr(line, 0, len_cmd);
+	ft_fprintf(2, "\033[34mcmd = %s\033[0m\n", ret);
 	*i += len_cmd;
 	return (ret);
 }

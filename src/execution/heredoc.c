@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 12:11:03 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/31 14:31:31 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/08 11:42:17 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ static char	*get_heredoc_str(size_t *len, char *eof)
 	nread = -1;
 	while (nread)
 	{
+		ft_printf("\033[93m☭ >\033[0m ");
 		line = get_next_line(STDIN_FILENO, 0);
 		nread = ft_strlen(line);
 		if (nread)
@@ -49,16 +50,22 @@ static char	*get_heredoc_str(size_t *len, char *eof)
 		}
 	}
 	get_next_line(STDIN_FILENO, 1);
+	ft_fprintf(2, "HEREDOC DONE\n");
 	return (ret);
 }
 
 void	our_heredoc(t_s_token *redir_node)
 {
 	t_s_op	*redir_op;
+	char	*eof;
 
+	if (redir_node->right)
+		eof = redir_node->data.file.file_path;
+	else
+		eof = ft_strdup("\n");
 	redir_op = &redir_node->data.op;
 	redir_op->heredoc_len = 0;
-	redir_op->heredoc_str = get_heredoc_str(&redir_op->heredoc_len, \
-	redir_op->eof);
+	redir_op->heredoc_str = get_heredoc_str(&redir_op->heredoc_len, eof);
+	our_free(eof);
 }
 

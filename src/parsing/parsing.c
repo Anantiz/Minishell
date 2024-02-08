@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/02/08 09:18:35 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/08 10:58:14 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ void	print_token_list(char **tk_list, int tk_count)
 	int i;
 
 	i = 0;
-	ft_fprintf(2, "Token list: %d\n", tk_count);
+	ft_fprintf(2, "\033[34mToken list: %d\033[0m\n", tk_count);
 	while (i < tk_count)
 	{
-		ft_fprintf(2, "Token %d: %s\n", i, tk_list[i]);
+		ft_fprintf(2, "\033[34mToken %d: %s\033[0m\n", i, tk_list[i]);
 		i++;
 	}
 	write(2, ".\n", 2);

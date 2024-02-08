@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 08:20:13 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/08 09:15:58 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/08 11:06:02 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,13 +31,14 @@ typedef int			(*tk_op_finding)(char **, int);
 t_s_token	*parse_expression_clean(char **token_list, int token_count, \
 t_s_token *parent_node)
 {
-	static const tk_parsing op_parsing[] = {parse_addor, parse_pipeline, \
-	parse_redir_in, parse_redir_out, parse_cmd};
+	static const tk_parsing op_parsing[] = {parse_addor, parse_redir_in, \
+	parse_pipeline, parse_redir_out, parse_cmd};
 	static const tk_op_finding op_find[] = {find_operator_addor, find_redir_in, \
 	find_pipe_op, find_redir_out};
 	int						op_place;
 	int						i;
 
+	ft_fprintf(2, "\033[33mParse_expression len=%d: %s\033[0m\n",token_count, *token_list);
 	i = 0;
 	while (i < 4)
 	{
@@ -46,6 +47,6 @@ t_s_token *parent_node)
 			break ;
 		i++;
 	}
-	ft_fprintf(2, "Token found: %d\n", i);
+	ft_fprintf(2, "\033[33mParse_expression op_place=%d\033[0m\n", op_place);
 	return (op_parsing[i](token_list, token_count, parent_node));
 }

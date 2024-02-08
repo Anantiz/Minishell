@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/08 08:38:00 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/08 10:59:44 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ void		del_tree(t_shell_data *shell_data);
 
 /* PARSING */
 
-int			ft_countword(char *line);
+int			ft_count_token(char *line);
 char		**ft_strtok(char *line);
 t_s_token	*scan_token(char **token);
 void		scan_tk_str_cmd(char *token_str, t_s_token *token);
