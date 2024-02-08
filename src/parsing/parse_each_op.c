@@ -6,7 +6,7 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:43:37 by lkary-po          #+#    #+#             */
-/*   Updated: 2024/02/08 11:55:16 by loris            ###   ########.fr       */
+/*   Updated: 2024/02/08 11:57:50 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,8 @@ t_s_token   *parse_cmd(char **token_list, int token_count, t_s_token *parent_nod
 	else
 	{
 		node = scan_token(token_list);
+		if (!node)
+			return (NULL);
 		node->parent = parent_node;
 		node->right = NULL;
 		node->left = NULL;

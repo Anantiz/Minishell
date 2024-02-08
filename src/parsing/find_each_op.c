@@ -6,7 +6,7 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:42:11 by lkary-po          #+#    #+#             */
-/*   Updated: 2024/02/08 11:51:50 by loris            ###   ########.fr       */
+/*   Updated: 2024/02/08 11:56:58 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ int find_redir_out(char **token_list, int token_count)
 
 	i = -1;
 	parenthesis_count = 0;
-	while(++i < num_token)
+	while(++i < token_count)
 	{
 		if (ft_is_o_parenthesis(token_list[i]))
 			parenthesis_count++;
