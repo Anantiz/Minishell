@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 12:11:03 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/08 11:42:17 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/08 11:52:44 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,15 +57,16 @@ static char	*get_heredoc_str(size_t *len, char *eof)
 void	our_heredoc(t_s_token *redir_node)
 {
 	t_s_op	*redir_op;
-	char	*eof;
 
-	if (redir_node->right)
-		eof = redir_node->data.file.file_path;
-	else
-		eof = ft_strdup("\n");
-	redir_op = &redir_node->data.op;
 	redir_op->heredoc_len = 0;
-	redir_op->heredoc_str = get_heredoc_str(&redir_op->heredoc_len, eof);
-	our_free(eof);
+	if (!redir_node->right)
+	{
+		redir_op->heredoc_str = ft_strdup("");
+		ft_fprintf(2, "%s syntax error near unexpected token `newline'\n", \
+		SHELL_NAME);
+		return ;
+	}
+	redir_op = &redir_node->data.op;
+	redir_op->heredoc_str = get_heredoc_str(&redir_op->heredoc_len, redir_node->data.file.file_path);
 }
 
