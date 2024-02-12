@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 13:46:46 by loris             #+#    #+#             */
-/*   Updated: 2024/02/12 12:20:51 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/12 12:35:54 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,6 +124,7 @@ char    **new_list_token_redir(char **token_list, int op_place)
 	{
 		ft_fprintf(2, "\033[94mWhat tha fuck\n\t[0]%s\n\t[1]%s\033[0m\n", token_list[op_place], token_list[op_place + 1]);
 		ft_fprintf(2, "%s: syntax error near unexpected token `newline'", SHELL_NAME);
+		dontdoit(1);
 		return (NULL);
 	}
 	if (split_cmd)

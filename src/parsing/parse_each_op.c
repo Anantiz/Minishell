@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_each_op.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:43:37 by lkary-po          #+#    #+#             */
-/*   Updated: 2024/02/12 11:42:31 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/12 12:34:21 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,6 +95,8 @@ t_s_token   *parse_cmd(char **token_list, int token_count, t_s_token *parent_nod
 {
 	t_s_token   *node;
 
+	if (!token_list)
+		return (NULL);
 	if (ft_is_parenthesis(token_list))
 	{
 		del_parenthesis(token_list, token_count);
@@ -141,3 +143,4 @@ t_s_token   *parse_cmd(char **token_list, int token_count, t_s_token *parent_nod
 // 		return (true);
 // 	return (false);
 // }
+

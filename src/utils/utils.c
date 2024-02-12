@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:16:34 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/06 19:23:45 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/12 12:35:40 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,24 @@ bool	is_logop(t_s_token *node)
 		return (false);
 	return (node->token_type == TK_OP && (node->data.op.type == T_AND
 			|| node->data.op.type == T_OR));
+}
+
+/*
+	if (state == 1)
+		x = false;
+	else if (state == 2)
+		x = true;
+	else if (state == 3)
+		return (x);*/
+bool	dontdoit(int state)
+{
+	static bool	x = true;
+
+	if (state == 1)
+		x = false;
+	else if (state == 2)
+		x = true;
+	else if (state == 3)
+		return (x);
+	return (x);
 }

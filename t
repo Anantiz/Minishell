@@ -1,4 +1,3 @@
-?
 includes
 libft
 ls
@@ -7,5 +6,6 @@ minishell
 readline.supp
 README.md
 src
+t
 test
 tst

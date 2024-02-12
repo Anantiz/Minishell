@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:28:45 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/08 18:43:50 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/12 12:43:49 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static int	open_file(t_s_file *file, int flags)
 	file->fd = open(file->file_path, flags, 0644);
 	if (file->fd == -1)
 	{
-		perror("open_file(): Open error");
+		ft_fprintf(2, "%s %s", SHELL_NAME, strerror(errno));
 		return (FAILURE);
 	}
 	return (SUCCESS);
@@ -67,11 +67,11 @@ static int	copy_fd_in_redir_node(t_s_op *redir_node, int fd)
 	else if (redir_node->type == REDIR_IN)	// Reads from file, so fd becomes pipefd[0]
 	{
 		redir_node->pipefd[0] = fd;
-		redir_node->pipefd[1] = STDOUT_FILENO;
+		redir_node->pipefd[1] = PIPE_CLOSED;
 	}
 	else									// Write to file, so fd becomes pipefd[1]
 	{
-		redir_node->pipefd[0] = STDIN_FILENO;
+		redir_node->pipefd[0] = PIPE_CLOSED;
 		redir_node->pipefd[1] = fd;
 	}
 	return (SUCCESS);
@@ -84,7 +84,6 @@ static int	copy_fd_in_redir_node(t_s_op *redir_node, int fd)
 		open the file with redir flags
 		fd == -1 -> FAILURE
 		fd != -1 -> SUCCESS
-
 */
 int	handle_file_bs(t_s_token *file_node)
 {
