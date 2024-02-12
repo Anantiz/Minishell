@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fuck_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 13:46:46 by loris             #+#    #+#             */
-/*   Updated: 2024/02/08 14:49:03 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/12 11:42:53 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,6 +104,7 @@ char    **new_list_token_redir(char **token_list, int op_place)
 	char	**array;
 	int		i;
 
+	ft_fprintf(2, "\033[94mOP_place= %d\n\033[0m", op_place);
 	print_token_list(token_list, ft_tablen(token_list));
 	i = 0;
 	array = our_malloc((op_place + 1) * sizeof(char *));

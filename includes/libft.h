@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 15:44:18 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/07 10:52:35 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/12 11:21:28 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,7 @@ char		*ft_ultohex_up(unsigned long n);
 long long	ft_atoll_safe(char *s, long long max_value, int *valid);
 
 long long	ft_abs_ll(long long n);
+int			ft_max(int a, int b);
 long long	ft_max_ll(long long a, long long b);
 
 /* MEMORY */

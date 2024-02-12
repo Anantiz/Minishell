@@ -52,3 +52,6 @@ BUG:
 
 	echo "text" > file1 > file2
 		Even tho you only write to file2, you will create both
+
+BUGGY INPUT:
+	&+$

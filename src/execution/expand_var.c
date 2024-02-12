@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:10:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/05 18:42:26 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/12 11:39:35 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,17 @@ static void	replace_here(char **str, char *var_str, int cut, int key_len)
 	int		i;
 
 	og_str = *str;
-	new_str = our_malloc((ft_strlen(og_str) + ft_strlen(var_str) + 2) * \
+	new_str = ft_calloc((ft_strlen(og_str) + ft_strlen(var_str) + 2), \
 		sizeof(char));
 	i = 0;
 	while (i < cut)
 		new_str[i++] = *og_str++;
-	while (key_len-- > -1)
+	while (*og_str && key_len-- > -1)
 		og_str++;
 	while (*var_str)
-	{
-		new_str[i++] = *var_str;
-		var_str++;
-	}
+		new_str[i++] = *var_str++;
 	while (*og_str)
 		new_str[i++] = *og_str++;
-	new_str[i] = '\0';
 	ft_replace_str(str, new_str);
 }
 
@@ -93,7 +89,7 @@ static void	expand_this_str(t_shell_data *shell_data, char **str)
 			if (var_str)
 			{
 				replace_here(str, var_str, i , key_len);
-				i += ft_strlen(var_str) - key_len;
+				i += ft_max(ft_strlen(var_str) - key_len, -1);
 			}
 			our_free(var_str);
 		}
@@ -120,7 +116,9 @@ void	expand_variables(t_shell_data *shell_data, t_s_token *node)
 	{
 		while (node->data.cmd.args[i])
 		{
-			if (node->data.cmd.single[i] == false)
+			ft_fprintf(2, "ARG[%d]: %s.\n", i, node->data.cmd.args[i]);
+			if (node->data.cmd.single[i] == false \
+			&& ft_strcmp(node->data.cmd.args[i], "$"))
 				expand_this_str(shell_data, &node->data.cmd.args[i]);
 			i++;
 		}
