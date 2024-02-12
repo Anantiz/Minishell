@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_each_op.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:43:37 by lkary-po          #+#    #+#             */
-/*   Updated: 2024/02/10 16:10:19 by loris            ###   ########.fr       */
+/*   Updated: 2024/02/12 11:42:31 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,6 @@ t_s_token	*parse_redir_out(char **token_list, int token_count, t_s_token *parent
 
 	op_place = find_redir_out(token_list, token_count);
 	new_token_left = new_list_token_redir(token_list, op_place);
-	ft_fprintf(1, "%s\n", *new_token_left);
 	node = scan_token((token_list + op_place));
 	if (!node)
 		return (NULL);
@@ -86,8 +85,6 @@ t_s_token	*parse_redir_in(char **token_list, int token_count, t_s_token *parent_
 	if (!node)
 		return (NULL);
 	new_token_left = new_list_token_redir(token_list, op_place);
-	ft_fprintf(1, "%s\n", *(token_list));
-	ft_fprintf(1, "%s\n", *(new_token_left));
 	node->parent = parent_node;
 	node->left = parse_expression(new_token_left, ft_tablen(new_token_left), node);
 	node->right = parse_expression(token_list + op_place + 1, token_count - op_place - 1, node);

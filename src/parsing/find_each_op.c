@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   find_each_op.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:42:11 by lkary-po          #+#    #+#             */
-/*   Updated: 2024/02/12 10:53:58 by loris            ###   ########.fr       */
+/*   Updated: 2024/02/12 11:43:06 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 bool    ft_is_o_parenthesis(char *token)
 {
-	ft_fprintf(1, "token find op = %s\n", token);
 	if (!token || !(*token))
 		return (false);
 	if (ft_strncmp(token, "(", 1) == 0)
@@ -38,6 +37,7 @@ int find_operator_addor(char **token_list, int token_count)
 	parenthesis_count = 0;
 	while(++i < token_count)
 	{
+		ft_fprintf(1, "function called = %d\n", i);
 		if (ft_is_o_parenthesis(token_list[i]))
 			parenthesis_count++;
 		if (ft_is_c_parenthesis(token_list[i]))
