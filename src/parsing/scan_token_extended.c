@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 12:11:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/08 14:50:35 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/12 12:13:51 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,11 @@ void	scan_tk_str_cmd(char *token_str, t_s_token *token)
 
 	token->token_type = TK_CMD;
 	args = ft_split(token_str, ' ');
+	ft_fprintf(2, "\033[94mscan_tk_str_cmd:\n\tARGS:\033[0m\n");
+	for (int x = 0; args[x];x++)
+		ft_fprintf(2, "\t\033[94m[%d]%s\n\033[0m", x, args[x]);
 	token->data.cmd.single = our_malloc(ft_strslen(args) * sizeof(bool));
+	ft_fprintf(2, "\t\033[94m.\033[0m\n");
 	i = 0;
 	while (args[i])
 	{
@@ -45,7 +49,6 @@ void	scan_tk_str_cmd(char *token_str, t_s_token *token)
 		i++;
 	}
 	token->data.cmd.args = args;
-	our_free(token_str);
 }
 
 // Handle quotes in file paths
@@ -65,5 +68,4 @@ void	scan_tk_str_file(char *token_str, t_s_token *token)
 		strdup_dbl_q(&token->data.file.file_path, &token->data.file.single);
 	else
 		token->data.file.single = false;
-	our_free(token_str);
 }

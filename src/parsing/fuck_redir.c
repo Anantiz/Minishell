@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fuck_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 13:46:46 by loris             #+#    #+#             */
-/*   Updated: 2024/02/12 11:45:29 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/12 12:20:51 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,15 +87,10 @@ char	*custom_join(char *s1, char *s2)
 			ret[i] = s1[i];
 			i++;
 		}
-		ret[i] = ' ';
-		i++;
+		ret[i++] = ' ';
 	}
 	while (s2[j])
-	{
-		ret[i] = s2[j];
-		j++;
-		i++;
-	}
+		ret[i++] = s2[j++];
 	ret[i] = '\0';
 	return (ret);
 }
@@ -112,20 +107,29 @@ char    **new_list_token_redir(char **token_list, int op_place)
 	int		i;
 
 	// print_token_list(token_list, ft_tablen(token_list));
-	array = our_malloc((op_place + 2) * sizeof(char *));
-	array[op_place + 1] = NULL;
+	ft_fprintf(2,"\033[94mop_place= %d\033[0m\n", op_place);
+	split_cmd = NULL;
+	array = ft_calloc((op_place + 2) , sizeof(char *));
 	i = 0;
-	while (i < op_place)
+	while (i < op_place && token_list[i])
 	{
 		array[i] = token_list[i];
 		i++;
 	}
 	if (i)
 		i--;
-	split_cmd = ft_split(token_list[op_place + 1], ' ');
+	if (token_list[op_place] && token_list[op_place + 1])
+		split_cmd = ft_split(token_list[op_place + 1], ' ');
+	else
+	{
+		ft_fprintf(2, "\033[94mWhat tha fuck\n\t[0]%s\n\t[1]%s\033[0m\n", token_list[op_place], token_list[op_place + 1]);
+		ft_fprintf(2, "%s: syntax error near unexpected token `newline'", SHELL_NAME);
+		return (NULL);
+	}
+	if (split_cmd)
+		ft_fprintf(2, "\033[94msplit_cmd[0]: %s\nsplit_cmd[1]: %s\033[0m", split_cmd[0], split_cmd[1]);
 	if (ft_tablen(split_cmd) == 2 && scan_token((token_list + op_place + 1))->token_type != TK_OP)
-		array[i] = custom_join(array[i], split_cmd[1]);
-	// print_token_list(array, ft_tablen(array));
+		ft_replace_str(&array[i], custom_join(array[i], split_cmd[1]));// frees the old one, it's cleaner
 	return (array);
 }
 
