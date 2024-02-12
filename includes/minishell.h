@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/12 12:35:25 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/12 18:50:13 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,6 +147,7 @@ void		expand_wildcard(t_s_token *node);
 int			pre_init(t_shell_data *shell_data);
 void		our_heredoc(t_s_token *redir_node);
 void		find_redir_nodes(t_s_token *cmd_node);
+t_s_token	*handle_redir_subtree(t_s_token *node);
 int			open_pipes(t_s_token *node);
 int			handle_file_bs(t_s_token *node);
 void		close_all_pipes(t_s_token *root);
@@ -181,6 +182,7 @@ int			our_export(t_shell_data *shell_data, t_s_token *node);
 /* UTILS */
 
 bool		dontdoit(int sate);
+bool		isbasicredir(t_s_token *node);
 t_s_token	*get_next_node(t_s_token *node);
 t_s_token	*get_next_node_no_op(t_s_token *node);
 t_s_token	*get_next_logical_op(t_s_token *node);
