@@ -6,7 +6,7 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 11:46:14 by loris             #+#    #+#             */
-/*   Updated: 2024/02/10 16:17:15 by loris            ###   ########.fr       */
+/*   Updated: 2024/02/12 10:55:59 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,14 @@
 
 char	**cmd_arg(char **token_list)
 {
-	int		i;
-	char	**arg;
-	char	**cmd;
+    int		i;
+    char	**arg;
+    char	**cmd;
     char    **after_redir;
 
     after_redir = ft_split(*(token_list + 1), ' ');
     // printf("after redir  = %s  ||  ", *(after_redir + 1));
-	cmd = ft_split(*(token_list - 1), ' ');
+    cmd = ft_split(*(token_list - 1), ' ');
     // printf("cmd  = %s  ", *cmd);
     after_redir++;
     i = ft_tablen(after_redir) + ft_tablen(cmd);
@@ -40,7 +40,7 @@ char	**cmd_arg(char **token_list)
         arg++;
         after_redir++;
     }
-	return (arg - i);
+    return (arg - i);
 }
 
 t_s_token	*node_cmd_redir(char **token_list)
