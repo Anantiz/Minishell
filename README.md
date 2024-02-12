@@ -55,3 +55,6 @@ BUG:
 
 BUGGY INPUT:
 	&+$
+	wgpb'n o;g'pkf
+
+	pwd-> says (NULL)
