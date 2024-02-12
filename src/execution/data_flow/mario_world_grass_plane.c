@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   mario_world.c                                      :+:      :+:    :+:   */
+/*   mario_world_grass_plane.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 15:45:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/12 18:50:13 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/12 20:58:24 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ int	open_pipes(t_s_token *node)
 			return (FAILURE);
 		}
 		if (node->data.op.type == REDIR_HEREDOC)
-			our_heredoc(node);
+			if (our_heredoc(node))
+				return (FAILURE);
 		ft_printf("pipefd[0]=%d pipefd[1]=%d\n", node->data.op.pipefd[0], \
 			node->data.op.pipefd[1]);
 	}
@@ -73,7 +74,8 @@ int	init_pipes(t_shell_data *shell_data, t_s_token *node)
 		node->data.op.did_exec = false;
 		if (node->data.op.type >= PIPE && open_pipes(node))
 		{
-			ft_fprintf(2, "Open Pipe error :%s\n", strerror(errno));
+			if (errno)
+				ft_fprintf(2, "Open Pipe error :%s\n", strerror(errno));
 			close_all_pipes(shell_data->root);
 			return (FAILURE);
 		}
@@ -105,7 +107,11 @@ int	pre_init(t_shell_data *shell_data)
 		if (init_pipes(shell_data, node))
 			return (FAILURE);
 		if (isbasicredir(node))
+		{
+			ft_fprintf(2, "\033[31mIN NODE  = %p\033[0m\n", node);
 			node = handle_redir_subtree(node);
+			ft_fprintf(2, "\033[31mOUT NODE = %p\033[0m\n", node);
+		}
 		else
 			node = get_next_node(node);
 	}

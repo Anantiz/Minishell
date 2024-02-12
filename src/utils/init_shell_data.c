@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:04:16 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/03 14:17:43 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/12 20:23:53 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ void	init_shell_data(t_shell_data *shell_data, char **envp, char *argv[])
 	shell_data->last_command = NULL;
 	shell_data->last_pid = 0;
 	shell_data->last_wstatus = 0;
+	get_shell_data_ptr(shell_data);
 }
 
 void	cleanup_shell_data(t_shell_data *shell_data)
