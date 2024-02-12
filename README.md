@@ -68,7 +68,7 @@ BUGGY INPUT:
 
 	&+$ 	wtf ?
 
-cmd > f1 > f2
+cmd > f1 > f2 done
 	Parsing:
 		Don't fucking crash pls
 	Exec:
@@ -76,11 +76,12 @@ cmd > f1 > f2
 
 Pre-parsing:
 	Look for invalid input
-		-Unclosed quote
-		-Leading and Trailing pipes
-		-Trailing redir
-		-Uneven '&' or "&&&&" and if somehow there is "|||||" , do something with it
+		-Unclosed quote       done
+		-Leading and Trailing pipes		done
+		-Trailing redir					done
+		-Uneven '&' or "&&&&" and if somehow there is "|||||" , do something with it done
 Parsing:
+	-remake a split (ls          -l) 'ls' '            -l'
 	-Genreally, fix, uninitialized values.
 	-Fix :
 		2 redir de suite
