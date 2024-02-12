@@ -6,7 +6,7 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 13:46:46 by loris             #+#    #+#             */
-/*   Updated: 2024/02/08 11:53:05 by loris            ###   ########.fr       */
+/*   Updated: 2024/02/12 10:12:28 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,6 @@ char    **add_back_array(char **array, char *str)
 	char    **new_array;
 
 	len = ft_tablen(array);
-	printf("len = %d\n", len);
 	new_array = our_malloc(sizeof(char*) * (len + 2));
 	while (*array)
 	{
@@ -72,22 +71,33 @@ char	*custom_join(char *s1, char *s2)
 	char	*ret;
 	int		i;
 	int		j;
-
+	int		len_s1;
+	
 	j = 0;
 	i = 0;
-	ret = our_malloc((ft_strlen(s1) + ft_strlen(s2) + 2) *  sizeof(char));
-	while (s1[i])
+	if (!s1)
+		len_s1 = 0;
+	else
+		len_s1 = ft_strlen(s1);
+	ret = our_malloc((len_s1 + ft_strlen(s2) + 2) *  sizeof(char));
+	if (s1)
 	{
-		ret[i] = s1[i];
+		while (s1[i])
+		{
+			ret[i] = s1[i];
+			i++;
+		}
+		ret[i] = ' ';
 		i++;
 	}
-	ret[i] = ' ';
-	i++;
-	while (s2[j])
+	else
 	{
-		ret[i] = s2[j];
-		j++;
-		i++;
+		while (s2[j])
+		{
+			ret[i] = s2[j];
+			j++;
+			i++;
+		}
 	}
 	ret[i] = '\0';
 	return (ret);
@@ -104,18 +114,21 @@ char    **new_list_token_redir(char **token_list, int op_place)
 	char	**array;
 	int		i;
 
-	print_token_list(token_list, ft_tablen(token_list));
+	// print_token_list(token_list, ft_tablen(token_list));
+	array = our_malloc((op_place + 2) * sizeof(char *));
+	array[op_place + 1] = NULL;
+	if (op_place == 0)
+		array[0] = NULL;
 	i = 0;
-	array = our_malloc((op_place + 1) * sizeof(char *));
-	array[op_place] = NULL;
 	while (i < op_place)
 	{
 		array[i] = token_list[i];
 		i++;
 	}
 	split_cmd = ft_split(token_list[op_place + 1], ' ');
-	if (ft_tablen(split_cmd) == 2 && scan_token((token_list + op_place + 2))->token_type != TK_OP)
-		array[op_place - 1] = custom_join(array[op_place - 1], split_cmd[1]);
+	if (ft_tablen(split_cmd) == 2 && scan_token((token_list + op_place + 1))->token_type != TK_OP)
+		array[op_place] = custom_join(array[op_place], split_cmd[1]);
+	// print_token_list(array, ft_tablen(array));
 	return (array);
 }
 

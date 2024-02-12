@@ -6,7 +6,7 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/02/08 11:55:48 by loris            ###   ########.fr       */
+/*   Updated: 2024/02/10 17:06:11 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,4 +50,3 @@ int	parse_line(t_shell_data *shell_data, char *line)
 	ft_fprintf(2, "\n\n");
 	return (SUCCESS);
 }
-

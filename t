@@ -1,0 +1,10 @@
+includes
+libft
+Makefile
+minishell
+readline.supp
+README.md
+src
+t
+test
+tst

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   clean_op_parsing.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
+/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/08 08:20:13 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/08 11:06:02 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/10 16:06:25 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ t_s_token *parent_node)
 	int						op_place;
 	int						i;
 
-	ft_fprintf(2, "\033[33mParse_expression len=%d: %s\033[0m\n",token_count, *token_list);
+	// ft_fprintf(2, "\033[33mParse_expression len=%d: %s\033[0m\n",token_count, *token_list);
 	i = 0;
 	while (i < 4)
 	{
@@ -47,6 +47,6 @@ t_s_token *parent_node)
 			break ;
 		i++;
 	}
-	ft_fprintf(2, "\033[33mParse_expression op_place=%d\033[0m\n", op_place);
+	// ft_fprintf(2, "\033[33mParse_expression op_place=%d\033[0m\n", op_place);
 	return (op_parsing[i](token_list, token_count, parent_node));
 }

@@ -6,7 +6,7 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/07 16:32:02 by loris             #+#    #+#             */
-/*   Updated: 2024/02/08 11:18:38 by loris            ###   ########.fr       */
+/*   Updated: 2024/02/10 17:05:33 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,11 +39,11 @@ void	**del_parenthesis(char **token_list, int op_place)
 // int	main()
 // {
 // 	t_s_token *head;
-// 	char *token_list[] = {"(", "ls", ")", "&&", "ls"};
+// 	char *token_list[] = {"<", "tt t"};
 // 	char **array;
 
 // 	array = token_list;
 // 	int i = 0;
 // 	head = parse_expression(array, ft_tablen(token_list), NULL);
-// 	printf("%s\n", head->left->data.cmd.args[0]);
+// 	ft_fprintf(1, "kk %s\n", head->left->data.cmd.args[0]);
 // }
