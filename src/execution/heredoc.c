@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 12:11:03 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/08 14:26:38 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/12 11:03:53 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ static char	*get_heredoc_str(size_t *len, char *eof)
 	char		*line;
 	char		*ret;
 
+	line = NULL;
 	get_next_line(STDIN_FILENO, 1);
 	ret = ft_strdup("");
 	nread = -1;
