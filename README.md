@@ -58,3 +58,38 @@ BUGGY INPUT:
 	wgpb'n o;g'pkf
 
 	pwd-> says (NULL)
+
+
+# ######################################################################
+# ######################################################################
+# ######################################################################
+
+# THE SUPER RECAP
+
+	&+$ 	wtf ?
+
+cmd > f1 > f2
+	Parsing:
+		Don't fucking crash pls
+	Exec:
+		open them all
+
+Pre-parsing:
+	Look for invalid input
+		-Unclosed quote
+		-Leading and Trailing pipes
+		-Trailing redir
+		-Uneven '&' or "&&&&" and if somehow there is "|||||" , do something with it
+Parsing:
+	-Genreally, fix, uninitialized values.
+	-Fix :
+		2 redir de suite
+		redir and empty + pipe marche pas
+Exec:
+	-Handle erros better (cleaner messages)
+	-Heredoc, Expand variables.
+
+
+Global:
+	Clean the code
+	Comprendre TOUT le code, pour etre pres a corriger direct
