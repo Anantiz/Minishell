@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/08 14:58:01 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/08 18:32:16 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@
 # define SUCCESS 0
 # define PARSING_ERROR 69
 # define EXECTION_ERROR 420
+# define PIPE_CLOSED -669
 
 # define PIPE_ERROR 1
 # define CMD_ERROR_EXEC 2

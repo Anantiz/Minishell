@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:44:08 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/03 13:38:20 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/08 18:21:26 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 static int	cmd_redir_streams_2(t_s_cmd *cmd)
 {
-	if (cmd->redir_nodes[0]->data.op.pipefd[1] != -66)
+	if (cmd->redir_nodes[0]->data.op.pipefd[1] != PIPE_CLOSED)
 	{
 		if (close(cmd->redir_nodes[0]->data.op.pipefd[1]))
-			perror("Redirection: close() error");
-		cmd->redir_nodes[0]->data.op.pipefd[1] = -66;
+			perror("Redirecting STD-IN, close() error");
+		cmd->redir_nodes[0]->data.op.pipefd[1] = PIPE_CLOSED;
 	}
 	if (dup2(cmd->redir_nodes[0]->data.op.pipefd[0], STDIN_FILENO) == -1)
 	{
@@ -26,8 +26,8 @@ static int	cmd_redir_streams_2(t_s_cmd *cmd)
 		return (FAILURE);
 	}
 	if (close(cmd->redir_nodes[0]->data.op.pipefd[0]))
-		perror("Redirection: close() error");
-	cmd->redir_nodes[0]->data.op.pipefd[0] = -66;
+		perror("Redirecting STD-IN, close() error");
+	cmd->redir_nodes[0]->data.op.pipefd[0] = PIPE_CLOSED;
 	return (SUCCESS);
 }
 
@@ -54,8 +54,8 @@ int	cmd_redir_streams(t_s_token *cmd_node)
 			return (FAILURE);
 		}
 		if (close(cmd->redir_nodes[1]->data.op.pipefd[1]))
-			perror("Redirection: close() error");
-		cmd->redir_nodes[1]->data.op.pipefd[1] = -66;
+			perror("Redirecting STD-OUT, close() error");
+		cmd->redir_nodes[1]->data.op.pipefd[1] = PIPE_CLOSED;
 	}
 	if (ret == FAILURE)
 		return (FAILURE);

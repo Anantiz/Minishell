@@ -1,23 +1,3 @@
-ANTOINE:
-
-Dereferencing '$' without issues
-Expending a variable that does not exist should return an empty string
-
-`export` need to sort in alphabetical order while env just prints in chronological order
-Fix export such that PATH= clears the variable but PATH don't, also check again abou using variables direclty as export args
-
-BUG:
-
-TO DO:
-
-	Environment variables:
-		`_` -> Exist but I never update it, idk if it's required by subject ...
-
-	Have a environment variable that you keep updated if it exist
-	but also your `our_oldpwd` that you always keep track of (and that you init with OLDPWD)
-	the environment variable has priority over `our_oldpwd`
-
-
 TEST-----------------------------
 
 	`env MY_VAR`
@@ -57,10 +37,6 @@ TO DO:
 	Implement a functioning logic to the get_next_tree() concept
 
 
-Giga BUG, read line takes too much drug
-
-
-
 BUG:
 	If a file fails to open, it kills the whole command line and not just the one function
 
@@ -68,4 +44,11 @@ BUG:
 08/02/24
 BUG:
 	cat > file1 > file2
-	HEredoc ferme pas
+
+	FIXED :HEredoc ferme pas
+
+
+	IF I have time
+
+	echo "text" > file1 > file2
+		Even tho you only write to file2, you will create both
