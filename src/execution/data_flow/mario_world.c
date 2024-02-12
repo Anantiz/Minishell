@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 15:45:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/07 10:58:05 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/12 18:50:13 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,16 +78,6 @@ int	init_pipes(t_shell_data *shell_data, t_s_token *node)
 			return (FAILURE);
 		}
 	}
-	else if (node->token_type == TK_FILE)
-	{
-		find_redir_nodes(node);
-		if (handle_file_bs(node))
-		{
-			ft_fprintf(2, "Open files error\n");
-			close_all_pipes(shell_data->root);
-			return (FAILURE);
-		}
-	}
 	else if (node->token_type == TK_CMD)
 		find_redir_nodes(node);
 	return (SUCCESS);
@@ -111,12 +101,13 @@ int	pre_init(t_shell_data *shell_data)
 	while (node)
 	{
 		if (node->token_type == TK_CMD)
-		{
 			init_cmd_token(shell_data, node);
-		}
 		if (init_pipes(shell_data, node))
 			return (FAILURE);
-		node = get_next_node(node);
+		if (isbasicredir(node))
+			node = handle_redir_subtree(node);
+		else
+			node = get_next_node(node);
 	}
 	return (SUCCESS);
 }
