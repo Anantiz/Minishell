@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:11:05 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/12 18:50:13 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/12 19:08:46 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,15 @@ t_s_token	*get_next_node_no_op(t_s_token *node)
 */
 t_s_token	*handle_redir_subtree(t_s_token *node)
 {
+	t_s_token	*first_redir;
+
+	first_redir = node;
 	while (node)
 	{
 		if (node->token_type == TK_FILE)
 		{
-			find_redir_nodes(node);
+			node->data.file.redir_nodes[0] = first_redir;
+			node->data.file.redir_nodes[0] = NULL;
 			handle_file_bs(node);
 			if (!(!node->right && !node->left && node->parent && node \
 			== node->parent->right))
