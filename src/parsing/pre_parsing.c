@@ -6,7 +6,7 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:06:01 by loris             #+#    #+#             */
-/*   Updated: 2024/02/12 18:50:46 by loris            ###   ########.fr       */
+/*   Updated: 2024/02/12 19:00:58 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,23 @@
 bool    pre_parsing(char **token_list)
 {
 	int i;
+	int	count;
 
+	count = 0;
 	i = 0;
 	while (token_list[i])
 	{
-		
+		if (unclosed_quote(token_list[i]))
+			return(false);
+		if (and_or_checker(token_list[i]))
+			return (false);
+		if (ft_strncmp(token_list[i], "(", 1) == 0)
+			count++;
+		if (ft_strncmp(token_list[i], ")", 1) == 0)
+			count--;
 	}
+	if (count)
+		return (false);
 }
 
 bool	function_checker(char *token)
@@ -74,9 +85,9 @@ bool	parenthesis_checker(char **token_list)
 	i = 0;
 	while (token_list[i])
 	{
-		if (ft_strncmp(token_list[i], "(") == 0)
+		if (ft_strncmp(token_list[i], "(", 1) == 0)
 			count++;
-		if (ft_strncmp(token_list[i], ")") == 0)
+		if (ft_strncmp(token_list[i], ")", 1) == 0)
 			count--;
 	}
 	if (count != 0)
@@ -84,28 +95,24 @@ bool	parenthesis_checker(char **token_list)
 	return (true);
 }
 
-bool	and_or_checker(char **token_list)
+bool	and_or_checker(char *token)
 {
 	int	i;
 
 	i = 0;
-	while (token_list[i])
+	if (token[0] == '|')
 	{
-		if (token_list[i][0] == '|')
-		{
-			if (ft_strlen(token_list[i]) != 2)
-				return (false);
-			if (token_list[i][1] != '|')
-				return (false);
-		}
-		if (token_list[i][0] == '&')
-		{
-			if (ft_strlen(token_list[i]) != 2)
-				return (false);
-			if (token_list[i][1] != '&')
-				return (false);
-		}
-		i++;
+		if (ft_strlen(token) != 2)
+			return (false);
+		if (token[1] != '|')
+			return (false);
+	}
+	if (token[0] == '&')
+	{
+		if (ft_strlen(token) != 2)
+			return (false);
+		if (token[1] != '&')
+			return (false);
 	}
 	return (true);
 }
