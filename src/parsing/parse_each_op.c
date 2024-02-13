@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_each_op.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:43:37 by lkary-po          #+#    #+#             */
-/*   Updated: 2024/02/12 12:34:21 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 10:35:06 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,17 @@
 
 */
 
-t_s_token   *parse_expression(char **token_list, int token_count, t_s_token *parent_node)
+t_s_token	*parse_expression(char **token_list, \
+	int token_count, t_s_token *parent_node)
 {
 	return (parse_expression_clean(token_list, token_count, parent_node));
 }
 
-t_s_token	*parse_addor(char **token_list, int token_count, t_s_token *parent_node)
+t_s_token	*parse_addor(char **token_list, \
+	int token_count, t_s_token *parent_node)
 {
-	int         op_place;
-	t_s_token   *node;
+	int			op_place;
+	t_s_token	*node;
 
 	op_place = find_operator_addor(token_list, token_count);
 	node = scan_token((token_list + op_place));
@@ -38,11 +40,13 @@ t_s_token	*parse_addor(char **token_list, int token_count, t_s_token *parent_nod
 		return (NULL);
 	node->parent = parent_node;
 	node->left = parse_expression(token_list, op_place, node);
-	node->right = parse_expression(token_list + op_place + 1, token_count - op_place - 1, node);
+	node->right = parse_expression(token_list + op_place + 1, \
+		token_count - op_place - 1, node);
 	return (node);
 }
 
-t_s_token   *parse_pipeline(char **token_list, int token_count, t_s_token *parent_node)
+t_s_token	*parse_pipeline(char **token_list, \
+	int token_count, t_s_token *parent_node)
 {
 	int			op_place;
 	t_s_token	*node;
@@ -53,14 +57,16 @@ t_s_token   *parse_pipeline(char **token_list, int token_count, t_s_token *paren
 		return (NULL);
 	node->parent = parent_node;
 	node->left = parse_expression(token_list, op_place, node);
-	node->right = parse_expression(token_list + op_place + 1, token_count - op_place - 1, node);
+	node->right = parse_expression(token_list + op_place + 1, \
+		token_count - op_place - 1, node);
 	return (node);
 }
 
-t_s_token	*parse_redir_out(char **token_list, int token_count, t_s_token *parent_node)
+t_s_token	*parse_redir_out(char **token_list, \
+	int token_count, t_s_token *parent_node)
 {
-	int         op_place;
-	t_s_token   *node;
+	int			op_place;
+	t_s_token	*node;
 	char		**new_token_left;
 
 	op_place = find_redir_out(token_list, token_count);
@@ -69,15 +75,18 @@ t_s_token	*parse_redir_out(char **token_list, int token_count, t_s_token *parent
 	if (!node)
 		return (NULL);
 	node->parent = parent_node;
-	node->left = parse_expression(new_token_left, ft_tablen(new_token_left), node);
-	node->right = parse_expression(token_list + op_place + 1, token_count - op_place - 1, node);
+	node->left = parse_expression(new_token_left, \
+		ft_tablen(new_token_left), node);
+	node->right = parse_expression(token_list + op_place + 1, \
+		token_count - op_place - 1, node);
 	return (node);
 }
 
-t_s_token	*parse_redir_in(char **token_list, int token_count, t_s_token *parent_node)
+t_s_token	*parse_redir_in(char **token_list, int token_count, \
+	t_s_token *parent_node)
 {
-	int         op_place;
-	t_s_token   *node;
+	int			op_place;
+	t_s_token	*node;
 	char		**new_token_left;
 
 	op_place = find_redir_in(token_list, token_count);
@@ -86,14 +95,17 @@ t_s_token	*parse_redir_in(char **token_list, int token_count, t_s_token *parent_
 		return (NULL);
 	new_token_left = new_list_token_redir(token_list, op_place);
 	node->parent = parent_node;
-	node->left = parse_expression(new_token_left, ft_tablen(new_token_left), node);
-	node->right = parse_expression(token_list + op_place + 1, token_count - op_place - 1, node);
+	node->left = parse_expression(new_token_left, \
+		ft_tablen(new_token_left), node);
+	node->right = parse_expression(token_list + op_place + 1, \
+		token_count - op_place - 1, node);
 	return (node);
 }
 
-t_s_token   *parse_cmd(char **token_list, int token_count, t_s_token *parent_node)
+t_s_token	*parse_cmd(char **token_list, int token_count, \
+	t_s_token *parent_node)
 {
-	t_s_token   *node;
+	t_s_token	*node;
 
 	if (!token_list)
 		return (NULL);
@@ -113,34 +125,3 @@ t_s_token   *parse_cmd(char **token_list, int token_count, t_s_token *parent_nod
 	}
 	return (node);
 }
-
-// t_s_token	*redir_node_cmd_behind(char **token_list, int num_token, t_s_token *parent_node)
-// {
-// 	t_s_token	*node;
-
-// 	node = scan_token(token_list);
-// 	node->right = scan_token(token_list + 1);
-// 	node->left = node_cmd_redir(token_list);
-// 	node->parent = parent_node;
-// 	return (node);
-// }
-
-
-
-// t_s_token	*redir_node_cmd_after(char **token_list, int num_token, t_s_token *parent_node)
-// {
-// 	t_s_token	*node;
-
-// 	node = scan_token(token_list);
-// 	node->right = scan_token(token_list + 1);
-// 	node->left = scan_token(token_list + 2);
-// 	return (node);
-// }
-
-// bool	is_cmd_behind(char **token_list)
-// {
-// 	if (*(token_list - 1))
-// 		return (true);
-// 	return (false);
-// }
-

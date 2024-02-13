@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokentotree.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/02/12 19:44:28 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 10:44:01 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 static void	scan_tk_str_op(char *token_str, t_s_token *node)
 {
-	// to fix for |||
 	node->token_type = TK_OP;
 	node->data.op.pipefd[0] = -1;
 	node->data.op.pipefd[1] = -1;
@@ -55,9 +54,9 @@ t_e_token_type type)
 *   and create the appropriate node of the tree. This node will next be
 *   used to create the tree
 */
-t_s_token   *scan_token(char **token_strs)
+t_s_token	*scan_token(char **token_strs)
 {
-	t_s_token   *node;
+	t_s_token	*node;
 
 	if (!token_strs || !*token_strs)
 		return (NULL);
@@ -68,7 +67,6 @@ t_s_token   *scan_token(char **token_strs)
 		scan_token_extended(*token_strs, node, TK_CMD);
 	else
 	{
-		// To remove in the future
 		ft_fprintf(2, "Error: unknown token: \n", *token_strs);
 		for (int i = 0; token_strs[i]; i++)
 		{

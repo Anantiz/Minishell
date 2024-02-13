@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 08:26:52 by loris             #+#    #+#             */
-/*   Updated: 2024/02/08 14:55:34 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 10:25:20 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 static bool	is_speop(char *sub_str)
 {
-	if(!ft_strncmp(sub_str, "||", 2))
+	if (!ft_strncmp(sub_str, "||", 2))
 		return (true);
 	else if (!ft_strncmp(sub_str, "&&", 2))
 		return (true);
@@ -66,7 +66,7 @@ int	ft_count_token(char *line)
 			count++;
 		}
 	}
-	return(count);
+	return (count);
 }
 
 /*
@@ -76,7 +76,7 @@ int	ft_count_token(char *line)
 *	cmd and theire params are one token
 *	return the list of token (char **)
 */
-char    **ft_strtok(char *line)
+char	**ft_strtok(char *line)
 {
 	char	**list_token;
 	int		tk_count;
@@ -93,10 +93,10 @@ char    **ft_strtok(char *line)
 	list_token[j++] = NULL;
 	while (i < len)
 	{
-        if (is_speop(&line[i]) == true)
+		if (is_speop(&line[i]) == true)
 			list_token[j++] = get_speop(&line[i], &i);
-        else if (ft_is_op(line[i]) == true)
-            list_token[j++] = get_op(&line[i], &i);
+		else if (ft_is_op(line[i]) == true)
+			list_token[j++] = get_op(&line[i], &i);
 		else if (ft_is_sep(line[i]) == false)
 			list_token[j++] = get_cmd(&line[i], &i);
 		else
