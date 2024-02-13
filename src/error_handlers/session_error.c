@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   session_error.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:25:35 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/13 14:16:57 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/13 14:56:36 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,12 @@ void	prtshell_err(char *str, char c)
 
 	if (c == '>' || c == '<')
 		c_str = ft_strdup("newline");
+	else if (c == ']')
+		c_str = ft_strdup("newline");
+	else if (c == '|')
+		c_str = ft_strdup("||");
+	else if (c == '&')
+		c_str = ft_strdup("&&");
 	else
 		c_str = ft_chardup(c);
 	ft_fprintf(2, "%s %s `%s'\n", SHELL_NAME, str, c_str);

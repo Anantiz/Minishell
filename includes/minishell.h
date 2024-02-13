@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/13 14:45:46 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/13 14:55:25 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,8 +94,8 @@ bool		deuxrediredesuiteetredireplusspipe(char **token_list);
 bool		leading_trailing_op(char **token_list);
 bool		unclosed(char *token);
 bool		parenthesis_checker(char **token_list);
-bool		and_or_checker(char *token);
-bool		quote_handler(char **token_list);
+char		and_or_checker(char *token);
+char		quote_handler(char **token_list);
 bool		wtfesperluette(char **token_list);
 
 /* PARSING */
