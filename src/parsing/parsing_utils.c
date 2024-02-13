@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:41:29 by loris             #+#    #+#             */
-/*   Updated: 2024/02/12 10:55:28 by loris            ###   ########.fr       */
+/*   Updated: 2024/02/13 10:37:11 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	*get_op(char *line, int *i)
 {
 	char	*ret;
 
-	ret = our_malloc(sizeof(char)  * 2);
+	ret = our_malloc(sizeof(char) * 2);
 	ret[0] = *line;
 	ret[1] = '\0';
 	*i += 1;
@@ -75,7 +75,7 @@ bool	ft_is_sep(char c)
 bool	ft_is_op(char c)
 {
 	static const char	symbols[] = "|<>()&";
-	int		i;
+	int					i;
 
 	i = -1;
 	while (symbols[++i])

@@ -3,10 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   redir.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
+<<<<<<< HEAD
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 11:46:14 by loris             #+#    #+#             */
 /*   Updated: 2024/02/13 10:36:29 by aurban           ###   ########.fr       */
+=======
+/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/02/05 11:46:14 by loris             #+#    #+#             */
+/*   Updated: 2024/02/13 10:43:19 by lkary-po         ###   ########.fr       */
+>>>>>>> refs/remotes/origin/main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +30,7 @@ char	**cmd_arg(char **token_list)
 	cmd = ft_split(*(token_list - 1), ' ');
 	after_redir++;
 	i = ft_tablen(after_redir) + ft_tablen(cmd);
-	arg = our_malloc(sizeof(char*) * (i + 1));
+	arg = our_malloc(sizeof(char *) * (i + 1));
 	arg[i] = NULL;
 	while (*cmd)
 	{

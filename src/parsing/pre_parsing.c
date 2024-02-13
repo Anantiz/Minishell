@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/02/13 10:51:04 by aurban           ###   ########.fr       */
+/*   Created: 2024/02/12 17:06:01 by loris             #+#    #+#             */
+/*   Updated: 2024/02/13 11:04:02 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,49 +22,32 @@
 *
 */
 
-bool    pre_parsing(char **token_list)
+bool	pre_parsing(char **token_list)
 {
-	int i;
+	int	i;
 	int	count;
 
 	count = 0;
-	i = 0;
-	if (!leading_trailing_op(token_list))
-	{
-		write(1, "u", 1);
+	i = -1;
+	if (!leading_trailing_op(token_list) \
+		|| !deuxrediredesuiteetredireplusspipe(token_list))
 		return (false);
-	}
-	if (!deuxrediredesuiteetredireplusspipe(token_list))
-	{
-		write(1, "2", 1);
-		return (false);
-	}
-	while (token_list[i])
+	while (token_list[++i])
 	{
 		if (!unclosed_quote(token_list[i]))
-		{
-			write(1, "3", 1);
 			return (false);
-		}
 		if (!and_or_checker(token_list[i]))
-		{
-			write(1, "4", 1);
 			return (false);
-		}
-		if (ft_strlen(token_list[i]) == 1) // unclosed parenthesis
+		if (ft_strlen(token_list[i]) == 1)
 		{
 			if (ft_strncmp(token_list[i], "(", 1) == 0)
 				count++;
 			if (ft_strncmp(token_list[i], ")", 1) == 0)
 				count--;
 		}
-		i++;
 	}
 	if (count)
-	{
-		write(1, "5", 1);
 		return (false);
-	}
 	return (true);
 }
 
@@ -76,9 +59,12 @@ bool	deuxrediredesuiteetredireplusspipe(char **token_list)
 	while (token_list[i])
 	{
 		if (scan_token(token_list + i)->token_type == TK_OP \
-			&& token_list[i + 1] && scan_token(&token_list[i + 1])->token_type == TK_OP \
-			&& ft_strncmp(token_list[i + 1], "(", 1) && ft_strncmp(token_list[i + 1], ")", 1) \
-			&& ft_strncmp(token_list[i], "(", 1) && ft_strncmp(token_list[i], ")", 1))
+			&& token_list[i + 1] && \
+			scan_token(&token_list[i + 1])->token_type == TK_OP \
+			&& ft_strncmp(token_list[i + 1], "(", 1) \
+			&& ft_strncmp(token_list[i + 1], ")", 1) \
+			&& ft_strncmp(token_list[i], "(", 1) \
+			&& ft_strncmp(token_list[i], ")", 1))
 		{
 			write(1, "f", 1);
 			return (false);
@@ -92,11 +78,14 @@ bool	leading_trailing_op(char **token_list)
 {
 	int	len;
 
-	if (scan_token(token_list)->token_type == TK_OP && !(scan_token(token_list)->data.op.type >= PIPE \
-		&& scan_token(token_list)->data.op.type <= REDIR_HEREDOC) && ft_strncmp(*(token_list), "(", 1))
+	if (scan_token(token_list)->token_type == TK_OP \
+		&& !(scan_token(token_list)->data.op.type >= PIPE \
+		&& scan_token(token_list)->data.op.type <= REDIR_HEREDOC) \
+		&& ft_strncmp(*(token_list), "(", 1))
 		return (false);
 	len = ft_tablen(token_list);
-	if (scan_token(token_list + (len - 1))->token_type == TK_OP && ft_strncmp(*(token_list + (len - 1)), ")", 1))
+	if (scan_token(token_list + (len - 1))->token_type == TK_OP \
+		&& ft_strncmp(*(token_list + (len - 1)), ")", 1))
 		return (false);
 	return (true);
 }
