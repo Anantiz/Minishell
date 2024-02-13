@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 12:11:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/13 10:26:29 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 12:03:20 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,28 @@
 
 static void	strdup_single_q(char **arg, bool *single)
 {
+	int		i;
+	char	quote;
+
+	quote = 0;
+	i = 0;
 	*single = true;
-	ft_replace_str(arg, ft_substr(*arg, 1, ft_strlen(*arg) - 2));
+	while ((*arg)[i])
+		iter_str_check_quote((*arg)[i++], &quote);
+	ft_replace_str(arg, our_strdup_quote(arg, i));
 }
 
 static void	strdup_dbl_q(char **arg, bool *single)
 {
+	int		i;
+	char	quote;
+
+	quote = 0;
+	i = 0;
 	*single = false;
-	ft_replace_str(arg, ft_substr(*arg, 1, ft_strlen(*arg) - 2));
+	while ((*arg)[i])
+		iter_str_check_quote((*arg)[i++], &quote);
+	ft_replace_str(arg, our_strdup_quote(arg, i));
 }
 
 //Handle quotes in command arguments

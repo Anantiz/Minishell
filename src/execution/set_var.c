@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 16:44:55 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/13 11:01:57 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 11:58:15 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 /*
 	Strdup without quotes, first pass the string in
 	`iter_str_check_quote'
+	i = strlen of the string
 */
 char	*our_strdup_quote(char *str, int i)
 {
@@ -67,7 +68,7 @@ static int	create_var_get_name(const char *start, int i, t_pair_char *ret, \
 		{
 			if (start[i] == forbidden[j++])
 			{
-				ft_fprintf(2, "%s: `%c': not a valid identifier\n", \
+				ft_fprintf(2, "%s `%c': not a valid identifier\n", \
 					SHELL_NAME, start[i]);
 				return (CREATEVARABORT);
 			}
