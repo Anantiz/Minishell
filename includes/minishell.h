@@ -6,7 +6,7 @@
 /*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/13 12:00:59 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/13 12:44:39 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,7 @@ bool	unclosed_quote(char *token);
 bool	parenthesis_checker(char **token_list);
 bool	and_or_checker(char *token);
 bool	quote_handler(char **token_list);
-
+bool    wtfesperluette(char **token_list);
 
 /* PARSING */
 
@@ -153,7 +153,7 @@ void    del_item_array(char **array, char *str_to_delete, int op_place);
 char    **add_back_array(char **array, char *str);
 char	*custom_join(char *s1, char *s2);
 char    **new_list_token_redir(char **token_list, int op_place);
-
+char	**custom_sliping_jimmy(char *str);
 
 /* EXECUTION */
 

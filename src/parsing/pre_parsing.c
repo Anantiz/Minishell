@@ -6,7 +6,7 @@
 /*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:06:01 by loris             #+#    #+#             */
-/*   Updated: 2024/02/13 12:04:31 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/13 13:04:25 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ bool	pre_parsing(char **token_list, int i)
 	int	count;
 
 	count = 0;
-	if (!leading_trailing_op(token_list) \
+	if (!wtfesperluette(token_list) \
+		|| !leading_trailing_op(token_list) \
 		|| !deuxrediredesuiteetredireplusspipe(token_list) \
 		|| !quote_handler(token_list))
 		return (false);
@@ -52,10 +53,14 @@ bool	pre_parsing(char **token_list, int i)
 bool	leading_trailing_op(char **token_list)
 {
 	int	len;
+	t_s_token	*node;
 
-	if (scan_token(token_list)->token_type == TK_OP \
-		&& !(scan_token(token_list)->data.op.type >= PIPE \
-		&& scan_token(token_list)->data.op.type <= REDIR_HEREDOC) \
+	node = scan_token(token_list);
+	if (!node)
+		return (false);
+	if (node->token_type == TK_OP \
+		&& !(node->data.op.type >= PIPE \
+		&& node->data.op.type <= REDIR_HEREDOC) \
 		&& ft_strncmp(*(token_list), "(", 1))
 		return (false);
 	len = ft_tablen(token_list);

@@ -6,7 +6,7 @@
 /*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 10:45:11 by lkary-po          #+#    #+#             */
-/*   Updated: 2024/02/13 12:17:31 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/13 12:30:33 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,21 @@ int	ft_cmdlen(char	*cmd)
 	return (i + 1);
 }
 
-char    **custom_sliping_jimmy(char *str1, char *str2)
+char	**custom_sliping_jimmy(char *str)
 {
 	char	**return_array;
+	int		i;
 
+	i = 0;
 	if (!str)
 		return (NULL);
 	return_array = our_malloc(sizeof(char *) * 3);
 	return_array[2] = NULL;
-
-	
+	while (str[i] && str[i] != ' ')
+		i++;
+	return_array[0] = ft_substr(str, 0, i);
+	while (str[i] == ' ')
+		i++;
+	return_array[1] = ft_substr(str, i, ft_strlen(&str[i]));
+	return (return_array);
 }

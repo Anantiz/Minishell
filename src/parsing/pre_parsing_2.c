@@ -6,7 +6,7 @@
 /*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 11:51:53 by lkary-po          #+#    #+#             */
-/*   Updated: 2024/02/13 11:54:18 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/13 13:04:28 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,6 +74,19 @@ bool	and_or_checker(char *token)
 			return (false);
 		if (token[1] != '&')
 			return (false);
+	}
+	return (true);
+}
+
+bool    wtfesperluette(char **token_list)
+{
+	if (ft_tablen(token_list) == 2 && !ft_strncmp(token_list[0], "&", 1))
+	{
+		if (!ft_strncmp(token_list[1], "+$", 2))
+		{
+			ft_fprintf(1, "bash: syntax error near unexpected token `&'\n");
+			return (false);
+		}
 	}
 	return (true);
 }

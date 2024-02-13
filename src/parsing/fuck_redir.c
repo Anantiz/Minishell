@@ -6,7 +6,7 @@
 /*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 13:46:46 by loris             #+#    #+#             */
-/*   Updated: 2024/02/13 11:47:12 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/13 12:31:29 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,7 +118,7 @@ char	**new_list_token_redir(char **token_list, int op_place)
 	if (i)
 		i--;
 	if (token_list[op_place] && token_list[op_place + 1])
-		split_cmd = ft_split(token_list[op_place + 1], ' ');
+		split_cmd = custom_sliping_jimmy(token_list[op_place + 1]);
 	else
 	{
 		ft_fprintf(2, "%s: syntax error near unexpected token \
