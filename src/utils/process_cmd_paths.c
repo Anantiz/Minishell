@@ -35,29 +35,36 @@ static char	**custom_ft_split(const char *str, char sep)
 	return (ret);
 }
 
+static char	**get_path_from_path(t_shell_data *shell_data, t_s_token *node)
+{
+	t_env	*var_path;
+	char	**paths;
+	int		i;
+
+	var_path = our_get_env(shell_data, "PATH");
+	paths = custom_ft_split(var_path->val, ':');
+	i = 0;
+	while (paths[i])
+	{
+		ft_replace_str(&paths[i], ft_strjoin(paths[i], "/"));
+		ft_replace_str(&paths[i], ft_strjoin(paths[i], \
+			node->data.cmd.args[0]));
+		i++;
+	}
+	return (paths);
+}
+
 // Very inneficient code but does the job fine
 /*
 	Put any possible path into the node->data.cmd.paths
 */
 int	get_cmd_paths(t_shell_data *shell_data, t_s_token *node)
 {
-	t_env	*var_path;
 	char	**paths;
-	int		i;
 
-	if (ft_strncmp(node->data.cmd.args[0], "./", 2))
-	{
-		var_path = our_get_env(shell_data, "PATH");
-		paths = custom_ft_split(var_path->val, ':');
-		i = 0;
-		while (paths[i])
-		{
-			ft_replace_str(&paths[i], ft_strjoin(paths[i], "/"));
-			ft_replace_str(&paths[i], ft_strjoin(paths[i], \
-				node->data.cmd.args[0]));
-			i++;
-		}
-	}
+	if (*node->data.cmd.args[0] != '/' && \
+	ft_strncmp(node->data.cmd.args[0], "./", 2) != 0)
+		paths = get_path_from_path(shell_data, node);
 	else
 	{
 		paths = our_malloc(sizeof(char *) * 2);
