@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 10:45:11 by lkary-po          #+#    #+#             */
-/*   Updated: 2024/02/13 12:17:31 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/13 12:19:27 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,14 +68,14 @@ int	ft_cmdlen(char	*cmd)
 	return (i + 1);
 }
 
-char    **custom_sliping_jimmy(char *str1, char *str2)
-{
-	char	**return_array;
+// char    **custom_sliping_jimmy(char *str1, char *str2)
+// {
+// 	char	**return_array;
 
-	if (!str)
-		return (NULL);
-	return_array = our_malloc(sizeof(char *) * 3);
-	return_array[2] = NULL;
+// 	if (!str)
+// 		return (NULL);
+// 	return_array = our_malloc(sizeof(char *) * 3);
+// 	return_array[2] = NULL;
 
-	
-}
+
+// }
