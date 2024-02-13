@@ -6,7 +6,7 @@
 /*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:06:01 by loris             #+#    #+#             */
-/*   Updated: 2024/02/13 11:54:13 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/13 12:04:31 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ bool	pre_parsing(char **token_list, int i)
 	count = 0;
 	if (!leading_trailing_op(token_list) \
 		|| !deuxrediredesuiteetredireplusspipe(token_list) \
-		|| quote_handler(token_list))
+		|| !quote_handler(token_list))
 		return (false);
 	while (token_list[++i])
 	{
@@ -46,26 +46,6 @@ bool	pre_parsing(char **token_list, int i)
 	}
 	if (count)
 		return (false);
-	return (true);
-}
-
-bool	quote_handler(char **token_list)
-{
-	int		i;
-	int		j;
-	char	quote;
-
-	i = 0;
-	j = 0;
-	while (token_list[i])
-	{
-		quote = 0;
-		while (token_list[i][j])
-			iter_str_check_quote(ft_chardup(token_list[i][j++]), &quote);
-		if (quote)
-			return (false);
-		i++;
-	}
 	return (true);
 }
 

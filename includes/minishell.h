@@ -6,7 +6,7 @@
 /*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/13 11:56:43 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/13 12:00:59 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,7 @@ int			open_pipes(t_s_token *node);
 int			handle_file_bs(t_s_token *node);
 void		close_all_pipes(t_s_token *root);
 int			cmd_redir_streams(t_s_token *cmd_node);
+int			iter_str_check_quote(char *c, char *quote);
 
 int			exec_one_command(t_shell_data *shell_data, t_s_token *node);
 
