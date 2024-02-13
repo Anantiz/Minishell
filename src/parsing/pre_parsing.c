@@ -6,7 +6,7 @@
 /*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:06:01 by loris             #+#    #+#             */
-/*   Updated: 2024/02/13 14:09:40 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/13 14:54:18 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,14 @@ bool	pre_parsing(char **token_list, int i)
 	int	count;
 
 	count = 0;
-	if (!wtfesperluette(token_list) \
-		|| !leading_trailing_op(token_list) \
-		|| !deuxrediredesuiteetredireplusspipe(token_list) \
-		|| !quote_handler(token_list))
-		return (prtshell_err(ERR_MSG_UNEX, '&'), false);
+	if (!leading_trailing_op(token_list))
+		return (prtshell_err(ERR_MSG_UNEX, ']'), false);
+	if (!deuxrediredesuiteetredireplusspipe(token_list))
+		return (prtshell_err(ERR_MSG_UNEX, '<'), false);
 	while (token_list[++i])
 	{
-		if (!unclosed_quote(token_list[i]))
-			return (prtshell_err(ERR_MSG_UNEX, '&'), false);
+		if (unclosed(token_list[i]))
+			return (prtshell_err(ERR_MSG_UNEX, unclosed(token_list[i])), false);
 		if (!and_or_checker(token_list[i]))
 			return (prtshell_err(ERR_MSG_UNEX, '&'), false);
 		if (ft_strlen(token_list[i]) == 1)
@@ -47,7 +46,7 @@ bool	pre_parsing(char **token_list, int i)
 		}
 	}
 	if (count)
-		return (prtshell_err(ERR_MSG_UNEX, '&'), false);
+		return (prtshell_err(ERR_MSG_UNEX, '<'), false);
 	return (true);
 }
 
@@ -61,20 +60,20 @@ bool	leading_trailing_op(char **token_list)
 		return (false);
 	if (ft_strlen(token_list[0]) == 1)
 		if (ft_strncmp(token_list[0], "&", 1) == 0)
-			return (prtshell_err(ERR_MSG_UNEX, '&'), false);
+			return (prtshell_err(ERR_MSG_UNEX, '<'), false);
 	if (node->token_type == TK_OP \
 		&& !(node->data.op.type >= PIPE \
 		&& node->data.op.type <= REDIR_HEREDOC) \
 		&& ft_strncmp(*(token_list), "(", 1))
-		return (prtshell_err(ERR_MSG_UNEX, '&'), false);
+		return (prtshell_err(ERR_MSG_UNEX, '<'), false);
 	len = ft_tablen(token_list);
 	if (scan_token(token_list + (len - 1))->token_type == TK_OP \
 		&& ft_strncmp(*(token_list + (len - 1)), ")", 1))
-		return (prtshell_err(ERR_MSG_UNEX, '&'), false);
+		return (prtshell_err(ERR_MSG_UNEX, '<'), false);
 	return (true);
 }
 
-bool	unclosed_quote(char *token)
+bool	unclosed(char *token)
 {
 	int	len;
 

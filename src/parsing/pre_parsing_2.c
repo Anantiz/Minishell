@@ -6,13 +6,13 @@
 /*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 11:51:53 by lkary-po          #+#    #+#             */
-/*   Updated: 2024/02/13 14:34:26 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/13 14:48:38 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool	quote_handler(char **token_list)
+char	quote_handler(char **token_list)
 {
 	int		i;
 	int		j;
@@ -26,10 +26,10 @@ bool	quote_handler(char **token_list)
 		while (token_list[i][j])
 			iter_str_check_quote(ft_chardup(token_list[i][j++]), &quote);
 		if (quote)
-			return (false);
+			return (quote);
 		i++;
 	}
-	return (true);
+	return (0);
 }
 
 bool	deuxrediredesuiteetredireplusspipe(char **token_list)
@@ -55,16 +55,16 @@ bool	deuxrediredesuiteetredireplusspipe(char **token_list)
 	return (true);
 }
 
-bool	and_or_checker(char *token)
+char	and_or_checker(char *token)
 {
 	if (token[0] == '|')
 	{
 		if (ft_strlen(token) != 1)
 		{
 			if (ft_strlen(token) != 2)
-				return (false);
+				return ('|');
 			if (token[1] != '|')
-				return (false);
+				return ('|');
 		}
 	}
 	if (token[0] == '&')

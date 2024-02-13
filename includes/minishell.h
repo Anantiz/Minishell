@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/13 13:50:11 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 14:45:46 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void		del_tree(t_shell_data *shell_data);
 bool		pre_parsing(char **token_list, int i);
 bool		deuxrediredesuiteetredireplusspipe(char **token_list);
 bool		leading_trailing_op(char **token_list);
-bool		unclosed_quote(char *token);
+bool		unclosed(char *token);
 bool		parenthesis_checker(char **token_list);
 bool		and_or_checker(char *token);
 bool		quote_handler(char **token_list);
