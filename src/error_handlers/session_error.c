@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:25:35 by aurban            #+#    #+#             */
-/*   Updated: 2024/01/23 11:49:26 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 13:55:56 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,4 +32,16 @@ void	display_error(t_shell_data *shell_data, int error)
 	}
 	else if (error == 0)
 		ft_putstr_fd("Session ended\n", 2);
+}
+
+
+void	prtshell_err(char *str, char c)
+{
+	char	*c_str;
+	if (c == '>' || c == '<')
+		c_str = ft_strdup("newline");
+	else
+		c_str = ft_chardup(c);
+	ft_fprintf(2, "%s %s `%s'\n",SHELL_NAME, str, c_str);
+	our_free(c_str);
 }

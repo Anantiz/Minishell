@@ -3,4 +3,3 @@
     Memcheck:Leak
     fun:readline
 }
-

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/13 13:44:18 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 13:50:11 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef int	(*t_our_cmd_ptr)(t_shell_data *, t_s_token *);
 
 /* MISC */
 
+void		prtshell_err(char *str, char c);
 char		*our_strdup_quote(char *str, int i);
 int			iter_str_check_quote(char *c, char *quote);
 void		print_node(t_s_token *node);
