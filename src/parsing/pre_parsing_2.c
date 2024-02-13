@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pre_parsing_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 11:51:53 by lkary-po          #+#    #+#             */
-/*   Updated: 2024/02/13 14:26:09 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 14:34:26 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +19,10 @@ bool	quote_handler(char **token_list)
 	char	quote;
 
 	i = 0;
-	j = 0;
 	while (token_list[i])
 	{
 		quote = 0;
+		j = 0;
 		while (token_list[i][j])
 			iter_str_check_quote(ft_chardup(token_list[i][j++]), &quote);
 		if (quote)
