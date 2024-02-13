@@ -6,7 +6,7 @@
 /*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:25:35 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/13 14:14:06 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/13 14:16:57 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,23 +25,25 @@ void	display_error(t_shell_data *shell_data, int error)
 		ft_putstr_fd("Parsing error\n", 2);
 	else if (error == EXECTION_ERROR)
 	{
-		if (shell_data->last_command &&	shell_data->last_command->args)
+		if (shell_data->last_command && shell_data->last_command->args)
+		{
 			cmd_name = shell_data->last_command->args[0];
-		ft_fprintf(2, "Error during last command execution:\n\t`%s`"
-		"  exit status %d\n", cmd_name, shell_data->last_wstatus);
+			ft_fprintf(2, "Error during last command execution:\n\t`%s`" \
+			"  exit status %d\n", cmd_name, shell_data->last_wstatus);
+		}
 	}
 	else if (error == 0)
 		ft_putstr_fd("Session ended\n", 2);
 }
 
-
 void	prtshell_err(char *str, char c)
 {
 	char	*c_str;
+
 	if (c == '>' || c == '<')
 		c_str = ft_strdup("newline");
 	else
 		c_str = ft_chardup(c);
-	ft_fprintf(2, "%s %s `%s'\n",SHELL_NAME, str, c_str);
+	ft_fprintf(2, "%s %s `%s'\n", SHELL_NAME, str, c_str);
 	our_free(c_str);
 }
