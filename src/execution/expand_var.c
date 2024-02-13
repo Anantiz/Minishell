@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:10:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/12 20:34:07 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 13:32:13 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ static char	*get_the_var(t_shell_data *shell_data, char *str, int *key_len)
 	t_env	*ret;
 
 	i = 0;
-	while (str[i] && !(str[i] == '$' || ft_isspace(str[i]) ||
-			str[i] == '=' || str[i] == '\'' || str[i] == '\"'))
+	while (str[i] && !(str[i] == '$' || ft_isspace(str[i]) \
+	|| str[i] == '=' || str[i] == '\'' || str[i] == '\"'))
 	{
 		i++;
 	}
@@ -88,7 +88,7 @@ void	expand_this_str(t_shell_data *shell_data, char **str)
 			var_str = get_the_var(shell_data, &(*str)[i + 1], &key_len);
 			if (var_str)
 			{
-				replace_here(str, var_str, i , key_len);
+				replace_here(str, var_str, i, key_len);
 				i += ft_max(ft_strlen(var_str) - key_len, -1);
 			}
 			our_free(var_str);
@@ -109,7 +109,7 @@ void	expand_this_str(t_shell_data *shell_data, char **str)
 */
 void	expand_variables(t_shell_data *shell_data, t_s_token *node)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (node->token_type == TK_CMD)

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:28:45 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/13 10:37:51 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 13:34:19 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,15 +62,15 @@ static int	copy_fd_in_redir_node(t_s_op *redir_node, int fd)
 		close(redir_node->pipefd[1]);
 		redir_node->pipefd[1] = PIPE_CLOSED;
 		if (nwrite == -1)
-			return ((void)ft_fprintf(2, "%sWrite error : %s\n", SHELL_NAME, \
+			return ((void)ft_fprintf(2, "%s Error : %s\n", SHELL_NAME, \
 			strerror(errno)), FAILURE);
 	}
-	else if (redir_node->type == REDIR_IN)	// Reads from file, so fd becomes pipefd[0]
+	else if (redir_node->type == REDIR_IN)
 	{
 		redir_node->pipefd[0] = fd;
 		redir_node->pipefd[1] = PIPE_CLOSED;
 	}
-	else if(redir_node->type == REDIR_OUT)	// Write to file, so fd becomes pipefd[1]
+	else if (redir_node->type == REDIR_OUT)
 	{
 		redir_node->pipefd[0] = PIPE_CLOSED;
 		redir_node->pipefd[1] = fd;
@@ -93,21 +93,22 @@ int	handle_file_bs(t_s_token *file_node)
 
 	redir_node = file_node->data.file.redir_nodes[0];
 	if (redir_node == NULL)
-		redir_node = file_node->data.file.redir_nodes[1]; // That should never happen, but just in case, cuz idk what my codes does anymore
+		redir_node = file_node->data.file.redir_nodes[1];
 	if (redir_node == NULL)
 		return (FAILURE);
 	if (redir_node->data.op.type == REDIR_HEREDOC)
 	{
 		if (copy_fd_in_redir_node(&redir_node->data.op, -1))
 			return (FAILURE);
-		return (SUCCESS); // No file to open
+		return (SUCCESS);
 	}
 	else
 	{
 		flags = get_flags(redir_node->data.op.type);
 		if (open_file(&file_node->data.file, flags))
 			return (FAILURE);
-		if (copy_fd_in_redir_node(&redir_node->data.op, file_node->data.file.fd))
+		if (copy_fd_in_redir_node(&redir_node->data.op, \
+		file_node->data.file.fd))
 			return (FAILURE);
 	}
 	return (SUCCESS);

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 13:44:49 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/07 10:34:53 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 13:26:52 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,9 +31,11 @@ o888bood8P'   `Y8bod8P' o888o o888o `Y8bod8P'
 */
 int	parent_process(t_shell_data *shell_data, t_s_token *cmd_node, int pid)
 {
-	int	wstatus = 0;
-	int	ret = 0;
+	int	wstatus;
+	int	ret;
 
+	wstatus = 0;
+	ret = 0;
 	if (cmd_node->data.cmd.is_last == true)
 	{
 		replace_signals_2();

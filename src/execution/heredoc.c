@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 12:11:03 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/13 12:56:16 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 13:30:45 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ static char	*get_heredoc_str(size_t *len, char *eof)
 			*len += ft_strlen(line);
 		}
 		else if (!line)
-			return ((void)ft_printf(EOFERMG, SHELL_NAME, line_count, eof),ret);
+			return ((void)ft_printf(EOFERMG, SHELL_NAME, line_count, eof), ret);
 	}
 	if (ret && ret[0] && ret[1] && ret[ft_strlen(ret) - 1] == '\n')
 		ret[ft_strlen(ret) - 1] = '\0';
@@ -99,4 +99,3 @@ int	our_heredoc(t_s_token *redir_node)
 		expand_this_str(get_shell_data_ptr(NULL), &redir_op->heredoc_str);
 	return (SUCCESS);
 }
-

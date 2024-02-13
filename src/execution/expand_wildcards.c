@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 15:35:51 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/05 14:04:55 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 13:29:37 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,9 +32,9 @@ static bool	ft_strmatch_wildcard(const char *str, const char *pattern)
 
 	if (!*pattern || !str)
 		return (false);
-	i = 0;
-	while (str[i] == *pattern)
-		(void)(str[i++] && pattern++);
+	i = -1;
+	while (str[++i] == *pattern)
+		pattern++;
 	if (*pattern && *pattern++ != '*')
 		return (false);
 	while (str[i] && str[i] != *pattern)
@@ -61,12 +61,14 @@ static char	**get_wild_args(char *str, int *wa_count)
 	if (!dir)
 		return (NULL);
 	i = 0;
-	while ((entry = readdir(dir)))
+	entry = readdir(dir);
+	while (entry)
 	{
 		if (entry->d_name[0] == '.')
 			continue ;
 		else if (ft_strmatch_wildcard(entry->d_name, str))
 			wild_args[i++] = ft_strdup(entry->d_name);
+		entry = readdir(dir);
 	}
 	*wa_count = i;
 	wild_args[i] = NULL;
@@ -104,7 +106,7 @@ static void	replace_wild_args(t_s_token *node, char **wild_args, int skip)
 	while (node->data.cmd.args[i_og])
 		new_args[i_new++] = node->data.cmd.args[i_og++];
 	new_args[i_new] = NULL;
-	our_free(node->data.cmd.args); // We don't want to free the pointers, just the array
+	our_free(node->data.cmd.args);
 	our_free(wild_args);
 	node->data.cmd.args = new_args;
 }
@@ -139,7 +141,8 @@ void	expand_wildcard(t_s_token *node)
 		if (ft_strchr(node->data.cmd.args[i_og + offset], '*'))
 		{
 			wa_count = 0;
-			wild_args = get_wild_args(node->data.cmd.args[i_og + offset], &wa_count);
+			wild_args = get_wild_args(node->data.cmd.args[i_og + offset], \
+			&wa_count);
 			if (wild_args)
 			{
 				replace_wild_args(node, wild_args, i_og + offset);

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:12:50 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/13 10:42:36 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 13:40:32 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,10 +15,37 @@
 // Hopefully no process will ever return this value :)
 #define MAGIC_VALUE_EXIT_SHELL 69420
 
+static void	del_tree_node(t_s_token *node)
+{
+	if (!node)
+		return ;
+	del_tree_node(node->left);
+	del_tree_node(node->right);
+	if (node->token_type == TK_CMD)
+	{
+		free_double_char(node->data.cmd.args);
+		our_free(node->data.cmd.single);
+		node->data.cmd.args = NULL;
+		node->data.cmd.single = NULL;
+	}
+	else if (node->token_type == TK_OP)
+	{
+		if (node->data.op.pipefd[0] != -1 || node->data.op.pipefd[0] \
+		!= PIPE_CLOSED)
+			close(node->data.op.pipefd[0]);
+		if (node->data.op.pipefd[1] != -1 || node->data.op.pipefd[1] \
+		!= PIPE_CLOSED)
+			close(node->data.op.pipefd[1]);
+	}
+	else if (node->token_type == TK_FILE)
+		our_free(node->data.file.file_path);
+	our_free(node);
+}
+
 void	del_tree(t_shell_data *shell_data)
 {
-	//to do
-	shell_data->root = NULL; // ok for now
+	del_tree_node(shell_data->root);
+	shell_data->root = NULL;
 }
 
 static char	*get_prompt_str(t_shell_data *shell_data)

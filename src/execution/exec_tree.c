@@ -6,10 +6,9 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:39:33 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/12 11:14:06 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 13:31:24 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 
 #include "minishell.h"
 
@@ -28,6 +27,9 @@ About Finding the Different subtrees
 
 		If there is no TOP-level logical op, just call subtree and call it a day.
 
+// ft_fprintf(2, "Executing node : %s: %p\n", node->data.cmd.args[0], node);
+// ft_fprintf(2, "\tredir[0]: %p\n",node->data.cmd.redir_nodes[0]);
+// ft_fprintf(2, "\tredir[1]: %p\n\n", node->data.cmd.redir_nodes[1]);
 */
 
 /*
@@ -40,9 +42,6 @@ static int	exec_subtree(t_shell_data *shell_data, t_s_token *node)
 	{
 		if (node->token_type == TK_CMD)
 		{
-			ft_fprintf(2, "Executing node : %s: %p\n", node->data.cmd.args[0], node);
-			ft_fprintf(2, "\tredir[0]: %p\n",node->data.cmd.redir_nodes[0]);
-			ft_fprintf(2, "\tredir[1]: %p\n\n", node->data.cmd.redir_nodes[1]);
 			exec_one_command(shell_data, node);
 			shell_data->last_command = &node->data.cmd;
 			restore_std_streams(shell_data);

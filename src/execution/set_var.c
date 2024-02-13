@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 16:44:55 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/13 11:58:15 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 13:32:43 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ char	*our_strdup_quote(char *str, int i)
 		if (*temp_str++ != -1)
 			j++;
 	}
-	temp_str = our_malloc((j + 1 ) * sizeof(char));
+	temp_str = our_malloc((j + 1) * sizeof(char));
 	j = 0;
 	while (*str && j < i)
 	{
@@ -173,4 +173,3 @@ t_pair_char	*create_var_pair(const char *start, int *name_len)
 	}
 	return (ret);
 }
-

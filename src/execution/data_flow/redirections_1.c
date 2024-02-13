@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:30:30 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/08 18:29:52 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 13:32:57 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,20 +38,20 @@ static void	do_redir_2(t_s_token *cmd_node, t_s_token **redir_nodes)
 	{
 		if (cmd_node == redir_nodes[0]->right)
 		{
-			cmd_node->data.cmd.redir_nodes[0] = redir_nodes[0]; // The measured second parent is not related to use because we are the last command
-			cmd_node->data.cmd.redir_nodes[1] = NULL; // We do not redirect our stdout, we are the last args of the pipeline/subpipline
+			cmd_node->data.cmd.redir_nodes[0] = redir_nodes[0];
+			cmd_node->data.cmd.redir_nodes[1] = NULL;
 		}
 		else
 		{
-			cmd_node->data.cmd.redir_nodes[0] = redir_nodes[1]; // This is were we get our stdin
-			cmd_node->data.cmd.redir_nodes[1] = redir_nodes[0]; // We do not redirect our stdout, we are the last args of the pipeline/subpipline
+			cmd_node->data.cmd.redir_nodes[0] = redir_nodes[1];
+			cmd_node->data.cmd.redir_nodes[1] = redir_nodes[0];
 		}
 	}
-	else // Protected against Nazis, like if they explode the code, it still works
+	else
 	{
 		ft_fprintf(2, "Weird ass thing that should not happen just happened\n");
-		cmd_node->data.cmd.redir_nodes[0] = redir_nodes[0]; // This is were we get our stdin
-		cmd_node->data.cmd.redir_nodes[1] = redir_nodes[1]; // This is now were we redirect stdout
+		cmd_node->data.cmd.redir_nodes[0] = redir_nodes[0];
+		cmd_node->data.cmd.redir_nodes[1] = redir_nodes[1];
 	}
 }
 
@@ -60,12 +60,12 @@ static void	do_redir_1_1(t_s_token *cmd_node, t_s_token **redir_nodes)
 	if (redir_nodes[0]->data.op.type == REDIR_IN \
 		|| redir_nodes[0]->data.op.type == REDIR_HEREDOC)
 	{
-		cmd_node->data.cmd.redir_nodes[0] = NULL; // We do not redirect our stdin, we are a file lolc
-		cmd_node->data.cmd.redir_nodes[1] = redir_nodes[0]; // This is where the file fd is stored, where the command will read
+		cmd_node->data.cmd.redir_nodes[0] = NULL;
+		cmd_node->data.cmd.redir_nodes[1] = redir_nodes[0];
 	}
 	else
 	{
-		cmd_node->data.cmd.redir_nodes[0] = redir_nodes[0]; // This is were we get our stdin
+		cmd_node->data.cmd.redir_nodes[0] = redir_nodes[0];
 		cmd_node->data.cmd.redir_nodes[1] = NULL;
 	}
 }
@@ -87,13 +87,13 @@ static void	do_redir_1(t_s_token *cmd_node, t_s_token **redir_nodes)
 		if (redir_nodes[0]->data.op.type == REDIR_IN \
 			|| redir_nodes[0]->data.op.type == REDIR_HEREDOC)
 		{
-			cmd_node->data.cmd.redir_nodes[0] = redir_nodes[0]; // Our stdin will be the file fd
-			cmd_node->data.cmd.redir_nodes[1] = NULL; // We do not redirect our stdout
+			cmd_node->data.cmd.redir_nodes[0] = redir_nodes[0];
+			cmd_node->data.cmd.redir_nodes[1] = NULL;
 		}
 		else
 		{
-			cmd_node->data.cmd.redir_nodes[0] = NULL; // We do not redirect our stdin
-			cmd_node->data.cmd.redir_nodes[1] = redir_nodes[0]; // This is now were we redirect stdout
+			cmd_node->data.cmd.redir_nodes[0] = NULL;
+			cmd_node->data.cmd.redir_nodes[1] = redir_nodes[0];
 		}
 	}
 	else
@@ -143,9 +143,8 @@ void	find_redir_nodes(t_s_token *cmd_node)
 	if (!redir_nodes[0])
 		return ;
 	get_parent_redir(redir_nodes[0], &redir_nodes[1]);
-	if (!redir_nodes[1]) // if no second parent
+	if (!redir_nodes[1])
 		do_redir_1(cmd_node, redir_nodes);
-	else // B: there is a second parent, we are in the middle of a pipeline
+	else
 		do_redir_2(cmd_node, redir_nodes);
 }
-
