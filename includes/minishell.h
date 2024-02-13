@@ -6,7 +6,11 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2024/02/13 12:15:55 by aurban           ###   ########.fr       */
+=======
+/*   Updated: 2024/02/13 12:00:59 by lkary-po         ###   ########.fr       */
+>>>>>>> refs/remotes/origin/main
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +170,7 @@ int			open_pipes(t_s_token *node);
 int			handle_file_bs(t_s_token *node);
 void		close_all_pipes(t_s_token *root);
 int			cmd_redir_streams(t_s_token *cmd_node);
+int			iter_str_check_quote(char *c, char *quote);
 
 int			exec_one_command(t_shell_data *shell_data, t_s_token *node);
 
