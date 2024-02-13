@@ -6,7 +6,7 @@
 /*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:06:01 by loris             #+#    #+#             */
-/*   Updated: 2024/02/13 15:01:11 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/13 16:24:57 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,13 +28,14 @@ bool	pre_parsing(char **token_list, int i)
 
 	count = 0;
 	if (!leading_trailing_op(token_list))
-		return (prtshell_err(ERR_MSG_UNEX, ']'), false);
+		return (false);
 	if (!deuxrediredesuiteetredireplusspipe(token_list))
 		return (prtshell_err(ERR_MSG_UNEX, '<'), false);
 	while (token_list[++i])
 	{
-		if (unclosed(token_list[i]))
-			return (prtshell_err(ERR_MSG_UNEX, unclosed(token_list[i])), false);
+		if (quote_handler(token_list))
+			return (prtshell_err(ERR_MSG_UNEX, \
+			quote_handler(token_list)), false);
 		if (!and_or_checker(token_list[i]))
 			return (prtshell_err(ERR_MSG_UNEX, '&'), false);
 		if (ft_strlen(token_list[i]) == 1)
@@ -75,16 +76,16 @@ bool	leading_trailing_op(char **token_list)
 	return (true);
 }
 
-bool	unclosed(char *token)
-{
-	int	len;
+// bool	unclosed(char *token)
+// {
+// 	int	len; // to fix
 
-	len = ft_strlen(token);
-	if (token[0] == '\'')
-		if (token[len - 1] != '\'')
-			return (prtshell_err(ERR_MSG_UNEX, '&'), false);
-	if (token[0] == '"')
-		if (token[len - 1] != '"')
-			return (prtshell_err(ERR_MSG_UNEX, '&'), false);
-	return (true);
-}
+// 	len = ft_strlen(token);
+// 	if (token[0] == '\'')
+// 		if (token[len - 1] != '\'')
+// 			return (prtshell_err(ERR_MSG_UNEX, '&'), false);
+// 	if (token[0] == '"')
+// 		if (token[len - 1] != '"')
+// 			return (prtshell_err(ERR_MSG_UNEX, '&'), false);
+// 	return (true);
+// }

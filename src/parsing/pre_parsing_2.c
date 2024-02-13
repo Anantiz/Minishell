@@ -6,12 +6,15 @@
 /*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 11:51:53 by lkary-po          #+#    #+#             */
-/*   Updated: 2024/02/13 14:58:11 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/13 16:25:08 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+/*
+	Good one
+*/
 char	quote_handler(char **token_list)
 {
 	int		i;
