@@ -6,7 +6,7 @@
 /*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 11:51:53 by lkary-po          #+#    #+#             */
-/*   Updated: 2024/02/13 13:04:28 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/13 14:10:59 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ bool	deuxrediredesuiteetredireplusspipe(char **token_list)
 
 bool	and_or_checker(char *token)
 {
-
 	if (token[0] == '|')
 	{
 		if (ft_strlen(token) != 1)
@@ -78,7 +77,7 @@ bool	and_or_checker(char *token)
 	return (true);
 }
 
-bool    wtfesperluette(char **token_list)
+bool	wtfesperluette(char **token_list)
 {
 	if (ft_tablen(token_list) == 2 && !ft_strncmp(token_list[0], "&", 1))
 	{

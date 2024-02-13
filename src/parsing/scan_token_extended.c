@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scan_token_extended.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 12:11:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/13 12:32:26 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 14:11:13 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static void	cmd_strdup_quote(char **arg, bool *single)
 		*single = true;
 	while ((*arg)[i])
 		iter_str_check_quote(&(*arg)[i++], &quote);
-	if (quote != 0) // if unclosed, put back the quote where it should be
+	if (quote != 0)
 	{
 		j = i - 1;
 		while (j > -1 && (*arg)[j] != -1)

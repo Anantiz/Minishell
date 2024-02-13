@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tokentotree.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/02/13 11:04:48 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 14:10:35 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,6 @@ t_s_token	*scan_token(char **token_strs)
 	else if (!ft_is_op(**token_strs) && !ft_is_sep(**token_strs))
 		scan_token_extended(*token_strs, node, TK_CMD);
 	else
-	{
-		ft_fprintf(2, "Error: unknown token: \n", *token_strs);
-		for (int i = 0; token_strs[i]; i++)
-		{
-			ft_fprintf(2, "token_strs[%d] = %s\n", i, token_strs[i]);
-		}
 		return (our_free(node), NULL);
-	}
 	return (node);
 }

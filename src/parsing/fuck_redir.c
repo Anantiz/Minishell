@@ -6,7 +6,7 @@
 /*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 13:46:46 by loris             #+#    #+#             */
-/*   Updated: 2024/02/13 13:05:42 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/13 14:09:26 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,15 +106,11 @@ char	**new_list_token_redir(char **token_list, int op_place)
 	char	**array;
 	int		i;
 
-	ft_fprintf(2, "\033[94mop_place= %d\033[0m\n", op_place);
 	split_cmd = NULL;
 	array = ft_calloc((op_place + 2), sizeof(char *));
-	i = 0;
-	while (i < op_place && token_list[i])
-	{
+	i = -1;
+	while (++i < op_place && token_list[i])
 		array[i] = token_list[i];
-		i++;
-	}
 	if (i)
 		i--;
 	if (token_list[op_place] && token_list[op_place + 1])
@@ -126,9 +122,8 @@ char	**new_list_token_redir(char **token_list, int op_place)
 		dontdoit(1);
 		return (NULL);
 	}
-	if (split_cmd)
-		ft_fprintf(2, "\033[94msplit_cmd[0]: %s\nsplit_cmd[1]: %s\033[0m", split_cmd[0], split_cmd[1]);
-	if (ft_tablen(split_cmd) == 2 && scan_token((token_list + op_place + 1))->token_type != TK_OP)
+	if (ft_tablen(split_cmd) == 2 && \
+	scan_token((token_list + op_place + 1))->token_type != TK_OP)
 		ft_replace_str(&array[i], custom_join(array[i], split_cmd[1]));
 	return (array);
 }
