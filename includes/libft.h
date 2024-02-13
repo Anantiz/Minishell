@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/17 15:44:18 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/12 11:21:28 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 11:13:53 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,6 +102,7 @@ int			ft_max(int a, int b);
 long long	ft_max_ll(long long a, long long b);
 
 /* MEMORY */
+char		*ft_chardup(char c);
 char		*ft_strdup(const char *s);
 char		**ft_strdup_double_char(char **cc);
 void		free_double_char(char **cc);
