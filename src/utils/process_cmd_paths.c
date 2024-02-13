@@ -62,7 +62,8 @@ int	get_cmd_paths(t_shell_data *shell_data, t_s_token *node)
 {
 	char	**paths;
 
-	if (ft_strncmp(node->data.cmd.args[0], "./", 2) == 0)
+	if (*node->data.cmd.args[0] != '/' && \
+	ft_strncmp(node->data.cmd.args[0], "./", 2) != 0)
 		paths = get_path_from_path(shell_data, node);
 	else
 	{
