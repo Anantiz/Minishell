@@ -6,7 +6,7 @@
 /*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/13 12:44:39 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/13 13:05:35 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ typedef int	(*t_our_cmd_ptr)(t_shell_data *, t_s_token *);
 /* MISC */
 
 char		*our_strdup_quote(char *str, int i);
-
+int			iter_str_check_quote(char *c, char *quote);
 void		print_node(t_s_token *node);
 void		print_node_lite(t_s_token *node);
 void		display_error(t_shell_data *shell_data, int error);
