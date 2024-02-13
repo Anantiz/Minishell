@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:06:01 by loris             #+#    #+#             */
-/*   Updated: 2024/02/13 17:17:19 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 17:32:25 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,9 @@ bool	leading_trailing_op(char **token_list)
 		&& !(node->data.op.type >= PIPE \
 		&& node->data.op.type <= REDIR_HEREDOC) \
 		&& ft_strncmp(*(token_list), "(", 1))
+	{
 		return (prtshell_err(ERR_MSG_UNEX, '<'), false);
+	}
 	len = ft_tablen(token_list);
 	if (scan_token(token_list + (len - 1))->token_type == TK_OP \
 		&& ft_strncmp(*(token_list + (len - 1)), ")", 1))
