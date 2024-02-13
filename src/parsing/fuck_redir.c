@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fuck_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 13:46:46 by loris             #+#    #+#             */
-/*   Updated: 2024/02/12 12:35:54 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 10:16:52 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,7 +122,6 @@ char    **new_list_token_redir(char **token_list, int op_place)
 		split_cmd = ft_split(token_list[op_place + 1], ' ');
 	else
 	{
-		ft_fprintf(2, "\033[94mWhat tha fuck\n\t[0]%s\n\t[1]%s\033[0m\n", token_list[op_place], token_list[op_place + 1]);
 		ft_fprintf(2, "%s: syntax error near unexpected token `newline'", SHELL_NAME);
 		dontdoit(1);
 		return (NULL);
@@ -133,25 +132,3 @@ char    **new_list_token_redir(char **token_list, int op_place)
 		ft_replace_str(&array[i], custom_join(array[i], split_cmd[1]));// frees the old one, it's cleaner
 	return (array);
 }
-
-// int main()
-// {
-//     char *array[] = {NULL};
-//     char  **token;
-// 	char  **ret_array;
-// 	int		i;
-
-// 	i = 0;
-
-
-//     token = array;
-
-//     ret_array = new_list_token_redir(token, 3);
-// 	ret_array = new_list_token_redir(ret_array, 1);
-//     while(*ret_array)
-//     {
-//         printf("%d | %s\n", i, *ret_array);
-// 		i++;
-//         ret_array++;
-//     }
-// }

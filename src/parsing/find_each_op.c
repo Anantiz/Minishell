@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   find_each_op.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:42:11 by lkary-po          #+#    #+#             */
-/*   Updated: 2024/02/12 12:05:49 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 10:16:09 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-bool    ft_is_o_parenthesis(char *token)
+bool	ft_is_o_parenthesis(char *token)
 {
 	if (!token || !(*token))
 		return (false);
@@ -21,7 +21,7 @@ bool    ft_is_o_parenthesis(char *token)
 	return (false);
 }
 
-bool    ft_is_c_parenthesis(char *token)
+bool	ft_is_c_parenthesis(char *token)
 {
 	if (!token || !(*token))
 		return (false);
@@ -30,7 +30,7 @@ bool    ft_is_c_parenthesis(char *token)
 	return (false);
 }
 
-int find_operator_addor(char **token_list, int token_count)
+int	find_operator_addor(char **token_list, int token_count)
 {
 	int	i;
 	int	parenthesis_count;
@@ -39,7 +39,6 @@ int find_operator_addor(char **token_list, int token_count)
 	parenthesis_count = 0;
 	while(++i < token_count && token_list[i])
 	{
-		ft_fprintf(1, "function called = %d\n", i);
 		if (ft_is_o_parenthesis(token_list[i]))
 			parenthesis_count++;
 		else if (ft_is_c_parenthesis(token_list[i]))

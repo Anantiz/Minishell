@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pre_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:06:01 by loris             #+#    #+#             */
-/*   Updated: 2024/02/13 09:44:22 by loris            ###   ########.fr       */
+/*   Updated: 2024/02/13 10:09:33 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,7 +91,7 @@ bool	leading_trailing_op(char **token_list)
 	int	len;
 
 	if (scan_token(token_list)->token_type == TK_OP && !(scan_token(token_list)->data.op.type >= PIPE \
-		&& scan_token(token_list)->data.op.type <= REDIR_APPEND) && ft_strncmp(*(token_list), "(", 1))
+		&& scan_token(token_list)->data.op.type <= REDIR_HEREDOC) && ft_strncmp(*(token_list), "(", 1))
 		return (false);
 	len = ft_tablen(token_list);
 	if (scan_token(token_list + (len - 1))->token_type == TK_OP && ft_strncmp(*(token_list + (len - 1)), ")", 1))
@@ -140,10 +140,13 @@ bool	and_or_checker(char *token)
 	i = 0;
 	if (token[0] == '|')
 	{
-		if (ft_strlen(token) != 2)
-			return (false);
-		if (token[1] != '|')
-			return (false);
+		if (ft_strlen(token) != 1)
+		{
+			if (ft_strlen(token) != 2)
+				return (false);
+			if (token[1] != '|')
+				return (false);
+		}
 	}
 	if (token[0] == '&')
 	{
