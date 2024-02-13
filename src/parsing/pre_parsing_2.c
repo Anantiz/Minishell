@@ -3,15 +3,18 @@
 /*                                                        :::      ::::::::   */
 /*   pre_parsing_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 11:51:53 by lkary-po          #+#    #+#             */
-/*   Updated: 2024/02/13 14:48:38 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/13 15:52:26 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
+/*
+	Good one
+*/
 char	quote_handler(char **token_list)
 {
 	int		i;
@@ -47,7 +50,6 @@ bool	deuxrediredesuiteetredireplusspipe(char **token_list)
 			&& ft_strncmp(token_list[i], "(", 1) \
 			&& ft_strncmp(token_list[i], ")", 1))
 		{
-			write(1, "f", 1);
 			return (false);
 		}
 		i++;
