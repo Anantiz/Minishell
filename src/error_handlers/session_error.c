@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:25:35 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/13 14:56:36 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 15:00:28 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	prtshell_err(char *str, char c)
 {
 	char	*c_str;
 
-	if (c == '>' || c == '<')
+	if (c == '>' || c == '<' || c == ' ' || c == '\n')
 		c_str = ft_strdup("newline");
 	else if (c == ']')
 		c_str = ft_strdup("newline");
