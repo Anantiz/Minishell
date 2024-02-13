@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 18:05:20 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/13 13:23:33 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 13:59:41 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,18 +33,20 @@ void	parent_close_pipes(t_s_cmd *cmd)
 	{
 		if (cmd->redir_nodes[0]->data.op.pipefd[0] != PIPE_CLOSED)
 		{
-			if (close(cmd->redir_nodes[0]->data.op.pipefd[0]))
-				perror("close() error");
+			if (cmd->redir_nodes[0]->data.op.pipefd[0] != -1 && \
+			close(cmd->redir_nodes[0]->data.op.pipefd[0]))
+				ft_fprintf(2, "%s Pipe error : %s\n", SHELL_NAME, \
+				sterror(errno));
 			cmd->redir_nodes[0]->data.op.pipefd[0] = PIPE_CLOSED;
 		}
 		if (cmd->redir_nodes[0]->data.op.pipefd[1] != PIPE_CLOSED)
 		{
-			if (close(cmd->redir_nodes[0]->data.op.pipefd[1]))
-				perror("close() error");
+			if (cmd->redir_nodes[0]->data.op.pipefd[1] != -1 && \
+			close(cmd->redir_nodes[0]->data.op.pipefd[1]))
+				ft_fprintf(2, "%s Pipe error : %s\n", SHELL_NAME, \
+				sterror(errno));
 			cmd->redir_nodes[0]->data.op.pipefd[1] = PIPE_CLOSED;
 		}
-		else
-			ft_fprintf(2, "pipefd[1] is already closed\n");
 	}
 }
 

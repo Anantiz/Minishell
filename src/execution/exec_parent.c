@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 13:44:49 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/13 13:26:52 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 14:05:51 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,12 @@ oooooooooo.
  888     d88' 888   888  888   888  888    .o
 o888bood8P'   `Y8bod8P' o888o o888o `Y8bod8P'
 */
+
+static int	print_pretty_error(void)
+{
+	ft_fprintf(2, "%s: Erro in sub-process %s\n", SHELL_NAME, strerror(errno));
+	return (FAILURE);
+}
 
 /*	Shall:
 		-wait for child
@@ -45,7 +51,7 @@ int	parent_process(t_shell_data *shell_data, t_s_token *cmd_node, int pid)
 		else if (WIFSIGNALED(wstatus))
 			shell_data->last_wstatus = WTERMSIG(wstatus) + 128;
 		if (ret == -1)
-			return (perror("Error in child process"), FAILURE);
+			return (print_pretty_error());
 		else if (wstatus)
 			return (FAILURE);
 	}
