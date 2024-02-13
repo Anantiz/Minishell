@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:44:08 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/08 18:21:26 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 14:03:20 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,19 @@ static int	cmd_redir_streams_2(t_s_cmd *cmd)
 	if (cmd->redir_nodes[0]->data.op.pipefd[1] != PIPE_CLOSED)
 	{
 		if (close(cmd->redir_nodes[0]->data.op.pipefd[1]))
-			perror("Redirecting STD-IN, close() error");
+			ft_fprintf(2, "%s Pipe error : %s\n", SHELL_NAME, \
+				sterror(errno));
 		cmd->redir_nodes[0]->data.op.pipefd[1] = PIPE_CLOSED;
 	}
 	if (dup2(cmd->redir_nodes[0]->data.op.pipefd[0], STDIN_FILENO) == -1)
 	{
-		perror("Redirecting STD-IN, dup2() error");
+		ft_fprintf(2, "%s Pipe error : %s\n", SHELL_NAME, \
+		sterror(errno));
 		return (FAILURE);
 	}
 	if (close(cmd->redir_nodes[0]->data.op.pipefd[0]))
-		perror("Redirecting STD-IN, close() error");
+		ft_fprintf(2, "%s Pipe error : %s\n", SHELL_NAME, \
+		sterror(errno));
 	cmd->redir_nodes[0]->data.op.pipefd[0] = PIPE_CLOSED;
 	return (SUCCESS);
 }
@@ -50,16 +53,24 @@ int	cmd_redir_streams(t_s_token *cmd_node)
 	{
 		if (dup2(cmd->redir_nodes[1]->data.op.pipefd[1], STDOUT_FILENO) == -1)
 		{
-			perror("Redirecting STD-OUT, dup2() error");
+			ft_fprintf(2, "%s Dup error : %s\n", SHELL_NAME, \
+			sterror(errno));
 			return (FAILURE);
 		}
 		if (close(cmd->redir_nodes[1]->data.op.pipefd[1]))
-			perror("Redirecting STD-OUT, close() error");
+			ft_fprintf(2, "%s Pipe error : %s\n", SHELL_NAME, \
+			sterror(errno));
 		cmd->redir_nodes[1]->data.op.pipefd[1] = PIPE_CLOSED;
 	}
 	if (ret == FAILURE)
 		return (FAILURE);
 	return (SUCCESS);
+}
+
+static int	print_pretty_error(void)
+{
+	ft_fprintf(2, "%s Error : %s\n", SHELL_NAME, strerror(errno));
+	return (FAILURE);
 }
 
 int	restore_std_streams(t_shell_data *shell_data)
@@ -71,10 +82,10 @@ int	restore_std_streams(t_shell_data *shell_data)
 	{
 		stdin_fd = dup(STDIN_FILENO);
 		if (stdin_fd == -1)
-			return (perror("Initial stdin dup() error"), FAILURE);
+			return (print_pretty_error());
 		stdout_fd = dup(STDOUT_FILENO);
 		if (stdout_fd == -1)
-			return (perror("Initial stdout dup() error"), FAILURE);
+			return (print_pretty_error());
 		shell_data->stdin_fd = stdin_fd;
 		shell_data->stdout_fd = stdout_fd;
 	}
@@ -83,9 +94,9 @@ int	restore_std_streams(t_shell_data *shell_data)
 		close(STDIN_FILENO);
 		close(STDOUT_FILENO);
 		if (dup2(stdin_fd, STDIN_FILENO) == -1)
-			return (perror("Restoring stdin, dup2() error"), FAILURE);
+			return (print_pretty_error());
 		if (dup2(stdout_fd, STDOUT_FILENO) == -1)
-			return (perror("Restoring stdout, dup2() error"), FAILURE);
+			return (print_pretty_error());
 	}
 	return (SUCCESS);
 }
