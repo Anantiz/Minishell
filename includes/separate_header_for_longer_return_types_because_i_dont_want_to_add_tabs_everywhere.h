@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 20:28:30 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/12 20:32:42 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 09:53:36 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,3 +20,4 @@ _EVERYWHERE_H
 t_shell_data	*get_shell_data_ptr(t_shell_data *shell_data_unused);
 
 #endif
+

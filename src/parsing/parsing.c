@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/02/12 19:59:23 by loris            ###   ########.fr       */
+/*   Updated: 2024/02/13 09:55:05 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,9 +43,8 @@ int	parse_line(t_shell_data *shell_data, char *line)
 	token_list++;
 	if (!pre_parsing(token_list))
 	{
-		ft_fprintf(1, "UzU\n\n");
-		token = NULL;
-		return (token);
+		shell_data->root = NULL;
+		return (FAILURE);
 	}
 	token = parse_expression(token_list, ft_tablen(token_list), NULL);
 	replace_file(token);

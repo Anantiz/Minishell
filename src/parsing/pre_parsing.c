@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pre_parsing.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 17:06:01 by loris             #+#    #+#             */
-/*   Updated: 2024/02/13 09:44:22 by loris            ###   ########.fr       */
+/*   Updated: 2024/02/13 10:00:45 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,7 +104,6 @@ bool	unclosed_quote(char *token)
 	int	len;
 
 	len = ft_strlen(token);
-
 	if (token[0] == '\'')
 		if (token[len - 1] != '\'')
 			return (false);
@@ -135,9 +134,7 @@ bool	parenthesis_checker(char **token_list)
 
 bool	and_or_checker(char *token)
 {
-	int	i;
 
-	i = 0;
 	if (token[0] == '|')
 	{
 		if (ft_strlen(token) != 2)

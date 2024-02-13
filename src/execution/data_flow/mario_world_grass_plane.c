@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 15:45:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/12 20:58:24 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 10:09:31 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,8 +61,8 @@ int	open_pipes(t_s_token *node)
 	}
 	else
 	{
-		node->data.op.pipefd[0] = -690;
-		node->data.op.pipefd[1] = -4200;
+		node->data.op.pipefd[0] = PIPE_CLOSED;
+		node->data.op.pipefd[1] = PIPE_CLOSED;
 	}
 	return (SUCCESS);
 }

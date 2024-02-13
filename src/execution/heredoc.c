@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 12:11:03 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/12 21:35:22 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 10:10:56 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,6 @@ int	our_heredoc(t_s_token *redir_node)
 		ft_fprintf(2, "%s %s\n", SHELL_NAME, EOF_NO_EOF_ERR_MSG);
 		return (FAILURE);
 	}
-	// replace_signals_heredoc();
 	redir_op->heredoc_str = get_heredoc_str(&redir_op->heredoc_len, \
 	redir_node->right->data.file.file_path);
 	if (g_our_sig == SIGINT)
@@ -96,7 +95,6 @@ int	our_heredoc(t_s_token *redir_node)
 	}
 	if (redir_node->right->data.file.single == false)
 		expand_this_str(get_shell_data_ptr(NULL), &redir_op->heredoc_str);
-	// replace_signals();
 	return (SUCCESS);
 }
 
