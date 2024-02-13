@@ -6,17 +6,19 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 12:11:03 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/13 10:10:56 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 12:56:16 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-#define EOF_ERR_MSG "\n%s warning: here-document at line \
+#define EOFERMG "\n%s warning: here-document at line \
 %d delimited by end-of-file (wanted `%s'\n"
 #define EOF_NO_EOF_ERR_MSG "syntax error near unexpected token `newline'"
 
 static bool	ft_is_eof(char *s1, char *s2, int n)
 {
+	if (!s1 || !s2)
+		return (false);
 	while (s1 && s2 && n--)
 	{
 		if (*s1 != *s2)
@@ -48,28 +50,28 @@ ISSUES:
 static char	*get_heredoc_str(size_t *len, char *eof)
 {
 	static int	line_count = 0;
-	ssize_t		nread;
 	char		*line;
 	char		*ret;
 
 	line = NULL;
 	ret = ft_strdup("");
-	nread = -1;
-	while (nread && (++line_count) && g_our_sig != SIGINT)
+	while ((++line_count) && g_our_sig != SIGINT)
 	{
-		ft_printf("");
-		ft_replace_str(&line, unionize_str(readline("\033[93m☭ >\033[0m ")));
-		nread = ft_strlen(line);
-		if (nread && g_our_sig != SIGINT)
+		ft_printf("\033[93m☭ >\033[0m ");
+		ft_replace_str(&line, get_next_line(0, 0));
+		if (line && g_our_sig != SIGINT)
 		{
-			if (ft_is_eof(line, eof, nread))
+			if (ft_is_eof(line, eof, ft_strlen(line)))
 				break ;
+			ft_replace_str(&line, ft_strjoin(line, "\n"));
 			ft_replace_str(&ret, ft_strjoin(ret, line));
-			*len += nread;
+			*len += ft_strlen(line);
 		}
-		else if (!line || !*line)
-			ft_printf(EOF_ERR_MSG, SHELL_NAME, line_count, eof);
+		else if (!line)
+			return ((void)ft_printf(EOFERMG, SHELL_NAME, line_count, eof),ret);
 	}
+	if (ret && ret[0] && ret[1] && ret[ft_strlen(ret) - 1] == '\n')
+		ret[ft_strlen(ret) - 1] = '\0';
 	return (our_free(line), ret);
 }
 
