@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
+/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/12 12:35:25 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/12 19:52:57 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,16 @@ void		cleanup_shell_data(t_shell_data *shell_data);
 void		init_shell_data(t_shell_data *shell_data, char **envp, \
 char *argv[]);
 void		del_tree(t_shell_data *shell_data);
+
+/* PRE PARSING */
+
+bool    pre_parsing(char **token_list);
+bool	deuxrediredesuiteetredireplusspipe(char **token_list);
+bool	leading_trailing_op(char **token_list);
+bool	unclosed_quote(char *token);
+bool	parenthesis_checker(char **token_list);
+bool	and_or_checker(char *token);
+
 
 /* PARSING */
 

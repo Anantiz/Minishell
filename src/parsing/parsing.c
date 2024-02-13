@@ -6,7 +6,7 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/02/12 10:55:39 by loris            ###   ########.fr       */
+/*   Updated: 2024/02/12 19:59:23 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,12 @@ int	parse_line(t_shell_data *shell_data, char *line)
 	// }
 	token_list = array;
 	token_list++;
+	if (!pre_parsing(token_list))
+	{
+		ft_fprintf(1, "UzU\n\n");
+		token = NULL;
+		return (token);
+	}
 	token = parse_expression(token_list, ft_tablen(token_list), NULL);
 	replace_file(token);
 	shell_data->root = token;

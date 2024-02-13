@@ -6,7 +6,7 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 13:30:17 by loris             #+#    #+#             */
-/*   Updated: 2024/02/12 19:16:57 by loris            ###   ########.fr       */
+/*   Updated: 2024/02/12 19:31:23 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_s_token *new_tokenfile(t_s_token *node)
 
 	if (!node)
 		return (NULL);
-	print_node(node);
+	// print_node(node);
 	new_node = our_malloc(sizeof(t_s_token));
 	// to fix
 	if (!node->data.cmd.args)
