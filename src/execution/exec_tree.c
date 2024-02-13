@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:39:33 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/13 13:31:24 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 14:21:55 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ About Finding the Different subtrees
 */
 static int	exec_subtree(t_shell_data *shell_data, t_s_token *node)
 {
-	ft_fprintf(2, "Executing subtree\n");
 	while (node)
 	{
 		if (node->token_type == TK_CMD)

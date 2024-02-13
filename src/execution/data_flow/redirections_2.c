@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:44:08 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/13 14:03:20 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 14:19:07 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,18 @@ static int	cmd_redir_streams_2(t_s_cmd *cmd)
 	{
 		if (close(cmd->redir_nodes[0]->data.op.pipefd[1]))
 			ft_fprintf(2, "%s Pipe error : %s\n", SHELL_NAME, \
-				sterror(errno));
+				strerror(errno));
 		cmd->redir_nodes[0]->data.op.pipefd[1] = PIPE_CLOSED;
 	}
 	if (dup2(cmd->redir_nodes[0]->data.op.pipefd[0], STDIN_FILENO) == -1)
 	{
 		ft_fprintf(2, "%s Pipe error : %s\n", SHELL_NAME, \
-		sterror(errno));
+		strerror(errno));
 		return (FAILURE);
 	}
 	if (close(cmd->redir_nodes[0]->data.op.pipefd[0]))
 		ft_fprintf(2, "%s Pipe error : %s\n", SHELL_NAME, \
-		sterror(errno));
+		strerror(errno));
 	cmd->redir_nodes[0]->data.op.pipefd[0] = PIPE_CLOSED;
 	return (SUCCESS);
 }
@@ -54,12 +54,12 @@ int	cmd_redir_streams(t_s_token *cmd_node)
 		if (dup2(cmd->redir_nodes[1]->data.op.pipefd[1], STDOUT_FILENO) == -1)
 		{
 			ft_fprintf(2, "%s Dup error : %s\n", SHELL_NAME, \
-			sterror(errno));
+			strerror(errno));
 			return (FAILURE);
 		}
 		if (close(cmd->redir_nodes[1]->data.op.pipefd[1]))
 			ft_fprintf(2, "%s Pipe error : %s\n", SHELL_NAME, \
-			sterror(errno));
+			strerror(errno));
 		cmd->redir_nodes[1]->data.op.pipefd[1] = PIPE_CLOSED;
 	}
 	if (ret == FAILURE)

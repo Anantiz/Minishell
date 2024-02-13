@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:10:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/13 13:32:13 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 14:21:10 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ void	expand_variables(t_shell_data *shell_data, t_s_token *node)
 	{
 		while (node->data.cmd.args[i])
 		{
-			ft_fprintf(2, "ARG[%d]: %s.\n", i, node->data.cmd.args[i]);
 			if (node->data.cmd.single[i] == false \
 			&& ft_strcmp(node->data.cmd.args[i], "$"))
 				expand_this_str(shell_data, &node->data.cmd.args[i]);
