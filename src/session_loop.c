@@ -6,14 +6,14 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:12:50 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/13 13:40:32 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 13:45:34 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 // Hopefully no process will ever return this value :)
-#define MAGIC_VALUE_EXIT_SHELL 69420
+#define MAGIC_VALUE_EXIT_SHELL -69420
 
 static void	del_tree_node(t_s_token *node)
 {
