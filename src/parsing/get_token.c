@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   get_token.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 08:26:52 by loris             #+#    #+#             */
-/*   Updated: 2024/02/13 11:44:59 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/13 14:25:17 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,6 +103,3 @@ char	**ft_strtok(char *line)
 	list_token[j] = NULL;
 	return (list_token);
 }
-
-// IF exit with ctrl + D
-//bash: warning: here-document at line 1 delimited by end-of-file (wanted `EOF')

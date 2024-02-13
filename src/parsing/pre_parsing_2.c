@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   pre_parsing_2.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 11:51:53 by lkary-po          #+#    #+#             */
-/*   Updated: 2024/02/13 14:10:59 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/13 14:26:09 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,8 @@ bool	wtfesperluette(char **token_list)
 	{
 		if (!ft_strncmp(token_list[1], "+$", 2))
 		{
-			ft_fprintf(1, "bash: syntax error near unexpected token `&'\n");
+			ft_fprintf(2, "%s syntax error near unexpected token `&'\n", \
+			SHELL_NAME);
 			return (false);
 		}
 	}

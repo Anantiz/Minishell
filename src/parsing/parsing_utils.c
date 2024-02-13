@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/17 13:41:29 by loris             #+#    #+#             */
-/*   Updated: 2024/02/13 11:46:20 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/13 14:25:39 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ char	*get_cmd(char *line, int *i)
 
 	len_cmd = ft_cmdlen(line);
 	ret = ft_substr(line, 0, len_cmd);
-	ft_fprintf(2, "\033[34mcmd = %s\033[0m\n", ret);
 	*i += len_cmd;
 	return (ret);
 }

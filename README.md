@@ -94,3 +94,24 @@ Exec:
 Global:
 	Clean the code
 	Comprendre TOUT le code, pour etre pres a corriger direct
+
+	Joseph_shell:~/Documents/Minishell|☭ ls /bin | grep ls'
+==1274474== Invalid read of size 1
+==1274474==    at 0x10CDD2: quote_handler (pre_parsing_2.c:26)
+==1274474==    by 0x10C9C6: pre_parsing (pre_parsing.c:33)
+==1274474==    by 0x10AED8: parse_line (parsing.c:38)
+==1274474==    by 0x1098CE: sesion_routine (session_loop.c:84)
+==1274474==    by 0x10996D: session_start (session_loop.c:105)
+==1274474==    by 0x1095A4: main (main.c:28)
+==1274474==  Address 0x4b74217 is 5 bytes after a block of size 2 alloc'd
+==1274474==    at 0x4848899: malloc (in /usr/libexec/valgrind/vgpreload_memcheck-amd64-linux.so)
+==1274474==    by 0x113B9A: mem_manager_new_node (mem_manager_op.c:32)
+==1274474==    by 0x1131EC: safe_as_fuck_malloc (mem_manager.c:33)
+==1274474==    by 0x113290: our_malloc (mem_manager.c:59)
+==1274474==    by 0x10B5E7: get_op (parsing_utils.c:39)
+==1274474==    by 0x10B1EA: ft_strtok (get_token.c:97)
+==1274474==    by 0x10AEB6: parse_line (parsing.c:35)
+==1274474==    by 0x1098CE: sesion_routine (session_loop.c:84)
+==1274474==    by 0x10996D: session_start (session_loop.c:105)
+==1274474==    by 0x1095A4: main (main.c:28)
+==1274474==
