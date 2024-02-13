@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 17:11:05 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/07 11:47:16 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/12 20:07:25 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,36 +64,6 @@ t_s_token	*get_next_node_no_op(t_s_token *node)
 		if (parent->right && parent->right != node)
 			return (parent->right);
 		node = parent;
-	}
-	return (NULL);
-}
-
-/*
-	Goes up the tree starting from the given node
-	returns once a logical operator is found and the
-	right child was not already executed
-*/
-t_s_token	*get_next_logical_op(t_s_token *node)
-{
-	t_s_token	*prev_node;
-
-	if (!node)
-		return (NULL);
-	prev_node = node;
-	node = node->parent;
-	ft_fprintf(2, "\033[33mStarting at node %p\033[0m\n", prev_node);
-	ft_fprintf(2, "\033[33mParent is %p\033[0m\n", node);
-	while (node)
-	{
-		if (node->token_type == TK_OP && node->data.op.type < PIPE)
-		{
-			if (node->right && node->right != prev_node)
-				return (node);
-			if (node->left && node->data.op.did_exec == false)
-				return (node);
-		}
-		prev_node = node;
-		node = node->parent;
 	}
 	return (NULL);
 }

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/31 12:11:03 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/12 11:03:53 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/12 21:35:22 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,15 +53,14 @@ static char	*get_heredoc_str(size_t *len, char *eof)
 	char		*ret;
 
 	line = NULL;
-	get_next_line(STDIN_FILENO, 1);
 	ret = ft_strdup("");
 	nread = -1;
-	while (nread && (++line_count))
+	while (nread && (++line_count) && g_our_sig != SIGINT)
 	{
-		ft_printf("\033[93m☭ >\033[0m ");
-		 ft_replace_str(&line, get_next_line(STDIN_FILENO, 0));
+		ft_printf("");
+		ft_replace_str(&line, unionize_str(readline("\033[93m☭ >\033[0m ")));
 		nread = ft_strlen(line);
-		if (nread)
+		if (nread && g_our_sig != SIGINT)
 		{
 			if (ft_is_eof(line, eof, nread))
 				break ;
@@ -74,7 +73,7 @@ static char	*get_heredoc_str(size_t *len, char *eof)
 	return (our_free(line), ret);
 }
 
-void	our_heredoc(t_s_token *redir_node)
+int	our_heredoc(t_s_token *redir_node)
 {
 	t_s_op	*redir_op;
 
@@ -84,9 +83,20 @@ void	our_heredoc(t_s_token *redir_node)
 	{
 		redir_op->heredoc_str = ft_strdup("");
 		ft_fprintf(2, "%s %s\n", SHELL_NAME, EOF_NO_EOF_ERR_MSG);
-		return ;
+		return (FAILURE);
 	}
+	// replace_signals_heredoc();
 	redir_op->heredoc_str = get_heredoc_str(&redir_op->heredoc_len, \
 	redir_node->right->data.file.file_path);
+	if (g_our_sig == SIGINT)
+	{
+		g_our_sig = 0;
+		our_free(redir_op->heredoc_str);
+		return (FAILURE);
+	}
+	if (redir_node->right->data.file.single == false)
+		expand_this_str(get_shell_data_ptr(NULL), &redir_op->heredoc_str);
+	// replace_signals();
+	return (SUCCESS);
 }
 

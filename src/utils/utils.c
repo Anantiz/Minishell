@@ -6,24 +6,11 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:16:34 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/12 12:35:40 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/12 20:06:56 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-bool	has_siblings(t_s_token *node)
-{
-	t_s_token	*sibling;
-
-	if (node->parent == NULL)
-		return (false);
-	if (node == node->parent->left)
-		sibling = node->parent->right;
-	else
-		sibling = node->parent->left;
-	return (sibling != NULL);
-}
 
 /*
 Uses the inner our_pwd for the path
@@ -84,4 +71,14 @@ bool	dontdoit(int state)
 	else if (state == 3)
 		return (x);
 	return (x);
+}
+
+bool	isbasicredir(t_s_token *node)
+{
+	if (!node)
+		return (false);
+	if (node->token_type == TK_OP && (node->data.op.type == REDIR_IN \
+	|| node->data.op.type == REDIR_OUT || node->data.op.type == REDIR_APPEND))
+		return (true);
+	return (false);
 }

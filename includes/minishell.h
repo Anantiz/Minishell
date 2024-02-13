@@ -6,7 +6,7 @@
 /*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/12 19:52:57 by loris            ###   ########.fr       */
+/*   Updated: 2024/02/13 09:44:10 by loris            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,8 @@
 # include "libft.h"
 # include "pair.h"
 # include "data_structures.h"
+# include "separate_header_for_longer_return_types_because_i_dont_want_to_\
+add_tabs_everywhere.h"
 
 # define SHELL_NAME "\033[31mJoseph_shell:\033[0m"
 
@@ -65,7 +67,6 @@ void		print_node_lite(t_s_token *node);
 void		display_error(t_shell_data *shell_data, int error);
 void		replace_signals(void);
 void		replace_signals_2(void);
-// void		our_sig_handl(int sig);
 int			print_shell_intro(t_shell_data *shell_data, t_s_token *node);
 
 /* SESSION */
@@ -155,8 +156,9 @@ char    **new_list_token_redir(char **token_list, int op_place);
 
 void		expand_wildcard(t_s_token *node);
 int			pre_init(t_shell_data *shell_data);
-void		our_heredoc(t_s_token *redir_node);
+int			our_heredoc(t_s_token *redir_node);
 void		find_redir_nodes(t_s_token *cmd_node);
+t_s_token	*handle_redir_subtree(t_s_token *node);
 int			open_pipes(t_s_token *node);
 int			handle_file_bs(t_s_token *node);
 void		close_all_pipes(t_s_token *root);
@@ -171,6 +173,7 @@ void		child_process(t_shell_data *shell_data,	t_s_token *cmd_node);
 void		parent_close_pipes(t_s_cmd *cmd);
 
 /* Exec utils*/
+void		expand_this_str(t_shell_data *shell_data, char **str);
 void		wait_last_subtree(t_shell_data *shell_data);
 
 /* VARIABLES BULLSHIT*/
@@ -191,6 +194,7 @@ int			our_export(t_shell_data *shell_data, t_s_token *node);
 /* UTILS */
 
 bool		dontdoit(int sate);
+bool		isbasicredir(t_s_token *node);
 t_s_token	*get_next_node(t_s_token *node);
 t_s_token	*get_next_node_no_op(t_s_token *node);
 t_s_token	*get_next_logical_op(t_s_token *node);
@@ -208,5 +212,6 @@ void		t_env_del_node(t_env **root, t_env *node_);
 void		t_env_del_list(t_env **root);
 t_env		*t_env_new_node(char *key, char *value);
 t_env		*t_env_add_back(t_env **head_, t_env *node);
+
 
 #endif

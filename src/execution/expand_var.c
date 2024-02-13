@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 17:10:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/12 11:39:35 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/12 20:34:07 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static char	*get_the_var(t_shell_data *shell_data, char *str, int *key_len)
 		If found:
 			-Get the content of the variable
 */
-static void	expand_this_str(t_shell_data *shell_data, char **str)
+void	expand_this_str(t_shell_data *shell_data, char **str)
 {
 	size_t	i;
 	char	*var_str;

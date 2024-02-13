@@ -6,7 +6,7 @@
 #    By: loris <loris@student.42.fr>                +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/09 10:14:27 by aurban            #+#    #+#              #
-#    Updated: 2024/02/12 19:53:08 by loris            ###   ########.fr        #
+#    Updated: 2024/02/13 09:43:56 by loris            ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,7 @@ SRC=\
 SRC_UTILS=\
 	utils.c	init_shell_data.c	tree_traversal.c	process_cmd_paths.c		\
 	kgb.c	envp_linked_list.c	pair_char.c			other_envp_things.c		\
-	print_node.c	live_init_cmd_token.c
+	print_node.c	live_init_cmd_token.c	utils2.c
 
 SRC_PARSE=\
 	parsing.c	get_token.c		parsing.c	tokentotree.c	parsing_utils.c	\
@@ -39,10 +39,10 @@ SRC_PARSE=\
 	fuck_redir.c redir.c scan_token_extended.c parse_perenthesis.c pre_parsing.c
 
 SRC_EXEC=\
-	exec_tree.c	data_flow/mario_world.c	exec_one_cmd.c	exec_child_process.c	\
+	exec_tree.c	data_flow/mario_world_grass_plane.c	exec_one_cmd.c	exec_child_process.c	\
 	data_flow/redirections_1.c	data_flow/mario_file_bs.c	exec_builtins.c	\
 	exec_parent.c	data_flow/redirections_2.c	heredoc.c	set_var.c		\
-	expand_var.c	expand_wildcards.c	exec_utils.c
+	expand_var.c	expand_wildcards.c	exec_utils.c	data_flow/mario_world_desert.c
 
 SRC_ERR=\
 	session_error.c
