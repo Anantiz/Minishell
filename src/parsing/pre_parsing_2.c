@@ -6,7 +6,7 @@
 /*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 11:51:53 by lkary-po          #+#    #+#             */
-/*   Updated: 2024/02/13 14:48:38 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/13 14:58:11 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,6 @@ bool	deuxrediredesuiteetredireplusspipe(char **token_list)
 			&& ft_strncmp(token_list[i], "(", 1) \
 			&& ft_strncmp(token_list[i], ")", 1))
 		{
-			write(1, "f", 1);
 			return (false);
 		}
 		i++;
