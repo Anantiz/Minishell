@@ -6,7 +6,7 @@
 /*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 08:26:52 by loris             #+#    #+#             */
-/*   Updated: 2024/02/13 10:25:20 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/13 11:44:59 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,21 +25,20 @@ static bool	is_speop(char *sub_str)
 	return (false);
 }
 
-/*
-*	Create a list of token base on the input line
-*	every command with his params will be a node of the tree
-*	for example :
-*		-> (wc -l) | ls -l
-*		list_token[0] = "("
-*		list_token[1] = "wc -l"
-*		list_token[2] = ")"
-*		list_token[3] = "|"
-*		list_token[4] = "ls -l"
-*		list_token[5] = (null)
-*
-*	Quotes and parenthesis are interpreted as token -> I deal with this when i build the tree
-*	(in file tokentotree.c)
-*/
+// *	Create a list of token base on the input line
+// *	every command with his params will be a node of the tree
+// *	for example :
+// *		-> (wc -l) | ls -l
+// *		list_token[0] = "("
+// *		list_token[1] = "wc -l"
+// *		list_token[2] = ")"
+// *		list_token[3] = "|"
+// *		list_token[4] = "ls -l"
+// *		list_token[5] = (null)
+// *
+// *	Quotes and parenthesis are interpreted as token -> I deal with
+// *		this when i build the tree
+// *	(in file tokentotree.c)
 int	ft_count_token(char *line)
 {
 	int		count;
@@ -88,7 +87,6 @@ char	**ft_strtok(char *line)
 	i = 0;
 	len = (int)ft_strlen(line);
 	tk_count = ft_count_token(line);
-	ft_fprintf(2, "\033[34mtoken_count = %d\033[0m\n", tk_count);
 	list_token = our_malloc(sizeof(char *) * (tk_count + 2));
 	list_token[j++] = NULL;
 	while (i < len)
