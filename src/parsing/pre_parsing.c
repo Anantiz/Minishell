@@ -5,10 +5,11 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/02/12 17:06:01 by loris             #+#    #+#             */
-/*   Updated: 2024/02/13 10:00:45 by aurban           ###   ########.fr       */
+/*   Created: Invalid date        by                   #+#    #+#             */
+/*   Updated: 2024/02/13 10:18:50 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 
 #include "../../includes/minishell.h"
 
@@ -91,7 +92,7 @@ bool	leading_trailing_op(char **token_list)
 	int	len;
 
 	if (scan_token(token_list)->token_type == TK_OP && !(scan_token(token_list)->data.op.type >= PIPE \
-		&& scan_token(token_list)->data.op.type <= REDIR_APPEND) && ft_strncmp(*(token_list), "(", 1))
+		&& scan_token(token_list)->data.op.type <= REDIR_HEREDOC) && ft_strncmp(*(token_list), "(", 1))
 		return (false);
 	len = ft_tablen(token_list);
 	if (scan_token(token_list + (len - 1))->token_type == TK_OP && ft_strncmp(*(token_list + (len - 1)), ")", 1))
@@ -137,10 +138,13 @@ bool	and_or_checker(char *token)
 
 	if (token[0] == '|')
 	{
-		if (ft_strlen(token) != 2)
-			return (false);
-		if (token[1] != '|')
-			return (false);
+		if (ft_strlen(token) != 1)
+		{
+			if (ft_strlen(token) != 2)
+				return (false);
+			if (token[1] != '|')
+				return (false);
+		}
 	}
 	if (token[0] == '&')
 	{

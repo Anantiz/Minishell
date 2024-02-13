@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scan_token_extended.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 12:11:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/12 14:21:09 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 10:17:19 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,7 @@ void	scan_tk_str_cmd(char *token_str, t_s_token *token)
 
 	token->token_type = TK_CMD;
 	args = ft_split(token_str, ' ');
-	ft_fprintf(2, "\033[94mscan_tk_str_cmd:\n\tARGS:\033[0m\n");
-	for (int x = 0; args[x];x++)
-		ft_fprintf(2, "\t\033[94m[%d]%s\n\033[0m", x, args[x]);
 	token->data.cmd.single = our_malloc(ft_strslen(args) * sizeof(bool));
-	ft_fprintf(2, "\t\033[94m.\033[0m\n");
 	i = 0;
 	while (args[i])
 	{
