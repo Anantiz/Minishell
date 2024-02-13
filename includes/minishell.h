@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: loris <loris@student.42.fr>                +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/13 09:44:10 by loris            ###   ########.fr       */
+/*   Updated: 2024/02/13 10:59:28 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,8 @@ extern int	g_our_sig;
 typedef int	(*t_our_cmd_ptr)(t_shell_data *, t_s_token *);
 
 /* MISC */
+
+char		*our_strdup_quote(char *str, int i);
 
 void		print_node(t_s_token *node);
 void		print_node_lite(t_s_token *node);

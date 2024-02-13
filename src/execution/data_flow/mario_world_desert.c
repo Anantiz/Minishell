@@ -6,13 +6,14 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/12 20:07:48 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/12 20:32:10 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 10:41:49 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static t_s_token	*lcl_get_first_redir_node(t_s_token *node)
+static t_s_token	*lcl_get_first_redir_node(t_s_token *node, \
+t_e_op_type og_type)
 {
 	t_s_token	*temp;
 	t_s_token	*first_redir;
@@ -22,7 +23,7 @@ static t_s_token	*lcl_get_first_redir_node(t_s_token *node)
 	temp = node;
 	first_redir = node->parent;
 	while (temp->parent && temp->parent->token_type == TK_OP \
-		&& temp->parent->data.op.type == node->data.op.type)
+		&& temp->parent->data.op.type == og_type)
 	{
 		first_redir = temp->parent;
 		temp = temp->parent;
@@ -33,12 +34,15 @@ static t_s_token	*lcl_get_first_redir_node(t_s_token *node)
 /*
 	For all files on the way, we open and close them (cuz that's what bash do)
 	except for the last one, which will stay open (we'll write in it later)
+
+	The parameter shall be the first file node of the redir subtree
+	if the file node has no parents, that's a crash, so let's hope it has one :)
 */
 t_s_token	*handle_redir_subtree(t_s_token *node)
 {
 	t_s_token	*first_redir;
 
-	first_redir = lcl_get_first_redir_node(node);
+	first_redir = lcl_get_first_redir_node(node, node->parent->data.op.type);
 	ft_fprintf(2, "\033[94mHandle_redir_subtree home node %p\033[0m\n", node);
 	while (node)
 	{
@@ -47,7 +51,11 @@ t_s_token	*handle_redir_subtree(t_s_token *node)
 			expand_variables(get_shell_data_ptr(NULL), node);
 			node->data.file.redir_nodes[0] = first_redir;
 			node->data.file.redir_nodes[1] = NULL;
-			handle_file_bs(node);
+			if (handle_file_bs(node))
+			{
+				dontdoit(2);
+				return (NULL);
+			}
 			if (!(!node->right && !node->left && node->parent && node \
 			== node->parent->right))
 			{

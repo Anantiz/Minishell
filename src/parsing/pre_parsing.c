@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: Invalid date        by                   #+#    #+#             */
-/*   Updated: 2024/02/13 10:18:50 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 10:51:04 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,7 @@ bool    pre_parsing(char **token_list)
 	}
 	return (true);
 }
+
 bool	deuxrediredesuiteetredireplusspipe(char **token_list)
 {
 	int	i;

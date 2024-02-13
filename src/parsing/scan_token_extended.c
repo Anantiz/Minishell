@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scan_token_extended.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 12:11:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/13 10:17:19 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/13 10:26:29 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,8 @@ void	scan_tk_str_cmd(char *token_str, t_s_token *token)
 	char	**args;
 	int		i;
 
+	token->data.cmd.redir_nodes[0] = NULL;
+	token->data.cmd.redir_nodes[1] = NULL;
 	token->token_type = TK_CMD;
 	args = ft_split(token_str, ' ');
 	token->data.cmd.single = our_malloc(ft_strslen(args) * sizeof(bool));

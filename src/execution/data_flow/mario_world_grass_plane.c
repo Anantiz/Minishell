@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/14 15:45:04 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/13 10:09:31 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 10:41:34 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,13 +100,17 @@ int	pre_init(t_shell_data *shell_data)
 	t_s_token	*node;
 
 	node = shell_data->root;
+	ft_fprintf(2, "ROOT = %p\n", shell_data->root);
 	while (node)
 	{
+		if (dontdoit(3))
+			return (FAILURE);
+		ft_fprintf(2, "NODE = %p\n", node);
 		if (node->token_type == TK_CMD)
 			init_cmd_token(shell_data, node);
 		if (init_pipes(shell_data, node))
 			return (FAILURE);
-		if (isbasicredir(node))
+		if (node->token_type == TK_FILE)
 		{
 			ft_fprintf(2, "\033[31mIN NODE  = %p\033[0m\n", node);
 			node = handle_redir_subtree(node);
@@ -115,5 +119,7 @@ int	pre_init(t_shell_data *shell_data)
 		else
 			node = get_next_node(node);
 	}
+	if (dontdoit(3))
+		return (FAILURE);
 	return (SUCCESS);
 }

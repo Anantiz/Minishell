@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/01 16:44:55 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/05 18:42:38 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 11:01:57 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,11 @@
 #define CREATEVARGETNAME 15
 #define CREATEVARGETCNT 16
 
-static char	*our_awesomest_substr(char *str, int i)
+/*
+	Strdup without quotes, first pass the string in
+	`iter_str_check_quote'
+*/
+char	*our_strdup_quote(char *str, int i)
 {
 	char	*temp_str;
 	int		j;
@@ -73,9 +77,17 @@ static int	create_var_get_name(const char *start, int i, t_pair_char *ret, \
 }
 
 /*
-	Just splitted because norm
+	Transforms syntatic quotes into -1, then you can use
+	`our_strdup_quote' to strdup a new string without
+	the quotes (don't use any quotes related function after this one)
+Params:
+	Give the pointer to the char (so it can put it tpo -1)
+	Give the pointer to the quote (so it can change it)
+Return:
+	1 if you should break the string in 2 (closed quote + space or smthg else)
+	0 otherwise
 */
-static int	create_var_get_val_2(char *c, char *quote)
+int	iter_str_check_quote(char *c, char *quote)
 {
 	if (!(*quote) && ft_isspace(*c))
 		return (1);
@@ -109,7 +121,7 @@ static int	create_var_get_val(char *start, t_pair_char *ret)
 	quote = 0;
 	while (start[i])
 	{
-		if (create_var_get_val_2(&start[i], &quote))
+		if (iter_str_check_quote(&start[i], &quote))
 			break ;
 		i++;
 	}
@@ -120,7 +132,7 @@ static int	create_var_get_val(char *start, t_pair_char *ret)
 		"`%c'\n", SHELL_NAME, quote);
 		return (CREATEVARABORT);
 	}
-	ret->val = our_awesomest_substr(start, i);
+	ret->val = our_strdup_quote(start, i);
 	return (SUCCESS);
 }
 

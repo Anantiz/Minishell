@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/09 11:16:34 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/12 20:06:56 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 10:42:08 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,6 +54,8 @@ bool	is_logop(t_s_token *node)
 }
 
 /*
+	Put this var to true to block further execution
+
 	if (state == 1)
 		x = false;
 	else if (state == 2)

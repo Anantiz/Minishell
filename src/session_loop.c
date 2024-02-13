@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:12:50 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/13 10:05:55 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 10:42:36 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ static int	sesion_routine(t_shell_data *shell_data)
 	add_history(line);
 	ret = parse_line(shell_data, line);
 	our_free(line);
-	if (ret || dontdoit(3) == false)
+	if (ret || dontdoit(3))
 		return (PARSING_ERROR);
 	ret = exec_tree(shell_data);
 	if (ret)

@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:28:45 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/13 10:12:48 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 10:37:51 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@ static int	open_file(t_s_file *file, int flags)
 	file->fd = open(file->file_path, flags, 0644);
 	if (file->fd == -1)
 	{
-		ft_fprintf(2, "%s %s", SHELL_NAME, strerror(errno));
+		ft_fprintf(2, "%s %s %s\n", SHELL_NAME, file->file_path, \
+		strerror(errno));
 		return (FAILURE);
 	}
 	return (SUCCESS);

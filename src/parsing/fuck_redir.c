@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   fuck_redir.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/06 13:46:46 by loris             #+#    #+#             */
-/*   Updated: 2024/02/13 10:16:52 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/13 10:42:42 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,7 +123,7 @@ char    **new_list_token_redir(char **token_list, int op_place)
 	else
 	{
 		ft_fprintf(2, "%s: syntax error near unexpected token `newline'", SHELL_NAME);
-		dontdoit(1);
+		dontdoit(2);
 		return (NULL);
 	}
 	if (split_cmd)
