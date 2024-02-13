@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: loris <loris@student.42.fr>                +#+  +:+       +#+         #
+#    By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/01/09 10:14:27 by aurban            #+#    #+#              #
-#    Updated: 2024/02/13 09:43:56 by loris            ###   ########.fr        #
+#    Updated: 2024/02/13 11:55:43 by lkary-po         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,7 +36,8 @@ SRC_UTILS=\
 SRC_PARSE=\
 	parsing.c	get_token.c		parsing.c	tokentotree.c	parsing_utils.c	\
 	parse_each_op.c find_each_op.c recheck_tree.c clean_op_parsing.c		\
-	fuck_redir.c redir.c scan_token_extended.c parse_perenthesis.c pre_parsing.c
+	fuck_redir.c redir.c scan_token_extended.c parse_perenthesis.c pre_parsing.c \
+	pre_parsing_2.c parsing_utils2.c
 
 SRC_EXEC=\
 	exec_tree.c	data_flow/mario_world_grass_plane.c	exec_one_cmd.c	exec_child_process.c	\

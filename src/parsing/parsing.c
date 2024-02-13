@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
+/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/02/13 11:03:51 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 11:49:28 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	parse_line(t_shell_data *shell_data, char *line)
 	array = ft_strtok(line);
 	token_list = array;
 	token_list++;
-	if (!pre_parsing(token_list))
+	if (!pre_parsing(token_list, -1))
 	{
 		shell_data->root = NULL;
 		return (FAILURE);

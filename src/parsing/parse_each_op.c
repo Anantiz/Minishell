@@ -6,7 +6,7 @@
 /*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/22 10:43:37 by lkary-po          #+#    #+#             */
-/*   Updated: 2024/02/13 10:35:06 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/13 11:45:47 by lkary-po         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,29 +99,5 @@ t_s_token	*parse_redir_in(char **token_list, int token_count, \
 		ft_tablen(new_token_left), node);
 	node->right = parse_expression(token_list + op_place + 1, \
 		token_count - op_place - 1, node);
-	return (node);
-}
-
-t_s_token	*parse_cmd(char **token_list, int token_count, \
-	t_s_token *parent_node)
-{
-	t_s_token	*node;
-
-	if (!token_list)
-		return (NULL);
-	if (ft_is_parenthesis(token_list))
-	{
-		del_parenthesis(token_list, token_count);
-		node = parse_expression(token_list, ft_tablen(token_list), parent_node);
-	}
-	else
-	{
-		node = scan_token(token_list);
-		if (!node)
-			return (NULL);
-		node->parent = parent_node;
-		node->right = NULL;
-		node->left = NULL;
-	}
 	return (node);
 }
