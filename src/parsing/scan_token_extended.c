@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   scan_token_extended.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/05 12:11:01 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/13 14:11:13 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/13 16:42:33 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ static void	cmd_strdup_quote(char **arg, bool *single)
 		if ((*arg)[j] == -1)
 			(*arg)[j] = quote;
 	}
-	ft_replace_str(arg, our_strdup_quote(*arg, i));
+	ft_replace_str(arg, our_strdup_quote(*arg, i + 1));
 }
 
 //Handle quotes in command arguments

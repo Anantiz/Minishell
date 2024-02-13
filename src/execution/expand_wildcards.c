@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/03 15:35:51 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/13 13:29:37 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 17:28:11 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,21 +61,21 @@ static char	**get_wild_args(char *str, int *wa_count)
 	if (!dir)
 		return (NULL);
 	i = 0;
-	entry = readdir(dir);
-	while (entry)
+	while (true)
 	{
+		entry = readdir(dir);
+		if (!entry)
+			break ;
 		if (entry->d_name[0] == '.')
 			continue ;
 		else if (ft_strmatch_wildcard(entry->d_name, str))
 			wild_args[i++] = ft_strdup(entry->d_name);
-		entry = readdir(dir);
 	}
 	*wa_count = i;
 	wild_args[i] = NULL;
-	closedir(dir);
 	if (wild_args[0] == NULL)
-		return (our_free(wild_args), NULL);
-	return (wild_args);
+		return ((void)closedir(dir), our_free(wild_args), NULL);
+	return ((void)closedir(dir), wild_args);
 }
 
 /*

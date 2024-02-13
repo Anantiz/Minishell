@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/29 11:44:08 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/13 14:19:07 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 17:13:40 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,8 @@ static int	cmd_redir_streams_2(t_s_cmd *cmd)
 		strerror(errno));
 		return (FAILURE);
 	}
-	if (close(cmd->redir_nodes[0]->data.op.pipefd[0]))
+	if (cmd->redir_nodes[0]->data.op.pipefd[0] != PIPE_CLOSED \
+	&& close(cmd->redir_nodes[0]->data.op.pipefd[0]))
 		ft_fprintf(2, "%s Pipe error : %s\n", SHELL_NAME, \
 		strerror(errno));
 	cmd->redir_nodes[0]->data.op.pipefd[0] = PIPE_CLOSED;
@@ -57,7 +58,8 @@ int	cmd_redir_streams(t_s_token *cmd_node)
 			strerror(errno));
 			return (FAILURE);
 		}
-		if (close(cmd->redir_nodes[1]->data.op.pipefd[1]))
+		if (cmd->redir_nodes[1]->data.op.pipefd[1] != PIPE_CLOSED \
+		&& close(cmd->redir_nodes[1]->data.op.pipefd[1]))
 			ft_fprintf(2, "%s Pipe error : %s\n", SHELL_NAME, \
 			strerror(errno));
 		cmd->redir_nodes[1]->data.op.pipefd[1] = PIPE_CLOSED;

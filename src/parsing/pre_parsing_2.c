@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 11:51:53 by lkary-po          #+#    #+#             */
-/*   Updated: 2024/02/13 15:52:26 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 17:19:15 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 /*
 	Good one
 */
-char	quote_handler(char **token_list)
+char	quote_hndl(char **token_list)
 {
 	int		i;
 	int		j;
@@ -24,8 +24,8 @@ char	quote_handler(char **token_list)
 	i = 0;
 	while (token_list[i])
 	{
-		quote = 0;
 		j = 0;
+		quote = 0;
 		while (token_list[i][j])
 			iter_str_check_quote(ft_chardup(token_list[i][j++]), &quote);
 		if (quote)

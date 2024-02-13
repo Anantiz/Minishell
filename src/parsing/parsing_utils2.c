@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing_utils2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/02/13 10:45:11 by lkary-po          #+#    #+#             */
-/*   Updated: 2024/02/13 13:06:09 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/13 17:08:43 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	ft_cmdlen(char	*cmd)
 	int		i;
 
 	i = 0;
-	while (ft_is_op(cmd[i]) == false && cmd[i])
+	while (cmd[i] && !(ft_is_op(cmd[i]) && !ami_in_quotes(&cmd[i], cmd)))
 		i++;
 	i--;
 	while (i > -1 && ft_is_sep(cmd[i]) == true)

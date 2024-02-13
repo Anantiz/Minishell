@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:12:50 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/13 15:02:18 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 17:15:30 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,10 @@ static void	del_tree_node(t_s_token *node)
 	}
 	else if (node->token_type == TK_OP)
 	{
-		if (node->data.op.pipefd[0] != -1 || node->data.op.pipefd[0] \
+		if (node->data.op.pipefd[0] != -1 && node->data.op.pipefd[0] \
 		!= PIPE_CLOSED)
 			close(node->data.op.pipefd[0]);
-		if (node->data.op.pipefd[1] != -1 || node->data.op.pipefd[1] \
+		if (node->data.op.pipefd[1] != -1 && node->data.op.pipefd[1] \
 		!= PIPE_CLOSED)
 			close(node->data.op.pipefd[1]);
 	}

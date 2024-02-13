@@ -6,21 +6,42 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/16 08:26:52 by loris             #+#    #+#             */
-/*   Updated: 2024/02/13 14:25:17 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 17:17:59 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../includes/minishell.h"
 
-static bool	is_speop(char *sub_str)
+/*
+	Checks if the the string up until here is
+	retunrs true if it is not closed
+*/
+bool	ami_in_quotes(char *offset_ptr, char *line)
 {
-	if (!ft_strncmp(sub_str, "||", 2))
+	char	quote;
+	char	temp;
+
+	quote = 0;
+	while (line != offset_ptr)
+	{
+		temp = *line;
+		iter_str_check_quote(&temp, &quote);
+		line++;
+	}
+	return (quote != 0);
+}
+
+static bool	is_speop(char *offset_ptr, char *line)
+{
+	if (ami_in_quotes(offset_ptr, line))
+		return (false);
+	if (!ft_strncmp(offset_ptr, "||", 2))
 		return (true);
-	else if (!ft_strncmp(sub_str, "&&", 2))
+	else if (!ft_strncmp(offset_ptr, "&&", 2))
 		return (true);
-	else if (!ft_strncmp(sub_str, "<<", 2))
+	else if (!ft_strncmp(offset_ptr, "<<", 2))
 		return (true);
-	else if (!ft_strncmp(sub_str, ">>", 2))
+	else if (!ft_strncmp(offset_ptr, ">>", 2))
 		return (true);
 	return (false);
 }
@@ -55,7 +76,7 @@ int	ft_count_token(char *line)
 		if (ft_is_op(line[i]) == true)
 		{
 			count++;
-			if (is_speop(&line[i]) == true)
+			if (is_speop(&line[i], line) == true)
 				i++;
 			is_cmd = false;
 		}
@@ -91,9 +112,9 @@ char	**ft_strtok(char *line)
 	list_token[j++] = NULL;
 	while (i < len)
 	{
-		if (is_speop(&line[i]) == true)
+		if (is_speop(&line[i], line) == true)
 			list_token[j++] = get_speop(&line[i], &i);
-		else if (ft_is_op(line[i]) == true)
+		else if (ami_in_quotes(&line[i], line) == false && ft_is_op(line[i]))
 			list_token[j++] = get_op(&line[i], &i);
 		else if (ft_is_sep(line[i]) == false)
 			list_token[j++] = get_cmd(&line[i], &i);

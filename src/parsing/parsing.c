@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lkary-po <lkary-po@student.42.fr>          +#+  +:+       +#+        */
+/*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/10 11:10:59 by loris             #+#    #+#             */
-/*   Updated: 2024/02/13 14:10:17 by lkary-po         ###   ########.fr       */
+/*   Updated: 2024/02/13 16:48:35 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,12 +28,10 @@ void	print_token_list(char **tk_list, int tk_count)
 
 int	parse_line(t_shell_data *shell_data, char *line)
 {
-	char		**array;
 	char		**token_list;
 	t_s_token	*token;
 
-	array = ft_strtok(line);
-	token_list = array;
+	token_list = ft_strtok(line);
 	token_list++;
 	if (!pre_parsing(token_list, -1))
 	{

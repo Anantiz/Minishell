@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/12/21 12:36:06 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/13 14:55:25 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 16:44:53 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ typedef int	(*t_our_cmd_ptr)(t_shell_data *, t_s_token *);
 
 /* MISC */
 
+bool		ami_in_quotes(char *offset_ptr, char *line);
 void		prtshell_err(char *str, char c);
 char		*our_strdup_quote(char *str, int i);
 int			iter_str_check_quote(char *c, char *quote);
@@ -95,7 +96,7 @@ bool		leading_trailing_op(char **token_list);
 bool		unclosed(char *token);
 bool		parenthesis_checker(char **token_list);
 char		and_or_checker(char *token);
-char		quote_handler(char **token_list);
+char		quote_hndl(char **token_list);
 bool		wtfesperluette(char **token_list);
 
 /* PARSING */

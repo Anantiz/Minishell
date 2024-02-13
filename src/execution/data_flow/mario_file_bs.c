@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/21 12:28:45 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/13 13:34:19 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/13 17:15:41 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,8 @@ static int	copy_fd_in_redir_node(t_s_op *redir_node, int fd)
 		nwrite = write(redir_node->pipefd[1], redir_node->heredoc_str, \
 			redir_node->heredoc_len);
 		redir_node->heredoc_str = NULL;
-		close(redir_node->pipefd[1]);
+		if (redir_node->pipefd[1] != PIPE_CLOSED && redir_node->pipefd[1] != -1)
+			close(redir_node->pipefd[1]);
 		redir_node->pipefd[1] = PIPE_CLOSED;
 		if (nwrite == -1)
 			return ((void)ft_fprintf(2, "%s Error : %s\n", SHELL_NAME, \
@@ -70,7 +71,7 @@ static int	copy_fd_in_redir_node(t_s_op *redir_node, int fd)
 		redir_node->pipefd[0] = fd;
 		redir_node->pipefd[1] = PIPE_CLOSED;
 	}
-	else if (redir_node->type == REDIR_OUT)
+	else if (redir_node->type == REDIR_OUT || redir_node->type == REDIR_APPEND)
 	{
 		redir_node->pipefd[0] = PIPE_CLOSED;
 		redir_node->pipefd[1] = fd;

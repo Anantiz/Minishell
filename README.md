@@ -115,3 +115,6 @@ Global:
 ==1274474==    by 0x10996D: session_start (session_loop.c:105)
 ==1274474==    by 0x1095A4: main (main.c:28)
 ==1274474==
+
+
+invalid fd -669 in close()
