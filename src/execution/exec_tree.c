@@ -6,7 +6,7 @@
 /*   By: aurban <aurban@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/01/12 12:39:33 by aurban            #+#    #+#             */
-/*   Updated: 2024/02/13 14:21:55 by aurban           ###   ########.fr       */
+/*   Updated: 2024/02/16 14:09:34 by aurban           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ int	exec_tree(t_shell_data *shell_data)
 	shell_data->pid_list = our_malloc(shell_data->cmd_count * sizeof(int));
 	ft_memset_int(shell_data->pid_list, -69, shell_data->cmd_count);
 	super_tree(shell_data, shell_data->root);
-	shell_data->last_wstatus = 0;
 	shell_data->last_command = NULL;
 	our_free(shell_data->pid_list);
 	rl_on_new_line();
